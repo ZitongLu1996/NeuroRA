@@ -13,6 +13,7 @@ from rdm_cal import fmriRDM
 from rsa_corr import rsa_correlation_spearman
 from rsa_corr import rsa_correlation_pearson
 from rsa_corr import rsa_similarity
+from rsa_corr import rsa_distance
 
 np.seterr(divide='ignore', invalid='ignore')
 
@@ -55,6 +56,10 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
 
                         corrs[i, 0] = rsa_similarity(bhv_rdms[i], eeg_rdms[i])
 
+                    elif method == "distance":
+
+                        corrs[i, 0] = rsa_distance(bhv_rdms[i], eeg_rdms[i])
+
                 return corrs
 
             # if time_opt=1
@@ -78,6 +83,10 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
                     elif method == "similarity":
 
                         corrs[i, j, 0] = rsa_similarity(bhv_rdms[i], eeg_rdms[i, j])
+
+                    elif method == "distance":
+
+                        corrs[i, j, 0] = rsa_distance(bhv_rdms[i], eeg_rdms[i, j])
 
             return corrs
 
@@ -107,6 +116,10 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
                 elif method == "similarity":
 
                     corrs[i, j, 0] = rsa_similarity(bhv_rdms[i], eeg_rdms[i, j])
+
+                elif method == "distance":
+
+                    corrs[i, j, 0] = rsa_distance(bhv_rdms[i], eeg_rdms[i, j])
 
         return corrs
 
@@ -138,6 +151,10 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
 
                         corrs[i, j, 0] = rsa_similarity(bhv_rdm, eeg_rdms[i, j])
 
+                    elif method == "distance":
+
+                        corrs[i, j, 0] = rsa_distance(bhv_rdm, eeg_rdms[i, j])
+
             return corrs
 
         # if time_opt=0
@@ -159,6 +176,10 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
             elif method == "similarity":
 
                 corrs[i, 0] = rsa_similarity(bhv_rdm, eeg_rdms[i])
+
+            elif method == "distance":
+
+                corrs[i, 0] = rsa_distance(bhv_rdm, eeg_rdms[i])
 
         return corrs
 
@@ -182,7 +203,11 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
 
             elif method == "similarity":
 
-                corrs[i] = rsa_similarity(bhv_rdm, eeg_rdms[i])
+                corrs[i, 0] = rsa_similarity(bhv_rdm, eeg_rdms[i])
+
+            elif method == "distance":
+
+                corrs[i, 0] = rsa_distance(bhv_rdm, eeg_rdms[i])
 
         return corrs
 
@@ -203,6 +228,10 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
     elif method == "similarity":
 
         corr[0] = rsa_similarity(bhv_rdm, eeg_rdm)
+
+    elif method == "distance":
+
+        corr[0] = rsa_distance(bhv_rdm, eeg_rdm)
 
     return corr
 
@@ -239,6 +268,10 @@ def bhvANDecog_corr(bhv_data, ele_data, chls_num, ecog_opt="allin", method="spea
 
                 corrs[i, 0] = rsa_similarity(bhv_rdm, ecog_rdms[i])
 
+            elif method == "distance":
+
+                corrs[i, 0] = rsa_distance(bhv_rdm, ecog_rdms[i])
+
         return corrs
 
     elif ecog_opt == "time":
@@ -261,6 +294,10 @@ def bhvANDecog_corr(bhv_data, ele_data, chls_num, ecog_opt="allin", method="spea
 
                 corrs[i, 0] = rsa_similarity(bhv_rdm, ecog_rdms[i])
 
+            elif method == "distance":
+
+                corrs[i, 0] = rsa_distance(bhv_rdm, ecog_rdms[i])
+
         return corrs
 
     # if ecog_opt="allin"
@@ -280,6 +317,10 @@ def bhvANDecog_corr(bhv_data, ele_data, chls_num, ecog_opt="allin", method="spea
     elif method == "similarity":
 
         corr[0] = rsa_similarity(bhv_rdm, ecog_rdm)
+
+    elif method == "distance":
+
+        corr[0] = rsa_distance(bhv_rdm, ecog_rdm)
 
     return corr
 
@@ -367,6 +408,10 @@ def bhvANDfmri_corr(bhv_data, fmri_data, bhv_data_opt=1, ksize=[3, 3, 3], stride
 
                     corrs[i, j, k, 0] = rsa_similarity(bhv_rdm, fmri_rdms[i, j, k])
 
+                elif method == "distance":
+
+                    corrs[i, j, k, 0] = rsa_distance(bhv_rdm, fmri_rdms[i, j, k])
+
                 print(corrs[i, j, k])
 
     return corrs
@@ -439,6 +484,10 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
 
                             corrs[i, j, k, l, 0] = rsa_similarity(eeg_rdms[i], fmri_rdms[j, k, l])
 
+                        elif method == "distance":
+
+                            corrs[i, j, k, l, 0] = rsa_distance(eeg_rdms[i], fmri_rdms[i, j, k])
+
         return corrs
 
     # if chl_opt=0
@@ -479,5 +528,9 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
                 elif method == "similarity":
 
                     corrs[i, j, k, 0] = rsa_similarity(eeg_rdm, fmri_rdms[i, j, k])
+
+                elif method == "distance":
+
+                    corrs[i, j, k, 0] = rsa_distance(eeg_rdm, fmri_rdms[i, j, k])
 
     return corrs
