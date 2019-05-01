@@ -13,43 +13,115 @@ def rsa_correlation_spearman(RDM1, RDM2):
 
     cons = np.shape(RDM1)[0]
 
-    n = cons * cons
+    n = 0
 
-    rdm1 = np.reshape(RDM1, [n])
-    rdm2 = np.reshape(RDM2, [n])
+    while cons > 1:
+        n = n + cons - 1
+        cons = cons - 1
 
-    return spearmanr(rdm1, rdm2)
+    nn = 0
+
+    v1 = np.zeros([n], dtype=np.float64)
+    v2 = np.zeros([n], dtype=np.float64)
+
+    for i in range(cons-1):
+
+        for j in range(cons-1-i):
+
+            v1[nn] = RDM1[i, i+j+1]
+            v2[nn] = RDM2[i, i+j+1]
+
+            nn = nn + 1
+
+    return spearmanr(v1, v2)
 
 ' a function for calculating the Pearson correlation coefficient between two RDMs '
 def rsa_correlation_pearson(RDM1, RDM2):
+    cons = np.shape(RDM1)[0]
 
-    cons1, cons2 = np.shape(RDM1)
+    n = 0
 
-    n = cons1 * cons2
+    while cons > 1:
+        n = n + cons - 1
+        cons = cons - 1
 
-    rdm1 = np.reshape(RDM1, [n])
-    rdm2 = np.reshape(RDM2, [n])
+    nn = 0
 
-    return pearsonr(rdm1, rdm2)
+    v1 = np.zeros([n], dtype=np.float64)
+    v2 = np.zeros([n], dtype=np.float64)
+
+    for i in range(cons - 1):
+
+        for j in range(cons - 1 - i):
+            v1[nn] = RDM1[i, i + j + 1]
+            v2[nn] = RDM2[i, i + j + 1]
+
+            nn = nn + 1
+
+    return pearsonr(v1, v2)
 
 ' a function for calculating the Cosine Similarity between two RDMs '
 
 def rsa_similarity(RDM1, RDM2):
 
-    cons1, cons2 = np.shape(RDM1)
+    cons = np.shape(RDM1)[0]
 
-    RDM1 = np.reshape(RDM1, [cons1*cons2])
-    RDM2 = np.reshape(RDM2, [cons1*cons2])
+    n = 0
 
-    rdm1 = np.mat(RDM1)
-    rdm2 = np.mat(RDM2)
+    while cons > 1:
+        n = n + cons - 1
+        cons = cons - 1
 
-    num = float(rdm1 * rdm2.T)
+    nn = 0
 
-    denom = np.linalg.norm(rdm1) * np.linalg.norm(rdm2)
+    v1 = np.zeros([n], dtype=np.float64)
+    v2 = np.zeros([n], dtype=np.float64)
+
+    for i in range(cons - 1):
+
+        for j in range(cons - 1 - i):
+            v1[nn] = RDM1[i, i + j + 1]
+            v2[nn] = RDM2[i, i + j + 1]
+
+            nn = nn + 1
+
+    V1 = np.mat(v1)
+    V2 = np.mat(v2)
+
+    num = float(V1 * V2.T)
+
+    denom = np.linalg.norm(V1) * np.linalg.norm(V2)
 
     cos = num / denom
 
     similarity = 0.5 + 0.5 * cos
 
     return similarity
+
+' a fuction for calculating the Euclidean Distances between two RDMs '
+
+def rsa_distance(RDM1, RDM2):
+    cons = np.shape(RDM1)[0]
+
+    n = 0
+
+    while cons > 1:
+        n = n + cons - 1
+        cons = cons - 1
+
+    nn = 0
+
+    v1 = np.zeros([n], dtype=np.float64)
+    v2 = np.zeros([n], dtype=np.float64)
+
+    for i in range(cons - 1):
+
+        for j in range(cons - 1 - i):
+            v1[nn] = RDM1[i, i + j + 1]
+            v2[nn] = RDM2[i, i + j + 1]
+
+            nn = nn + 1
+
+    dist = np.linalg.norm(v1 - v2)
+
+    return dist
