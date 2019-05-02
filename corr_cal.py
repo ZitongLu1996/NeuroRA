@@ -533,4 +533,5 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
 
                     corrs[i, j, k, 0] = rsa_distance(eeg_rdm, fmri_rdms[i, j, k])
 
+
     return corrs
