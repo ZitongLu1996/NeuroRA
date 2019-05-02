@@ -24,12 +24,16 @@ def rsa_correlation_spearman(RDM1, RDM2):
     v1 = np.zeros([n], dtype=np.float64)
     v2 = np.zeros([n], dtype=np.float64)
 
+    cons = np.shape(RDM1)[0]
+
     for i in range(cons-1):
 
         for j in range(cons-1-i):
 
             v1[nn] = RDM1[i, i+j+1]
             v2[nn] = RDM2[i, i+j+1]
+
+            print(RDM1[i, i+j+1])
 
             nn = nn + 1
 
@@ -49,6 +53,8 @@ def rsa_correlation_pearson(RDM1, RDM2):
 
     v1 = np.zeros([n], dtype=np.float64)
     v2 = np.zeros([n], dtype=np.float64)
+
+    cons = np.shape(RDM1)[0]
 
     for i in range(cons - 1):
 
@@ -76,6 +82,8 @@ def rsa_similarity(RDM1, RDM2):
 
     v1 = np.zeros([n], dtype=np.float64)
     v2 = np.zeros([n], dtype=np.float64)
+
+    cons = np.shape(RDM1)[0]
 
     for i in range(cons - 1):
 
@@ -113,6 +121,8 @@ def rsa_distance(RDM1, RDM2):
 
     v1 = np.zeros([n], dtype=np.float64)
     v2 = np.zeros([n], dtype=np.float64)
+
+    cons = np.shape(RDM1)[0]
 
     for i in range(cons - 1):
 
