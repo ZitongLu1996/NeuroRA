@@ -7,7 +7,7 @@ __author__ = 'Zitong Lu'
 import numpy as np
 import nibabel as nib
 
-def corr_save_nii(corrs, filename, affine, size=[53, 63, 52], ksize=[3, 3, 3], strides=[1, 1, 1], p=1, r=0, similarity=0):
+def corr_save_nii(corrs, filename, affine, size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=1, r=0, similarity=0, distance=0):
 
     nx = size[0]
     ny = size[1]
@@ -91,6 +91,10 @@ def corr_save_nii(corrs, filename, affine, size=[53, 63, 52], ksize=[3, 3, 3], s
 
                         return None
 
+                    elif distance > 0:
+
+                        return None
+
                     elif r < 0:
 
                         return None
@@ -103,6 +107,10 @@ def corr_save_nii(corrs, filename, affine, size=[53, 63, 52], ksize=[3, 3, 3], s
 
                 elif similarity > 0:
 
+                    if distance > 0:
+
+                        return None
+
                     if r > 0:
 
                         return None
@@ -113,7 +121,19 @@ def corr_save_nii(corrs, filename, affine, size=[53, 63, 52], ksize=[3, 3, 3], s
 
                             img_nii[i, j, k] = rv
 
-    filename = "niiFile/"+filename+".nii"
+                elif distance > 0:
+
+                    if r > 0:
+
+                        return None
+
+                    elif r == 0:
+
+                        if rv > distance:
+
+                            img_nii[i, j, k] = rv
+
+    filename = filename+".nii"
 
     print(filename)
 
