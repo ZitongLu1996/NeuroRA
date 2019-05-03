@@ -5,7 +5,7 @@
 __author__ = 'Zitong Lu'
 
 import numpy as np
-from stuff import limtozero
+from NeuroRA.stuff import limtozero
 
 np.seterr(divide='ignore', invalid='ignore')
 
