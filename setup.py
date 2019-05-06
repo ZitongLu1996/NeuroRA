@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='NeuroRA',
-    version='1.0.0',
+    version='1.0.1',
     description=(
         'A Python Toolbox for Multimode Neural Data Representation Analysis'
     ),
@@ -10,7 +10,7 @@ setup(
     author='Zitong Lu',
     author_email='zitonglu1996@gmail.com',
     maintainer='Zitong Lu',
-    maintainer_email='zitonglu19960316@gmail.com',
+    maintainer_email='zitonglu1996@gmail.com',
     license='MIT License',
     packages=find_packages(),
     platforms=["all"],
