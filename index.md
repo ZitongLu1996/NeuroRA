@@ -11,11 +11,13 @@
 ## Features
 You can not only calculate the representational dissimilarity matrix (RDM) but also calculate the correlation coefficient (or similarity) between different RDMs. In addition, you can plot the timing curve (for EEG, MEG, etc) and obtain a  NIFTI file (for fMRI).
 
-![Overview of NeuroRA's features](NeuroRA/overview-1version2.0.jpg)
+![ ](NeuroRA/overview-1version2.0.jpg)
+<center><font size=10>Overview of NeuroRA's features</font></center>
 
 ### rdm_cal.py (calculate the RDM)
 
-![RDM Calculation for multimode neural data](NeuroRA/overview-2.jpg)
+![ ](NeuroRA/overview-2.jpg)
+<center><font size=10>RDM Calculation for multimode neural data</font></center>
 
 - bhvRDM(bhv_data, sub_opt=0, data_opt=1)
 > - a function for calculating the RDM based on behavioral data
