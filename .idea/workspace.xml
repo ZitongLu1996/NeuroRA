@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6f96de87-b4a9-466e-9c57-851a40404f91" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" />
-    </list>
+    <list default="true" id="6f96de87-b4a9-466e-9c57-851a40404f91" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +84,7 @@
         <entry file="file://$PROJECT_DIR$/NeuroRA/corr_cal.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="149">
-              <caret line="505" lean-forward="true" selection-start-line="505" selection-end-line="505" />
+              <caret line="505" selection-start-line="505" selection-end-line="505" />
               <folding>
                 <element signature="e#153#171#0" expanded="true" />
               </folding>
@@ -161,11 +156,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="170" />
-    <option name="y" value="225" />
-    <option name="width" value="1156" />
-    <option name="height" value="761" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="x" value="120" />
+    <option name="y" value="-1920" />
+    <option name="width" value="1080" />
+    <option name="height" value="1920" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -539,7 +534,7 @@
     <entry file="file://$PROJECT_DIR$/NeuroRA/corr_cal.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="149">
-          <caret line="505" lean-forward="true" selection-start-line="505" selection-end-line="505" />
+          <caret line="505" selection-start-line="505" selection-end-line="505" />
           <folding>
             <element signature="e#153#171#0" expanded="true" />
           </folding>
