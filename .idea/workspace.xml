@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6f96de87-b4a9-466e-9c57-851a40404f91" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuroRA/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corr_cal.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuroRA/corr_cal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corr_plot_time.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuroRA/corr_plot_time.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corr_to_nii.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuroRA/corr_to_nii.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdm_cal.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuroRA/rdm_cal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdm_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuroRA/rdm_plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rsa_corr.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuroRA/rsa_corr.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stuff.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuroRA/stuff.py" afterDir="false" />
-    </list>
+    <list default="true" id="6f96de87-b4a9-466e-9c57-851a40404f91" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -358,23 +347,22 @@
       <workItem from="1555832456738" duration="1000" />
       <workItem from="1555844726370" duration="22602000" />
       <workItem from="1556501907303" duration="8856000" />
-      <workItem from="1556696282678" duration="19104000" />
+      <workItem from="1556696282678" duration="19790000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="165389000" />
+    <option name="totallyTimeSpent" value="166075000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="25" width="1156" height="761" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21633752" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.29147983" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.29147983" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39910313" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
