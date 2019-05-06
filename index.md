@@ -8,6 +8,9 @@
 
 **NeuroRA** is an easy-to-use toolbox based on **Python**, which can do some works about RSA among nearly all kinds of neural data, including **behavioral, EEG, MEG, fNIRS, ECoG, electrophysiological and fMRI data**.
 
+## Installation
+> pip install NeuroRA 
+
 ## Features
 You can not only calculate the representational dissimilarity matrix (RDM) but also calculate the correlation coefficient (or similarity) between different RDMs. In addition, you can plot the timing curve (for EEG, MEG, etc) and obtain a  NIFTI file (for fMRI).
 

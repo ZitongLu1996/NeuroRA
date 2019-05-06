@@ -8,6 +8,9 @@
 
 **NeuroRA** is an easy-to-use toolbox based on **Python**, which can do some works about RSA among nearly all kinds of neural data, including **behavioral, EEG, MEG, fNIRS, ECoG, electrophysiological and fMRI data**.
 
+## Installation
+> pip install NeuroRA 
+
 ## Website
 See more details at the [NeuroRA website](https://zitonglu1996.github.io/NeuroRA/).
 
