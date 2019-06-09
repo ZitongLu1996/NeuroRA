@@ -430,9 +430,9 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
         n_trials.append(fmri_data[i][1])
 
     # calculate the number of the calculation units
-    n_x = int((nx - kx) / sx)
-    n_y = int((ny - ky) / sy)
-    n_z = int((nz - kz) / sz)
+    n_x = int((nx - kx) / sx)+1
+    n_y = int((ny - ky) / sy)+1
+    n_z = int((nz - kz) / sz)+1
 
     data = np.zeros([n_x, n_y, n_z, cons, kx*ky*kz, subs], dtype=np.float64)
 

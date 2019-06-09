@@ -7,11 +7,15 @@ __author__ = 'Zitong Lu'
 import numpy as np
 from scipy.stats import spearmanr
 from scipy.stats import pearsonr
+from scipy.stats import kendalltau
 
 ' a function for calculating the Spearman correlation coefficient between two RDMs '
 def rsa_correlation_spearman(RDM1, RDM2):
 
+
     cons = np.shape(RDM1)[0]
+
+    print(cons)
 
     n = 0
 
@@ -26,6 +30,9 @@ def rsa_correlation_spearman(RDM1, RDM2):
 
     cons = np.shape(RDM1)[0]
 
+    print(np.shape(RDM1))
+    print(np.shape(RDM2))
+
     for i in range(cons-1):
 
         for j in range(cons-1-i):
@@ -36,6 +43,9 @@ def rsa_correlation_spearman(RDM1, RDM2):
             print(RDM1[i, i+j+1])
 
             nn = nn + 1
+
+    print(v1)
+    print(v2)
 
     return spearmanr(v1, v2)
 
@@ -65,6 +75,33 @@ def rsa_correlation_pearson(RDM1, RDM2):
             nn = nn + 1
 
     return pearsonr(v1, v2)
+
+' a function for calculating the Kendalls tau correlation coefficient between two RDMs '
+def rsa_correlation_kendall(RDM1, RDM2):
+    cons = np.shape(RDM1)[0]
+
+    n = 0
+
+    while cons > 1:
+        n = n + cons - 1
+        cons = cons - 1
+
+    nn = 0
+
+    v1 = np.zeros([n], dtype=np.float64)
+    v2 = np.zeros([n], dtype=np.float64)
+
+    cons = np.shape(RDM1)[0]
+
+    for i in range(cons - 1):
+
+        for j in range(cons - 1 - i):
+            v1[nn] = RDM1[i, i + j + 1]
+            v2[nn] = RDM2[i, i + j + 1]
+
+            nn = nn + 1
+
+    return kendalltau(v1, v2)
 
 ' a function for calculating the Cosine Similarity between two RDMs '
 
