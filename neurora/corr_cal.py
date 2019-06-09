@@ -6,14 +6,14 @@ __author__ = 'Zitong Lu'
 
 import numpy as np
 import math
-from NeuroRA.rdm_cal import bhvRDM
-from NeuroRA.rdm_cal import eegRDM
-from NeuroRA.rdm_cal import ecogRDM
-from NeuroRA.rdm_cal import fmriRDM
-from NeuroRA.rsa_corr import rsa_correlation_spearman
-from NeuroRA.rsa_corr import rsa_correlation_pearson
-from NeuroRA.rsa_corr import rsa_similarity
-from NeuroRA.rsa_corr import rsa_distance
+from neurora.rdm_cal import bhvRDM
+from neurora.rdm_cal import eegRDM
+from neurora.rdm_cal import ecogRDM
+from neurora.rdm_cal import fmriRDM
+from neurora.rsa_corr import rsa_correlation_spearman
+from neurora.rsa_corr import rsa_correlation_pearson
+from neurora.rsa_corr import rsa_similarity
+from neurora.rsa_corr import rsa_distance
 
 np.seterr(divide='ignore', invalid='ignore')
 

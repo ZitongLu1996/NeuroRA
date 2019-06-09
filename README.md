@@ -1,4 +1,4 @@
-![ ](NeuroRA/logo.jpg " ")
+![ ](neurora/logo.jpg " ")
 
 **A Python Toolbox for Multimode Neural Data Representational Analysis**
 

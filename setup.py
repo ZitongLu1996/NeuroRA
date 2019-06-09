@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='NeuroRA',
-    version='1.0.1',
+    name='neurora',
+    version='1.0.2',
     description=(
         'A Python Toolbox for Multimode Neural Data Representation Analysis'
     ),
