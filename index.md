@@ -11,6 +11,9 @@
 ## Installation
 > pip install NeuroRA 
 
+## Documentation
+You can read or download the [Tutorial here](https://zitonglu1996.github.io/NeuroRA/neurora/Tutorial.pdf).
+
 ## Features
 You can not only calculate the representational dissimilarity matrix (RDM) but also calculate the correlation coefficient (or similarity) between different RDMs. In addition, you can plot the timing curve (for EEG, MEG, etc) and obtain a  NIFTI file (for fMRI).
 
