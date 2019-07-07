@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-' a module for plot the RDM '
+' a module for plotting the RDM '
 
 __author__ = 'Zitong Lu'
 

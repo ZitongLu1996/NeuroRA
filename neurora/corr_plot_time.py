@@ -12,7 +12,7 @@ def plot_corrs_bytime(corrs, time_unit=[0, 1]):
     # corrs represent the correlation coefficients point-by-point, its shape : [ts]
     # time_unit=[start_t, t_step]
 
-    ts = len(corrs)
+    ts = len(corrs[:, 0])
 
     start_t = time_unit[0]
     t_step = time_unit[1]
@@ -28,7 +28,7 @@ def plot_corrs_bytime(corrs, time_unit=[0, 1]):
 
     print(x_soft)
 
-    y_soft = spline(x, corrs, x_soft)
+    y_soft = spline(x, corrs[:, 0], x_soft)
 
     fig, ax = plt.subplots()
 

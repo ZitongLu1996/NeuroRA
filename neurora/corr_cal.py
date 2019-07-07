@@ -12,12 +12,13 @@ from neurora.rdm_cal import ecogRDM
 from neurora.rdm_cal import fmriRDM
 from neurora.rsa_corr import rsa_correlation_spearman
 from neurora.rsa_corr import rsa_correlation_pearson
+from neurora.rsa_corr import rsa_correlation_kendall
 from neurora.rsa_corr import rsa_similarity
 from neurora.rsa_corr import rsa_distance
 
 np.seterr(divide='ignore', invalid='ignore')
 
-' a function for calculating the Similarity/Correlation Cosfficient between behavioral data and EEG/MEG/fNIRS data'
+' a function for calculating the Similarity/Correlation Coefficient between behavioral data and EEG/MEG/fNIRS data'
 def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, time_opt=0, method="spearman"):
 
     subs = np.shape(bhv_data)[1]
@@ -52,6 +53,10 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
 
                         corrs[i] = rsa_correlation_pearson(bhv_rdms[i], eeg_rdms[i])
 
+                    elif method == "kendall":
+
+                        corrs[i] = rsa_correlation_kendall(bhv_rdms[i], eeg_rdms[i])
+
                     elif method == "similarity":
 
                         corrs[i, 0] = rsa_similarity(bhv_rdms[i], eeg_rdms[i])
@@ -79,6 +84,10 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
                     elif method == "pearson":
 
                         corrs[i, j] = rsa_correlation_pearson(bhv_rdms[i], eeg_rdms[i, j])
+
+                    elif method == "kendall":
+
+                        corrs[i, j] = rsa_correlation_kendall(bhv_rdms[i], eeg_rdms[i, j])
 
                     elif method == "similarity":
 
@@ -112,6 +121,10 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
                 elif method == "pearson":
 
                     corrs[i, j] = rsa_correlation_pearson(bhv_rdms[i], eeg_rdms[i, j])
+
+                elif method == "kendall":
+
+                    corrs[i, j] = rsa_correlation_kendall(bhv_rdms[i], eeg_rdms[i, j])
 
                 elif method == "similarity":
 
@@ -147,6 +160,10 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
 
                         corrs[i, j] = rsa_correlation_pearson(bhv_rdm, eeg_rdms[i, j])
 
+                    elif method == "kendall":
+
+                        corrs[i, j] = rsa_correlation_kendall(bhv_rdm, eeg_rdms[i, j])
+
                     elif method == "similarity":
 
                         corrs[i, j, 0] = rsa_similarity(bhv_rdm, eeg_rdms[i, j])
@@ -172,6 +189,10 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
             elif method == "pearson":
 
                 corrs[i] = rsa_correlation_pearson(bhv_rdm, eeg_rdms[i])
+
+            elif method == "kendall":
+
+                corrs[i] = rsa_correlation_kendall(bhv_rdm, eeg_rdms[i])
 
             elif method == "similarity":
 
@@ -201,6 +222,10 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
 
                 corrs[i] = rsa_correlation_pearson(bhv_rdm, eeg_rdms[i])
 
+            elif method == "kendall":
+
+                corrs[i] = rsa_correlation_kendall(bhv_rdm, eeg_rdms[i])
+
             elif method == "similarity":
 
                 corrs[i, 0] = rsa_similarity(bhv_rdm, eeg_rdms[i])
@@ -224,6 +249,10 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
     elif method == "pearson":
 
         corr = rsa_correlation_pearson(bhv_rdm, eeg_rdm)
+
+    elif method == "kendall":
+
+        corr = rsa_correlation_kendall(bhv_rdm, eeg_rdm)
 
     elif method == "similarity":
 
@@ -264,6 +293,10 @@ def bhvANDecog_corr(bhv_data, ele_data, chls_num, ecog_opt="allin", method="spea
 
                 corrs[i] = rsa_correlation_pearson(bhv_rdm, ecog_rdms[i])
 
+            elif method == "kendall":
+
+                corrs[i] = rsa_correlation_kendall(bhv_rdm, ecog_rdms[i])
+
             elif method == "similarity":
 
                 corrs[i, 0] = rsa_similarity(bhv_rdm, ecog_rdms[i])
@@ -290,6 +323,10 @@ def bhvANDecog_corr(bhv_data, ele_data, chls_num, ecog_opt="allin", method="spea
 
                 corrs[i] = rsa_correlation_pearson(bhv_rdm, ecog_rdms[i])
 
+            elif method == "kendall":
+
+                corrs[i] = rsa_correlation_kendall(bhv_rdm, ecog_rdms[i])
+
             elif method == "similarity":
 
                 corrs[i, 0] = rsa_similarity(bhv_rdm, ecog_rdms[i])
@@ -313,6 +350,10 @@ def bhvANDecog_corr(bhv_data, ele_data, chls_num, ecog_opt="allin", method="spea
     elif method == "pearson":
 
         corr = rsa_correlation_pearson(bhv_rdm, ecog_rdm)
+
+    elif method == "kendall":
+
+        corr = rsa_correlation_kendall(bhv_rdm, ecog_rdm)
 
     elif method == "similarity":
 
@@ -369,9 +410,9 @@ def bhvANDfmri_corr(bhv_data, fmri_data, bhv_data_opt=1, ksize=[3, 3, 3], stride
     sy = strides[1]
     sz = strides[2]
 
-    n_x = int((nx - kx) / sx)
-    n_y = int((ny - ky) / sy)
-    n_z = int((nz - kz) / sz)
+    n_x = int((nx - kx) / sx) + 1
+    n_y = int((ny - ky) / sy) + 1
+    n_z = int((nz - kz) / sz) + 1
 
     corrs = np.zeros([n_x, n_y, n_z, 2], dtype=np.float64)
 
@@ -404,6 +445,10 @@ def bhvANDfmri_corr(bhv_data, fmri_data, bhv_data_opt=1, ksize=[3, 3, 3], stride
 
                     corrs[i, j, k] = rsa_correlation_pearson(bhv_rdm, fmri_rdms[i, j, k])
 
+                elif method == "kendall":
+
+                    corrs[i, j, k] = rsa_correlation_kendall(bhv_rdm, fmri_rdms[i, j, k])
+
                 elif method == "similarity":
 
                     corrs[i, j, k, 0] = rsa_similarity(bhv_rdm, fmri_rdms[i, j, k])
@@ -435,9 +480,9 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
     sy = strides[1]
     sz = strides[0]
 
-    n_x = int((nx - kx) / sx)
-    n_y = int((ny - ky) / sy)
-    n_z = int((nz - kz) / sz)
+    n_x = int((nx - kx) / sx) + 1
+    n_y = int((ny - ky) / sy) + 1
+    n_z = int((nz - kz) / sz) + 1
 
     fmri_rdms = fmriRDM(fmri_data, ksize=ksize, strides=strides)
 
@@ -479,6 +524,10 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
                         elif method == "pearson":
 
                             corrs[i, j, k, l] = rsa_correlation_pearson(eeg_rdms[i], fmri_rdms[j, k, l])
+
+                        elif method == "kendall":
+
+                            corrs[i, j, k, l] = rsa_correlation_kendall(eeg_rdms[i], fmri_rdms[j, k, l])
 
                         elif method == "similarity":
 
@@ -524,6 +573,10 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
                 elif method == "pearson":
 
                     corrs[i, j, k] = rsa_correlation_pearson(eeg_rdm, fmri_rdms[i, j, k])
+
+                elif method == "kendall":
+
+                    corrs[i, j, k] = rsa_correlation_kendall(eeg_rdm, fmri_rdms[i, j, k])
 
                 elif method == "similarity":
 

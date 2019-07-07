@@ -408,8 +408,8 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
     # ksize=[kx, ky, kz] represents that the calculation unit contains k1*k2*k3 voxels
     # strides=[sx, sy, sz] represents the moving steps along the x, y, z
     # the shape of fmri_rdm : [N_cons, N_subs, nx, ny, nz]
-    # N_cons, N_subs, N_trials, nx, ny, nz represent the number of conditions,
-    # the number of subjects, the number of trials, the size of the fmri data
+    # N_cons, N_subs, nx, ny, nz represent the number of conditions,
+    # the number of subjects, the size of the fmri data
 
     cons, subs, nx, ny, nz = np.shape(fmri_data)  # get the number of conditions, subjects and the size of the data
 
