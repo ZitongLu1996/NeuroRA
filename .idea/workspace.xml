@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f96de87-b4a9-466e-9c57-851a40404f91" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/neurora/corr_cal_byrdm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neurora/Thumbs.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/neurora/corr_cal.py" beforeDir="false" afterPath="$PROJECT_DIR$/neurora/corr_cal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neurora/corr_plot_time.py" beforeDir="false" afterPath="$PROJECT_DIR$/neurora/corr_plot_time.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neurora/rdm_cal.py" beforeDir="false" afterPath="$PROJECT_DIR$/neurora/rdm_cal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neurora/rdm_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/neurora/rdm_plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/index.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -113,11 +106,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/neurora/stuff.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
               <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/index.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="300">
+                <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -228,7 +233,6 @@
         <option value="$PROJECT_DIR$/build/lib/NeuroRA/corr_cal.py" />
         <option value="$PROJECT_DIR$/NeuroRA/corr_cal.py" />
         <option value="$PROJECT_DIR$/NeuroRA/rdm_cal.py" />
-        <option value="$PROJECT_DIR$/index.md" />
         <option value="$PROJECT_DIR$/neurora.egg-info/SOURCES.txt" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/neurora/rdm_cal.py" />
@@ -236,10 +240,11 @@
         <option value="$PROJECT_DIR$/neurora/corr_cal_byrdm.py" />
         <option value="$PROJECT_DIR$/neurora/rdm_plot.py" />
         <option value="$PROJECT_DIR$/neurora/corr_plot_time.py" />
+        <option value="$PROJECT_DIR$/index.md" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="130" />
     <option name="y" value="51" />
     <option name="width" value="1057" />
@@ -458,12 +463,12 @@
       <workItem from="1560081249762" duration="3616000" />
       <workItem from="1560156089210" duration="596000" />
       <workItem from="1560314391032" duration="17000" />
-      <workItem from="1562321032393" duration="11080000" />
+      <workItem from="1562321032393" duration="11398000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="236269000" />
+    <option name="totallyTimeSpent" value="236587000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="130" y="51" width="1057" height="761" extended-state="0" />
@@ -559,16 +564,6 @@
     <entry file="file://$PROJECT_DIR$/NeuroRA/test001.py" />
     <entry file="file://$PROJECT_DIR$/neurora/overview-2.jpg">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="193">
-            <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_config.yml">
       <provider selected="true" editor-type-id="text-editor">
@@ -724,6 +719,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="300">
+            <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
