@@ -26,7 +26,7 @@ You can not only calculate the representational dissimilarity matrix (RDM) but a
 **Noteworthily**, this toolbox is currently only a **test version**. 
 If you have any question, find some bugs or have some useful suggestions while using, you can email me and I will be happy and thankful to know.
 >My email address: 
->zitonglu1996@gmail.com
+>zitonglu1996@gmail.com / zitonglu@outlook.com
 
 >My personal homepage:
 >https://zitonglu1996.github.io
