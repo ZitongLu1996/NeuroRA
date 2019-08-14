@@ -172,3 +172,54 @@ def rsa_distance(RDM1, RDM2):
     dist = np.linalg.norm(v1 - v2)
 
     return dist
+
+' a function for permutation test between two RDMs '
+
+def permutation_test(RDM1, RDM2, iter=1000):
+    cons = np.shape(RDM1)[0]
+
+    n = 0
+
+    while cons > 1:
+        n = n + cons - 1
+        cons = cons - 1
+
+    nn = 0
+
+    v1 = np.zeros([n], dtype=np.float64)
+    v2 = np.zeros([n], dtype=np.float64)
+
+    cons = np.shape(RDM1)[0]
+
+    for i in range(cons - 1):
+
+        for j in range(cons - 1 - i):
+            v1[nn] = RDM1[i, i + j + 1]
+            v2[nn] = RDM2[i, i + j + 1]
+
+            nn = nn + 1
+
+    diff = abs(np.average(v1) - np.average(v2))
+
+    v = np.hstack((v1, v2))
+
+    print(v)
+
+    nv = v.shape[0]
+
+    ni = 0
+
+    for i in range(iter):
+        vshuffle = np.random.permutation(v)
+
+        vshuffle1 = vshuffle[:int(nv/2)]
+        vshuffle2 = vshuffle[int(nv/2):]
+
+        diff_i = abs(np.average(vshuffle1) - np.average(vshuffle2))
+
+        if diff_i >= diff:
+            ni = ni + 1
+
+    p = ni/iter
+
+    return p
