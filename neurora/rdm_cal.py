@@ -90,10 +90,12 @@ def bhvRDM(bhv_data, sub_opt=0, data_opt=1):
 
 ' a function for calculating the RDM based on EEG/MEG/fNIRS data '
 
-def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0):
+def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
     # shape of EEG_data: [n_cons, n_subs,_n_trials, n_chls, n_ts]
     # n_cons, n_subs, n_trials, n_chls, n_frqs, n_ts represent the number of
     # the conditions, subjects, trials, channels, frequencies and time-points
+    # time_win : the time-window, if time_win=5, that means each calculation process bases on 5 time points
+    #            this is also a processing of downsampling
     # sub_opt : 0 : return only one rdm
     #           1 : each subject obtains a rdm
     # chl_opt : 0 : consider all the channels
@@ -121,9 +123,12 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0):
     if len(set(n_ts)) != 1:
         return None
 
+
     if sub_opt == 1:
 
         if time_opt == 1:
+
+            ts = int(ts/time_win)
 
             if chl_opt == 1:
                 return None
@@ -134,7 +139,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0):
                 for j in range(ts):
                     for k in range(cons):
                         for l in range(chls):
-                            data[i, j, k, l] = np.average(EEG_data[k, i, :, l, j])
+                            data[i, j, k, l] = np.average(EEG_data[k, i, :, l, j*time_win:j*time_win+time_win])
 
             rdms = np.zeros([subs, ts, cons, cons], dtype=np.float64)
 
@@ -203,6 +208,8 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0):
 
     if time_opt == 1:
 
+        ts = int(ts/time_win)
+
         if chl_opt == 1:
             return None
 
@@ -216,7 +223,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0):
 
                     for l in range(chls):
 
-                        data[i, j, k, l] = np.average(EEG_data[j, k, :, l, i])
+                        data[i, j, k, l] = np.average(EEG_data[j, k, :, l, i*time_win:i*time_win+time_win])
 
         data = np.reshape(data, [ts, cons, subs * chls])
 
@@ -296,10 +303,12 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0):
 
 ' a function for calculating the RDM based on ECoG/electrophysiological data '
 
-def ecogRDM(ele_data, nchls, opt="all"):
+def ecogRDM(ele_data, time_win=5, opt="all"):
     # all these calculations belong to only one subject
-    # chls_num represent the number of channels of the data
+    # nchls represent the number of channels of the data
     # the shape of ele_data : [N_cons, N_trials, N_chls, N_ts]
+    # time_win : the time-window, if time_win=5, that means each calculation process bases on 5 time points
+    #            this is also a processing of downsampling
     # N_cons, N_trials, N_chls, N_ts represent the number of conditions,
     # the number of trials, the number of channels, the number of time-points
 
@@ -319,9 +328,6 @@ def ecogRDM(ele_data, nchls, opt="all"):
         return None
 
     if len(set(n_ts)) != 1:
-        return None
-
-    if n_chls[0] != nchls:
         return None
 
     if opt == "channel":
@@ -352,6 +358,8 @@ def ecogRDM(ele_data, nchls, opt="all"):
 
     elif opt == "time":
 
+        ts = int(ts/time_win)
+
         data = np.zeros([ts, cons, chls], dtype=np.float64)
 
         for i in range(ts):
@@ -360,7 +368,7 @@ def ecogRDM(ele_data, nchls, opt="all"):
 
                 for k in range(chls):
 
-                    data[i, j, k] = np.average(ele_data[j, :, k, i])
+                    data[i, j, k] = np.average(ele_data[j, :, k, i*time_win:i*time_win+time_win])
 
         rdms = np.zeros([ts, cons, cons], dtype=np.float64)
 
@@ -375,32 +383,6 @@ def ecogRDM(ele_data, nchls, opt="all"):
                     rdms[i, j, k] = limtozero(1 - abs(r))
 
         return rdms
-
-    # if opt = "allin"
-
-    data = np.zeros([cons, chls, ts], dtype=np.float64)
-
-    for i in range(cons):
-
-        for j in range(chls):
-
-            for k in range(ts):
-
-                data[i, j, k] = np.average(ele_data[i, :, j, k])
-
-    data = np.reshape(data, [cons, chls*ts])
-
-    rdm = np.zeros([cons, cons], dtype=np.float64)
-
-    for i in range(cons):
-
-        for j in range(cons):
-
-            r = np.corrcoef(data[i], data[j])[0][1]
-
-            rdm[i, j] = limtozero(1 - abs(r))
-
-    return rdm
 
 ' a function for calculating the RDM based on fMRI data '
 

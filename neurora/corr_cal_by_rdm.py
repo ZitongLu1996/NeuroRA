@@ -6,16 +6,16 @@ __author__ = 'Zitong Lu'
 
 import numpy as np
 import math
-from neurora.rsa_corr import rsa_correlation_spearman
-from neurora.rsa_corr import rsa_correlation_pearson
-from neurora.rsa_corr import rsa_correlation_kendall
-from neurora.rsa_corr import rsa_similarity
-from neurora.rsa_corr import rsa_distance
+from neurora.rdm_corr import rdm_correlation_spearman
+from neurora.rdm_corr import rdm_correlation_pearson
+from neurora.rdm_corr import rdm_correlation_kendall
+from neurora.rdm_corr import rdm_similarity
+from neurora.rdm_corr import rdm_distance
 
 np.seterr(divide='ignore', invalid='ignore')
 
-' a function for calculating the Similarity/Correlation Cosfficient between RDMs based on EEG/MEG/fNIRS data and a demo RDM'
-def eegrdms_corr(demo_rdm, EEG_rdms, method="spearman"):
+' a function for calculating the Similarity/Correlation Cosfficient between RDMs based on EEG/MEG/fNIRS/ECoG/electrophysiological data and a demo RDM'
+def rdms_corr(demo_rdm, EEG_rdms, method="spearman", rescale=False):
 
     # the shape of EEG_rdms must be: [N_time_points, N_cons, N_cons] or [N_channels, N_cons, N_cons]
 
@@ -27,29 +27,29 @@ def eegrdms_corr(demo_rdm, EEG_rdms, method="spearman"):
 
         if method == "spearman":
 
-            corrs[n] = rsa_correlation_spearman(demo_rdm, EEG_rdms[n])
+            corrs[n] = rdm_correlation_spearman(demo_rdm, EEG_rdms[n], rescale=rescale)
 
         elif method == "pearson":
 
-            corrs[n] = rsa_correlation_pearson(demo_rdm, EEG_rdms[n])
+            corrs[n] = rdm_correlation_pearson(demo_rdm, EEG_rdms[n], rescale=rescale)
 
         elif method == "kendall":
 
-            corrs[n] = rsa_correlation_kendall(demo_rdm, EEG_rdms[n])
+            corrs[n] = rdm_correlation_kendall(demo_rdm, EEG_rdms[n], rescale=rescale)
 
         elif method == "similarity":
 
-            corrs[n, 0] = rsa_similarity(demo_rdm, EEG_rdms[n])
+            corrs[n, 0] = rdm_similarity(demo_rdm, EEG_rdms[n], rescale=rescale)
 
         elif method == "distance":
 
-            corrs[n, 0] = rsa_distance(demo_rdm, EEG_rdms[n])
+            corrs[n, 0] = rdm_distance(demo_rdm, EEG_rdms[n], rescale=rescale)
 
     return corrs
 
 ' a function for calculating the Similarity/Correlation Cosfficient between RDMs based on fMRI data and a demo RDM'
 
-def fmrirdms_corr(demo_rdm, fmri_rdms, method="spearman"):
+def fmrirdms_corr(demo_rdm, fmri_rdms, method="spearman", rescale=False):
 
 
     # the shape of fmri_rdms must be: [n_x, n_y, n_z, N_cons, N_cons]
@@ -85,23 +85,23 @@ def fmrirdms_corr(demo_rdm, fmri_rdms, method="spearman"):
 
                 elif method == "spearman":
 
-                    corrs[i, j, k] = rsa_correlation_spearman(bhv_rdm, fmri_rdms[i, j, k])
+                    corrs[i, j, k] = rdm_correlation_spearman(demo_rdm, fmri_rdms[i, j, k], rescale=rescale)
 
                 elif method == "pearson":
 
-                    corrs[i, j, k] = rsa_correlation_pearson(bhv_rdm, fmri_rdms[i, j, k])
+                    corrs[i, j, k] = rdm_correlation_pearson(demo_rdm, fmri_rdms[i, j, k], rescale=rescale)
 
                 elif method == "kendall":
 
-                    corrs[i, j, k] = rsa_correlation_kendall(bhv_rdm, fmri_rdms[i, j, k])
+                    corrs[i, j, k] = rdm_correlation_kendall(demo_rdm, fmri_rdms[i, j, k], rescale=rescale)
 
                 elif method == "similarity":
 
-                    corrs[i, j, k, 0] = rsa_similarity(bhv_rdm, fmri_rdms[i, j, k])
+                    corrs[i, j, k, 0] = rdm_similarity(demo_rdm, fmri_rdms[i, j, k], rescale=rescale)
 
                 elif method == "distance":
 
-                    corrs[i, j, k, 0] = rsa_distance(bhv_rdm, fmri_rdms[i, j, k])
+                    corrs[i, j, k, 0] = rdm_distance(demo_rdm, fmri_rdms[i, j, k], rescale=rescale)
 
                 print(corrs[i, j, k])
 

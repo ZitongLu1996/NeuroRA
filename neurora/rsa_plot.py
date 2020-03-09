@@ -6,9 +6,9 @@ __author__ = 'Zitong Lu'
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.interpolate import spline
+from scipy.interpolate import interp1d
 
-def plot_rdm_1(rdm):
+def plot_rdm(rdm, rescale=False):
 
     if len(np.shape(rdm)) != 2:
 
@@ -20,18 +20,33 @@ def plot_rdm_1(rdm):
 
         return None
 
+    if rescale == True:
+
+        cons = rdm.shape[0]
+        vrdm = np.reshape(rdm, [cons*cons])
+        svrdm = set(vrdm)
+        lvrdm = list(svrdm)
+        lvrdm.sort()
+        maxvalue = lvrdm[-1]
+        minvalue = lvrdm[1]
+        for i in range(cons):
+            for j in range(cons):
+                if i != j:
+                    rdm[i, j] = (rdm[i, j]-minvalue)/(maxvalue-minvalue)
+
     plt.imshow(rdm, cmap=plt.cm.jet, clim=(0, 1))
 
     plt.axis("off")
-
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=16)
     font = {'size': 18}
-    cb.set_label("Dissimilarity", fontdict=font)
-
+    if rescale == True:
+        cb.set_label("Dissimilarity (Rescaling)", fontdict=font)
+    elif rescale == False:
+        cb.set_label("Dissimilarity", fontdict=font)
     plt.show()
 
-def plot_rdm_2(rdm):
+def plot_rdm_withvalue(rdm, fontsize=10):
 
     if len(np.shape(rdm)) != 2:
 
@@ -50,7 +65,7 @@ def plot_rdm_2(rdm):
     for i in range(a):
         for j in range(b):
             text = plt.text(i, j, float('%.4f'%rdm[i, j]),
-                           ha="center", va="center", color="blue")
+                           ha="center", va="center", color="blue", fontsize=fontsize)
 
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=16)
@@ -59,7 +74,7 @@ def plot_rdm_2(rdm):
 
     plt.show()
 
-def plot_corrs_by_time(corrs, labels, time_unit=[0, 0.1]):
+def plot_corrs_by_time(corrs, labels=None, time_unit=[0, 0.1]):
     # corrs represent the correlation coefficients point-by-point, its shape :
     #       [n, ts, 2] (here 2 contains r-value and p-value) or [n, ts] (r-value)
     # label represent the conditions of RSA results, its shape : [n]
@@ -83,19 +98,36 @@ def plot_corrs_by_time(corrs, labels, time_unit=[0, 0.1]):
 
     for i in range(n):
         if len(corrs.shape) == 3:
-            y_soft[i] = spline(x, corrs[i, :, 0], x_soft)
+            f = interp1d(x, corrs[i, :, 0], kind='cubic')
+            y_soft[i] = f(x_soft)
         if len(corrs.shape) == 2:
-            y_soft[i] = spline(x, corrs[i, :], x_soft)
+            f = interp1d(x, corrs[i, :], kind='cubic')
+            y_soft[i] = f(x_soft)
+
+    vmax = np.max(y_soft)
+    vmin = np.min(y_soft)
+
+    if vmax <= 1/1.1:
+        ymax = np.max(y_soft)*1.1
+    else:
+        ymax = 1
+
+    if vmin >= 0:
+        ymin = -0.1
+    elif vmin < 0 and vmin > -1/1.1:
+        ymin = np.min(y_soft)*1.1
+    else:
+        ymin = -1
 
     fig, ax = plt.subplots()
 
     for i in range(n):
         if labels:
-            plt.plot(x_soft, y_soft[i], linewidth=4, label=labels[i])
+            plt.plot(x_soft, y_soft[i], linewidth=3, label=labels[i])
         else:
-            plt.plot(x_soft, y_soft[i], linewidth=4)
+            plt.plot(x_soft, y_soft[i], linewidth=3)
 
-    plt.ylim(0, 1)
+    plt.ylim(ymin, ymax)
     plt.ylabel("Similarity", fontsize=20)
     plt.xlabel("Time (s)", fontsize=20)
     plt.tick_params(labelsize=18)
@@ -108,7 +140,7 @@ def plot_corrs_by_time(corrs, labels, time_unit=[0, 0.1]):
 
     plt.show()
 
-def plot_corrs_hotmap(eegcorrs, chllabels=[], time_unit=[0, 0.1], smooth=True):
+def plot_corrs_hotmap(eegcorrs, chllabels=[], time_unit=[0, 0.1], lim=[0, 1], smooth=True):
     # eegcorrs represents the correlation coefficients time-by-time, its shape:
     # [N_chls, ts, 2] or [N_chls, ts], N_chls: number of channels, ts: number of time points, 2: a r-value and a p-value
     # chllabel represents the names of channels
@@ -146,9 +178,11 @@ def plot_corrs_hotmap(eegcorrs, chllabels=[], time_unit=[0, 0.1], smooth=True):
 
         for i in range(nchls):
             if len(eegcorrs.shape) == 3:
-                y_soft[i] = spline(x, eegcorrs[i, :, 0], x_soft)
+                f = interp1d(x, eegcorrs[i, :, 0], kind='cubic')
+                y_soft[i] = f(x_soft)
             elif len(eegcorrs.shape) == 2:
-                y_soft[i] = spline(x, eegcorrs[i, :], x_soft)
+                f = interp1d(x, eegcorrs[i, :], kind='cubic')
+                y_soft[i] = f(x_soft)
 
         rlts = y_soft
 
@@ -163,7 +197,9 @@ def plot_corrs_hotmap(eegcorrs, chllabels=[], time_unit=[0, 0.1], smooth=True):
     fig = plt.gcf()
     fig.set_size_inches(10, 3)
 
-    plt.imshow(rlts, extent=(start_t*nchls/3, end_t*nchls/3, 0, 0.16*nchls), clim=(0, 1), origin='low')
+    limmin = lim[0]
+    limmax = lim[1]
+    plt.imshow(rlts, extent=(start_t*nchls/3, end_t*nchls/3, 0, 0.16*nchls), clim=(limmin, limmax), origin='low')
 
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=16)
