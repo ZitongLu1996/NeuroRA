@@ -112,5 +112,5 @@ corrs2 = rdms_corr(rdm_sample2, rdms)
 corrs = np.zeros([2, 110, 2])
 corrs[0] = corrs1
 corrs[1] = corrs2
-labels = ["by 200ms's data", "by800ms's data"]
+labels = ["by 200ms's data", "by 800ms's data"]
 plot_corrs_by_time(corrs, labels=labels, time_unit=[-0.1, 0.01])
