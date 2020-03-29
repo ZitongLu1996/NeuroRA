@@ -75,6 +75,7 @@ def rdm_correlation_spearman(RDM1, RDM2, rescale=False):
 
 ' a function for calculating the Pearson correlation coefficient between two RDMs '
 def rdm_correlation_pearson(RDM1, RDM2, rescale=False):
+
     cons = np.shape(RDM1)[0]
 
     n = 0
@@ -128,6 +129,7 @@ def rdm_correlation_pearson(RDM1, RDM2, rescale=False):
 
 ' a function for calculating the Kendalls tau correlation coefficient between two RDMs '
 def rdm_correlation_kendall(RDM1, RDM2, rescale=False):
+
     cons = np.shape(RDM1)[0]
 
     n = 0

@@ -105,4 +105,4 @@ def fmrirdms_corr(demo_rdm, fmri_rdms, method="spearman", rescale=False):
 
                 print(corrs[i, j, k])
 
-    return corrs
+    return np.abs(corrs)
