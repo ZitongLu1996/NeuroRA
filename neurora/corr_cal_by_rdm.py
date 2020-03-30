@@ -60,7 +60,7 @@ def fmrirdms_corr(demo_rdm, fmri_rdms, method="spearman", rescale=False):
     n_y = np.shape(fmri_rdms)[1]
     n_z = np.shape(fmri_rdms)[2]
 
-    corrs = np.zeros([n_x, n_y, n_z, 2], dtype=np.float64)
+    corrs = np.full([n_x, n_y, n_z, 2], np.nan)
 
     for i in range(n_x):
 
@@ -68,7 +68,7 @@ def fmrirdms_corr(demo_rdm, fmri_rdms, method="spearman", rescale=False):
 
             for k in range(n_z):
 
-                index = 0
+                """index = 0
 
                 for m in range(cons):
 
@@ -81,9 +81,9 @@ def fmrirdms_corr(demo_rdm, fmri_rdms, method="spearman", rescale=False):
                 if index != 0:
 
                     corrs[i, j, k, 0] = 0
-                    corrs[i, j, k, 1] = 1
+                    corrs[i, j, k, 1] = 1"""
 
-                elif method == "spearman":
+                if method == "spearman":
 
                     corrs[i, j, k] = rdm_correlation_spearman(demo_rdm, fmri_rdms[i, j, k], rescale=rescale)
 

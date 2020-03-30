@@ -6,6 +6,7 @@ __author__ = 'Zitong Lu'
 
 import numpy as np
 import nibabel as nib
+import math
 
 def corr_save_nii(corrs, filename, affine, size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=1, r=0, similarity=0, distance=0):
 
@@ -25,7 +26,9 @@ def corr_save_nii(corrs, filename, affine, size=[60, 60, 60], ksize=[3, 3, 3], s
     n_y = np.shape(corrs)[1]
     n_z = np.shape(corrs)[2]
 
-    img = np.zeros([nx, ny, nz, 2, kx*ky*kz], dtype=np.float64)
+    img = np.full([nx, ny, nz, 2, kx*ky*kz], np.nan)
+
+    index = np.zeros([nx, ny, nz], dtype=np.int)
 
     img_nii = np.zeros([nx, ny, nz], dtype=np.float64)
 
@@ -39,7 +42,41 @@ def corr_save_nii(corrs, filename, affine, size=[60, 60, 60], ksize=[3, 3, 3], s
                 y = j*sy
                 z = k*sz
 
-                for k1 in range(kx):
+                if (math.isnan(corrs[i, j, k, 0]) == False) and (corrs[i, j, k, 1] < p) and (corrs[i, j, k, 0] > np.max(r, similarity, distance)):
+
+                    for k1 in range(kx):
+                        for k2 in range(ky):
+                            for k3 in range(kz):
+
+                                index[x+k1, y+k2, z+k3] = index[x+k1, y+k2, z+k3] + 1
+
+    for i in range(n_x):
+
+        for j in range(n_y):
+
+            for k in range(n_z):
+
+                x = i*sx
+                y = i*sy
+                z = i*sz
+
+                if (math.isnan(corrs[i, j, k, 0]) == False) and (corrs[i, j, k, 1] < p) and (corrs[i, j, k, 0] > np.max(r, similarity, distance)):
+
+                    for k1 in range(kx):
+                        for k2 in range(ky):
+                            for k3 in range(kz):
+
+                                img_nii[x+k1, y+k2, z+k3] = img_nii[x+k1, y+k2, z+k3] + corrs[i, j, k]
+
+    for i in range(nx):
+
+        for j in range(ny):
+
+            for k in range(nz):
+
+                img_nii[i, j, k] = img_nii[i, j, k]/index[i, j, k]
+
+                """for k1 in range(kx):
 
                     for k2 in range(ky):
 
@@ -47,7 +84,7 @@ def corr_save_nii(corrs, filename, affine, size=[60, 60, 60], ksize=[3, 3, 3], s
 
                             index = 0
 
-                            while img[x+k1, y+k2, z+k3, 0, index] != 0:
+                            while math.isnan(img[x+k1, y+k2, z+k3, 0, index]) == False:
 
                                 index = index + 1
 
@@ -131,7 +168,7 @@ def corr_save_nii(corrs, filename, affine, size=[60, 60, 60], ksize=[3, 3, 3], s
 
                         if rv > distance:
 
-                            img_nii[i, j, k] = rv
+                            img_nii[i, j, k] = rv"""
 
     filename = filename+".nii"
 

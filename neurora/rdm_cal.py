@@ -416,7 +416,7 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
     n_y = int((ny - ky) / sy)+1
     n_z = int((nz - kz) / sz)+1
 
-    data = np.zeros([n_x, n_y, n_z, cons, kx*ky*kz, subs], dtype=np.float64)
+    data = np.full([n_x, n_y, n_z, cons, kx*ky*kz, subs], np.nan)
 
     for x in range(n_x):
 
@@ -438,7 +438,7 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
     data = np.reshape(data, [n_x, n_y, n_z, cons, kx*ky*kz*subs])
 
-    rdms = np.zeros([n_x, n_y, n_z, cons, cons], dtype=np.float64)
+    rdms = np.full([n_x, n_y, n_z, cons, cons], np.nan)
 
     for x in range(n_x):
 
