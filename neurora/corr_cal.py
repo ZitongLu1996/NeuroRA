@@ -5,7 +5,6 @@
 __author__ = 'Zitong Lu'
 
 import numpy as np
-import math
 from neurora.rdm_cal import bhvRDM
 from neurora.rdm_cal import eegRDM
 from neurora.rdm_cal import ecogRDM
@@ -418,7 +417,7 @@ def bhvANDfmri_corr(bhv_data, fmri_data, bhv_data_opt=1, ksize=[3, 3, 3], stride
     n_y = int((ny - ky) / sy) + 1
     n_z = int((nz - kz) / sz) + 1
 
-    corrs = np.zeros([n_x, n_y, n_z, 2], dtype=np.float64)
+    corrs = np.full([n_x, n_y, n_z, 2], np.nan)
 
     for i in range(n_x):
 
@@ -426,7 +425,7 @@ def bhvANDfmri_corr(bhv_data, fmri_data, bhv_data_opt=1, ksize=[3, 3, 3], stride
 
             for k in range(n_z):
 
-                index = 0
+                """index = 0
 
                 for m in range(cons):
 
@@ -439,9 +438,9 @@ def bhvANDfmri_corr(bhv_data, fmri_data, bhv_data_opt=1, ksize=[3, 3, 3], stride
                 if index != 0:
 
                     corrs[i, j, k, 0] = 0
-                    corrs[i, j, k, 1] = 1
+                    corrs[i, j, k, 1] = 1"""
 
-                elif method == "spearman":
+                if method == "spearman":
 
                     corrs[i, j, k] = rdm_correlation_spearman(bhv_rdm, fmri_rdms[i, j, k], rescale=rescale)
 
@@ -496,7 +495,7 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
 
         eeg_rdms = eegRDM(eeg_data, sub_opt=0, chl_opt=1, time_opt=0)
 
-        corrs = np.zeros([chls, n_x, n_y, n_z, 2], dtype=np.float64)
+        corrs = np.full([chls, n_x, n_y, n_z, 2], np.nan)
 
         for j in range(n_x):
 
@@ -504,7 +503,7 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
 
                 for l in range(n_z):
 
-                    index = 0
+                    """index = 0
 
                     for m in range(cons):
 
@@ -512,16 +511,16 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
 
                             if math.isnan(fmri_rdms[j, k, l]) == True:
 
-                                index = index + 1
+                                index = index + 1"""
 
                     for i in range(chls):
 
-                        if index != 0:
+                        """if index != 0:
 
                             corrs[i, j, k, l, 0] = 0
-                            corrs[i, j, k, l, 1] = 1
+                            corrs[i, j, k, l, 1] = 1"""
 
-                        elif method == "spearman":
+                        if method == "spearman":
 
                             corrs[i, j, k, l] = rdm_correlation_spearman(eeg_rdms[i], fmri_rdms[j, k, l], rescale=rescale)
 
@@ -547,7 +546,7 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
 
     eeg_rdm = eegRDM(eeg_data, sub_opt=0, chl_opt=0, time_opt=0)
 
-    corrs = np.zeros([n_x, n_y, n_z, 2], dtype=np.float64)
+    corrs = np.full([n_x, n_y, n_z, 2], np.nan)
 
     for i in range(n_x):
 
@@ -555,7 +554,7 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
 
             for k in range(n_z):
 
-                index = 0
+                """index = 0
 
                 for m in range(cons):
 
@@ -568,9 +567,9 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
                 if index != 0:
 
                     corrs[i, j, k, 0] = 0
-                    corrs[i, j, k, 1] = 1
+                    corrs[i, j, k, 1] = 1"""
 
-                elif method == "spearman":
+                if method == "spearman":
 
                     corrs[i, j, k] = rdm_correlation_spearman(eeg_rdm, fmri_rdms[i, j, k], rescale=rescale)
 

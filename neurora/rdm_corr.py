@@ -44,7 +44,7 @@ def rdm_correlation_spearman(RDM1, RDM2, rescale=False):
         for i in range(cons):
             for j in range(cons):
                 if i != j:
-                    RDM1[i, j] = (RDM1[i, j]-minvalue)/(maxvalue-minvalue)
+                    RDM1[i, j] = float((RDM1[i, j]-minvalue)/(maxvalue-minvalue))
 
         vrdm = np.reshape(RDM2, [cons * cons])
         svrdm = set(vrdm)
@@ -55,7 +55,7 @@ def rdm_correlation_spearman(RDM1, RDM2, rescale=False):
         for i in range(cons):
             for j in range(cons):
                 if i != j:
-                    RDM2[i, j] = (RDM2[i, j] - minvalue) / (maxvalue - minvalue)
+                    RDM2[i, j] = float((RDM2[i, j] - minvalue) / (maxvalue - minvalue))
 
     for i in range(cons-1):
 
@@ -63,8 +63,6 @@ def rdm_correlation_spearman(RDM1, RDM2, rescale=False):
 
             v1[nn] = RDM1[i, i+j+1]
             v2[nn] = RDM2[i, i+j+1]
-
-            print(RDM1[i, i+j+1])
 
             nn = nn + 1
 
@@ -103,7 +101,7 @@ def rdm_correlation_pearson(RDM1, RDM2, rescale=False):
             for i in range(cons):
                 for j in range(cons):
                     if i != j:
-                        RDM1[i, j] = (RDM1[i, j] - minvalue) / (maxvalue - minvalue)
+                        RDM1[i, j] = float((RDM1[i, j] - minvalue) / (maxvalue - minvalue))
 
         vrdm = np.reshape(RDM2, [cons * cons])
         svrdm = set(vrdm)
@@ -115,7 +113,7 @@ def rdm_correlation_pearson(RDM1, RDM2, rescale=False):
             for i in range(cons):
                 for j in range(cons):
                     if i != j:
-                        RDM2[i, j] = (RDM2[i, j] - minvalue) / (maxvalue - minvalue)
+                        RDM2[i, j] = float((RDM2[i, j] - minvalue) / (maxvalue - minvalue))
 
     for i in range(cons - 1):
 
@@ -157,7 +155,7 @@ def rdm_correlation_kendall(RDM1, RDM2, rescale=False):
             for i in range(cons):
                 for j in range(cons):
                     if i != j:
-                        RDM1[i, j] = (RDM1[i, j] - minvalue) / (maxvalue - minvalue)
+                        RDM1[i, j] = float((RDM1[i, j] - minvalue) / (maxvalue - minvalue))
 
         vrdm = np.reshape(RDM2, [cons * cons])
         svrdm = set(vrdm)
@@ -169,7 +167,7 @@ def rdm_correlation_kendall(RDM1, RDM2, rescale=False):
             for i in range(cons):
                 for j in range(cons):
                     if i != j:
-                        RDM2[i, j] = (RDM2[i, j] - minvalue) / (maxvalue - minvalue)
+                        RDM2[i, j] = float((RDM2[i, j] - minvalue) / (maxvalue - minvalue))
 
     for i in range(cons - 1):
 
@@ -212,7 +210,7 @@ def rdm_similarity(RDM1, RDM2, rescale=False):
             for i in range(cons):
                 for j in range(cons):
                     if i != j:
-                        RDM1[i, j] = (RDM1[i, j] - minvalue) / (maxvalue - minvalue)
+                        RDM1[i, j] = float((RDM1[i, j] - minvalue) / (maxvalue - minvalue))
 
         vrdm = np.reshape(RDM2, [cons * cons])
         svrdm = set(vrdm)
@@ -224,7 +222,7 @@ def rdm_similarity(RDM1, RDM2, rescale=False):
             for i in range(cons):
                 for j in range(cons):
                     if i != j:
-                        RDM2[i, j] = (RDM2[i, j] - minvalue) / (maxvalue - minvalue)
+                        RDM2[i, j] = float((RDM2[i, j] - minvalue) / (maxvalue - minvalue))
 
     for i in range(cons - 1):
 
@@ -277,7 +275,7 @@ def rdm_distance(RDM1, RDM2, rescale=False):
             for i in range(cons):
                 for j in range(cons):
                     if i != j:
-                        RDM1[i, j] = (RDM1[i, j] - minvalue) / (maxvalue - minvalue)
+                        RDM1[i, j] = float((RDM1[i, j] - minvalue) / (maxvalue - minvalue))
 
         vrdm = np.reshape(RDM2, [cons * cons])
         svrdm = set(vrdm)
@@ -289,7 +287,7 @@ def rdm_distance(RDM1, RDM2, rescale=False):
             for i in range(cons):
                 for j in range(cons):
                     if i != j:
-                        RDM2[i, j] = (RDM2[i, j] - minvalue) / (maxvalue - minvalue)
+                        RDM2[i, j] = float((RDM2[i, j] - minvalue) / (maxvalue - minvalue))
 
     for i in range(cons - 1):
 
@@ -333,7 +331,7 @@ def rdm_permutation(RDM1, RDM2, iter=1000, rescale=False):
             for i in range(cons):
                 for j in range(cons):
                     if i != j:
-                        RDM1[i, j] = (RDM1[i, j] - minvalue) / (maxvalue - minvalue)
+                        RDM1[i, j] = float((RDM1[i, j] - minvalue) / (maxvalue - minvalue))
 
         vrdm = np.reshape(RDM2, [cons * cons])
         svrdm = set(vrdm)
@@ -345,7 +343,7 @@ def rdm_permutation(RDM1, RDM2, iter=1000, rescale=False):
             for i in range(cons):
                 for j in range(cons):
                     if i != j:
-                        RDM2[i, j] = (RDM2[i, j] - minvalue) / (maxvalue - minvalue)
+                        RDM2[i, j] = float((RDM2[i, j] - minvalue) / (maxvalue - minvalue))
 
     for i in range(cons - 1):
 

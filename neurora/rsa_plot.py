@@ -32,7 +32,7 @@ def plot_rdm(rdm, rescale=False):
         for i in range(cons):
             for j in range(cons):
                 if i != j:
-                    rdm[i, j] = (rdm[i, j]-minvalue)/(maxvalue-minvalue)
+                    rdm[i, j] = float((rdm[i, j]-minvalue)/(maxvalue-minvalue))
 
     plt.imshow(rdm, cmap=plt.cm.jet, clim=(0, 1))
 
@@ -199,7 +199,7 @@ def plot_corrs_hotmap(eegcorrs, chllabels=[], time_unit=[0, 0.1], lim=[0, 1], sm
 
     limmin = lim[0]
     limmax = lim[1]
-    plt.imshow(rlts, extent=(start_t*nchls/3, end_t*nchls/3, 0, 0.16*nchls), clim=(limmin, limmax), origin='low')
+    plt.imshow(rlts, extent=(float(start_t*nchls/3), float(end_t*nchls/3), 0, 0.16*nchls), clim=(limmin, limmax), origin='low')
 
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=16)
