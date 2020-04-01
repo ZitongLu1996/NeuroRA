@@ -103,6 +103,7 @@ def corr_save_nii(corrs, filename, affine, size=[60, 60, 60], ksize=[3, 3, 3], s
 
                                 img_nii[x+k1, y+k2, z+k3] = img_nii[x+k1, y+k2, z+k3] + corrs[i, j, k, 0]
 
+    newimg_nii = np.full([nx, ny, nz], np.nan)
     for i in range(nx):
 
         for j in range(ny):
@@ -110,18 +111,16 @@ def corr_save_nii(corrs, filename, affine, size=[60, 60, 60], ksize=[3, 3, 3], s
             for k in range(nz):
 
                 if mask[i, j, k] == 1:
-                    img_nii[i, j, k] = float(img_nii[i, j, k]/index[i, j, k])
-                else:
-                    img_nii[i, j, k] = 0
+                    newimg_nii[i, j, k] = float(img_nii[i, j, k]/index[i, j, k])
 
     filename = filename+".nii"
 
     print(filename)
 
-    file = nib.Nifti1Image(img_nii, affine)
+    file = nib.Nifti1Image(newimg_nii, affine)
 
     nib.save(file, filename)
 
     print("File("+filename+") saves successfully!")
 
-    return img_nii
+    return newimg_nii
