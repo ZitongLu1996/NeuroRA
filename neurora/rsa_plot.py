@@ -240,11 +240,11 @@ def plot_brainrsa_rlts(img, threshold=None):
 
     plt.show()
 
-def plot_brainrsa_regions():
+#def plot_brainrsa_regions():
 
-def plot_brainrsa_montage():
+#def plot_brainrsa_montage():
 
-def plot_brainrsa_glass():
+#def plot_brainrsa_glass():
 
 
 
