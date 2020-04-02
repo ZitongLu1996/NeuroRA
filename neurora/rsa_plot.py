@@ -7,9 +7,10 @@ __author__ = 'Zitong Lu'
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
-from nilearn import plotting
+from nilearn import plotting, datasets, surface
 import nibabel as nib
 from neurora.stuff import get_affine
+from neurora.stuff import correct_by_threshold
 
 def plot_rdm(rdm, rescale=False):
 
@@ -218,87 +219,108 @@ def plot_corrs_hotmap(eegcorrs, chllabels=[], time_unit=[0, 0.1], lim=[0, 1], sm
     plt.xlabel("Time (s)", fontsize=20)
     plt.show()
 
-def plot_brainrsa_rlts(img, threshold=None):
+def plot_brainrsa_regions(img, threshold=None):
 
     if threshold != None:
 
         imgarray = nib.load(img).get_data()
         affine = get_affine(img)
 
-        sx = np.shape(imgarray)[0]
-        sy = np.shape(imgarray)[1]
-        sz = np.shape(imgarray)[2]
-
-        imgarray = correct_by_threshold(imgarray, sx, sy, sz, threshold)
+        imgarray = correct_by_threshold(imgarray, threshold)
 
         img = nib.Nifti1Image(imgarray, affine)
 
-    roi_bg = "template/ch2.nii.gz"
-    print(nib.load(roi_bg))
+    bg = "template/ch2.nii.gz"
 
-    plotting.plot_roi(roi_img=img, bg_img=roi_bg, threshold=0, vmin=0.1, vmax=1, resampling_interpolation="continuous")
+    plotting.plot_roi(roi_img=img, bg_img=bg, threshold=0, vmin=0.1, vmax=1, title="Similarity", resampling_interpolation="continuous")
 
     plt.show()
 
-#def plot_brainrsa_regions():
+def plot_brainrsa_montage(img, threshold=None, slice=[6, 6, 6]):
 
-#def plot_brainrsa_montage():
+    if threshold != None:
 
-#def plot_brainrsa_glass():
+        imgarray = nib.load(img).get_data()
+        affine = get_affine(img)
 
+        imgarray = correct_by_threshold(imgarray, threshold)
 
+        img = nib.Nifti1Image(imgarray, affine)
 
-def correct_by_threshold(img, sx, sy, sz, threshold):
+    slice_x = np.shape(slice)[0]
+    slice_y = np.shape(slice)[1]
+    slice_z = np.shape(slice)[2]
 
-    nsmall = 1
-    while nsmall*nsmall*nsmall < threshold:
-        nsmall = nsmall + 1
+    bg = "template/ch2bet.nii.gz"
 
-    nlarge = nsmall + 2
+    if slice_x != 0:
+        plotting.plot_stat_map(stat_map_img=img, bg_img=bg, display_mode='x', cut_coords=slice_x,
+                               title="Similarity -sagittal", draw_cross=True, vmax=1)
+    if slice_y != 0:
+        plotting.plot_stat_map(stat_map_img=img, bg_img=bg, display_mode='y', cut_coords=slice_y,
+                               title="Similarity -coronal", draw_cross=True, vmax=1)
+    if slice_z != 0:
+        plotting.plot_stat_map(stat_map_img=img, bg_img=bg, display_mode='z', cut_coords=slice_z,
+                               title="Similarity -axial", draw_cross=True, vmax=1)
 
-    for i in range(sx-nlarge+1):
-        for j in range(sy-nlarge+1):
-            for k in range(sz-nlarge+1):
+    return 0
 
-                listlarge = list(np.reshape(img[i:i+nlarge, j:j+nlarge, k:k+nlarge], [nlarge*nlarge*nlarge]))
-                print(listlarge.count(0))
-                if listlarge.count(0) < nlarge*nlarge*nlarge:
-                    print(i, j, k)
-                    print("count:"+str(listlarge.count(0)))
-                    index1 = 0
-                    for l in range(nlarge):
-                        for m in range(nlarge):
-                            if img[i + l, j + m, k] == 0:
-                                index1 = index1 + 1
-                            if img[i + l, j + m, k + nlarge - 1] == 0:
-                                index1 = index1 + 1
-                    for l in range(nlarge-1):
-                        for m in range(nlarge-2):
-                            if img[i + l, j, k + m] == 0:
-                                index1 = index1 + 1
-                            if img[i, j + l + 1, k + m] == 0:
-                                index1 = index1 + 1
-                            if img[i + nlarge - 1, j + l, k + m] == 0:
-                                index1 = index1 + 1
-                            if img[i + l + 1, j + nlarge - 1, k + m] == 0:
-                                index1 = index1 + 1
-                    nex = nlarge * nlarge * nlarge - nsmall * nsmall * nsmall
-                    print("index1:"+str(index1))
-                    if index1 == nex:
-                        print("**************************")
-                        unit = img[i+1:i+1+nsmall, j+1:j+1+nsmall, k+1:k+1+nsmall]
-                        unit = np.reshape(unit, [nsmall*nsmall*nsmall])
-                        list_internal = list(unit)
-                        index2 = nsmall*nsmall*nsmall-list_internal.count(0)
-                        print(index1, index2)
-                        if index2 < threshold:
-                            img[i+1:i+1+nsmall, j]
-                            for l in range(nsmall):
-                                for m in range(nsmall):
-                                    for p in range(nsmall):
-                                        img[i+1:i+1+nsmall, j+1:j+1+nsmall, k+1:k+1+nsmall] = np.zeros([nsmall, nsmall, nsmall])
-    return img
+def plot_brainrsa_glass(img, threshold=None):
 
+    if threshold != None:
 
-roi_bg = "template/ch2.nii.gz"
-print(nib.load(roi_bg))
+        imgarray = nib.load(img).get_data()
+        affine = get_affine(img)
+
+        imgarray = correct_by_threshold(imgarray, threshold)
+
+        img = nib.Nifti1Image(imgarray, affine)
+
+    plotting.plot_glass_brain(img, colorbar=True, title="Similarity", black_bg=True, draw_cross=True, vmax=1)
+
+    plt.show()
+
+def plot_brainrsa_surface(img, threshold=None):
+
+    if threshold != None:
+
+        imgarray = nib.load(img).get_data()
+        affine = get_affine(img)
+
+        imgarray = correct_by_threshold(imgarray, threshold)
+
+        img = nib.Nifti1Image(imgarray, affine)
+
+    fsaverage = datasets.fetch_surf_fsaverage(mesh='fsaverage')
+    texture_left = surface.vol_to_surf(img, fsaverage.pial_left)
+    texture_right = surface.vol_to_surf(img, fsaverage.pial_right)
+    plotting.plot_surf_stat_map(fsaverage.pial_left, texture_left, hemi='left', threshold=0.1,
+                                bg_map=fsaverage.sulc_right, colorbar=True, vmax=1, darkness=0.7)
+    plotting.plot_surf_stat_map(fsaverage.pial_right, texture_right, hemi='right', threshold=0.1,
+                                bg_map=fsaverage.sulc_right, colorbar=True, vmax=1, darkness=0.7)
+    plotting.plot_surf_stat_map(fsaverage.pial_left, texture_right, hemi='right', threshold=0.1,
+                                bg_map=fsaverage.sulc_right, colorbar=True, vmax=1, darkness=0.7)
+    plotting.plot_surf_stat_map(fsaverage.pial_right, texture_left, hemi='left', threshold=0.1,
+                                bg_map=fsaverage.sulc_right, colorbar=True, vmax=1, darkness=0.7)
+
+    plt.show()
+
+def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6]):
+
+    if threshold != None:
+
+        imgarray = nib.load(img).get_data()
+        affine = get_affine(img)
+
+        imgarray = correct_by_threshold(imgarray, threshold)
+
+        img = nib.Nifti1Image(imgarray, affine)
+
+    plot_brainrsa_regions(img, threshold=None)
+
+    plot_brainrsa_montage(img, threshold=None, slice=slice)
+
+    plot_brainrsa_glass(img, threshold=None)
+
+    plot_brainrsa_surface(img, threshold=None)
+
