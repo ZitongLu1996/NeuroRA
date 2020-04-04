@@ -476,12 +476,12 @@ def fmriRDM_roi(fmri_data, mask_data):
                     n = n + 1
 
     data = np.zeros([ncons, nsubs, n], dtype=np.float)
-    n = 0
-    for i in range(nx):
-        for j in range(ny):
-            for k in range(nz):
-                for p in range(ncons):
-                    for q in range(nsubs):
+    for p in range(ncons):
+        for q in range(nsubs):
+            n = 0
+            for i in range(nx):
+                for j in range(ny):
+                    for k in range(nz):
                         if (mask_data[i, j, k] != 0) and (math.isnan(mask_data[i, j, k]) == False):
                             data[p, q, n] = fmri_data[p, q, i, j, k]
                             n = n + 1

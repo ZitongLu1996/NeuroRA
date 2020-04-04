@@ -10,10 +10,9 @@ import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
 from nilearn import plotting, datasets, surface
 import nibabel as nib
-from neurora.stuff import get_affine
-from neurora.stuff import correct_by_threshold
+from neurora.stuff import get_affine, correct_by_threshold, get_bg_ch2, get_bg_ch2bet
 
-def plot_rdm(rdm, rescale=False):
+def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12):
 
     if len(np.shape(rdm)) != 2:
 
@@ -25,9 +24,10 @@ def plot_rdm(rdm, rescale=False):
 
         return None
 
+    cons = rdm.shape[0]
+
     if rescale == True:
 
-        cons = rdm.shape[0]
         vrdm = np.reshape(rdm, [cons*cons])
         svrdm = set(vrdm)
         lvrdm = list(svrdm)
@@ -39,9 +39,9 @@ def plot_rdm(rdm, rescale=False):
                 if i != j:
                     rdm[i, j] = float((rdm[i, j]-minvalue)/(maxvalue-minvalue))
 
-    plt.imshow(rdm, cmap=plt.cm.jet, clim=(0, 1))
+    plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=plt.cm.jet, clim=(0, 1))
 
-    plt.axis("off")
+    #plt.axis("off")
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=16)
     font = {'size': 18}
@@ -49,9 +49,20 @@ def plot_rdm(rdm, rescale=False):
         cb.set_label("Dissimilarity (Rescaling)", fontdict=font)
     elif rescale == False:
         cb.set_label("Dissimilarity", fontdict=font)
+
+    if conditions != None:
+        print("1")
+        step = float(1/cons)
+        x = np.arange(0.5*step, cons*step-0.5*step, step)
+        y = np.arange(cons*step-0.5*step, 0.5*step, -step)
+        plt.xticks(x, conditions, fontsize=con_fontsize, rotation=30, ha="right")
+        plt.yticks(y, conditions, fontsize=con_fontsize)
+
     plt.show()
 
-def plot_rdm_withvalue(rdm, fontsize=10):
+def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12):
+
+    cons = rdm.shape[0]
 
     if len(np.shape(rdm)) != 2:
 
@@ -70,12 +81,20 @@ def plot_rdm_withvalue(rdm, fontsize=10):
     for i in range(a):
         for j in range(b):
             text = plt.text(i, j, float('%.4f'%rdm[i, j]),
-                           ha="center", va="center", color="blue", fontsize=fontsize)
+                           ha="center", va="center", color="blue", fontsize=value_fontsize)
 
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=16)
     font = {'size': 18}
     cb.set_label("Dissimilarity", fontdict=font)
+
+    if conditions != None:
+        print("1")
+        step = float(1/cons)
+        x = np.arange(0.5*step, cons*step-0.5*step, step)
+        y = np.arange(cons*step-0.5*step, 0.5*step, -step)
+        plt.xticks(x, conditions, fontsize=con_fontsize, rotation=30, ha="right")
+        plt.yticks(y, conditions, fontsize=con_fontsize)
 
     plt.show()
 
@@ -220,7 +239,7 @@ def plot_corrs_hotmap(eegcorrs, chllabels=[], time_unit=[0, 0.1], lim=[0, 1], sm
     plt.xlabel("Time (s)", fontsize=20)
     plt.show()
 
-def plot_brainrsa_regions(img, threshold=None):
+def plot_brainrsa_regions(img, threshold=None, background=get_bg_ch2()):
 
     if threshold != None:
 
@@ -231,13 +250,11 @@ def plot_brainrsa_regions(img, threshold=None):
 
         img = nib.Nifti1Image(imgarray, affine)
 
-    bg = os.path.abspath('./template/ch2.nii.gz')
-
-    plotting.plot_roi(roi_img=img, bg_img=bg, threshold=0, vmin=0.1, vmax=1, title="Similarity", resampling_interpolation="continuous")
+    plotting.plot_roi(roi_img=img, bg_img=background, threshold=0, vmin=0.1, vmax=1, title="Similarity", resampling_interpolation="continuous")
 
     plt.show()
 
-def plot_brainrsa_montage(img, threshold=None, slice=[6, 6, 6]):
+def plot_brainrsa_montage(img, threshold=None, slice=[6, 6, 6], background=get_bg_ch2bet()):
 
     if threshold != None:
 
@@ -252,13 +269,11 @@ def plot_brainrsa_montage(img, threshold=None, slice=[6, 6, 6]):
     slice_y = np.shape(slice)[1]
     slice_z = np.shape(slice)[2]
 
-    bg = os.path.abspath('./template/ch2bet.nii.gz')
-
     if slice_x != 0:
-        plotting.plot_stat_map(stat_map_img=img, bg_img=bg, display_mode='x', cut_coords=slice_x,
+        plotting.plot_stat_map(stat_map_img=img, bg_img=background, display_mode='x', cut_coords=slice_x,
                                title="Similarity -sagittal", draw_cross=True, vmax=1)
     if slice_y != 0:
-        plotting.plot_stat_map(stat_map_img=img, bg_img=bg, display_mode='y', cut_coords=slice_y,
+        plotting.plot_stat_map(stat_map_img=img, bg_img=background, display_mode='y', cut_coords=slice_y,
                                title="Similarity -coronal", draw_cross=True, vmax=1)
     if slice_z != 0:
         plotting.plot_stat_map(stat_map_img=img, bg_img=bg, display_mode='z', cut_coords=slice_z,
@@ -306,7 +321,7 @@ def plot_brainrsa_surface(img, threshold=None):
 
     plt.show()
 
-def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6]):
+def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6], background=None):
 
     if threshold != None:
 
@@ -317,13 +332,21 @@ def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6]):
 
         img = nib.Nifti1Image(imgarray, affine)
 
-    plot_brainrsa_regions(img, threshold=None)
+    if background == None:
 
-    plot_brainrsa_montage(img, threshold=None, slice=slice)
+        plot_brainrsa_regions(img, threshold=threshold)
 
-    plot_brainrsa_glass(img, threshold=None)
+        plot_brainrsa_montage(img, threshold=threshold, slice=slice)
 
-    plot_brainrsa_surface(img, threshold=None)
+        plot_brainrsa_glass(img, threshold=threshold)
 
-print(os.path.abspath('./template/ch2.nii.gz'))
+        plot_brainrsa_surface(img, threshold=threshold)
+
+    else:
+
+        plot_brainrsa_regions(img, threshold=threshold, background=background)
+
+        plot_brainrsa_montage(img, threshold=threshold, slice=slice, background=background)
+
+        plot_brainrsa_glass(img, threshold=threshold)
 

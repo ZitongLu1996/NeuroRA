@@ -6,6 +6,7 @@ __author__ = 'Zitong Lu'
 
 import nibabel as nib
 import numpy as np
+import os
 
 def limtozero(x):
     if x < 1e-15:
@@ -150,3 +151,11 @@ def correct_by_threshold(img, threshold):
     print("finished correction")
 
     return img
+
+def get_bg_ch2():
+
+    return os.path.abspath('./template/ch2.nii.gz')
+
+def get_bg_ch2bet():
+
+    return os.path.abspath('./template/ch2bet.nii.gz')

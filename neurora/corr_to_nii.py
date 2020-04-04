@@ -7,10 +7,10 @@ __author__ = 'Zitong Lu'
 import numpy as np
 import nibabel as nib
 import math
-from neurora.stuff import fwe_correct
-from neurora.stuff import fdr_correct
+from neurora.stuff import fwe_correct, fdr_correct
+from neurora.rsa_plot import plot_brainrsa_rlts
 
-def corr_save_nii(corrs, filename, affine, size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=1, r=0, similarity=0, distance=0, correct_method=None, correct_n=27):
+def corr_save_nii(corrs, filename, affine, size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=1, r=0, similarity=0, distance=0, correct_method=None, correct_n=27, plotrlt=True, img_background=None):
 
     nx = size[0]
     ny = size[1]
@@ -120,6 +120,10 @@ def corr_save_nii(corrs, filename, affine, size=[60, 60, 60], ksize=[3, 3, 3], s
     file = nib.Nifti1Image(newimg_nii, affine)
 
     nib.save(file, filename)
+
+    if plotrlt == True:
+
+        plot_brainrsa_rlts(file, background=img_background)
 
     print("File("+filename+") saves successfully!")
 
