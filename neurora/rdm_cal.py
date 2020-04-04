@@ -6,6 +6,7 @@ __author__ = 'Zitong Lu'
 
 import numpy as np
 from neurora.stuff import limtozero
+import math
 
 np.seterr(divide='ignore', invalid='ignore')
 
@@ -389,7 +390,7 @@ def ecogRDM(ele_data, time_win=5, opt="all"):
 def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
     # ksize=[kx, ky, kz] represents that the calculation unit contains k1*k2*k3 voxels
     # strides=[sx, sy, sz] represents the moving steps along the x, y, z
-    # the shape of fmri_rdm : [N_cons, N_subs, nx, ny, nz]
+    # the shape of fmri_data : [N_cons, N_subs, nx, ny, nz]
     # N_cons, N_subs, nx, ny, nz represent the number of conditions,
     # the number of subjects, the size of the fmri data
 
@@ -458,3 +459,40 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
     return rdms
 
+' a function for calculating the RDM based on fMRI data of a ROI '
+
+def fmriRDM_roi(fmri_data, mask_data):
+    # the shape of fmri_data : [N_cons, N_subs, nx, ny, nz]
+    # N_cons, N_subs, nx, ny, nz represent the number of conditions,
+    # the shape of mask_data : [nx, ny, nz]
+
+    ncons, nsubs, nx, ny, nz = fmri_data.shape
+
+    n = 0
+    for i in range(nx):
+        for j in range(ny):
+            for k in range(nz):
+                if (mask_data[i, j, k] != 0) and (math.isnan(mask_data[i, j, k]) == False):
+                    n = n + 1
+
+    data = np.zeros([ncons, nsubs, n], dtype=np.float)
+    n = 0
+    for i in range(nx):
+        for j in range(ny):
+            for k in range(nz):
+                for p in range(ncons):
+                    for q in range(nsubs):
+                        if (mask_data[i, j, k] != 0) and (math.isnan(mask_data[i, j, k]) == False):
+                            data[p, q, n] = fmri_data[p, q, i, j, k]
+                            n = n + 1
+
+    rdm = np.zeros([ncons, ncons], dtype=np.float)
+
+    data = np.reshape(data, [ncons, nsubs*n])
+
+    for i in range(ncons):
+        for j in range(ncons):
+            r = np.corrcoef(data[i], data[j])[0][1]
+            rdm[i, j] = limtozero(1 - abs(r))
+
+    return rdm

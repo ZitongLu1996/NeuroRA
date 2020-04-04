@@ -4,6 +4,7 @@
 
 __author__ = 'Zitong Lu'
 
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
@@ -230,7 +231,7 @@ def plot_brainrsa_regions(img, threshold=None):
 
         img = nib.Nifti1Image(imgarray, affine)
 
-    bg = "template/ch2.nii.gz"
+    bg = os.path.abspath('./template/ch2.nii.gz')
 
     plotting.plot_roi(roi_img=img, bg_img=bg, threshold=0, vmin=0.1, vmax=1, title="Similarity", resampling_interpolation="continuous")
 
@@ -251,7 +252,7 @@ def plot_brainrsa_montage(img, threshold=None, slice=[6, 6, 6]):
     slice_y = np.shape(slice)[1]
     slice_z = np.shape(slice)[2]
 
-    bg = "template/ch2bet.nii.gz"
+    bg = os.path.abspath('./template/ch2bet.nii.gz')
 
     if slice_x != 0:
         plotting.plot_stat_map(stat_map_img=img, bg_img=bg, display_mode='x', cut_coords=slice_x,
@@ -323,4 +324,6 @@ def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6]):
     plot_brainrsa_glass(img, threshold=None)
 
     plot_brainrsa_surface(img, threshold=None)
+
+print(os.path.abspath('./template/ch2.nii.gz'))
 
