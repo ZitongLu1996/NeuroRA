@@ -273,9 +273,9 @@ def plot_brainrsa_montage(img, threshold=None, slice=[6, 6, 6], background=get_b
 
         img = nib.Nifti1Image(imgarray, affine)
 
-    slice_x = np.shape(slice)[0]
-    slice_y = np.shape(slice)[1]
-    slice_z = np.shape(slice)[2]
+    slice_x = slice[0]
+    slice_y = slice[1]
+    slice_z = slice[2]
 
     if slice_x != 0:
         plotting.plot_stat_map(stat_map_img=img, bg_img=background, display_mode='x', cut_coords=slice_x,
