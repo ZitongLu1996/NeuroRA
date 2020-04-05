@@ -415,7 +415,8 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
                                 for j in range(subs):
 
                                     data[x, y, z, i, index, j] = fmri_data[i, j, x+k1, y+k2, z+k3]
-                                    index = index + 1
+
+                                index = index + 1
 
     data = np.reshape(data, [n_x, n_y, n_z, cons, kx*ky*kz*subs])
 
