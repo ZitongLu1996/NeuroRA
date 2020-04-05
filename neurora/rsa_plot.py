@@ -14,7 +14,9 @@ from neurora.stuff import get_affine, correct_by_threshold, get_bg_ch2, get_bg_c
 
 def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12):
 
-    if len(np.shape(rdm)) != 2:
+    if len(np.shape(rdm)[0]) != 2:
+
+        print("The shape of RDM cannot be 2*2. Here NeuroRA cannot plot this RDM.")
 
         return None
 
@@ -57,6 +59,8 @@ def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12):
         y = np.arange(cons*step-0.5*step, 0.5*step, -step)
         plt.xticks(x, conditions, fontsize=con_fontsize, rotation=30, ha="right")
         plt.yticks(y, conditions, fontsize=con_fontsize)
+    else:
+        plt.axis("off")
 
     plt.show()
 
@@ -64,7 +68,9 @@ def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12)
 
     cons = rdm.shape[0]
 
-    if len(np.shape(rdm)) != 2:
+    if len(np.shape(rdm)[0]) != 2:
+
+        print("The shape of RDM cannot be 2*2. Here NeuroRA cannot plot this RDM.")
 
         return None
 
@@ -95,6 +101,8 @@ def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12)
         y = np.arange(cons*step-0.5*step, 0.5*step, -step)
         plt.xticks(x, conditions, fontsize=con_fontsize, rotation=30, ha="right")
         plt.yticks(y, conditions, fontsize=con_fontsize)
+    else:
+        plt.axis("off")
 
     plt.show()
 

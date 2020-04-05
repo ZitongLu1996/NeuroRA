@@ -7,6 +7,7 @@ __author__ = 'Zitong Lu'
 import numpy as np
 from neurora.stuff import limtozero
 import math
+from scipy.stats import pearsonr
 
 np.seterr(divide='ignore', invalid='ignore')
 
@@ -39,7 +40,7 @@ def bhvRDM(bhv_data, sub_opt=0, data_opt=1):
 
         for i in range(cons):
             for j in range(cons):
-                r = np.corrcoef(bhv_data[i], bhv_data[j])[0][1]  # calculate the Pearson Coefficient
+                r = pearsonr(bhv_data[i], bhv_data[j])[0]  # calculate the Pearson Coefficient
                 rdm[i, j] = limtozero(1 - abs(r)) # calculate the dissimilarity
 
         return rdm
@@ -63,7 +64,7 @@ def bhvRDM(bhv_data, sub_opt=0, data_opt=1):
         for sub in subs:
             for i in range(cons):
                 for j in range(cons):
-                    r = np.corrcoef(bhv_data[i][sub], bhv_data[j][sub])[0][1]  # calculate the Pearson Coefficient
+                    r = pearsonr(bhv_data[i][sub], bhv_data[j][sub])[0]  # calculate the Pearson Coefficient
                     rdms[sub, i, j] = limtozero(1 - abs(r))  # calculate the dissimilarity
 
         return rdms
@@ -84,7 +85,7 @@ def bhvRDM(bhv_data, sub_opt=0, data_opt=1):
 
     for i in range(cons):
         for j in range(cons):
-            r = np.corrcoef(data[i], data[j])[0][1]  # calculate the Pearson Coefficient
+            r = pearsonr(data[i], data[j])[0]  # calculate the Pearson Coefficient
             rdm[i, j] = limtozero(1 - abs(r))  # calculate the dissimilarity
 
     return rdm
@@ -148,7 +149,7 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
                 for j in range(ts):
                     for k in range(cons):
                         for l in range(cons):
-                            r = np.corrcoef(data[i, j, k], data[i, j, l])[0][1]
+                            r = pearsonr(data[i, j, k], data[i, j, l])[0]
                             rdms[i, j, k, l] = limtozero(1 - abs(r))
 
             return rdms
@@ -171,7 +172,7 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
                 for j in range(chls):
                     for k in range(cons):
                         for l in range(cons):
-                            r = np.corrcoef(data[i, j, k], data[i, j, l])[0][1]
+                            r = pearsonr(data[i, j, k], data[i, j, l])[0]
                             rdms[i, j, k, l] = limtozero(1 - abs(r))
 
             return rdms
@@ -196,7 +197,7 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
 
                 for k in range(cons):
 
-                    r = np.corrcoef(data[i, j], data[i, k])[0][1]
+                    r = pearsonr(data[i, j], data[i, k])[0]
 
                     rdms[i, j, k] = limtozero(1 - abs(r))
 
@@ -236,7 +237,7 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
 
                 for k in range(cons):
 
-                    r = np.corrcoef(data[i, j], data[i, k])[0][1]
+                    r = pearsonr(data[i, j], data[i, k])[0]
 
                     rdms[i, j, k] = limtozero(1 - abs(r))
 
@@ -268,7 +269,7 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
 
                 for k in range(cons):
 
-                    r = np.corrcoef(data[i, j], data[i, k])[0][1]
+                    r = pearsonr(data[i, j], data[i, k])[0]
 
                     rdms[i, j, k] = limtozero(1 - abs(r))
 
@@ -296,7 +297,7 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
 
         for j in range(cons):
 
-            r = np.corrcoef(data[i], data[j])[0][1]
+            r = pearsonr(data[i], data[j])[0]
 
             rdm[i, j] = limtozero(1 - abs(r))
 
@@ -314,22 +315,6 @@ def ecogRDM(ele_data, time_win=5, opt="all"):
     # the number of trials, the number of channels, the number of time-points
 
     cons, trials, chls, ts = np.shape(ele_data)  #  get the number of conditins, trials, channels and time points
-
-    n_trials = []
-    n_chls = []
-    n_ts = []
-
-    for i in range(cons):
-
-        n_trials.append(np.shape(ele_data[i])[0])
-        n_chls.append(np.shape(ele_data[i])[1])
-        n_ts.append(np.shape(ele_data[i])[2])
-
-    if len(set(n_chls)) != 1:
-        return None
-
-    if len(set(n_ts)) != 1:
-        return None
 
     if opt == "channel":
 
@@ -351,7 +336,7 @@ def ecogRDM(ele_data, time_win=5, opt="all"):
 
                 for k in range(cons):
 
-                    r = np.corrcoef(data[i, j], data[i, k])[0][1]
+                    r = pearsonr(data[i, j], data[i, k])[0]
 
                     rdms[i, j, k] = limtozero(1 - abs(r))
 
@@ -379,7 +364,7 @@ def ecogRDM(ele_data, time_win=5, opt="all"):
 
                 for k in range(cons):
 
-                    r = np.corrcoef(data[i, j], data[i, k])[0][1]
+                    r = pearsonr(data[i, j], data[i, k])[0]
 
                     rdms[i, j, k] = limtozero(1 - abs(r))
 
@@ -404,14 +389,6 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
     sy = strides[1]
     sz = strides[2]
 
-    n_subs = []
-    n_trials = []
-
-    for i in range(cons):
-
-        n_subs.append(fmri_data[i][0])
-        n_trials.append(fmri_data[i][1])
-
     # calculate the number of the calculation units
     n_x = int((nx - kx) / sx)+1
     n_y = int((ny - ky) / sy)+1
@@ -427,6 +404,8 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
                 for i in range(cons):
 
+                    index = 0
+
                     for k1 in range(kx):
 
                         for k2 in range(ky):
@@ -435,7 +414,8 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
                                 for j in range(subs):
 
-                                    data[x, y, z, i, k1*kx+k2*ky+k3*ky, j] = fmri_data[i, j, x+k1, y+k2, z+k3]
+                                    data[x, y, z, i, index, j] = fmri_data[i, j, x+k1, y+k2, z+k3]
+                                    index = index + 1
 
     data = np.reshape(data, [n_x, n_y, n_z, cons, kx*ky*kz*subs])
 
@@ -451,7 +431,7 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
                     for j in range(cons):
 
-                        r = np.corrcoef(data[x, y, z, i], data[x, y, z, j])[0][1]
+                        r = pearsonr(data[x, y, z, i], data[x, y, z, j])[0]
 
                         rdms[x, y, z, i, j] = limtozero(1 - abs(r))
 
@@ -492,7 +472,7 @@ def fmriRDM_roi(fmri_data, mask_data):
 
     for i in range(ncons):
         for j in range(ncons):
-            r = np.corrcoef(data[i], data[j])[0][1]
+            r = pearsonr(data[i], data[j])[0]
             rdm[i, j] = limtozero(1 - abs(r))
 
     return rdm
