@@ -432,11 +432,13 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
                     for j in range(cons):
 
-                        r = pearsonr(data[x, y, z, i], data[x, y, z, j])[0]
+                        if (np.isnan(data[x, y, z, i]).any() == False) and (np.isnan(data[x, y, z, j]).any()):
 
-                        rdms[x, y, z, i, j] = limtozero(1 - abs(r))
+                            r = pearsonr(data[x, y, z, i], data[x, y, z, j])[0]
 
-                        print(rdms[x, y, z, i, j])
+                            rdms[x, y, z, i, j] = limtozero(1 - abs(r))
+
+                            print(rdms[x, y, z, i, j])
 
     return rdms
 
@@ -473,7 +475,8 @@ def fmriRDM_roi(fmri_data, mask_data):
 
     for i in range(ncons):
         for j in range(ncons):
-            r = pearsonr(data[i], data[j])[0]
-            rdm[i, j] = limtozero(1 - abs(r))
+            if (np.isnan(data[i]).any() == False) and (np.isnan(data[j]).any() == False):
+                r = pearsonr(data[i], data[j])[0]
+                rdm[i, j] = limtozero(1 - abs(r))
 
     return rdm

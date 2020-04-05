@@ -284,7 +284,7 @@ def plot_brainrsa_montage(img, threshold=None, slice=[6, 6, 6], background=get_b
         plotting.plot_stat_map(stat_map_img=img, bg_img=background, display_mode='y', cut_coords=slice_y,
                                title="Similarity -coronal", draw_cross=True, vmax=1)
     if slice_z != 0:
-        plotting.plot_stat_map(stat_map_img=img, bg_img=bg, display_mode='z', cut_coords=slice_z,
+        plotting.plot_stat_map(stat_map_img=img, bg_img=background, display_mode='z', cut_coords=slice_z,
                                title="Similarity -axial", draw_cross=True, vmax=1)
 
     return 0
