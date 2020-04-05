@@ -356,5 +356,5 @@ def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6], background=None):
 
         plot_brainrsa_montage(img, threshold=threshold, slice=slice, background=background)
 
-        plot_brainrsa_glass(img, threshold=threshold)
+        plot_brainrsa_surface(img, threshold=threshold)
 
