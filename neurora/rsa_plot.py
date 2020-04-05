@@ -14,7 +14,9 @@ from neurora.stuff import get_affine, correct_by_threshold, get_bg_ch2, get_bg_c
 
 def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12):
 
-    if len(np.shape(rdm)[0]) != 2:
+    cons = rdm.shape[0]
+
+    if cons == 2:
 
         print("The shape of RDM cannot be 2*2. Here NeuroRA cannot plot this RDM.")
 
@@ -25,8 +27,6 @@ def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12):
     if a != b:
 
         return None
-
-    cons = rdm.shape[0]
 
     if rescale == True:
 
@@ -68,7 +68,7 @@ def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12)
 
     cons = rdm.shape[0]
 
-    if len(np.shape(rdm)[0]) != 2:
+    if cons == 2:
 
         print("The shape of RDM cannot be 2*2. Here NeuroRA cannot plot this RDM.")
 
