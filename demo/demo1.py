@@ -16,6 +16,8 @@ from neurora.rdm_corr import rdm_correlation_spearman
 from neurora.corr_cal_by_rdm import rdms_corr
 from neurora.rsa_plot import plot_rdm
 from neurora.rsa_plot import plot_corrs_by_time
+from neurora.stuff import limtozero
+from scipy.stats import pearsonr
 
 
 """**********       Section 1: loading data and preprocessing        **********"""

@@ -108,24 +108,6 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
     cons, subs, trials, chls, ts = np.shape(EEG_data)  # get the number of conditions, subjects, trials,
                                                        # channels and time points
 
-    n_subs = []
-    n_trials = []
-    n_chls = []
-    n_ts = []
-
-    for i in range(cons):
-        n_subs.append(np.shape(EEG_data[i])[0])
-        n_trials.append(np.shape(EEG_data[i])[1])
-        n_chls.append(np.shape(EEG_data[i])[2])
-        n_ts.append(np.shape(EEG_data[i])[3])
-
-    if len(set(n_chls)) != 1:
-        return None
-
-    if len(set(n_ts)) != 1:
-        return None
-
-
     if sub_opt == 1:
 
         if time_opt == 1:
@@ -156,6 +138,8 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
 
         # if time_opt = 0
 
+        cons, subs, trials, chls, ts = np.shape(EEG_data)
+
         if chl_opt == 1:
 
             data = np.zeros([subs, chls, cons, ts], dtype=np.float64)
@@ -179,13 +163,15 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
 
         # if chl_opt = 0
 
+        cons, subs, trials, chls, ts = np.shape(EEG_data)
+
         data = np.zeros([subs, cons, chls, ts], dtype=np.float64)
 
         for i in range(subs):
             for j in range(cons):
                 for k in range(chls):
                     for l in range(ts):
-                        data[i, j, k, l] = np.average(EEG_data[j, i, :, k, j])
+                        data[i, j, k, l] = np.average(EEG_data[j, i, :, k, l])
 
         data = np.reshape(data, [subs, cons, chls*ts])
 
@@ -205,8 +191,7 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
 
     # if sub_opt = 0
 
-    if len(set(n_subs)) != 1:
-        return None
+    cons, subs, trials, chls, ts = np.shape(EEG_data)
 
     if time_opt == 1:
 
@@ -244,6 +229,7 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
         return rdms
 
     # if time_opt = 0
+    cons, subs, trials, chls, ts = np.shape(EEG_data)
 
     if chl_opt == 1:
 
@@ -277,6 +263,8 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
 
     # if chl_opt = 0
 
+    cons, subs, trials, chls, ts = np.shape(EEG_data)
+
     data = np.zeros([cons, subs, chls, ts], dtype=np.float64)
 
     for i in range(cons):
@@ -287,7 +275,7 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
 
                 for l in range(ts):
 
-                    data[i, j, k, l] = np.average(EEG_data[i, j, :, k, j])
+                    data[i, j, k, l] = np.average(EEG_data[i, j, :, k, l])
 
     data = np.reshape(data, [cons, subs * chls * ts])
 
@@ -299,7 +287,7 @@ def eegRDM(EEG_data, time_win=5, sub_opt=0, chl_opt=0, time_opt=0):
 
             r = pearsonr(data[i], data[j])[0]
 
-            rdm[i, j] = limtozero(1 - abs(r))
+            rdm[i, j] = limtozero(1 - np.abs(r))
 
     return rdm
 
@@ -364,7 +352,7 @@ def ecogRDM(ele_data, time_win=5, opt="all"):
 
                 for k in range(cons):
 
-                    r = pearsonr(data[i, j], data[i, k])[0]
+                    r = pearsonr(np.sort(data[i, j]), np.sort(data[i, k]))[0]
 
                     rdms[i, j, k] = limtozero(1 - abs(r))
 
