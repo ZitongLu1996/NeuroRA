@@ -8,6 +8,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
+from scipy import signal
 from nilearn import plotting, datasets, surface
 import nibabel as nib
 from neurora.stuff import get_affine, correct_by_threshold, get_bg_ch2, get_bg_ch2bet
@@ -172,12 +173,16 @@ def plot_corrs_by_time(corrs, labels=None, time_unit=[0, 0.1]):
 
     plt.show()
 
-def plot_corrs_hotmap(eegcorrs, chllabels=[], time_unit=[0, 0.1], lim=[0, 1], smooth=True):
+def plot_corrs_hotmap(eegcorrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], smooth=False, figsize=None, cmap=None):
     # eegcorrs represents the correlation coefficients time-by-time, its shape:
-    # [N_chls, ts, 2] or [N_chls, ts], N_chls: number of channels, ts: number of time points, 2: a r-value and a p-value
+    #       [N_chls, ts, 2] or [N_chls, ts], N_chls: number of channels, ts: number of time points, 2: a r-value and a p-value
     # chllabel represents the names of channels
     # time_unit=[start_t, t_step]
+    # lim=[lower, upper], which represent the upper limit and lower limit for plotting of the r-values.
     # smooth represents smoothing the results or not
+    # figsize represents the size of the figure,
+    #       such as figsize=[6.4, 4.8], if figsize=None, the size will be automatical.
+    # cmap represents the colormap of the figure (matplotlib's colormap)
 
     nchls = eegcorrs.shape[0]
     ts = eegcorrs.shape[1]
@@ -187,18 +192,21 @@ def plot_corrs_hotmap(eegcorrs, chllabels=[], time_unit=[0, 0.1], lim=[0, 1], sm
 
     end_t = start_t + ts * tstep
 
+    print(start_t, tstep, end_t)
+
     x = np.arange(start_t, end_t, tstep)
 
-    for i in range(nchls):
-        if i % 10 == 0 and i != 10:
-            newlabel = str(i+1) + "st"
-        elif i % 10 == 1 and i != 11:
-            newlabel = str(i+1) + "nd"
-        elif i % 10 == 2 and i != 12:
-            newlabel = str(i+1) + "rd"
-        else:
-            newlabel = str(i+1) + "th"
-        chllabels.append(newlabel)
+    if chllabels == None:
+        for i in range(nchls):
+            if i % 10 == 0 and i != 10:
+                newlabel = str(i+1) + "st"
+            elif i % 10 == 1 and i != 11:
+                newlabel = str(i+1) + "nd"
+            elif i % 10 == 2 and i != 12:
+                newlabel = str(i+1) + "rd"
+            else:
+                newlabel = str(i+1) + "th"
+            chllabels.append(newlabel)
 
     if smooth == True:
 
@@ -208,6 +216,9 @@ def plot_corrs_hotmap(eegcorrs, chllabels=[], time_unit=[0, 0.1], lim=[0, 1], sm
 
         y_soft = np.zeros([nchls, t])
 
+        samplerate = int(1 / tstep) * 50
+        b, a = signal.butter(4, 2*30/samplerate, 'lowpass')
+
         for i in range(nchls):
             if len(eegcorrs.shape) == 3:
                 f = interp1d(x, eegcorrs[i, :, 0], kind='cubic')
@@ -215,6 +226,7 @@ def plot_corrs_hotmap(eegcorrs, chllabels=[], time_unit=[0, 0.1], lim=[0, 1], sm
             elif len(eegcorrs.shape) == 2:
                 f = interp1d(x, eegcorrs[i, :], kind='cubic')
                 y_soft[i] = f(x_soft)
+                y_soft[i] = signal.filtfilt(b, a, y_soft[i])
 
         rlts = y_soft
 
@@ -226,12 +238,125 @@ def plot_corrs_hotmap(eegcorrs, chllabels=[], time_unit=[0, 0.1], lim=[0, 1], sm
 
     print(rlts.shape)
 
+    limmin = lim[0]
+    limmax = lim[1]
+    if cmap == None:
+        plt.imshow(rlts, extent=(start_t, end_t, 0, nchls*0.16), clim=(limmin, limmax), origin='low', cmap='inferno')
+    else:
+        plt.imshow(rlts, extent=(start_t, end_t, 0, nchls * 0.16), clim=(limmin, limmax), origin='low', cmap=cmap)
+
     fig = plt.gcf()
-    fig.set_size_inches(10, 3)
+    size = fig.get_size_inches()
+
+    if figsize == None:
+
+        size_x = ts*tstep*(size[0]-2)+2
+        size_y = nchls*0.2*(size[1]-1.5)+1.5
+
+    else:
+
+        size_x = figsize[0]
+        size_y = figsize[1]
+
+    fig.set_size_inches(size_x, size_y)
+
+    cb = plt.colorbar()
+    cb.ax.tick_params(labelsize=16)
+    font = {'size': 18}
+    cb.set_label("Similarity", fontdict=font)
+    xi = []
+    for i in range(nchls):
+        xi.append(0.16*i + 0.08)
+    yi = chllabels
+    plt.tick_params(labelsize=18)
+    plt.yticks(xi, yi, fontsize=18)
+    plt.ylabel("Channel", fontsize=20)
+    plt.xlabel("Time (s)", fontsize=20)
+    plt.show()
+
+def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], abs=False, smooth=False, figsize=None, cmap=None):
+    # eegcorrs represents the correlation coefficients time-by-time, its shape:
+    #       [N_chls, ts, 2] or [N_chls, ts], N_chls: number of channels, ts: number of time points, 2: a r-value and a p-value
+    # chllabel represents the names of channels
+    # time_unit=[start_t, t_step]
+    # lim=[lower, upper], which represent the upper limit and lower limit for plotting of the r-values.
+    # abs represents changing the similarities into absolute values or not
+    # smooth represents smoothing the results or not
+    # figsize represents the size of the figure,
+    #       such as figsize=[6.4, 4.8], if figsize=None, the size will be automatical.
+    # cmap represents the colormap of the figure (matplotlib's colormap)
+
+    if abs == True:
+        similarities = np.abs(similarities)
+
+    nchls = similarities.shape[0]
+    ts = similarities.shape[1]
+
+    start_t = time_unit[0]
+    tstep = time_unit[1]
+
+    end_t = start_t + ts * tstep
+
+    print(start_t, tstep, end_t)
+
+    x = np.arange(start_t, end_t, tstep)
+
+    if chllabels == None:
+        for i in range(nchls):
+            if i % 10 == 0 and i != 10:
+                newlabel = str(i + 1) + "st"
+            elif i % 10 == 1 and i != 11:
+                newlabel = str(i + 1) + "nd"
+            elif i % 10 == 2 and i != 12:
+                newlabel = str(i + 1) + "rd"
+            else:
+                newlabel = str(i + 1) + "th"
+            chllabels.append(newlabel)
+
+    if smooth == True:
+
+        t = ts * 50
+
+        x_soft = np.linspace(x.min(), x.max(), t)
+
+        y_soft = np.zeros([nchls, t])
+
+        samplerate = int(1 / tstep) * 50
+        b, a = signal.butter(4, 2*30/samplerate, 'lowpass')
+
+        for i in range(nchls):
+            f = interp1d(x, similarities[i, :], kind='cubic')
+            y_soft[i] = f(x_soft)
+            y_soft[i] = signal.filtfilt(b, a, y_soft[i])
+
+        rlts = y_soft
+
+    if smooth == False:
+        rlts = similarities
+
+    print(rlts.shape)
 
     limmin = lim[0]
     limmax = lim[1]
-    plt.imshow(rlts, extent=(float(start_t*nchls/3), float(end_t*nchls/3), 0, 0.16*nchls), clim=(limmin, limmax), origin='low')
+    if cmap == None:
+        plt.imshow(rlts, extent=(start_t, end_t, 0, nchls*0.16), clim=(limmin, limmax), origin='low')
+    else:
+        plt.imshow(rlts, extent=(start_t, end_t, 0, nchls * 0.16), clim=(limmin, limmax), origin='low', cmap=cmap)
+
+    fig = plt.gcf()
+    size = fig.get_size_inches()
+
+    if figsize == None:
+
+        size_x = ts*tstep*(size[0]-2)+2
+        size_y = nchls*0.2*(size[1]-1.5)+1.5
+
+    else:
+
+        size_x = figsize[0]
+        size_y = figsize[1]
+
+    fig.set_size_inches(size_x, size_y)
 
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=16)
