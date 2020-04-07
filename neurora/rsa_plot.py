@@ -304,6 +304,7 @@ def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1]
     x = np.arange(start_t, end_t, tstep)
 
     if chllabels == None:
+        chllabels = []
         for i in range(nchls):
             if i % 10 == 0 and i != 10:
                 newlabel = str(i + 1) + "st"

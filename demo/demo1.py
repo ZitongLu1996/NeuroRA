@@ -11,14 +11,15 @@ from pandas import read_csv
 import mne
 from mne.io import read_raw_fif
 from mne.datasets import visual_92_categories
+from neurora.nps_cal import nps
 from neurora.rdm_cal import eegRDM
 from neurora.rdm_corr import rdm_correlation_spearman
 from neurora.corr_cal_by_rdm import rdms_corr
 from neurora.rsa_plot import plot_rdm
-from neurora.rsa_plot import plot_corrs_by_time
+from neurora.rsa_plot import plot_corrs_by_time, plot_nps_hotmap
 
 
-"""**********       Section 1: loading data and preprocessing        **********"""
+"""**********       Section 1: loading example data        **********"""
 """ you can learn this process from MNE-Python (https://mne-tools.github.io/stable/index.html) """
 
 data_path = visual_92_categories.data_path()
@@ -55,7 +56,7 @@ for id in sub_id:
 
 
 
-"""**********       Section 2: Calculating single RDM and Plotting        **********"""
+"""**********       Section 2: Preprocessing        **********"""
 
 # shape of megdata: [n_subs, n_cons, n_chls, n_ts] -> [n_cons, n_subs, n_chls, n_ts]
 megdata = np.transpose(megdata, (1, 0, 2, 3))
@@ -63,6 +64,43 @@ megdata = np.transpose(megdata, (1, 0, 2, 3))
 # shape of megdata: [n_cons, n_subs, n_chls, n_ts] -> [n_cons, n_subs, n_trials, n_chls, n_ts]
 # here data is averaged, so set n_trials = 1
 megdata = np.reshape(megdata, [92, 3, 1, 306, 1101])
+
+
+
+"""**********       Section 2: Calculating the neural pattern similarity        **********"""
+
+# Get data under different condition
+# Here we calculate the neural pattern similarity (NPS) between two stimulus
+# Seeing Humanface vs. Seeing Non-Humanface
+
+# get data under "humanface" condtion
+megdata_humanface = megdata[12:24]
+# get data under "nonhumanface" condition
+megdata_nonhumanface = megdata[36:48]
+
+# Average the data
+avg_megdata_humanface = np.average(megdata_humanface, axis=0)
+avg_megdata_nonhumanface = np.average(megdata_nonhumanface, axis=0)
+
+# Create NPS input data
+# Here we extract the data from first 5 channels between 0ms and 1000ms
+NPS_data = np.zeros([2, 3, 1, 5, 1000]) # n_cons=2, n_subs=3, n_chls=5, n_ts=1000
+NPS_data[0] = avg_megdata_humanface[:, :, :5, 100:1100] # the start time of the data is -100ms
+NPS_data[1] = avg_megdata_nonhumanface[:, :, :5, 100:1100] # so 100:1200 corresponds 0ms-1000ms
+
+# Calculate the NPS with a 10ms time-window
+# (raw sampling requency is 1000Hz, so here time_win=10ms/(1s/1000Hz)/1000=10)
+NPS = nps(NPS_data, time_win=10)
+
+# Plot the NPS results
+plot_nps_hotmap(NPS, time_unit=[0, 0.01], abs=True)
+
+# Smooth the results and plot
+plot_nps_hotmap(NPS, time_unit=[0, 0.01], abs=True, smooth=True)
+
+
+
+"""**********       Section 3: Calculating single RDM and Plotting        **********"""
 
 # Calculate the RDM based on the data during 190ms-210ms
 rdm = eegRDM(megdata[:, :, :, :, 290:310])
@@ -72,7 +110,7 @@ plot_rdm(rdm, rescale=True)
 
 
 
-"""**********       Section 3: Calculating RDMs and Plotting       **********"""
+"""**********       Section 4: Calculating RDMs and Plotting       **********"""
 
 # Calculate the RDMs by a 10ms time-window
 # (raw sampling requency is 1000Hz, so here time_win=10ms/(1s/1000Hz)/1000=10)
@@ -85,7 +123,7 @@ for t in times:
 
 
 
-"""**********       Section 4: Calculating the Similarity between two RDMs     **********"""
+"""**********       Section 5: Calculating the Similarity between two RDMs     **********"""
 
 # RDM of 200ms
 rdm_sample1 = rdms[30]
@@ -98,7 +136,7 @@ print(corr)
 
 
 
-"""**********       Section 5: Calculating the Similarity and Plotting        **********"""
+"""**********       Section 6: Calculating the Similarity and Plotting        **********"""
 
 # Calculate the representational similarity between 200ms and all the time points
 corrs1 = rdms_corr(rdm_sample1, rdms)
