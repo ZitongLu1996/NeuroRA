@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ' a demo based on visual-92-categories-task MEG data '
-# Here, we use MNE-Python toolbox for loading data and processing
+# Users can learn how to use Neurora to do research based on EEG/MEG etc.
 
 __author__ = 'Zitong Lu'
 
@@ -20,6 +20,7 @@ from neurora.rsa_plot import plot_corrs_by_time, plot_nps_hotmap
 
 
 """**********       Section 1: loading example data        **********"""
+""" Here, we use MNE-Python toolbox for loading data and processing """
 """ you can learn this process from MNE-Python (https://mne-tools.github.io/stable/index.html) """
 
 data_path = visual_92_categories.data_path()

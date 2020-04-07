@@ -27,7 +27,7 @@ def nps(data, time_win=5, sub_opt=0):
 
     if sub_opt == 1:
 
-        nps = np.zeros([nsubs, ts, nchls])
+        nps = np.zeros([nsubs, nchls, ts])
 
         for sub in range(nsubs):
 
@@ -37,13 +37,13 @@ def nps(data, time_win=5, sub_opt=0):
                     data1 = avgdata[0, sub, i, j*time_win:j*time_win+time_win]
                     data2 = avgdata[1, sub, i, j*time_win:j*time_win+time_win]
 
-                    nps[sub, j, i] = pearsonr(data1, data2)[0]
+                    nps[sub, i, j] = pearsonr(data1, data2)[0]
 
         return nps
 
     # if sub_opt == 0
 
-    nps = np.zeros([ts, nchls])
+    nps = np.zeros([nchls, ts])
 
     for i in range(nchls):
         for j in range(ts):
@@ -54,6 +54,6 @@ def nps(data, time_win=5, sub_opt=0):
             data1 = np.reshape(data1, nsubs*time_win)
             data2 = np.reshape(data2, nsubs*time_win)
 
-            nps[j, i] = pearsonr(data1, data2)[0]
+            nps[i, j] = pearsonr(data1, data2)[0]
 
     return nps
