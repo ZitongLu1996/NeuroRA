@@ -16,8 +16,7 @@ from neurora.rdm_cal import eegRDM
 from neurora.rdm_corr import rdm_correlation_spearman
 from neurora.corr_cal_by_rdm import rdms_corr
 from neurora.rsa_plot import plot_rdm
-from neurora.rsa_plot import plot_corrs_by_time, plot_nps_hotmap
-
+from neurora.rsa_plot import plot_corrs_by_time, plot_nps_hotmap, plot_corrs_hotmap
 
 """**********       Section 1: loading example data        **********"""
 """ Here, we use MNE-Python toolbox for loading data and processing """
@@ -85,19 +84,19 @@ avg_megdata_nonhumanface = np.average(megdata_nonhumanface, axis=0)
 
 # Create NPS input data
 # Here we extract the data from first 5 channels between 0ms and 1000ms
-NPS_data = np.zeros([2, 3, 1, 5, 1000]) # n_cons=2, n_subs=3, n_chls=5, n_ts=1000
-NPS_data[0] = avg_megdata_humanface[:, :, :5, 100:1100] # the start time of the data is -100ms
-NPS_data[1] = avg_megdata_nonhumanface[:, :, :5, 100:1100] # so 100:1200 corresponds 0ms-1000ms
+nps_data = np.zeros([2, 3, 1, 5, 1000]) # n_cons=2, n_subs=3, n_chls=5, n_ts=1000
+nps_data[0] = avg_megdata_humanface[:, :, :5, 100:1100] # the start time of the data is -100ms
+nps_data[1] = avg_megdata_nonhumanface[:, :, :5, 100:1100] # so 100:1200 corresponds 0ms-1000ms
 
 # Calculate the NPS with a 10ms time-window
 # (raw sampling requency is 1000Hz, so here time_win=10ms/(1s/1000Hz)/1000=10)
-NPS = nps(NPS_data, time_win=10)
+nps = nps(nps_data, time_win=10)
 
 # Plot the NPS results
-plot_nps_hotmap(NPS, time_unit=[0, 0.01], abs=True)
+plot_nps_hotmap(nps, time_unit=[0, 0.01], abs=True)
 
 # Smooth the results and plot
-plot_nps_hotmap(NPS, time_unit=[0, 0.01], abs=True, smooth=True)
+plot_nps_hotmap(nps, time_unit=[0, 0.01], abs=True, smooth=True)
 
 
 
@@ -153,3 +152,31 @@ corrs[0] = corrs1
 corrs[1] = corrs2
 labels = ["by 200ms's data", "by 800ms's data"]
 plot_corrs_by_time(corrs, labels=labels, time_unit=[-0.1, 0.01])
+
+
+
+"""**********       Section 7: Calculating the RDMs for each channels        **********"""
+
+# Calculate the RDMs for the first six channels by a 10ms time-window between 0ms and 1000ms
+rdms_chls = eegRDM(megdata[:, :, :, :6, 100:1100], chl_opt=1, time_opt=1, time_win=10)
+print(rdms_chls.shape)
+
+# Create a 'human-related' coding model RDM
+model_rdm = np.ones([92, 92])
+for i in range(92):
+    for j in range(92):
+        if (i < 24) and (j < 24):
+            model_rdm[i, j] = 0
+    model_rdm[i, i] = 0
+
+# Plot this coding model RDM
+plot_rdm(model_rdm)
+
+# Calculate the representational similarity between the neural activities and the coding model for each channel
+corrs_chls = rdms_corr(model_rdm, rdms_chls)
+
+# Plot the representational similarity results
+plot_corrs_hotmap(corrs_chls, time_unit=[0, 0.01])
+
+# Set more parameters and re-plot
+plot_corrs_hotmap(corrs_chls, time_unit=[0, 0.01], lim=[-0.15, 0.15], smooth=True, cmap='bwr')

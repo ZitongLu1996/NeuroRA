@@ -13,7 +13,7 @@ from nilearn import plotting, datasets, surface
 import nibabel as nib
 from neurora.stuff import get_affine, correct_by_threshold, get_bg_ch2, get_bg_ch2bet
 
-def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12):
+def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12, cmap=None):
 
     cons = rdm.shape[0]
 
@@ -42,7 +42,10 @@ def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12):
                 if i != j:
                     rdm[i, j] = float((rdm[i, j]-minvalue)/(maxvalue-minvalue))
 
-    plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=plt.cm.jet, clim=(0, 1))
+    if cmap == None:
+        plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=plt.cm.jet, clim=(0, 1))
+    else:
+        plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=cmap, clim=(0, 1))
 
     #plt.axis("off")
     cb = plt.colorbar()
@@ -65,7 +68,7 @@ def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12):
 
     plt.show()
 
-def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12):
+def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12, cmap=None):
 
     cons = rdm.shape[0]
 
@@ -81,7 +84,10 @@ def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12)
 
         return None
 
-    plt.imshow(rdm, cmap=plt.cm.Greens, clim=(0, 1))
+    if cmap == None:
+        plt.imshow(rdm, cmap=plt.cm.Greens, clim=(0, 1))
+    else:
+        plt.imshow(rdm, cmap=cmap, clim=(0, 1))
 
     plt.axis("off")
 

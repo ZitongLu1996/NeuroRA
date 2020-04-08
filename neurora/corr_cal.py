@@ -18,7 +18,7 @@ from neurora.rdm_corr import rdm_distance
 np.seterr(divide='ignore', invalid='ignore')
 
 ' a function for calculating the Similarity/Correlation Coefficient between behavioral data and EEG/MEG/fNIRS data'
-def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, time_win=5, chl_opt=0, time_opt=0, method="spearman", rescale=False):
+def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, time_opt=0, time_win=5, method="spearman", rescale=False):
 
     subs = np.shape(bhv_data)[1]
     chls = np.shape(EEG_data)[3]
