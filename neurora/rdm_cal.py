@@ -264,7 +264,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5):
                         for m in range(time_win):
                             data[i, j, k, l, m] = np.average(EEG_data[j, k, :, l, i * time_win + m])
 
-        data = np.reshape(data, [ts, cons, subs * chls * ts])
+        data = np.reshape(data, [ts, cons, subs * chls * time_win])
 
         rdms = np.zeros([ts, cons, cons], dtype=np.float64)
 
