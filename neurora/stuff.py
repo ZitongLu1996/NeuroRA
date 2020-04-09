@@ -156,8 +156,8 @@ def correct_by_threshold(img, threshold):
 
 def get_bg_ch2():
 
-    return os.path.join(package_root, 'template/ch2.nii.gz')
+    return os.path.join(package_root, 'ch2.nii.gz')
 
 def get_bg_ch2bet():
 
-    return os.path.join(package_root, 'template/ch2bet.nii.gz')
+    return os.path.join(package_root, 'ch2bet.nii.gz')
