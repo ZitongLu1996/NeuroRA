@@ -35,7 +35,5 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Topic :: Software Development :: Libraries'
     ],
-    data_files=[
-        ('template', ['template/ch2.nii.gz', 'ch2bet.nii.gz'])
-    ],
+    package_data={'neurora', ['template/*.gz']},
 )
