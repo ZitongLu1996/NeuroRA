@@ -35,5 +35,5 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Topic :: Software Development :: Libraries'
     ],
-    package_data={'neurora', ['template/*.gz']},
+    package_data={'neurora': ['template/*.gz']},
 )
