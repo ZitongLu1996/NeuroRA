@@ -8,6 +8,8 @@ import nibabel as nib
 import numpy as np
 import os
 
+package_root = os.path.dirname(os.path.abspath(__file__))
+
 def limtozero(x):
     if x < 1e-15:
         x = 0
@@ -154,8 +156,8 @@ def correct_by_threshold(img, threshold):
 
 def get_bg_ch2():
 
-    return os.path.abspath('./template/ch2.nii.gz')
+    return os.path.join(package_root, './template/ch2.nii.gz')
 
 def get_bg_ch2bet():
 
-    return os.path.abspath('./template/ch2bet.nii.gz')
+    return os.path.abspath(package_root, './template/ch2bet.nii.gz')
