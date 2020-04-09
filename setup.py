@@ -36,6 +36,6 @@ setup(
         'Topic :: Software Development :: Libraries'
     ],
     data_files=[
-        'template', ['template/ch2.nii.gz', 'ch2bet.nii.gz']
+        ('template', ['template/ch2.nii.gz', 'ch2bet.nii.gz'])
     ],
 )
