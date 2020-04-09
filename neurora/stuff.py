@@ -160,4 +160,4 @@ def get_bg_ch2():
 
 def get_bg_ch2bet():
 
-    return os.path.abspath(package_root, './template/ch2bet.nii.gz')
+    return os.path.join(package_root, './template/ch2bet.nii.gz')
