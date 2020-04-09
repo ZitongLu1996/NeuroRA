@@ -4,7 +4,6 @@
 
 __author__ = 'Zitong Lu'
 
-import os
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
@@ -283,8 +282,8 @@ def plot_corrs_hotmap(eegcorrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], 
     plt.show()
 
 def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], abs=False, smooth=False, figsize=None, cmap=None):
-    # eegcorrs represents the correlation coefficients time-by-time, its shape:
-    #       [N_chls, ts, 2] or [N_chls, ts], N_chls: number of channels, ts: number of time points, 2: a r-value and a p-value
+    # similarities represents the correlation coefficients time-by-time, its shape:
+    #       [N_chls, ts], N_chls: number of channels, ts: number of time points
     # chllabel represents the names of channels
     # time_unit=[start_t, t_step]
     # lim=[lower, upper], which represent the upper limit and lower limit for plotting of the r-values.

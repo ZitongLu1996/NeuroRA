@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-' a module for calculating the neural pattern similarity (NPS) neural data '
+' a module for calculating the neural pattern similarity based neural data '
 
 __author__ = 'Zitong Lu'
 

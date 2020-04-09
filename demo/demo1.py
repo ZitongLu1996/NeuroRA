@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ' a demo based on visual-92-categories-task MEG data '
-# Users can learn how to use Neurora to do research based on EEG/MEG etc.
+# Users can learn how to use Neurora to do research based on EEG/MEG etc data.
 
 __author__ = 'Zitong Lu'
 
@@ -15,8 +15,7 @@ from neurora.nps_cal import nps
 from neurora.rdm_cal import eegRDM
 from neurora.rdm_corr import rdm_correlation_spearman
 from neurora.corr_cal_by_rdm import rdms_corr
-from neurora.rsa_plot import plot_rdm
-from neurora.rsa_plot import plot_corrs_by_time, plot_nps_hotmap, plot_corrs_hotmap
+from neurora.rsa_plot import plot_rdm, plot_corrs_by_time, plot_nps_hotmap, plot_corrs_hotmap
 
 """**********       Section 1: loading example data        **********"""
 """ Here, we use MNE-Python toolbox for loading data and processing """
@@ -46,7 +45,6 @@ for id in sub_id:
         epochs = mne.Epochs(raw, events=events, event_id=i + 1, baseline=None,
                             tmin=-0.1, tmax=1, preload=True)
         data = epochs.average().data
-        print(i, data.shape)
         subdata[i] = data
     megdata[subindex] = subdata
     subindex = subindex + 1
@@ -159,7 +157,6 @@ plot_corrs_by_time(corrs, labels=labels, time_unit=[-0.1, 0.01])
 
 # Calculate the RDMs for the first six channels by a 10ms time-window between 0ms and 1000ms
 rdms_chls = eegRDM(megdata[:, :, :, :6, 100:1100], chl_opt=1, time_opt=1, time_win=10)
-print(rdms_chls.shape)
 
 # Create a 'human-related' coding model RDM
 model_rdm = np.ones([92, 92])
