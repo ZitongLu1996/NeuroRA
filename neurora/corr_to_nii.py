@@ -10,7 +10,7 @@ import math
 from neurora.stuff import fwe_correct, fdr_correct
 from neurora.rsa_plot import plot_brainrsa_rlts
 
-def corr_save_nii(corrs, filename, affine, size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=1, r=0, similarity=0, distance=0, correct_method=None, correct_n=27, plotrlt=True, img_background=None):
+def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=1, r=0, similarity=0, distance=0, correct_method=None, correct_n=27, plotrlt=True, img_background=None):
 
     nx = size[0]
     ny = size[1]
@@ -112,6 +112,16 @@ def corr_save_nii(corrs, filename, affine, size=[60, 60, 60], ksize=[3, 3, 3], s
 
                 if mask[i, j, k] == 1:
                     newimg_nii[i, j, k] = float(img_nii[i, j, k]/index[i, j, k])
+
+    if corr_mask != None:
+
+        mask = nib.load(corr_mask).get_data()
+
+        for i in range(nx):
+            for j in range(ny):
+                for k in range(nz):
+                    if (math.isnan(mask[i, j, k]) == True) or mask[i, j, k] == 0:
+                        newimg_nii[i, j, k] = np.nan
 
     filename = filename+".nii"
 

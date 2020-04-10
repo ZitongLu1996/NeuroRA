@@ -17,7 +17,6 @@ def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12, cmap=None):
     cons = rdm.shape[0]
 
     if cons == 2:
-
         print("The shape of RDM cannot be 2*2. Here NeuroRA cannot plot this RDM.")
 
         return None
@@ -25,12 +24,11 @@ def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12, cmap=None):
     a, b = np.shape(rdm)
 
     if a != b:
-
         return None
 
     if rescale == True:
 
-        vrdm = np.reshape(rdm, [cons*cons])
+        vrdm = np.reshape(rdm, [cons * cons])
         svrdm = set(vrdm)
         lvrdm = list(svrdm)
         lvrdm.sort()
@@ -39,14 +37,14 @@ def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12, cmap=None):
         for i in range(cons):
             for j in range(cons):
                 if i != j:
-                    rdm[i, j] = float((rdm[i, j]-minvalue)/(maxvalue-minvalue))
+                    rdm[i, j] = float((rdm[i, j] - minvalue) / (maxvalue - minvalue))
 
     if cmap == None:
         plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=plt.cm.jet, clim=(0, 1))
     else:
         plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=cmap, clim=(0, 1))
 
-    #plt.axis("off")
+    # plt.axis("off")
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=16)
     font = {'size': 18}
@@ -57,9 +55,9 @@ def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12, cmap=None):
 
     if conditions != None:
         print("1")
-        step = float(1/cons)
-        x = np.arange(0.5*step, cons*step-0.5*step, step)
-        y = np.arange(cons*step-0.5*step, 0.5*step, -step)
+        step = float(1 / cons)
+        x = np.arange(0.5 * step, 1 + 0.5 * step, step)
+        y = np.arange(1 - 0.5 * step, -0.5 * step, -step)
         plt.xticks(x, conditions, fontsize=con_fontsize, rotation=30, ha="right")
         plt.yticks(y, conditions, fontsize=con_fontsize)
     else:
@@ -72,7 +70,6 @@ def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12,
     cons = rdm.shape[0]
 
     if cons == 2:
-
         print("The shape of RDM cannot be 2*2. Here NeuroRA cannot plot this RDM.")
 
         return None
@@ -80,21 +77,14 @@ def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12,
     a, b = np.shape(rdm)
 
     if a != b:
-
         return None
 
     if cmap == None:
-        plt.imshow(rdm, cmap=plt.cm.Greens, clim=(0, 1))
+        plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=plt.cm.Greens, clim=(0, 1))
     else:
-        plt.imshow(rdm, cmap=cmap, clim=(0, 1))
+        plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=cmap, clim=(0, 1))
 
-    plt.axis("off")
-
-    for i in range(a):
-        for j in range(b):
-            text = plt.text(i, j, float('%.4f'%rdm[i, j]),
-                           ha="center", va="center", color="blue", fontsize=value_fontsize)
-
+    # plt.axis("off")
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=16)
     font = {'size': 18}
@@ -102,13 +92,19 @@ def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12,
 
     if conditions != None:
         print("1")
-        step = float(1/cons)
-        x = np.arange(0.5*step, cons*step-0.5*step, step)
-        y = np.arange(cons*step-0.5*step, 0.5*step, -step)
+        step = float(1 / cons)
+        x = np.arange(0.5 * step, 1 + 0.5 * step, step)
+        y = np.arange(1 - 0.5 * step, -0.5 * step, -step)
         plt.xticks(x, conditions, fontsize=con_fontsize, rotation=30, ha="right")
         plt.yticks(y, conditions, fontsize=con_fontsize)
     else:
         plt.axis("off")
+
+    for i in range(cons):
+        for j in range(cons):
+            print(i, j)
+            text = plt.text(i * step + 0.5 * step, 1 - j * step - 0.5 * step, float('%.4f' % rdm[i, j]),
+                            ha="center", va="center", color="blue", fontsize=value_fontsize)
 
     plt.show()
 
@@ -433,8 +429,6 @@ def plot_brainrsa_montage(img, threshold=None, slice=[6, 6, 6], background=get_b
             plotting.plot_stat_map(stat_map_img=img, bg_img=background, display_mode='z', cut_coords=slice_z,
                                 title="Similarity -axial", draw_cross=True, vmax=1)
 
-        return 0
-
 def plot_brainrsa_glass(img, threshold=None):
 
     imgarray = nib.load(img).get_data()
@@ -455,7 +449,7 @@ def plot_brainrsa_glass(img, threshold=None):
 
         plotting.plot_glass_brain(img, colorbar=True, title="Similarity", black_bg=True, draw_cross=True, vmax=1)
 
-    plt.show()
+        plt.show()
 
 def plot_brainrsa_surface(img, threshold=None):
 
