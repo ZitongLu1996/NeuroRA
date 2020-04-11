@@ -123,7 +123,22 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
                     if (math.isnan(mask[i, j, k]) == True) or mask[i, j, k] == 0:
                         newimg_nii[i, j, k] = np.nan
 
-    filename = filename+".nii"
+    norlt = np.isnan(newimg_nii).all()
+
+    if filename == None:
+
+        filename = "rsa_result.nii"
+
+    else:
+
+        q = ".nii" in filename
+
+        if q == True:
+
+            filename = filename
+
+        else:
+            filename = filename+".nii"
 
     print(filename)
 
@@ -133,7 +148,13 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
 
     if plotrlt == True:
 
-        plot_brainrsa_rlts(file, background=img_background)
+        if norlt == True:
+
+            print("No RSA result.")
+
+        else:
+
+            plot_brainrsa_rlts(filename, background=img_background)
 
     print("File("+filename+") saves successfully!")
 
