@@ -7,6 +7,7 @@ __author__ = 'Zitong Lu'
 import nibabel as nib
 import numpy as np
 import os
+import math
 
 package_root = os.path.dirname(os.path.abspath(__file__))
 
@@ -161,3 +162,17 @@ def get_bg_ch2():
 def get_bg_ch2bet():
 
     return os.path.join(package_root, 'template/ch2bet.nii.gz')
+
+def datamask(fmri_data, mask_data):
+    nx, ny, nz = fmri_data.shape
+
+    newfmri_data = np.full([nx, ny, nz], np.nan)
+
+    for i in range(nx):
+        for j in range(ny):
+            for k in range(nz):
+
+                if (mask_data[i, j, k] != 0) and (math.isnan(mask_data[i, j, k]) is False):
+                    newfmri_data[i, j, k] = fmri_data[i, j, k]
+
+    return newfmri_data

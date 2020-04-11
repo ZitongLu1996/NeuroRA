@@ -476,7 +476,7 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
                     for j in range(cons):
 
-                        if (np.isnan(data[x, y, z, i]).any() == False) and (np.isnan(data[x, y, z, j]).any()):
+                        if (np.isnan(data[x, y, z, i]).any() == False) and (np.isnan(data[x, y, z, j]).any() == False):
 
                             r = pearsonr(data[x, y, z, i], data[x, y, z, j])[0]
 
