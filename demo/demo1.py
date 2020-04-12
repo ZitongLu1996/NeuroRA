@@ -66,7 +66,7 @@ megdata = np.reshape(megdata, [92, 3, 1, 306, 1101])
 
 
 
-"""**********       Section 2: Calculating the neural pattern similarity        **********"""
+"""**********       Section 3: Calculating the neural pattern similarity        **********"""
 
 # Get data under different condition
 # Here we calculate the neural pattern similarity (NPS) between two stimulus
@@ -99,7 +99,7 @@ plot_nps_hotmap(nps[:, :, 0], time_unit=[0, 0.01], abs=True, smooth=True)
 
 
 
-"""**********       Section 3: Calculating single RDM and Plotting        **********"""
+"""**********       Section 4: Calculating single RDM and Plotting        **********"""
 
 # Calculate the RDM based on the data during 190ms-210ms
 rdm = eegRDM(megdata[:, :, :, :, 290:310])
@@ -109,7 +109,7 @@ plot_rdm(rdm, rescale=True)
 
 
 
-"""**********       Section 4: Calculating RDMs and Plotting       **********"""
+"""**********       Section 5: Calculating RDMs and Plotting       **********"""
 
 # Calculate the RDMs by a 10ms time-window
 # (raw sampling requency is 1000Hz, so here time_win=10ms/(1s/1000Hz)/1000=10)
@@ -122,7 +122,7 @@ for t in times:
 
 
 
-"""**********       Section 5: Calculating the Similarity between two RDMs     **********"""
+"""**********       Section 6: Calculating the Similarity between two RDMs     **********"""
 
 # RDM of 200ms
 rdm_sample1 = rdms[30]
@@ -135,7 +135,7 @@ print(corr)
 
 
 
-"""**********       Section 6: Calculating the Similarity and Plotting        **********"""
+"""**********       Section 7: Calculating the Similarity and Plotting        **********"""
 
 # Calculate the representational similarity between 200ms and all the time points
 corrs1 = rdms_corr(rdm_sample1, rdms)
@@ -154,7 +154,7 @@ plot_corrs_by_time(corrs, labels=labels, time_unit=[-0.1, 0.01])
 
 
 
-"""**********       Section 7: Calculating the RDMs for each channels        **********"""
+"""**********       Section 8: Calculating the RDMs for each channels        **********"""
 
 # Calculate the RDMs for the first six channels by a 10ms time-window between 0ms and 1000ms
 rdms_chls = eegRDM(megdata[:, :, :, :6, 100:1100], chl_opt=1, time_opt=1, time_win=10)

@@ -117,7 +117,7 @@ plot_rdm(rdm_roi, rescale=True, conditions=categories)
 
 
 
-"""**********       Section 5: Calculating the RDM by Searchlight and Plotting        **********"""
+"""**********       Section 6: Calculating the RDM by Searchlight and Plotting        **********"""
 
 # calculate the RDMs by Searchlight
 fmri_RDMs = fmriRDM(fmri_data)
@@ -127,7 +127,7 @@ plot_rdm(fmri_RDMs[20, 30, 30], rescale=True, conditions=categories)
 
 
 
-"""**********       Section 6: Calculating the representational similarities       **********"""
+"""**********       Section 7: Calculating the representational similarities       **********"""
 """**********             between a coding model and neural activities           **********"""
 
 # Create a RDM for "animate-inanimate" coding model
@@ -149,7 +149,7 @@ corrs = fmrirdms_corr(model_RDM, fmri_RDMs)
 
 
 
-"""**********       Section 7: Saving the RSA result and Plotting       **********"""
+"""**********       Section 8: Saving the RSA result and Plotting       **********"""
 
 # load the filename of anatomical image as the background for plotting
 ant_filename = haxby_dataset.anat[0]

@@ -10,11 +10,19 @@
 
 **NeuroRA** is an easy-to-use toolbox based on **Python**, which can do some works about RSA among nearly all kinds of neural data, including **behavioral, EEG, MEG, fNIRS, ECoG, electrophysiological and fMRI data**.
 
+![ ](img/Overview.png)
+
+## Paper
+
+Lu, Z., & Ku, Y. NeuroRA: A Python toolbox of representational analysis from multi-modal neural data. (bioRxiv: https://doi.org/10.1101/2020.03.25.008086)
+
 ## Installation
+
 > pip install NeuroRA 
 
-## Documentation & How to Use
-You can read or download the [Tutorial here](https://zitonglu1996.github.io/NeuroRA/neurora/Tutorial.pdf).
+## Documentation
+
+You can read or download the **[Tutorial here](https://zitonglu1996.github.io/NeuroRA/neurora/Tutorial.pdf)**.
 
 ## Required Dependencies:
 - **[Numpy](http://www.numpy.org)**: a fundamental package for scientific computing
@@ -58,9 +66,47 @@ You can read or download the [Tutorial here](https://zitonglu1996.github.io/Neur
     ![ ](img/03.png)
     ![ ](img/04.png)
 
-## Paper
+## Script Demo to Know How to Use
 
-Lu, Z., & Ku, Y. NeuroRA: A Python toolbox of representational analysis from multi-modal neural data. (bioRxiv: https://doi.org/10.1101/2020.03.25.008086)
+There are two demos in Tutorial to let you know how to use NeuroRA to conduct representational analysis.
+
+- **Demo 1 for EEG/MEG**, based on visual-92-categories-task MEG dataset, includes 8 sections.
+
+    > **Section 1**: Loading example data
+    
+    > **Section 2**: Preprocessing
+    
+    > **Section 3**: Calculating the neural pattern similarity
+    
+    > **Section 4**: Calculating single RDM and Plotting
+    
+    > **Section 5**: Calculating RDMs and Plotting
+    
+    > **Section 6**: Calculating the Similarity between two RDMs
+    
+    > **Section 7**: Calculating the Similarity and Plotting
+    
+    > **Section 8**: Calculating the RDMs for each channels
+
+- **Demo 2 for fMRI**, based on Haxby dataset, includes 7 sections.
+
+    > **Section 1**: loading example data
+    
+    > **Section 2**: Preprocessing
+    
+    > **Section 3**: Calculating the neural pattern similarity (for ROI)
+    
+    > **Section 4**: Calculating the neural pattern similarity (Searchlight)
+    
+    > **Section 5**: Calculating the RDM for ROI and Plotting
+    
+    > **Section 6**: Calculating the RDM by Searchlight and Plotting
+    
+    > **Section 7**: Calculating the representational similarities between a coding model and neural activities
+    
+    > **Section 8**: Saving the RSA result and Plotting
+
+Users can see more details in [Tutorial](https://zitonglu1996.github.io/NeuroRA/neurora/Tutorial.pdf) and [Demo Codes](https://github.com/ZitongLu1996/NeuroRA/tree/master/demo).
 
 ## About NeuroRA
 
