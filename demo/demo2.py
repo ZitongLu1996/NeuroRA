@@ -14,9 +14,11 @@ from neurora.stuff import get_affine, datamask
 from neurora.nps_cal import nps_fmri, nps_fmri_roi
 from neurora.rsa_plot import plot_rdm
 from neurora.rdm_cal import fmriRDM_roi, fmriRDM
+from neurora.corr_cal_by_rdm import fmrirdms_corr
 from neurora.corr_to_nii import corr_save_nii
 
-"""**********       Section 1: loading example data        **********"""
+
+"""**********       Section 1: Loading example data        **********"""
 """ Here, we use Nilearn toolbox for loading data and processing """
 """ you can learn this process from Nilearn (http://nilearn.github.io/index.html) """
 
@@ -61,6 +63,8 @@ face_img = nib.Nifti1Image(fmri_data[0], affine=img.affine)
 plotting.plot_epi(face_img)
 plotting.show()
 
+# reshaoe the data: [ncon, nx, ny, nz] -> [ncon, nsubs, nx, ny, nz]
+# here just one subject's data
 fmri_data = np.reshape(fmri_data, [ncon, 1, nx, ny, nz])
 
 
@@ -78,6 +82,7 @@ nps_fmri_data = fmri_data[[0, 6]]
 # calculate the neural pattern similarity (NPS) for ROI between two stimulus
 nps_roi = nps_fmri_roi(nps_fmri_data, mask_face_data)
 
+# print the NPS result
 print(nps_roi)
 
 
@@ -118,5 +123,48 @@ plot_rdm(rdm_roi, rescale=True, conditions=categories)
 fmri_RDMs = fmriRDM(fmri_data)
 
 # plot one of the RDMs
-print(fmri_RDMs[20, 30, 30])
 plot_rdm(fmri_RDMs[20, 30, 30], rescale=True, conditions=categories)
+
+
+
+"""**********       Section 6: Calculating the representational similarities       **********"""
+"""**********             between a coding model and neural activities           **********"""
+
+# Create a RDM for "animate-inanimate" coding model
+# which means the representations of animate matters are highly similar
+# and the representations of inanimate matters are highly similar
+model_RDM = np.array([[0, 0, 1, 1, 1, 1, 1],
+                      [0, 0, 1, 1, 1, 1, 1],
+                      [1, 1, 0, 0, 0, 0, 0],
+                      [1, 1, 0, 0, 0, 0, 0],
+                      [1, 1, 0, 0, 0, 0, 0],
+                      [1, 1, 0, 0, 0, 0, 0],
+                      [1, 1, 0, 0, 0, 0, 0]])
+
+# plot the model RDM
+plot_rdm(model_RDM, conditions=categories)
+
+# calculate the similarities between model RDM and searchlight RDMs
+corrs = fmrirdms_corr(model_RDM, fmri_RDMs)
+
+
+
+"""**********       Section 7: Saving the RSA result and Plotting       **********"""
+
+# load the filename of anatomical image as the background for plotting
+ant_filename = haxby_dataset.anat[0]
+
+# get the affine info
+affine = get_affine(mask_filename)
+
+# save the RSA result as a .nii file
+# and visualize the result automatically
+# p < 0.05, FDR-correct
+rsarltfilename = "demo2_rsarlt_img"
+img = corr_save_nii(corrs, filename=rsarltfilename, affine=affine, corr_mask=mask_filename, size=[40, 64, 64], p=0.05, plotrlt=True, img_background=ant_filename, correct_method="FDR")
+
+# Users can plot the RSA results independently by functions below
+# >> from neurora.rsa_plot import plot_brainrsa_regions
+# >> from neurora.rsa_plot import plot_brainrsa_montage
+# >> from neurora.rsa_plot import plot_brainrsa_glass
+# >> from neurora.rsa_plot import plot_brainrsa_surface

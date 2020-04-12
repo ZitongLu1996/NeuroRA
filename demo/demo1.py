@@ -17,6 +17,7 @@ from neurora.rdm_corr import rdm_correlation_spearman
 from neurora.corr_cal_by_rdm import rdms_corr
 from neurora.rsa_plot import plot_rdm, plot_corrs_by_time, plot_nps_hotmap, plot_corrs_hotmap
 
+
 """**********       Section 1: loading example data        **********"""
 """ Here, we use MNE-Python toolbox for loading data and processing """
 """ you can learn this process from MNE-Python (https://mne-tools.github.io/stable/index.html) """

@@ -72,9 +72,9 @@ def nps_fmri(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
     ky = ksize[1]
     kz = ksize[2]
 
-    sx = ksize[0]
-    sy = ksize[1]
-    sz = ksize[2]
+    sx = strides[0]
+    sy = strides[1]
+    sz = strides[2]
 
     # calculate the number of the calculation units
     n_x = int((nx - kx) / sx) + 1
@@ -104,8 +104,8 @@ def nps_fmri(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
     for x in range(n_x):
         for y in range(n_y):
             for z in range(n_z):
-
-                nps[x, y, z] = np.abs(pearsonr(data[x, y, z, 0], data[x, y, z, 1]))
+                if (np.isnan(data[x, y, z, 0]).any() == False) and (np.isnan(data[x, y, z, 1]).any() == False):
+                    nps[x, y, z] = np.abs(pearsonr(data[x, y, z, 0], data[x, y, z, 1]))
 
     return nps
 
