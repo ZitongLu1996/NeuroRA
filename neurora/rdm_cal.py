@@ -12,23 +12,55 @@ from scipy.stats import pearsonr
 np.seterr(divide='ignore', invalid='ignore')
 
 ' a function for calculating the RDM based on behavioral data '
+
 def bhvRDM(bhv_data, sub_opt=0, data_opt=1):
-    # sub_opt : 0 : return only one rdm
-    #           1 : each subject obtains a rdm
-    # data_opt : 1 : for raw data, each subject's each trial has a value of data
-    #            0 : each subject has had a value of data, ignore the effect of trials
 
-    cons = len(bhv_data)  # get the number of conditions
+    """
+    Calculate the Representational Dissimilarity Matrix(Matrices) - RDM(s) for behavioral data
 
-    n_subs = []  # save the number of subjects of each condition
+    Parameters
+    ----------
+    bhv_data : array
+        The behavioral data.
+        If data_opt=0, the shape must be [n_cons, n_subs].
+        If data_opt=1, the shape of bhv_data must be [n_cons, n_subs, n_trials].
+        n_cons, n_subs & n_trials represent the number of conidtions, the number of subjects & the number of trials,
+        respectively.
+    sub_opt : int 0 or 1. Default is 0.
+        Calculate the RDM for each subject or not.
+        If sub_opt=0, return only one RDM based on all data.
+        If sub_opt=1, return n_subs RDMs based on each subject's data
+    data_opt : int 0 or 1. Default if 0.
+        Select the type of input data, ignoring the effect of trials or not.
+        If data_opt=0, one subejct under one conditions relates to one value, ignoring the effect of trials.
+        If data_opt=1, each trial relates to a value.
+
+    Returns
+    -------
+    RDM(s) : array
+        The behavioral RDM.
+        If sub_opt=0, return only one RDM. The shape is [n_cons, n_cons].
+        If sub_opt=1, return n_subs RDMs. The shape is [n_subs, n_cons, n_cons].
+
+    Notes
+    -----
+    This function can also be used to calculate the RDM for computational simulation data
+    """
+
+    # get the number of conditions & the number of subjects
+    cons = len(bhv_data)
+
+    # get the number of conditions
+    n_subs = []
 
     for i in range(cons):
         n_subs.append(np.shape(bhv_data[i])[0])
 
     subs = n_subs[0]
 
-    if data_opt == 0:   # shape of bhv_data: [N_cons, N_subs]
-                        # N_cons & N_subs represent the number of conditions & the number of subjects
+    # data_opt=0
+    # shape of bhv_data: [n_cons, n_subs]
+    if data_opt == 0:
 
         if sub_opt == 1:
             return None
@@ -36,129 +68,203 @@ def bhvRDM(bhv_data, sub_opt=0, data_opt=1):
         if len(set(n_subs)) != 1:
             return None
 
+        # data_opt=0 & sub_opt=0
+
+        # initialize a RDM
         rdm = np.zeros([cons, cons], dtype=np.float64)
 
+        # calculate the values in RDM
         for i in range(cons):
             for j in range(cons):
-                r = pearsonr(bhv_data[i], bhv_data[j])[0]  # calculate the Pearson Coefficient
-                rdm[i, j] = limtozero(1 - abs(r)) # calculate the dissimilarity
+                # calculate the Pearson Coefficient
+                r = pearsonr(bhv_data[i], bhv_data[j])[0]
+                # calculate the dissimilarity
+                rdm[i, j] = limtozero(1 - abs(r))
 
         return rdm
 
-    # if data_opt=1
-                      # shape of bhv_data: [N_cons, N_subs, N_trials]
-                      # N_cons, N_subs, N_trials represent the number of conditions, the number of subjects,
-                      # the number of trials, respectively
-    n_trials = []  # save the number of trials of each condition
+    # data_opt=1
+    # shape of bhv_data: [N_cons, N_subs, N_trials]
+
+    # save the number of trials of each condition
+    n_trials = []
 
     for i in range(cons):
         n_trials.append(np.shape(bhv_data[i])[1])
 
-    if len(set(n_trials)) != 1:  # judge whether numbers of trials of different conditions are same
+    # save the number of trials of each condition
+    if len(set(n_trials)) != 1:
             return None
+
+    # data_opt=1 & sub_opt=1
 
     if sub_opt == 1:
 
+        # initialize the RDMs
         rdms = np.zeros([subs, cons, cons], dtype=np.float64)
 
+        # calculate the values in RDMs
         for sub in subs:
             for i in range(cons):
                 for j in range(cons):
-                    r = pearsonr(bhv_data[i][sub], bhv_data[j][sub])[0]  # calculate the Pearson Coefficient
-                    rdms[sub, i, j] = limtozero(1 - abs(r))  # calculate the dissimilarity
+                    # calculate the Pearson Coefficient
+                    r = pearsonr(bhv_data[i][sub], bhv_data[j][sub])[0]
+                    # calculate the dissimilarity
+                    rdms[sub, i, j] = limtozero(1 - abs(r))
 
         return rdms
 
+    # data_opt=1 & sub_opt=0
 
-    # if sub_opt=0
+    # initialize the RDM
+    rdm = np.zeros([cons, cons], dtype=np.float64)
 
-    rdm = np.zeros([cons, cons], dtype=np.float64)  # initialize a con*con matrix as the rdm
-
-    if len(set(n_subs)) != 1:  # judge whether numbers of trials of different conditions are same
+    # judge whether numbers of trials of different conditions are same
+    if len(set(n_subs)) != 1:
         return None
 
+    # initialize the data for calculating the RDM
     data = np.zeros([cons, subs], dtype=np.float64)
 
+    # assignment
     for i in range(cons):
         for j in range(subs):
-            data[i][j] = np.average(bhv_data[i][j])  # save the data for each subject under each condition, average the trials
+            # save the data for each subject under each condition, average the trials
+            data[i][j] = np.average(bhv_data[i][j])
 
+    # calculate the values in RDM
     for i in range(cons):
         for j in range(cons):
-            r = pearsonr(data[i], data[j])[0]  # calculate the Pearson Coefficient
-            rdm[i, j] = limtozero(1 - abs(r))  # calculate the dissimilarity
+            # calculate the Pearson Coefficient
+            r = pearsonr(data[i], data[j])[0]
+            # calculate the dissimilarity
+            rdm[i, j] = limtozero(1 - abs(r))
 
     return rdm
 
 ' a function for calculating the RDM based on EEG/MEG/fNIRS data '
 
 def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5):
-    # shape of EEG_data: [n_cons, n_subs,_n_trials, n_chls, n_ts]
-    # n_cons, n_subs, n_trials, n_chls, n_frqs, n_ts represent the number of
-    # the conditions, subjects, trials, channels, frequencies and time-points
-    # sub_opt : 0 : return only one rdm
-    #           1 : each subject obtains a rdm
-    # chl_opt : 0 : consider all the channels
-    #           1 : each channel obtains a rdm
-    # time_opt : 0 : consider the time sequence
-    #            1 : each time-point obtains a rdm
-    # time_win : the time-window, if time_win=5, that means each calculation process bases on 5 time points
-    #            this is also a processing of downsampling
 
-    cons, subs, trials, chls, ts = np.shape(EEG_data)  # get the number of conditions, subjects, trials,
-    # channels and time points
+    """
+    Calculate the Representational Dissimilarity Matrix(Matrices) - RDM(s) for EEG/MEG/fNIRS data
+
+    Parameters
+    ----------
+    eeg_data : array
+        The EEG/MEG/fNIRS data.
+        The shape of EEGdata must be [n_cons, n_subs, n_trials, n_chls, n_ts].
+        n_cons, n_subs, n_trials, n_chls & n_ts represent the number of conidtions, the number of subjects, the number
+        of trials, the number of channels & the number of time-points, respectively.
+    sub_opt : int 0 or 1. Default is 0.
+        Calculate the RDM for each subject or not.
+        If sub_opt=0, return only one RDM based on all data.
+        If sub_opt=1, return n_subs RDMs based on each subject's data
+    chl_opt : int 0 or 1. Default is 0.
+        Calculate the RDM for each channel or not.
+        If chl_opt=0, calculate the RDM based on all channels'data.
+        If chl_opt=1, calculate the RDMs based on each channel's data respectively.
+    time_opt : int 0 or 1. Default is 0.
+        Calculate the RDM for each time-point
+        If time_opt=0, calculate the RDM based on whole time-points' data.
+        If time_opt=1, calculate the RDMs based on each time-points respectively.
+    time_win : int. Default is 5.
+        Set a time-window for calculating the RDM for different time-points.
+        If time_win=5, that means each calculation process based on 5 time-points.
+        This is also a processing of downsampling.
+
+    Returns
+    -------
+    RDM(s) : array
+        The EEG/MEG/fNIR RDM.
+        If sub_opt=0 & chl_opt=0 & time_opt=0, return only one RDM.
+            The shape is [n_cons, n_cons].
+        If sub_opt=0 & chl_opt=0 & time_opt=1, return int(n_ts/time_win) RDM.
+            The shape is [int(n_ts/time_win), n_cons, n_cons].
+        If sub_opt=0 & chl_opt=1 & time_opt=0, return n_chls RDM.
+            The shape is [n_chls, n_cons, n_cons].
+        If sub_opt=0 & chl_opt=1 & time_opt=1, return n_chls*int(n_ts/time_win) RDM.
+            The shape is [n_chls, int(n_ts/time_win), n_cons, n_cons].
+        If sub_opt=1 & chl_opt=0 & time_opt=0, return n_subs RDM.
+            The shape is [n_subs, n_cons, n_cons].
+        If sub_opt=1 & chl_opt=0 & time_opt=1, return n_subs*int(n_ts/time_win) RDM.
+            The shape is [n_subs, int(n_ts/time_win), n_cons, n_cons].
+        If sub_opt=1 & chl_opt=1 & time_opt=0, return n_subs*n_chls RDM.
+            The shape is [n_subs, n_chls, n_cons, n_cons].
+        If sub_opt=1 & chl_opt=1 & time_opt=1, return n_subs*n_chls*int(n_ts/time_win) RDM.
+            The shape is [n_subs, n_chls, int(n_ts/time_win), n_cons, n_cons].
+    """
+
+    # get the number of conditions, subjects, trials, channels and time points
+    cons, subs, trials, chls, ts = np.shape(EEG_data)
 
     if sub_opt == 1:
 
         if time_opt == 1:
 
+            # the time-points for calculating RDM
             ts = int(ts / time_win)
 
             if chl_opt == 1:
 
                 # sub_opt=1 & time_opt=1 & chl_opt=1
 
+                # initialize the data for calculating the RDM
                 data = np.zeros([subs, chls, ts, cons, time_win], dtype=np.float64)
 
+                # assignment
                 for i in range(subs):
                     for j in range(chls):
                         for k in range(ts):
                             for l in range(cons):
                                 for m in range(time_win):
+                                    # average the trials
                                     data[i, j, k, l, m] = np.average(EEG_data[l, i, :, j, k * time_win + m])
 
+                # initialize the RDMs
                 rdms = np.zeros([subs, chls, ts, cons, cons], dtype=np.float64)
 
+                # calculate the values in RDMs
                 for i in range(subs):
                     for j in range(chls):
                         for k in range(ts):
                             for l in range(cons):
                                 for m in range(cons):
+                                    # calculate the Pearson Coefficient
                                     r = pearsonr(data[i, j, k, l], data[i, j, k, m])[0]
+                                    # calculate the dissimilarity
                                     rdms[i, j, k, l, m] = limtozero(1 - abs(r))
 
                 return rdms
 
             # sub_opt=1 & time_opt=1 & chl_opt=0
 
+            # initialize the data for calculating the RDM
             data = np.zeros([subs, ts, cons, chls, time_win], dtype=np.float64)
 
+            # assignment
             for i in range(subs):
                 for j in range(ts):
                     for k in range(cons):
                         for l in range(chls):
                             for m in range(time_win):
+                                # average the trials
                                 data[i, j, k, l, m] = np.average(EEG_data[k, i, :, l, j * time_win + m])
 
+            # flatten the data for different calculating conditions
             data = np.reshape(data, [subs, ts, cons, chls * time_win])
 
+            # initialize the RDMs
             rdms = np.zeros([subs, ts, cons, cons], dtype=np.float64)
 
+            # calculate the values in RDMs
             for i in range(subs):
                 for j in range(ts):
                     for k in range(cons):
                         for l in range(cons):
+                            # calculate the Pearson Coefficient
                             r = pearsonr(data[i, j, k], data[i, j, l])[0]
+                            # calculate the dissimilarity
                             rdms[i, j, k, l] = limtozero(1 - abs(r))
 
             return rdms
@@ -171,21 +277,28 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5):
 
             # sub_opt=1 & time_opt=0 & chl_opt=1
 
+            # initialize the data for calculating the RDM
             data = np.zeros([subs, chls, cons, ts], dtype=np.float64)
 
+            # assignment
             for i in range(subs):
                 for j in range(chls):
                     for k in range(cons):
                         for l in range(ts):
+                            # average the trials
                             data[i, j, k, l] = np.average(EEG_data[k, i, :, j, l])
 
+            # initialize the RDMs
             rdms = np.zeros([subs, chls, cons, cons], dtype=np.float64)
 
+            # calculate the values in RDMs
             for i in range(subs):
                 for j in range(chls):
                     for k in range(cons):
                         for l in range(cons):
+                            # calculate the Pearson Coefficient
                             r = pearsonr(data[i, j, k], data[i, j, l])[0]
+                            # calculate the dissimilarity
                             rdms[i, j, k, l] = limtozero(1 - abs(r))
 
             return rdms
@@ -194,25 +307,30 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5):
 
         # sub_opt=1 & time_opt=0 & chl_opt=0
 
+        # initialize the data for calculating the RDM
         data = np.zeros([subs, cons, chls, ts], dtype=np.float64)
 
+        # assignment
         for i in range(subs):
             for j in range(cons):
                 for k in range(chls):
                     for l in range(ts):
+                        # average the trials
                         data[i, j, k, l] = np.average(EEG_data[j, i, :, k, l])
 
+        # flatten the data for different calculating conditions
         data = np.reshape(data, [subs, cons, chls * ts])
 
+        # initialize the RDMs
         rdms = np.zeros([subs, cons, cons], dtype=np.float64)
 
+        # calculate the values in RDMs
         for i in range(subs):
-
             for j in range(cons):
-
                 for k in range(cons):
+                    # calculate the Pearson Coefficient
                     r = pearsonr(data[i, j], data[i, k])[0]
-
+                    # calculate the dissimilarity
                     rdms[i, j, k] = limtozero(1 - abs(r))
 
         return rdms
@@ -221,60 +339,70 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5):
 
     if time_opt == 1:
 
+        # the time-points for calculating RDM
         ts = int(ts / time_win)
 
         if chl_opt == 1:
 
             # sub_opt=0 & time_opt=1 & chl_opt=1
 
+            # initialize the data for calculating the RDM
             data = np.zeros([chls, ts, cons, subs, time_win], dtype=np.float64)
 
+            # assignment
             for i in range(chls):
                 for j in range(ts):
                     for k in range(cons):
                         for l in range(subs):
                             for m in range(time_win):
+                                # average the trials
                                 data[i, j, k, l, m] = np.average(EEG_data[k, l, :, i, j * time_win + m])
 
+            # flatten the data for different calculating conditions
             data = np.reshape(data, [chls, ts, cons, subs * time_win])
 
+            # initialize the RDMs
             rdms = np.zeros([chls, ts, cons, cons], dtype=np.float64)
 
+            # calculate the values in RDMs
             for i in range(chls):
                 for j in range(ts):
                     for k in range(cons):
                         for l in range(cons):
+                            # calculate the Pearson Coefficient
                             r = pearsonr(data[i, j, k], data[i, j, l])[0]
+                            # calculate the dissimilarity
                             rdms[i, j, k, l] = limtozero(1 - abs(r))
 
             return rdms
 
         # sub_opt=0 & time_opt=1 & chl_opt=0
 
+        # initialize the data for calculating the RDM
         data = np.zeros([ts, cons, subs, chls, time_win], dtype=np.float64)
 
+        # assignment
         for i in range(ts):
-
             for j in range(cons):
-
                 for k in range(subs):
-
                     for l in range(chls):
-
                         for m in range(time_win):
+                            # average the trials
                             data[i, j, k, l, m] = np.average(EEG_data[j, k, :, l, i * time_win + m])
 
+        # flatten the data for different calculating conditions
         data = np.reshape(data, [ts, cons, subs * chls * time_win])
 
+        # initialize the RDMs
         rdms = np.zeros([ts, cons, cons], dtype=np.float64)
 
+        # calculate the values in RDMs
         for i in range(ts):
-
             for j in range(cons):
-
                 for k in range(cons):
+                    # calculate the Pearson Coefficient
                     r = pearsonr(data[i, j], data[i, k])[0]
-
+                    # calculate the dissimilarity
                     rdms[i, j, k] = limtozero(1 - abs(r))
 
         return rdms
@@ -283,32 +411,35 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5):
 
     # sub_opt=0 & time_opt=0 & chl_opt=1
 
+    # get the number of conditions, subjects, trials, channels & time-points
     cons, subs, trials, chls, ts = np.shape(EEG_data)
 
     if chl_opt == 1:
 
+        # initialize the data for calculating the RDM
         data = np.zeros([chls, cons, subs, ts], dtype=np.float64)
 
+        # assignment
         for i in range(chls):
-
             for j in range(cons):
-
                 for k in range(subs):
-
                     for l in range(ts):
+                        # average the trials
                         data[i, j, k, l] = np.average(EEG_data[j, k, :, i, l])
 
+        # flatten the data for different calculating conditions
         data = np.reshape(data, [chls, cons, subs * ts])
 
+        # initialize the RDMs
         rdms = np.zeros([chls, cons, cons], dtype=np.float64)
 
+        # calculate the values in RDMs
         for i in range(chls):
-
             for j in range(cons):
-
                 for k in range(cons):
+                    # calculate the Pearson Coefficient
                     r = pearsonr(data[i, j], data[i, k])[0]
-
+                    # calculate the dissimilarity
                     rdms[i, j, k] = limtozero(1 - abs(r))
 
         return rdms
@@ -317,33 +448,37 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5):
 
     # sub_opt=0 & time_opt=0 & chl_opt=0
 
+    # get the number of conditions, subjects, trials, channels & time-points
     cons, subs, trials, chls, ts = np.shape(EEG_data)
 
+    # initialize the data for calculating the RDM
     data = np.zeros([cons, subs, chls, ts], dtype=np.float64)
 
+    # assignment
     for i in range(cons):
-
         for j in range(subs):
-
             for k in range(chls):
-
                 for l in range(ts):
+                    # average the trials
                     data[i, j, k, l] = np.average(EEG_data[i, j, :, k, l])
 
+    # flatten the data for different calculating condition
     data = np.reshape(data, [cons, subs * chls * ts])
 
+    # initialize the RDM
     rdm = np.zeros([cons, cons], dtype=np.float64)
 
+    # calculate the values in RDM
     for i in range(cons):
-
         for j in range(cons):
+            # calculate the Pearson Coefficient
             r = pearsonr(data[i], data[j])[0]
-
+            # calculate the dissimilarity
             rdm[i, j] = limtozero(1 - np.abs(r))
 
     return rdm
 
-' a function for calculating the RDM based on ECoG/electrophysiological data '
+' a function for calculating the RDM based on ECoG/sEEG/electrophysiological data '
 
 def ecogRDM(ele_data, opt="all", time_win=5):
     # all these calculations belong to only one subject
@@ -354,62 +489,113 @@ def ecogRDM(ele_data, opt="all", time_win=5):
     # time_win : the time-window, if time_win=5, that means each calculation process bases on 5 time points
     #            this is also a processing of downsampling
 
-    cons, trials, chls, ts = np.shape(ele_data)  #  get the number of conditins, trials, channels and time points
+    """
+        Calculate the Representational Dissimilarity Matrix(Matrices) - RDM(s) for ECoG/sEEG/electrophysiology data
+
+        Parameters
+        ----------
+        ele_data : array
+            The ECoG/sEEG/electrophysiology data.
+            The shape of EEGdata must be [n_cons, n_trials, n_chls, n_ts].
+            n_cons, n_trials, n_chls & n_ts represent the number of conidtions, the number of trials,
+            the number of channels & the number of time-points, respectively.
+        opt : string 'channels', 'time' or 'all'. Default is 'all'.
+            Calculate the RDM for each channel or for each time-point or for the whole data.
+            If opt='channel', return only one RDM based on all data.
+            If opt='time', return n_subs RDMs based on each subject's chdata
+        chl_opt : int 0 or 1. Default is 0.
+            Calculate the RDM for each channel or not.
+            If chl_opt=0, calculate the RDM based on all channels'data.
+            If chl_opt=1, calculate the RDMs based on each channel's data respectively.
+        time_opt : int 0 or 1. Default is 0.
+            Calculate the RDM for each time-point
+            If time_opt=0, calculate the RDM based on whole time-points' data.
+            If time_opt=1, calculate the RDMs based on each time-points respectively.
+        time_win : int. Default is 5.
+            Set a time-window for calculating the RDM for different time-points.
+            If time_win=5, that means each calculation process based on 5 time-points.
+            This is also a processing of downsampling.
+
+        Returns
+        -------
+        RDM(s) : array
+            The EEG/MEG/fNIR RDM.
+            If sub_opt=0 & chl_opt=0 & time_opt=0, return only one RDM.
+                The shape is [n_cons, n_cons].
+            If sub_opt=0 & chl_opt=0 & time_opt=1, return int(n_ts/time_win) RDM.
+                The shape is [int(n_ts/time_win), n_cons, n_cons].
+            If sub_opt=0 & chl_opt=1 & time_opt=0, return n_chls RDM.
+                The shape is [n_chls, n_cons, n_cons].
+            If sub_opt=0 & chl_opt=1 & time_opt=1, return n_chls*int(n_ts/time_win) RDM.
+                The shape is [n_chls, int(n_ts/time_win), n_cons, n_cons].
+            If sub_opt=1 & chl_opt=0 & time_opt=0, return n_subs RDM.
+                The shape is [n_subs, n_cons, n_cons].
+            If sub_opt=1 & chl_opt=0 & time_opt=1, return n_subs*int(n_ts/time_win) RDM.
+                The shape is [n_subs, int(n_ts/time_win), n_cons, n_cons].
+            If sub_opt=1 & chl_opt=1 & time_opt=0, return n_subs*n_chls RDM.
+                The shape is [n_subs, n_chls, n_cons, n_cons].
+            If sub_opt=1 & chl_opt=1 & time_opt=1, return n_subs*n_chls*int(n_ts/time_win) RDM.
+                The shape is [n_subs, n_chls, int(n_ts/time_win), n_cons, n_cons].
+        """
+
+    # get the number of conditins, trials, channels and time points
+    cons, trials, chls, ts = np.shape(ele_data)
 
     if opt == "channel":
 
+        # initialize the data for calculating the RDM
         data = np.zeros([chls, cons, ts], dtype=np.float64)
 
+        # assignment
         for i in range(chls):
-
             for j in range(cons):
-
                 for k in range(ts):
-
+                    # average the trials
                     data[i, j, k] = np.average(ele_data[j, :, i, k])
 
+        # initialize the RDMs
         rdms = np.zeros([chls, cons, cons], dtype=np.float64)
 
+        # calculate the values in RDMs
         for i in range(chls):
-
             for j in range(cons):
-
                 for k in range(cons):
-
+                    # calculate the Pearson Coefficient
                     r = pearsonr(data[i, j], data[i, k])[0]
-
+                    # calculate the dissimilarity
                     rdms[i, j, k] = limtozero(1 - abs(r))
 
         return rdms
 
     elif opt == "time":
 
+        # the time-points for calculating RDM
         ts = int(ts/time_win)
 
+        # initialize the data for calculating the RDM
         data = np.zeros([ts, cons, chls, ts], dtype=np.float64)
 
+        # assignment
         for i in range(ts):
-
             for j in range(cons):
-
                 for k in range(chls):
-
                     for l in range(ts):
-
+                        # average the trials
                         data[i, j, k, l] = np.average(ele_data[j, :, k, i*time_win+l])
 
+        # flatten the data for different calculating conditions
         data = np.reshape(data, [ts, cons, chls*ts])
 
+        # initialize the RDMs
         rdms = np.zeros([ts, cons, cons], dtype=np.float64)
 
+        # calculate the values in RDMs
         for i in range(ts):
-
             for j in range(cons):
-
                 for k in range(cons):
-
+                    # calculate the Pearson Coefficient
                     r = pearsonr(np.sort(data[i, j]), np.sort(data[i, k]))[0]
-
+                    # calculate the dissimilarity
                     rdms[i, j, k] = limtozero(1 - abs(r))
 
         return rdms
@@ -425,63 +611,59 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
     cons, subs, nx, ny, nz = np.shape(fmri_data)  # get the number of conditions, subjects and the size of the data
 
+    # the size of the calculation units for searchlight
     kx = ksize[0]
     ky = ksize[1]
     kz = ksize[2]
 
+    # strides for calculating along the x, y, z axis
     sx = strides[0]
     sy = strides[1]
     sz = strides[2]
 
-    # calculate the number of the calculation units
+    # calculate the number of the calculation units in the x, y, z directions
     n_x = int((nx - kx) / sx)+1
     n_y = int((ny - ky) / sy)+1
     n_z = int((nz - kz) / sz)+1
 
+    # initialize the data for calculating the RDM
     data = np.full([n_x, n_y, n_z, cons, kx*ky*kz, subs], np.nan)
 
+    # assignment
     for x in range(n_x):
-
         for y in range(n_y):
-
             for z in range(n_z):
-
                 for i in range(cons):
 
                     index = 0
 
                     for k1 in range(kx):
-
                         for k2 in range(ky):
-
                             for k3 in range(kz):
-
                                 for j in range(subs):
-
                                     data[x, y, z, i, index, j] = fmri_data[i, j, x+k1, y+k2, z+k3]
 
                                 index = index + 1
 
+    # flatten the data for different calculating conditions
     data = np.reshape(data, [n_x, n_y, n_z, cons, kx*ky*kz*subs])
 
+    # initialize the RDMs
     rdms = np.full([n_x, n_y, n_z, cons, cons], np.nan)
 
+    # calculate the values in RDMs
     for x in range(n_x):
-
         for y in range(n_y):
-
             for z in range(n_z):
-
                 for i in range(cons):
-
                     for j in range(cons):
 
+                        # no NaN
                         if (np.isnan(data[x, y, z, i]).any() == False) and (np.isnan(data[x, y, z, j]).any() == False):
-
+                            # calculate the Pearson Coefficient
                             r = pearsonr(data[x, y, z, i], data[x, y, z, j])[0]
-
+                            # calculate the dissimilarity
                             rdms[x, y, z, i, j] = limtozero(1 - abs(r))
-
                             print(rdms[x, y, z, i, j])
 
     return rdms
@@ -493,34 +675,52 @@ def fmriRDM_roi(fmri_data, mask_data):
     # N_cons, N_subs, nx, ny, nz represent the number of conditions,
     # the shape of mask_data : [nx, ny, nz]
 
+    # get the number of conditions, subjects, voxels in the x, y, z direction
     ncons, nsubs, nx, ny, nz = fmri_data.shape
 
+    # record the the number of voxels that is not 0 or NaN
     n = 0
+
     for i in range(nx):
         for j in range(ny):
             for k in range(nz):
+
+                # not 0 or NaN
                 if (mask_data[i, j, k] != 0) and (math.isnan(mask_data[i, j, k]) == False):
                     n = n + 1
 
+    # initialize the data for calculating the RDM
     data = np.zeros([ncons, nsubs, n], dtype=np.float)
+
+    # assignment
     for p in range(ncons):
         for q in range(nsubs):
+
             n = 0
+
             for i in range(nx):
                 for j in range(ny):
                     for k in range(nz):
+
+                        # not 0 or NaN
                         if (mask_data[i, j, k] != 0) and (math.isnan(mask_data[i, j, k]) == False):
                             data[p, q, n] = fmri_data[p, q, i, j, k]
                             n = n + 1
 
+    # initialize the RDMs
     rdm = np.zeros([ncons, ncons], dtype=np.float)
 
+    # flatten the data for different calculating conditions
     data = np.reshape(data, [ncons, nsubs*n])
 
+    # calculate the values in RDM
     for i in range(ncons):
         for j in range(ncons):
+
             if (np.isnan(data[i]).any() == False) and (np.isnan(data[j]).any() == False):
+                # calculate the Pearson Coefficient
                 r = pearsonr(data[i], data[j])[0]
+                # calculate the dissimilarity
                 rdm[i, j] = limtozero(1 - abs(r))
 
     return rdm
