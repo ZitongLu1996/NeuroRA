@@ -17,12 +17,115 @@ from neurora.rdm_corr import rdm_distance
 
 np.seterr(divide='ignore', invalid='ignore')
 
+
 ' a function for calculating the Similarity/Correlation Coefficient between behavioral data and EEG/MEG/fNIRS data'
-def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, time_opt=0, time_win=5, method="spearman", rescale=False):
+
+def bhvANDeeg_corr(bhv_data, eeg_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, time_opt=0, time_win=5, method="spearman", rescale=False):
+
+    """
+    Calculate the Similarities between behavioral data and EEG/MEG/fNIRS data
+
+    Parameters
+    ----------
+    bhv_data : array
+        If bhv_data_opt=0, the shape must be [n_cons, n_subs].
+        If bhv_data_opt=1, the shape of bhv_data must be [n_cons, n_subs, n_trials].
+        n_cons, n_subs & n_trials represent the number of conidtions, the number of subjects & the number of trials,
+        respectively.
+    eeg_data : array
+        The EEG/MEG/fNIRS data.
+        The shape of EEGdata must be [n_cons, n_subs, n_trials, n_chls, n_ts].
+        n_cons, n_subs, n_trials, n_chls & n_ts represent the number of conidtions, the number of subjects, the number
+        of trials, the number of channels & the number of time-points, respectively.
+    """
+
+
+
+    """
+    Calculate the Representational Dissimilarity Matrix(Matrices) - RDM(s) for behavioral data
+
+    Parameters
+    ----------
+    bhv_data : array
+        The behavioral data.
+        If data_opt=0, the shape must be [n_cons, n_subs].
+        If data_opt=1, the shape of bhv_data must be [n_cons, n_subs, n_trials].
+        n_cons, n_subs & n_trials represent the number of conidtions, the number of subjects & the number of trials,
+        respectively.
+    sub_opt : int 0 or 1. Default is 0.
+        Calculate the RDM for each subject or not.
+        If sub_opt=0, return only one RDM based on all data.
+        If sub_opt=1, return n_subs RDMs based on each subject's data
+    data_opt : int 0 or 1. Default if 0.
+        Select the type of input data, ignoring the effect of trials or not.
+        If data_opt=0, one subejct under one conditions relates to one value, ignoring the effect of trials.
+        If data_opt=1, each trial relates to a value.
+
+    Returns
+    -------
+    RDM(s) : array
+        The behavioral RDM.
+        If sub_opt=0, return only one RDM. The shape is [n_cons, n_cons].
+        If sub_opt=1, return n_subs RDMs. The shape is [n_subs, n_cons, n_cons].
+
+    Notes
+    -----
+    This function can also be used to calculate the RDM for computational simulation data
+    """
+
+    """
+    Calculate the Representational Dissimilarity Matrix(Matrices) - RDM(s) for EEG/MEG/fNIRS data
+
+    Parameters
+    ----------
+    eeg_data : array
+        The EEG/MEG/fNIRS data.
+        The shape of EEGdata must be [n_cons, n_subs, n_trials, n_chls, n_ts].
+        n_cons, n_subs, n_trials, n_chls & n_ts represent the number of conidtions, the number of subjects, the number
+        of trials, the number of channels & the number of time-points, respectively.
+    sub_opt : int 0 or 1. Default is 0.
+        Calculate the RDM for each subject or not.
+        If sub_opt=0, return only one RDM based on all data.
+        If sub_opt=1, return n_subs RDMs based on each subject's data
+    chl_opt : int 0 or 1. Default is 0.
+        Calculate the RDM for each channel or not.
+        If chl_opt=0, calculate the RDM based on all channels'data.
+        If chl_opt=1, calculate the RDMs based on each channel's data respectively.
+    time_opt : int 0 or 1. Default is 0.
+        Calculate the RDM for each time-point
+        If time_opt=0, calculate the RDM based on whole time-points' data.
+        If time_opt=1, calculate the RDMs based on each time-points respectively.
+    time_win : int. Default is 5.
+        Set a time-window for calculating the RDM for different time-points.
+        If time_win=5, that means each calculation process based on 5 time-points.
+        This is also a processing of downsampling.
+
+    Returns
+    -------
+    RDM(s) : array
+        The EEG/MEG/fNIR RDM.
+        If sub_opt=0 & chl_opt=0 & time_opt=0, return only one RDM.
+            The shape is [n_cons, n_cons].
+        If sub_opt=0 & chl_opt=0 & time_opt=1, return int(n_ts/time_win) RDM.
+            The shape is [int(n_ts/time_win), n_cons, n_cons].
+        If sub_opt=0 & chl_opt=1 & time_opt=0, return n_chls RDM.
+            The shape is [n_chls, n_cons, n_cons].
+        If sub_opt=0 & chl_opt=1 & time_opt=1, return n_chls*int(n_ts/time_win) RDM.
+            The shape is [n_chls, int(n_ts/time_win), n_cons, n_cons].
+        If sub_opt=1 & chl_opt=0 & time_opt=0, return n_subs RDM.
+            The shape is [n_subs, n_cons, n_cons].
+        If sub_opt=1 & chl_opt=0 & time_opt=1, return n_subs*int(n_ts/time_win) RDM.
+            The shape is [n_subs, int(n_ts/time_win), n_cons, n_cons].
+        If sub_opt=1 & chl_opt=1 & time_opt=0, return n_subs*n_chls RDM.
+            The shape is [n_subs, n_chls, n_cons, n_cons].
+        If sub_opt=1 & chl_opt=1 & time_opt=1, return n_subs*n_chls*int(n_ts/time_win) RDM.
+            The shape is [n_subs, n_chls, int(n_ts/time_win), n_cons, n_cons].
+    """
+
 
     subs = np.shape(bhv_data)[1]
-    chls = np.shape(EEG_data)[3]
-    ts = int(np.shape(EEG_data)[4]/time_win)
+    chls = np.shape(eeg_data)[3]
+    ts = int(np.shape(eeg_data)[4]/time_win)
 
     if sub_opt == 1:
 
@@ -37,63 +140,42 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
         if chl_opt == 0:
 
             if time_opt == 0:
-
-                eeg_rdms = eegRDM(EEG_data, time_win=time_win, sub_opt=sub_opt, chl_opt=chl_opt, time_opt=time_opt)
-
+                eeg_rdms = eegRDM(eeg_data, time_win=time_win, sub_opt=sub_opt, chl_opt=chl_opt, time_opt=time_opt)
                 corrs = np.zeros([subs, 2], dtype=np.float64)
 
                 for i in range(subs):
 
                     if method == "spearman":
-
                         corrs[i] = rdm_correlation_spearman(bhv_rdms[i], eeg_rdms[i], rescale=rescale)
-
                     elif method == "pearson":
-
                         corrs[i] = rdm_correlation_pearson(bhv_rdms[i], eeg_rdms[i], rescale=rescale)
-
                     elif method == "kendall":
-
                         corrs[i] = rdm_correlation_kendall(bhv_rdms[i], eeg_rdms[i], rescale=rescale)
-
                     elif method == "similarity":
-
                         corrs[i, 0] = rdm_similarity(bhv_rdms[i], eeg_rdms[i], rescale=rescale)
-
                     elif method == "distance":
-
                         corrs[i, 0] = rdm_distance(bhv_rdms[i], eeg_rdms[i], rescale=rescale)
 
                 return corrs
 
             # if time_opt=1
 
-            eeg_rdms = eegRDM(EEG_data, sub_opt=sub_opt, chl_opt=chl_opt, time_opt=time_opt)
+            eeg_rdms = eegRDM(eeg_data, sub_opt=sub_opt, chl_opt=chl_opt, time_opt=time_opt)
 
             corrs = np.zeros([subs, ts, 2], dtype=np.float64)
 
             for i in range(subs):
-
                 for j in range(ts):
 
                     if method == "spearman":
-
                         corrs[i, j] = rdm_correlation_spearman(bhv_rdms[i], eeg_rdms[i, j], rescale=rescale)
-
                     elif method == "pearson":
-
                         corrs[i, j] = rdm_correlation_pearson(bhv_rdms[i], eeg_rdms[i, j], rescale=rescale)
-
                     elif method == "kendall":
-
                         corrs[i, j] = rdm_correlation_kendall(bhv_rdms[i], eeg_rdms[i, j], rescale=rescale)
-
                     elif method == "similarity":
-
                         corrs[i, j, 0] = rdm_similarity(bhv_rdms[i], eeg_rdms[i, j], rescale=rescale)
-
                     elif method == "distance":
-
                         corrs[i, j, 0] = rdm_distance(bhv_rdms[i], eeg_rdms[i, j], rescale=rescale)
 
             return corrs
@@ -105,32 +187,22 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
 
         # time_opt=0
 
-        eeg_rdms = eegRDM(EEG_data, sub_opt=sub_opt, chl_opt=chl_opt, time_opt=time_opt)
+        eeg_rdms = eegRDM(eeg_data, sub_opt=sub_opt, chl_opt=chl_opt, time_opt=time_opt)
 
         corrs = np.zeros([subs, chls], dtype=np.float64)
 
         for i in range(subs):
-
             for j in range(chls):
 
                 if method == "spearman":
-
                     corrs[i, j] = rdm_correlation_spearman(bhv_rdms[i], eeg_rdms[i, j], rescale=rescale)
-
                 elif method == "pearson":
-
                     corrs[i, j] = rdm_correlation_pearson(bhv_rdms[i], eeg_rdms[i, j], rescale=rescale)
-
                 elif method == "kendall":
-
                     corrs[i, j] = rdm_correlation_kendall(bhv_rdms[i], eeg_rdms[i, j], rescale=rescale)
-
                 elif method == "similarity":
-
                     corrs[i, j, 0] = rdm_similarity(bhv_rdms[i], eeg_rdms[i, j], rescale=rescale)
-
                 elif method == "distance":
-
                     corrs[i, j, 0] = rdm_distance(bhv_rdms[i], eeg_rdms[i, j], rescale=rescale)
 
         return corrs
@@ -142,63 +214,42 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
     if chl_opt == 1:
 
         if time_opt == 1:
-
-            eeg_rdms = eegRDM(EEG_data, sub_opt=sub_opt, chl_opt=chl_opt, time_opt=time_opt)
-
+            eeg_rdms = eegRDM(eeg_data, sub_opt=sub_opt, chl_opt=chl_opt, time_opt=time_opt)
             corrs = np.zeros([chls, ts, 2], dtype=np.float64)
 
             for i in range(chls):
-
                 for j in range(ts):
 
                     if method == "spearman":
-
                         corrs[i, j] = rdm_correlation_spearman(bhv_rdm, eeg_rdms[i, j], rescale=rescale)
-
                     elif method == "pearson":
-
                         corrs[i, j] = rdm_correlation_pearson(bhv_rdm, eeg_rdms[i, j], rescale=rescale)
-
                     elif method == "kendall":
-
                         corrs[i, j] = rdm_correlation_kendall(bhv_rdm, eeg_rdms[i, j], rescale=rescale)
-
                     elif method == "similarity":
-
                         corrs[i, j, 0] = rdm_similarity(bhv_rdm, eeg_rdms[i, j], rescale=rescale)
-
                     elif method == "distance":
-
                         corrs[i, j, 0] = rdm_distance(bhv_rdm, eeg_rdms[i, j], rescale=rescale)
 
             return corrs
 
         # if time_opt=0
 
-        eeg_rdms = eegRDM(EEG_data, sub_opt=sub_opt, chl_opt=chl_opt, time_opt=time_opt)
+        eeg_rdms = eegRDM(eeg_data, sub_opt=sub_opt, chl_opt=chl_opt, time_opt=time_opt)
 
         corrs = np.zeros([chls, 2], dtype=np.float64)
 
         for i in range(chls):
 
             if method == "spearman":
-
                 corrs[i] = rdm_correlation_spearman(bhv_rdm, eeg_rdms[i], rescale=rescale)
-
             elif method == "pearson":
-
                 corrs[i] = rdm_correlation_pearson(bhv_rdm, eeg_rdms[i], rescale=rescale)
-
             elif method == "kendall":
-
                 corrs[i] = rdm_correlation_kendall(bhv_rdm, eeg_rdms[i], rescale=rescale)
-
             elif method == "similarity":
-
                 corrs[i, 0] = rdm_similarity(bhv_rdm, eeg_rdms[i])
-
             elif method == "distance":
-
                 corrs[i, 0] = rdm_distance(bhv_rdm, eeg_rdms[i])
 
         return corrs
@@ -207,61 +258,44 @@ def bhvANDeeg_corr(bhv_data, EEG_data, sub_opt=0, bhv_data_opt=1, chl_opt=0, tim
 
     if time_opt == 1:
 
-        eeg_rdms = eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=1)
+        eeg_rdms = eegRDM(eeg_data, sub_opt=0, chl_opt=0, time_opt=1)
 
         corrs = np.zeros([ts, 2], dtype=np.float64)
 
         for i in range(ts):
 
             if method == "spearman":
-
                 corrs[i] = rdm_correlation_spearman(bhv_rdm, eeg_rdms[i], rescale=rescale)
-
             elif method == "pearson":
-
                 corrs[i] = rdm_correlation_pearson(bhv_rdm, eeg_rdms[i], rescale=rescale)
-
             elif method == "kendall":
-
                 corrs[i] = rdm_correlation_kendall(bhv_rdm, eeg_rdms[i], rescale=rescale)
-
             elif method == "similarity":
-
                 corrs[i, 0] = rdm_similarity(bhv_rdm, eeg_rdms[i], rescale=rescale)
-
             elif method == "distance":
-
                 corrs[i, 0] = rdm_distance(bhv_rdm, eeg_rdms[i], rescale=rescale)
 
         return corrs
 
     # if time_opt=0
 
-    eeg_rdm = eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0)
+    eeg_rdm = eegRDM(eeg_data, sub_opt=0, chl_opt=0, time_opt=0)
 
     corr = np.zeros([2], dtype=np.float64)
 
     if method == "spearson":
-
         corr = rdm_correlation_spearman(bhv_rdm, eeg_rdm, rescale=rescale)
-
     elif method == "pearson":
-
         corr = rdm_correlation_pearson(bhv_rdm, eeg_rdm, rescale=rescale)
-
     elif method == "kendall":
-
         corr = rdm_correlation_kendall(bhv_rdm, eeg_rdm, rescale=rescale)
-
     elif method == "similarity":
-
         corr[0] = rdm_similarity(bhv_rdm, eeg_rdm, rescale=rescale)
-
     elif method == "distance":
-
         corr[0] = rdm_distance(bhv_rdm, eeg_rdm, rescale=rescale)
 
     return corr
+
 
 ' a function for calculating the Similarity/Correlation Cosfficient between behavioral data and sEEG/ECoG/eletricophysiological data'
 
@@ -287,23 +321,14 @@ def bhvANDecog_corr(bhv_data, ele_data, time_win=5, ecog_opt="allin", method="sp
         for i in range(chls_num):
 
             if method == "spearman":
-
                 corrs[i] = rdm_correlation_spearman(bhv_rdm, ecog_rdms[i], rescale=rescale)
-
             elif method == "pearson":
-
                 corrs[i] = rdm_correlation_pearson(bhv_rdm, ecog_rdms[i], rescale=rescale)
-
             elif method == "kendall":
-
                 corrs[i] = rdm_correlation_kendall(bhv_rdm, ecog_rdms[i], rescale=rescale)
-
             elif method == "similarity":
-
                 corrs[i, 0] = rdm_similarity(bhv_rdm, ecog_rdms[i], rescale=rescale)
-
             elif method == "distance":
-
                 corrs[i, 0] = rdm_distance(bhv_rdm, ecog_rdms[i], rescale=rescale)
 
         return corrs
@@ -319,23 +344,14 @@ def bhvANDecog_corr(bhv_data, ele_data, time_win=5, ecog_opt="allin", method="sp
         for i in range(ts):
 
             if method == "spearman":
-
                 corrs[i] = rdm_correlation_spearman(bhv_rdm, ecog_rdms[i], rescale=rescale)
-
             elif method == "pearson":
-
                 corrs[i] = rdm_correlation_pearson(bhv_rdm, ecog_rdms[i], rescale=rescale)
-
             elif method == "kendall":
-
                 corrs[i] = rdm_correlation_kendall(bhv_rdm, ecog_rdms[i], rescale=rescale)
-
             elif method == "similarity":
-
                 corrs[i, 0] = rdm_similarity(bhv_rdm, ecog_rdms[i], rescale=rescale)
-
             elif method == "distance":
-
                 corrs[i, 0] = rdm_distance(bhv_rdm, ecog_rdms[i], rescale=rescale)
 
         return corrs
@@ -347,28 +363,18 @@ def bhvANDecog_corr(bhv_data, ele_data, time_win=5, ecog_opt="allin", method="sp
     corr = np.zeros([2], dtype=np.float64)
 
     if method == "spearman":
-
         corr = rdm_correlation_spearman(bhv_rdm, ecog_rdm, rescale=rescale)
-
     elif method == "pearson":
-
         corr = rdm_correlation_pearson(bhv_rdm, ecog_rdm, rescale=rescale)
-
     elif method == "kendall":
-
         corr = rdm_correlation_kendall(bhv_rdm, ecog_rdm, rescale=rescale)
-
     elif method == "similarity":
-
         corr[0] = rdm_similarity(bhv_rdm, ecog_rdm, rescale=rescale)
-
     elif method == "distance":
-
         corr[0] = rdm_distance(bhv_rdm, ecog_rdm, rescale=rescale)
 
     return corr
 
-# -*- coding: utf-8 -*-
 
 ' a function for calculating the Similarity/Correlation Cosfficient between behavioral data and fMRI data'
 
@@ -376,27 +382,20 @@ def bhvANDfmri_corr(bhv_data, fmri_data, bhv_data_opt=1, ksize=[3, 3, 3], stride
     # sub_opt=1
 
     if bhv_data_opt == 0:
-
         bhv_rdm = bhvRDM(bhv_data, sub_opt=0, data_opt=0)
 
     # if bhv_data_opt=1
-
     else:
-
         bhv_rdm = bhvRDM(bhv_data, sub_opt=0, data_opt=1)
 
     print("****************")
-
     print("get behavior RDM")
-
     print(bhv_rdm)
 
     fmri_rdms = fmriRDM(fmri_data, ksize=ksize, strides=strides)
 
     print("****************")
-
     print("get fMRI RDM")
-
     print(np.shape(fmri_rdms))
 
     cons = np.shape(bhv_data)[0]
@@ -420,49 +419,24 @@ def bhvANDfmri_corr(bhv_data, fmri_data, bhv_data_opt=1, ksize=[3, 3, 3], stride
     corrs = np.full([n_x, n_y, n_z, 2], np.nan)
 
     for i in range(n_x):
-
         for j in range(n_y):
-
             for k in range(n_z):
 
-                """index = 0
-
-                for m in range(cons):
-
-                    for n in range(cons):
-
-                         if math.isnan(fmri_rdms[i, j, k, m, n]) == True:
-
-                             index = index + 1
-
-                if index != 0:
-
-                    corrs[i, j, k, 0] = 0
-                    corrs[i, j, k, 1] = 1"""
-
                 if method == "spearman":
-
                     corrs[i, j, k] = rdm_correlation_spearman(bhv_rdm, fmri_rdms[i, j, k], rescale=rescale)
-
                 elif method == "pearson":
-
                     corrs[i, j, k] = rdm_correlation_pearson(bhv_rdm, fmri_rdms[i, j, k], rescale=rescale)
-
                 elif method == "kendall":
-
                     corrs[i, j, k] = rdm_correlation_kendall(bhv_rdm, fmri_rdms[i, j, k], rescale=rescale)
-
                 elif method == "similarity":
-
                     corrs[i, j, k, 0] = rdm_similarity(bhv_rdm, fmri_rdms[i, j, k], rescale=rescale)
-
                 elif method == "distance":
-
                     corrs[i, j, k, 0] = rdm_distance(bhv_rdm, fmri_rdms[i, j, k], rescale=rescale)
 
                 print(corrs[i, j, k])
 
     return corrs
+
 
 ' a function for calculating the Similarity/Correlation Cosfficient between behavioral EEG/MEG/fNIRS and fMRI data'
 
@@ -498,46 +472,19 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
         corrs = np.full([chls, n_x, n_y, n_z, 2], np.nan)
 
         for j in range(n_x):
-
             for k in range(n_y):
-
                 for l in range(n_z):
-
-                    """index = 0
-
-                    for m in range(cons):
-
-                        for n in range(cons):
-
-                            if math.isnan(fmri_rdms[j, k, l]) == True:
-
-                                index = index + 1"""
-
                     for i in range(chls):
 
-                        """if index != 0:
-
-                            corrs[i, j, k, l, 0] = 0
-                            corrs[i, j, k, l, 1] = 1"""
-
                         if method == "spearman":
-
                             corrs[i, j, k, l] = rdm_correlation_spearman(eeg_rdms[i], fmri_rdms[j, k, l], rescale=rescale)
-
                         elif method == "pearson":
-
                             corrs[i, j, k, l] = rdm_correlation_pearson(eeg_rdms[i], fmri_rdms[j, k, l], rescale=rescale)
-
                         elif method == "kendall":
-
                             corrs[i, j, k, l] = rdm_correlation_kendall(eeg_rdms[i], fmri_rdms[j, k, l], rescale=rescale)
-
                         elif method == "similarity":
-
                             corrs[i, j, k, l, 0] = rdm_similarity(eeg_rdms[i], fmri_rdms[j, k, l], rescale=rescale)
-
                         elif method == "distance":
-
                             corrs[i, j, k, l, 0] = rdm_distance(eeg_rdms[i], fmri_rdms[i, j, k], rescale=rescale)
 
         return np.abs(corrs)
@@ -549,45 +496,18 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
     corrs = np.full([n_x, n_y, n_z, 2], np.nan)
 
     for i in range(n_x):
-
         for j in range(n_y):
-
             for k in range(n_z):
 
-                """index = 0
-
-                for m in range(cons):
-
-                    for n in range(cons):
-
-                        if math.isnan(fmri_rdms[i, j, k]) == True:
-
-                            index = index + 1
-
-                if index != 0:
-
-                    corrs[i, j, k, 0] = 0
-                    corrs[i, j, k, 1] = 1"""
-
                 if method == "spearman":
-
                     corrs[i, j, k] = rdm_correlation_spearman(eeg_rdm, fmri_rdms[i, j, k], rescale=rescale)
-
                 elif method == "pearson":
-
                     corrs[i, j, k] = rdm_correlation_pearson(eeg_rdm, fmri_rdms[i, j, k], rescale=rescale)
-
                 elif method == "kendall":
-
                     corrs[i, j, k] = rdm_correlation_kendall(eeg_rdm, fmri_rdms[i, j, k], rescale=rescale)
-
                 elif method == "similarity":
-
                     corrs[i, j, k, 0] = rdm_similarity(eeg_rdm, fmri_rdms[i, j, k], rescale=rescale)
-
                 elif method == "distance":
-
                     corrs[i, j, k, 0] = rdm_distance(eeg_rdm, fmri_rdms[i, j, k], rescale=rescale)
-
 
     return np.abs(corrs)

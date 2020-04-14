@@ -34,8 +34,10 @@ def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12, cmap=None):
         lvrdm.sort()
         maxvalue = lvrdm[-1]
         minvalue = lvrdm[1]
+
         for i in range(cons):
             for j in range(cons):
+
                 if i != j:
                     rdm[i, j] = float((rdm[i, j] - minvalue) / (maxvalue - minvalue))
 
@@ -48,6 +50,7 @@ def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12, cmap=None):
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=16)
     font = {'size': 18}
+
     if rescale == True:
         cb.set_label("Dissimilarity (Rescaling)", fontdict=font)
     elif rescale == False:
@@ -156,6 +159,7 @@ def plot_corrs_by_time(corrs, labels=None, time_unit=[0, 0.1]):
     fig, ax = plt.subplots()
 
     for i in range(n):
+
         if labels:
             plt.plot(x_soft, y_soft[i], linewidth=3, label=labels[i])
         else:
@@ -201,6 +205,7 @@ def plot_corrs_hotmap(eegcorrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], 
 
         chllabels = []
         for i in range(nchls):
+
             if i % 10 == 0 and i != 10:
                 newlabel = str(i+1) + "st"
             elif i % 10 == 1 and i != 11:
@@ -209,6 +214,7 @@ def plot_corrs_hotmap(eegcorrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], 
                 newlabel = str(i+1) + "rd"
             else:
                 newlabel = str(i+1) + "th"
+
             chllabels.append(newlabel)
 
     if smooth == True:
@@ -216,13 +222,13 @@ def plot_corrs_hotmap(eegcorrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], 
         t = ts * 50
 
         x_soft = np.linspace(x.min(), x.max(), t)
-
         y_soft = np.zeros([nchls, t])
 
         samplerate = int(1 / tstep) * 50
         b, a = signal.butter(4, 2*30/samplerate, 'lowpass')
 
         for i in range(nchls):
+
             if len(eegcorrs.shape) == 3:
                 f = interp1d(x, eegcorrs[i, :, 0], kind='cubic')
                 y_soft[i] = f(x_soft)
@@ -234,6 +240,7 @@ def plot_corrs_hotmap(eegcorrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], 
         rlts = y_soft
 
     if smooth == False:
+
         if len(eegcorrs.shape) == 3:
             rlts = eegcorrs[:, :, 0]
         elif len(eegcorrs.shape) == 2:
@@ -243,6 +250,7 @@ def plot_corrs_hotmap(eegcorrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], 
 
     limmin = lim[0]
     limmax = lim[1]
+
     if cmap == None:
         plt.imshow(rlts, extent=(start_t, end_t, 0, nchls*0.16), clim=(limmin, limmax), origin='low', cmap='inferno')
     else:
@@ -252,12 +260,9 @@ def plot_corrs_hotmap(eegcorrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], 
     size = fig.get_size_inches()
 
     if figsize == None:
-
         size_x = ts*tstep*(size[0]-2)+2
         size_y = nchls*0.2*(size[1]-1.5)+1.5
-
     else:
-
         size_x = figsize[0]
         size_y = figsize[1]
 
@@ -267,14 +272,19 @@ def plot_corrs_hotmap(eegcorrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], 
     cb.ax.tick_params(labelsize=16)
     font = {'size': 18}
     cb.set_label("Similarity", fontdict=font)
+
     xi = []
+
     for i in range(nchls):
         xi.append(0.16*i + 0.08)
+
     yi = chllabels
+
     plt.tick_params(labelsize=18)
     plt.yticks(xi, yi, fontsize=18)
     plt.ylabel("Channel", fontsize=20)
     plt.xlabel("Time (s)", fontsize=20)
+
     plt.show()
 
 def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], abs=False, smooth=False, figsize=None, cmap=None):
@@ -305,8 +315,10 @@ def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1]
     x = np.arange(start_t, end_t, tstep)
 
     if chllabels == None:
+
         chllabels = []
         for i in range(nchls):
+
             if i % 10 == 0 and i != 10:
                 newlabel = str(i + 1) + "st"
             elif i % 10 == 1 and i != 11:
@@ -322,7 +334,6 @@ def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1]
         t = ts * 50
 
         x_soft = np.linspace(x.min(), x.max(), t)
-
         y_soft = np.zeros([nchls, t])
 
         samplerate = int(1 / tstep) * 50
@@ -342,6 +353,7 @@ def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1]
 
     limmin = lim[0]
     limmax = lim[1]
+
     if cmap == None:
         plt.imshow(rlts, extent=(start_t, end_t, 0, nchls*0.16), clim=(limmin, limmax), origin='low')
     else:
@@ -351,12 +363,9 @@ def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1]
     size = fig.get_size_inches()
 
     if figsize == None:
-
         size_x = ts*tstep*(size[0]-2)+2
         size_y = nchls*0.2*(size[1]-1.5)+1.5
-
     else:
-
         size_x = figsize[0]
         size_y = figsize[1]
 
@@ -366,14 +375,19 @@ def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1]
     cb.ax.tick_params(labelsize=16)
     font = {'size': 18}
     cb.set_label("Similarity", fontdict=font)
+
     xi = []
+
     for i in range(nchls):
         xi.append(0.16*i + 0.08)
+
     yi = chllabels
+
     plt.tick_params(labelsize=18)
     plt.yticks(xi, yi, fontsize=18)
     plt.ylabel("Channel", fontsize=20)
     plt.xlabel("Time (s)", fontsize=20)
+
     plt.show()
 
 def plot_brainrsa_regions(img, threshold=None, background=get_bg_ch2()):
@@ -393,7 +407,8 @@ def plot_brainrsa_regions(img, threshold=None, background=get_bg_ch2()):
 
             img = nib.Nifti1Image(imgarray, affine)
 
-        plotting.plot_roi(roi_img=img, bg_img=background, threshold=0, vmin=0.1, vmax=1, title="Similarity", resampling_interpolation="continuous")
+        plotting.plot_roi(roi_img=img, bg_img=background, threshold=0, vmin=0.1, vmax=1,
+                          title="Similarity", resampling_interpolation="continuous")
 
         plt.show()
 
@@ -406,13 +421,11 @@ def plot_brainrsa_montage(img, threshold=None, slice=[6, 6, 6], background=get_b
         print("No Valid Results")
 
     else:
-        if threshold != None:
 
+        if threshold != None:
             imgarray = nib.load(img).get_data()
             affine = get_affine(img)
-
             imgarray = correct_by_threshold(imgarray, threshold)
-
             img = nib.Nifti1Image(imgarray, affine)
 
         slice_x = slice[0]
@@ -422,9 +435,11 @@ def plot_brainrsa_montage(img, threshold=None, slice=[6, 6, 6], background=get_b
         if slice_x != 0:
             plotting.plot_stat_map(stat_map_img=img, bg_img=background, display_mode='x', cut_coords=slice_x,
                                 title="Similarity -sagittal", draw_cross=True, vmax=1)
+
         if slice_y != 0:
             plotting.plot_stat_map(stat_map_img=img, bg_img=background, display_mode='y', cut_coords=slice_y,
                                 title="Similarity -coronal", draw_cross=True, vmax=1)
+
         if slice_z != 0:
             plotting.plot_stat_map(stat_map_img=img, bg_img=background, display_mode='z', cut_coords=slice_z,
                                 title="Similarity -axial", draw_cross=True, vmax=1)
@@ -442,9 +457,7 @@ def plot_brainrsa_glass(img, threshold=None):
 
             imgarray = nib.load(img).get_data()
             affine = get_affine(img)
-
             imgarray = correct_by_threshold(imgarray, threshold)
-
             img = nib.Nifti1Image(imgarray, affine)
 
         plotting.plot_glass_brain(img, colorbar=True, title="Similarity", black_bg=True, draw_cross=True, vmax=1)
@@ -460,24 +473,27 @@ def plot_brainrsa_surface(img, threshold=None):
         print("No Valid Results")
 
     else:
+
         if threshold != None:
 
             imgarray = nib.load(img).get_data()
             affine = get_affine(img)
-
             imgarray = correct_by_threshold(imgarray, threshold)
-
             img = nib.Nifti1Image(imgarray, affine)
 
         fsaverage = datasets.fetch_surf_fsaverage(mesh='fsaverage')
         texture_left = surface.vol_to_surf(img, fsaverage.pial_left)
         texture_right = surface.vol_to_surf(img, fsaverage.pial_right)
+
         plotting.plot_surf_stat_map(fsaverage.pial_left, texture_left, hemi='left', threshold=0.1,
                                     bg_map=fsaverage.sulc_right, colorbar=True, vmax=1, darkness=0.7)
+
         plotting.plot_surf_stat_map(fsaverage.pial_right, texture_right, hemi='right', threshold=0.1,
                                     bg_map=fsaverage.sulc_right, colorbar=True, vmax=1, darkness=0.7)
+
         plotting.plot_surf_stat_map(fsaverage.pial_left, texture_right, hemi='right', threshold=0.1,
                                     bg_map=fsaverage.sulc_right, colorbar=True, vmax=1, darkness=0.7)
+
         plotting.plot_surf_stat_map(fsaverage.pial_right, texture_left, hemi='left', threshold=0.1,
                                     bg_map=fsaverage.sulc_right, colorbar=True, vmax=1, darkness=0.7)
 
@@ -488,18 +504,14 @@ def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6], background=None):
     imgarray = nib.load(img).get_data()
 
     if (imgarray == np.nan).all() == True:
-
         print("No Valid Results")
-
     else:
 
         if threshold != None:
 
             imgarray = nib.load(img).get_data()
             affine = get_affine(img)
-
             imgarray = correct_by_threshold(imgarray, threshold)
-
             img = nib.Nifti1Image(imgarray, affine)
 
         if background == None:

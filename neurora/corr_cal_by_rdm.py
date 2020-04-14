@@ -26,27 +26,17 @@ def rdms_corr(demo_rdm, EEG_rdms, method="spearman", rescale=False):
         corrs = np.zeros([nchls, ts, 2], dtype=np.float64)
 
         for i in range(nchls):
-
             for j in range(ts):
 
                 if method == "spearman":
-
                     corrs[i, j] = rdm_correlation_spearman(demo_rdm, EEG_rdms[i, j], rescale=rescale)
-
                 elif method == "pearson":
-
                     corrs[i, j] = rdm_correlation_pearson(demo_rdm, EEG_rdms[i, j], rescale=rescale)
-
                 elif method == "kendall":
-
                     corrs[i, j] = rdm_correlation_kendall(demo_rdm, EEG_rdms[i, j], rescale=rescale)
-
                 elif method == "similarity":
-
                     corrs[i, j, 0] = rdm_similarity(demo_rdm, EEG_rdms[i, j], rescale=rescale)
-
                 elif method == "distance":
-
                     corrs[i, j, 0] = rdm_distance(demo_rdm, EEG_rdms[i, j], rescale=rescale)
 
         return corrs
@@ -58,23 +48,14 @@ def rdms_corr(demo_rdm, EEG_rdms, method="spearman", rescale=False):
     for n in range(N):
 
         if method == "spearman":
-
             corrs[n] = rdm_correlation_spearman(demo_rdm, EEG_rdms[n], rescale=rescale)
-
         elif method == "pearson":
-
             corrs[n] = rdm_correlation_pearson(demo_rdm, EEG_rdms[n], rescale=rescale)
-
         elif method == "kendall":
-
             corrs[n] = rdm_correlation_kendall(demo_rdm, EEG_rdms[n], rescale=rescale)
-
         elif method == "similarity":
-
             corrs[n, 0] = rdm_similarity(demo_rdm, EEG_rdms[n], rescale=rescale)
-
         elif method == "distance":
-
             corrs[n, 0] = rdm_distance(demo_rdm, EEG_rdms[n], rescale=rescale)
 
     return corrs
@@ -95,44 +76,18 @@ def fmrirdms_corr(demo_rdm, fmri_rdms, method="spearman", rescale=False):
     corrs = np.full([n_x, n_y, n_z, 2], np.nan)
 
     for i in range(n_x):
-
         for j in range(n_y):
-
             for k in range(n_z):
 
-                """index = 0
-
-                for m in range(cons):
-
-                    for n in range(cons):
-
-                         if math.isnan(fmri_rdms[i, j, k, m, n]) == True:
-
-                             index = index + 1
-
-                if index != 0:
-
-                    corrs[i, j, k, 0] = 0
-                    corrs[i, j, k, 1] = 1"""
-
                 if method == "spearman":
-
                     corrs[i, j, k] = rdm_correlation_spearman(demo_rdm, fmri_rdms[i, j, k], rescale=rescale)
-
                 elif method == "pearson":
-
                     corrs[i, j, k] = rdm_correlation_pearson(demo_rdm, fmri_rdms[i, j, k], rescale=rescale)
-
                 elif method == "kendall":
-
                     corrs[i, j, k] = rdm_correlation_kendall(demo_rdm, fmri_rdms[i, j, k], rescale=rescale)
-
                 elif method == "similarity":
-
                     corrs[i, j, k, 0] = rdm_similarity(demo_rdm, fmri_rdms[i, j, k], rescale=rescale)
-
                 elif method == "distance":
-
                     corrs[i, j, k, 0] = rdm_distance(demo_rdm, fmri_rdms[i, j, k], rescale=rescale)
 
                 print(corrs[i, j, k])

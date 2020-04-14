@@ -35,9 +35,7 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
     nfdr = 0
 
     for i in range(n_x):
-
         for j in range(n_y):
-
             for k in range(n_z):
 
                 x = i*sx
@@ -45,13 +43,11 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
                 z = k*sz
 
                 if (math.isnan(corrs[i, j, k, 0]) is False):
-
                     nfdr = nfdr + 1
 
                     for k1 in range(kx):
                         for k2 in range(ky):
                             for k3 in range(kz):
-
                                 index[x+k1, y+k2, z+k3] = index[x+k1, y+k2, z+k3] + 1
 
     mask = np.zeros([nx, ny, nz], dtype=np.int)
@@ -61,17 +57,13 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
     if p < 1:
 
         if correct_method == "FDR":
-
             corrsp = fdr_correct(corrsp, size=size, n=correct_n)
 
         if correct_method == "FWE":
-
             corrsp = fwe_correct(corrsp, size=size, n=correct_n)
 
     for i in range(n_x):
-
         for j in range(n_y):
-
             for k in range(n_z):
 
                 x = i * sx
@@ -86,9 +78,7 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
                                 mask[x + k1, y + k2, z + k3] = 1
 
     for i in range(n_x):
-
         for j in range(n_y):
-
             for k in range(n_z):
 
                 x = i*sx
@@ -105,9 +95,7 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
 
     newimg_nii = np.full([nx, ny, nz], np.nan)
     for i in range(nx):
-
         for j in range(ny):
-
             for k in range(nz):
 
                 if mask[i, j, k] == 1:
@@ -120,23 +108,19 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
         for i in range(nx):
             for j in range(ny):
                 for k in range(nz):
+
                     if (math.isnan(mask[i, j, k]) == True) or mask[i, j, k] == 0:
                         newimg_nii[i, j, k] = np.nan
 
     norlt = np.isnan(newimg_nii).all()
 
     if filename == None:
-
         filename = "rsa_result.nii"
-
     else:
-
         q = ".nii" in filename
 
         if q == True:
-
             filename = filename
-
         else:
             filename = filename+".nii"
 
@@ -149,11 +133,8 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
     if plotrlt == True:
 
         if norlt == True:
-
             print("No RSA result.")
-
         else:
-
             plot_brainrsa_rlts(filename, background=img_background)
 
     print("File("+filename+") saves successfully!")
