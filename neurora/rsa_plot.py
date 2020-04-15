@@ -486,16 +486,16 @@ def plot_brainrsa_surface(img, threshold=None):
         texture_right = surface.vol_to_surf(img, fsaverage.pial_right)
 
         plotting.plot_surf_stat_map(fsaverage.pial_left, texture_left, hemi='left', threshold=0.1,
-                                    bg_map=fsaverage.sulc_right, colorbar=True, vmax=1, darkness=0.7)
+                                    bg_map=fsaverage.sulc_right, colorbar=False, vmax=0.8, darkness=0.7)
 
         plotting.plot_surf_stat_map(fsaverage.pial_right, texture_right, hemi='right', threshold=0.1,
-                                    bg_map=fsaverage.sulc_right, colorbar=True, vmax=1, darkness=0.7)
-
-        plotting.plot_surf_stat_map(fsaverage.pial_left, texture_right, hemi='right', threshold=0.1,
-                                    bg_map=fsaverage.sulc_right, colorbar=True, vmax=1, darkness=0.7)
+                                    bg_map=fsaverage.sulc_right, colorbar=True, vmax=0.8, darkness=0.7)
 
         plotting.plot_surf_stat_map(fsaverage.pial_right, texture_left, hemi='left', threshold=0.1,
-                                    bg_map=fsaverage.sulc_right, colorbar=True, vmax=1, darkness=0.7)
+                                    bg_map=fsaverage.sulc_right, colorbar=False, vmax=0.8, darkness=0.7)
+
+        plotting.plot_surf_stat_map(fsaverage.pial_left, texture_right, hemi='right', threshold=0.1,
+                                    bg_map=fsaverage.sulc_right, colorbar=True, vmax=0.8, darkness=0.7)
 
         plt.show()
 
