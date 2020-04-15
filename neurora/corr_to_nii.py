@@ -6,11 +6,12 @@ __author__ = 'Zitong Lu'
 
 import numpy as np
 import nibabel as nib
+from nilearn.image import smooth_img
 import math
 from neurora.stuff import fwe_correct, fdr_correct
 from neurora.rsa_plot import plot_brainrsa_rlts
 
-def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=1, r=0, similarity=0, distance=0, correct_method=None, correct_n=27, plotrlt=True, img_background=None):
+def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=1, r=0, similarity=0, distance=0, correct_method=None, plotrlt=True, img_background=None):
 
     nx = size[0]
     ny = size[1]
@@ -57,10 +58,10 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
     if p < 1:
 
         if correct_method == "FDR":
-            corrsp = fdr_correct(corrsp, size=size, n=correct_n)
+            corrsp = fdr_correct(corrsp)
 
         if correct_method == "FWE":
-            corrsp = fwe_correct(corrsp, size=size, n=correct_n)
+            corrsp = fwe_correct(corrsp)
 
     for i in range(n_x):
         for j in range(n_y):
@@ -128,14 +129,16 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
 
     file = nib.Nifti1Image(newimg_nii, affine)
 
+    file = smooth_img(file, fwhm=3)
+
     nib.save(file, filename)
 
     if plotrlt == True:
 
-        if norlt == True:
-            print("No RSA result.")
-        else:
-            plot_brainrsa_rlts(filename, background=img_background)
+        print("No RSA result.")
+
+    if norlt == True:
+        plot_brainrsa_rlts(filename, background=img_background)
 
     print("File("+filename+") saves successfully!")
 

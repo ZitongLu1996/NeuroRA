@@ -24,28 +24,20 @@ def get_affine(file_name):
 
     return img.affine
 
-def fwe_correct(p, size=[60, 60, 60], n=64):
-
-    x = size[0]
-    y = size[1]
-    z = size[2]
+def fwe_correct(p):
 
     px = np.shape(p)[0]
     py = np.shape(p)[1]
     pz = np.shape(p)[2]
 
-    n = float(n*px*py*pz/(x*y*z))
+    n = 0
 
-    nq = 1
-    ni = 1
+    for i in range(px):
+        for j in range(py):
+            for k in range(pz):
 
-    while nq < n:
-        ni = ni + 1
-        nq = ni*ni*ni
-
-    n = nq
-
-    print(n, ni)
+                if (math.isnan(p[i, j, k]) == False) and (p[i, j, k] != 0):
+                    n = n + 1
 
     fwep = p*n
 
@@ -53,7 +45,65 @@ def fwe_correct(p, size=[60, 60, 60], n=64):
 
     return fwep
 
-def fdr_correct(p, size=[60, 60, 60], n=64, type="sphere"):
+def fdr_correct(p):
+
+    px = np.shape(p)[0]
+    py = np.shape(p)[1]
+    pz = np.shape(p)[2]
+
+    n = 0
+
+    for i in range(px):
+        for j in range(py):
+            for k in range(pz):
+
+                if (math.isnan(p[i, j, k]) == False) and (p[i, j, k] != 0):
+
+                    n = n + 1
+
+    fdrp = np.full([px, py, pz], np.nan)
+
+    pcluster = np.zeros([n], dtype=np.float)
+
+    m = 0
+
+    for i in range(px):
+        for j in range(py):
+            for k in range(pz):
+
+                if (math.isnan(p[i, j, k]) == False) and p[i, j, k] != 0:
+                    pcluster[m] = p[i, j, k]
+                    m = m + 1
+
+    index = np.argsort(pcluster)
+
+    for l in range(n):
+        pcluster[index[l]] = float(pcluster[index[l]] * n / (l + 0.5))
+
+    """for l in range(n - 1):
+        if pcluster[index[-l - 1]] < pcluster[index[-l - 2]]:
+            pcluster[index[-l - 2]] = pcluster[index[-l - 1]]"""
+
+    newpcluster = np.full([n], np.nan)
+
+    for l in range(n):
+        newpcluster[l] = pcluster[index[l]]
+
+    m = 0
+
+    for i in range(px):
+        for j in range(py):
+            for k in range(pz):
+
+                if (math.isnan(p[i, j, k]) == False) and p[i, j, k] != 0:
+                    fdrp[i, j, k] = newpcluster[m]
+                    m = m + 1
+
+    print("finished FDR correct")
+
+    return fdrp
+
+"""def fdr_correct(p, size=[60, 60, 60], n=64, type="sphere"):
 
     x = size[0]
     y = size[1]
@@ -170,7 +220,7 @@ def fdr_correct(p, size=[60, 60, 60], n=64, type="sphere"):
 
         print("finished FDR correct")
 
-        return fdrp
+        return fdrp"""
 
 
 def correct_by_threshold(img, threshold):
