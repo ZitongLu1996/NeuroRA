@@ -89,7 +89,7 @@ nps_data[1] = avg_megdata_nonhumanface[:, :, :5, 100:1100] # so 100:1200 corresp
 
 # Calculate the NPS with a 10ms time-window
 # (raw sampling requency is 1000Hz, so here time_win=10ms/(1s/1000Hz)/1000=10)
-nps = nps(nps_data, time_win=10)
+nps = nps(nps_data, time_win=10, time_step=10)
 
 # Plot the NPS results
 plot_nps_hotmap(nps[:, :, 0], time_unit=[0, 0.01], abs=True)
@@ -113,7 +113,7 @@ plot_rdm(rdm, rescale=True)
 
 # Calculate the RDMs by a 10ms time-window
 # (raw sampling requency is 1000Hz, so here time_win=10ms/(1s/1000Hz)/1000=10)
-rdms = eegRDM(megdata, time_win=10, time_opt=1)
+rdms = eegRDM(megdata, time_opt=1, time_win=10, time_step=10)
 
 # Plot the RDM of 0ms, 50ms, 100ms, 150ms, 200ms
 times = [0, 10, 20, 30, 40, 50]
@@ -157,7 +157,7 @@ plot_corrs_by_time(corrs, labels=labels, time_unit=[-0.1, 0.01])
 """**********       Section 8: Calculating the RDMs for each channels        **********"""
 
 # Calculate the RDMs for the first six channels by a 10ms time-window between 0ms and 1000ms
-rdms_chls = eegRDM(megdata[:, :, :, :6, 100:1100], chl_opt=1, time_opt=1, time_win=10)
+rdms_chls = eegRDM(megdata[:, :, :, :6, 100:1100], chl_opt=1, time_opt=1, time_win=10, time_step=10)
 
 # Create a 'human-related' coding model RDM
 model_rdm = np.ones([92, 92])

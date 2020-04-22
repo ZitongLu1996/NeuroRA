@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-' a module for calculating the correlation coefficient between two RDMs '
+' a module for calculating the Similarity/Correlation Coefficient between two RDMs '
 
 __author__ = 'Zitong Lu'
 
@@ -19,17 +19,17 @@ def rdm_correlation_spearman(RDM1, RDM2, rescale=False):
 
     Parameters
     ----------
-    RDM1 : array [ncons, ncons].
+    RDM1 : array [ncons, ncons]
         The RDM 1.
-        The shape of fmri_data must be [n_cons, n_cons].
+        The shape of RDM1 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
     RDM2 : array [ncons, ncons].
         The RDM 2.
-        The shape of fmri_data must be [n_cons, n_cons].
+        The shape of RDM2 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
-    rescale : Boolean True or False.
-        Rescale the values in RDM or not. Here, the maximum-minimum method is used to rescale the values except for the
-        values on the diagnal.
+    rescale : bool True or False. Default is False.
+        Rescale the values in RDM or not.
+        Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
 
     Returns
     -------
@@ -43,10 +43,7 @@ def rdm_correlation_spearman(RDM1, RDM2, rescale=False):
     print(cons)
 
     # calculate the number of value above the diagonal in RDM
-    n = 0
-    while cons > 1:
-        n = n + cons - 1
-        cons = cons - 1
+    n = int(cons*(cons-1)/2)
 
     print(np.shape(RDM1))
     print(np.shape(RDM2))
@@ -123,17 +120,17 @@ def rdm_correlation_pearson(RDM1, RDM2, rescale=False):
 
     Parameters
     ----------
-    RDM1 : array [ncons, ncons].
+    RDM1 : array [ncons, ncons]
         The RDM 1.
-        The shape of fmri_data must be [n_cons, n_cons].
+        The shape of RDM1 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
     RDM2 : array [ncons, ncons].
         The RDM 2.
-        The shape of fmri_data must be [n_cons, n_cons].
+        The shape of RDM2 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
-    rescale : Boolean True or False.
-        Rescale the values in RDM or not. Here, the maximum-minimum method is used to rescale the values except for the
-        values on the diagnal.
+    rescale : bool True or False. Default is False.
+        Rescale the values in RDM or not.
+        Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
 
     Returns
     -------
@@ -146,10 +143,7 @@ def rdm_correlation_pearson(RDM1, RDM2, rescale=False):
     cons = np.shape(RDM1)[0]
 
     # calculate the number of value above the diagonal in RDM
-    n = 0
-    while cons > 1:
-        n = n + cons - 1
-        cons = cons - 1
+    n = int(cons*(cons-1)/2)
 
     if rescale == True:
 
@@ -219,17 +213,17 @@ def rdm_correlation_kendall(RDM1, RDM2, rescale=False):
 
     Parameters
     ----------
-    RDM1 : array [ncons, ncons].
+    RDM1 : array [ncons, ncons]
         The RDM 1.
-        The shape of fmri_data must be [n_cons, n_cons].
+        The shape of RDM1 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
     RDM2 : array [ncons, ncons].
         The RDM 2.
-        The shape of fmri_data must be [n_cons, n_cons].
+        The shape of RDM2 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
-    rescale : Boolean True or False.
-        Rescale the values in RDM or not. Here, the maximum-minimum method is used to rescale the values except for the
-        values on the diagnal.
+    rescale : bool True or False. Default is False.
+        Rescale the values in RDM or not.
+        Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
 
     Returns
     -------
@@ -242,10 +236,7 @@ def rdm_correlation_kendall(RDM1, RDM2, rescale=False):
     cons = np.shape(RDM1)[0]
 
     # calculate the number of value above the diagonal in RDM
-    n = 0
-    while cons > 1:
-        n = n + cons - 1
-        cons = cons - 1
+    n = int(cons*(cons-1)/2)
 
     if rescale == True:
 
@@ -316,32 +307,30 @@ def rdm_similarity(RDM1, RDM2, rescale=False):
 
     Parameters
     ----------
-    RDM1 : array [ncons, ncons].
+    RDM1 : array [ncons, ncons]
         The RDM 1.
-        The shape of fmri_data must be [n_cons, n_cons].
+        The shape of RDM1 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
     RDM2 : array [ncons, ncons].
         The RDM 2.
-        The shape of fmri_data must be [n_cons, n_cons].
+        The shape of RDM2 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
-    rescale : Boolean True or False.
-        Rescale the values in RDM or not. Here, the maximum-minimum method is used to rescale the values except for the
-        values on the diagnal.
+    rescale : bool True or False. Default is False.
+        Rescale the values in RDM or not.
+        Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
 
     Returns
     -------
-    corr : float
+    corr : array [r, p].
         The Cosine Similarity result.
+        The shape of corr is [2], corr[0] is the Cosine Similarity result and corr[1] is 0.
     """
 
     # get number of conditions
     cons = np.shape(RDM1)[0]
 
     # calculate the number of value above the diagonal in RDM
-    n = 0
-    while cons > 1:
-        n = n + cons - 1
-        cons = cons - 1
+    n = int(cons*(cons-1)/2)
 
     if rescale == True:
 
@@ -419,32 +408,30 @@ def rdm_distance(RDM1, RDM2, rescale=False):
 
     Parameters
     ----------
-    RDM1 : array [ncons, ncons].
+    RDM1 : array [ncons, ncons]
         The RDM 1.
-        The shape of fmri_data must be [n_cons, n_cons].
+        The shape of RDM1 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
     RDM2 : array [ncons, ncons].
         The RDM 2.
-        The shape of fmri_data must be [n_cons, n_cons].
+        The shape of RDM2 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
-    rescale : Boolean True or False.
-        Rescale the values in RDM or not. Here, the maximum-minimum method is used to rescale the values except for the
-        values on the diagnal.
+    rescale : bool True or False. Default is False.
+        Rescale the values in RDM or not.
+        Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
 
     Returns
     -------
-    corr : float
+    corr : array [r, p].
         The Euclidean Distance result.
+        The shape of corr is [2], corr[0] is the Euclidean Distance result and corr[1] is 0.
     """
 
     # get number of conditions
     cons = np.shape(RDM1)[0]
 
     # calculate the number of value above the diagonal in RDM
-    n = 0
-    while cons > 1:
-        n = n + cons - 1
-        cons = cons - 1
+    n = int(cons*(cons-1)/2)
 
     if rescale == True:
 
@@ -517,19 +504,19 @@ def rdm_permutation(RDM1, RDM2, iter=1000, rescale=False):
 
     Parameters
     ----------
-    RDM1 : array [ncons, ncons].
+    RDM1 : array [ncons, ncons]
         The RDM 1.
-        The shape of fmri_data must be [n_cons, n_cons].
+        The shape of RDM1 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
     RDM2 : array [ncons, ncons].
         The RDM 2.
-        The shape of fmri_data must be [n_cons, n_cons].
+        The shape of RDM2 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
     iter : int. Default is 1000.
         The times for iteration.
-    rescale : Boolean True or False.
-        Rescale the values in RDM or not. Here, the maximum-minimum method is used to rescale the values except for the
-        values on the diagnal.
+    rescale : bool True or False. Default is False.
+        Rescale the values in RDM or not.
+        Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
 
     Returns
     -------
@@ -541,10 +528,7 @@ def rdm_permutation(RDM1, RDM2, iter=1000, rescale=False):
     cons = np.shape(RDM1)[0]
 
     # calculate the number of value above the diagonal in RDM
-    n = 0
-    while cons > 1:
-        n = n + cons - 1
-        cons = cons - 1
+    n = int(cons*(cons-1)/2)
 
     v1 = np.zeros([n], dtype=np.float64)
     v2 = np.zeros([n], dtype=np.float64)

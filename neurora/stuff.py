@@ -9,22 +9,65 @@ import numpy as np
 import os
 import math
 
+# get package abspath
 package_root = os.path.dirname(os.path.abspath(__file__))
 
+
+' a function for zeroing the value close to zero '
+
 def limtozero(x):
+
+    """
+    zero the value close to zero
+
+    Parameters
+    ----------
+    x : float
+
+    Returns
+    -------
+    0
+    """
 
     if x < 1e-15:
         x = 0
 
     return x
 
+
+' a function for getting the affine of the fMRI-img '
+
 def get_affine(file_name):
+
+    """
+    get the affine of the fMRI-img
+
+    Parameters
+    ----------
+    file_name : string
+        The filename of a sample fMRI-img in your experiment
+
+    Returns
+    -------
+    affine : array
+        The position information of the fMRI-image array data in a reference space.
+    """
 
     img = nib.load(file_name)
 
     return img.affine
 
+
+' a function for FWE-correction for fMRI RSA results '
+
 def fwe_correct(p):
+
+    """
+    FWE correction for fMRI RSA results
+
+    p : array
+        The p-value map (3-D).
+    """
 
     px = np.shape(p)[0]
     py = np.shape(p)[1]
@@ -45,7 +88,24 @@ def fwe_correct(p):
 
     return fwep
 
+
+' a function for FDR-correction for fMRI RSA results '
+
 def fdr_correct(p):
+
+    """
+    FDR correction for fMRI RSA results
+
+    Parameters
+    ----------
+    p : array
+        The p-value map (3-D).
+
+    Returns
+    -------
+    correctp : array.
+        The FDR corrected p-value map.
+    """
 
     px = np.shape(p)[0]
     py = np.shape(p)[1]
@@ -223,7 +283,28 @@ def fdr_correct(p):
         return fdrp"""
 
 
+' a function for fMRI RSA results correction by threshold '
+
 def correct_by_threshold(img, threshold):
+
+    """
+    correct the fMRI RSA results by threshold
+
+    Parameters
+    ----------
+    img : array
+        A 3-D array of the fMRI RSA results.
+        The shape of img should be [nx, ny, nz]. nx, ny, nz represent the shape of the fMRI-img.
+    threshold : int
+        The number of voxels used in correction.
+        If threshold=n, only the similarity clusters consisting more than n voxels will be visualized.
+
+    Returns
+    -------
+    img : array
+        A 3-D array of the fMRI RSA results after correction.
+        The shape of img should be [nx, ny, nz]. nx, ny, nz represent the shape of the fMRI-img.
+    """
 
     sx = np.shape(img)[0]
     sy = np.shape(img)[1]
@@ -294,15 +375,61 @@ def correct_by_threshold(img, threshold):
 
     return img
 
+
+' a function for getting ch2.nii.gz '
+
 def get_bg_ch2():
+
+    """
+    get ch2.nii.gz
+
+    Returns
+    -------
+    path : string
+        The absolute file path of 'ch2.nii.gz'
+    """
 
     return os.path.join(package_root, 'template/ch2.nii.gz')
 
+
+' a function for getting ch2bet.nii.gz '
+
 def get_bg_ch2bet():
+
+    """
+    get ch2bet.nii.gz
+
+    Returns
+    -------
+    path : string
+        The absolute file path of 'ch2bet.nii.gz'
+    """
 
     return os.path.join(package_root, 'template/ch2bet.nii.gz')
 
+
+' a function for filtering the data by a ROI mask '
+
 def datamask(fmri_data, mask_data):
+
+    """
+    filter the data by a ROI mask
+
+    Parameters:
+    fmri_data : array
+        The fMRI data.
+        The shape of fmri_data is [nx, ny, nz]. nx, ny, nz represent the size of the fMRI data.
+    mask_data : array
+        The mask data.
+        The shape of mask_data is [nx, ny, nz]. nx, ny, nz represent the size of the fMRI data.
+
+    Returns
+    -------
+    newfmri_data : array
+        The new fMRI data.
+        The shape of newfmri_data is [nx, ny, nz]. nx, ny, nz represent the size of the fMRI data.
+    """
+
     nx, ny, nz = fmri_data.shape
 
     newfmri_data = np.full([nx, ny, nz], np.nan)

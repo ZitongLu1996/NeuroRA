@@ -55,7 +55,6 @@ fmri_data = np.full([ncon, nx, ny, nz], np.nan)
 for i in range(ncon):
     img = mean_img(index_img(func_filename, labels.isin([categories[i]])))
     fmri_data[i] = datamask(img.get_data(), maskdata)
-    np.savetxt("demo02/data"+str(i+1)+".txt", np.reshape(fmri_data[i], [nx*ny*nz]))
 
 # get fmri data under 'face'-condition
 face_img = nib.Nifti1Image(fmri_data[0], affine=img.affine)
@@ -93,9 +92,9 @@ print(nps_roi)
 nps = nps_fmri(nps_fmri_data)
 
 # convert the NPS results into a .nii file
-savefilename = "nps_img"
+savefilename = "demo2_nps_img"
 affine = get_affine(mask_filename)
-corr_save_nii(nps, filename=savefilename, affine=affine, size=[nx, ny, nz], plotrlt=False)
+corr_save_nii(nps, filename=savefilename, affine=affine, size=[nx, ny, nz], smooth=False, plotrlt=False)
 
 # have a look
 plotting.plot_epi(savefilename+".nii")
@@ -160,11 +159,17 @@ affine = get_affine(mask_filename)
 # save the RSA result as a .nii file
 # and visualize the result automatically
 # p < 0.05, FDR-correct
-rsarltfilename = "demo2_rsarlt_img"
-img = corr_save_nii(corrs, filename=rsarltfilename, affine=affine, corr_mask=mask_filename, size=[40, 64, 64], p=0.05, plotrlt=True, img_background=ant_filename, correct_method="FDR")
+rsarltfilename = "demo2_rsarlt_img.nii"
+img = corr_save_nii(corrs, filename=rsarltfilename, affine=affine, corr_mask=mask_filename, size=[40, 64, 64], p=0.001, plotrlt=True, img_background=ant_filename)
 
 # Users can plot the RSA results independently by functions below
-# >> from neurora.rsa_plot import plot_brainrsa_regions
-# >> from neurora.rsa_plot import plot_brainrsa_montage
-# >> from neurora.rsa_plot import plot_brainrsa_glass
-# >> from neurora.rsa_plot import plot_brainrsa_surface
+from neurora.rsa_plot import plot_brainrsa_regions
+from neurora.rsa_plot import plot_brainrsa_montage
+from neurora.rsa_plot import plot_brainrsa_glass
+from neurora.rsa_plot import plot_brainrsa_surface
+
+# here use a [5, 5, 5] cube to remove the significant area smaller than it
+# before filtering
+plot_brainrsa_montage(rsarltfilename, slice=[[-25], 0, 0], background=ant_filename)
+# after filtering
+plot_brainrsa_montage(rsarltfilename, threshold=125, slice=[[-25], 0, 0], background=ant_filename)

@@ -1,5 +1,7 @@
 ![ ](img/logo.jpg " ")
 
+#NeuroRA
+
 **A Python Toolbox of Representational Analysis from Multimode Neural Data**
 
 ## Overview
@@ -18,6 +20,7 @@ You can read or download the [Tutorial here](https://zitonglu1996.github.io/Neur
 ## Required Dependencies:
 
 - **[Numpy](http://www.numpy.org)**: a fundamental package for scientific computing
+- **[SciPy](https://www.scipy.org/scipylib/index.html)**: a package that provides many user-friendly and efficient numerical routines.
 - **[Matplotlib](https://matplotlib.org)**: a Python 2D plotting library
 - **[NiBabel](https://nipy.org/nibabel/)**: a package prividing read +/- write access to some common medical and neuroimaging file formats
 - **[Nilearn](https://nilearn.github.io/)**: a Python module for fast and easy statistical learning on NeuroImaging data
@@ -27,6 +30,8 @@ You can read or download the [Tutorial here](https://zitonglu1996.github.io/Neur
 ## Features
 
 - Calculate the Neural Pattern Similarity (NPS)
+
+- Calculate the Spatiotemporal Neural Pattern Similarity (STPS)
 
 - Calculate the Representational Dissimilarity Matrix (RDM)
 

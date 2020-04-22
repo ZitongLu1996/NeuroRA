@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-' a module for calculating the neural pattern similarity based neural data '
+' a module for calculating the neural pattern similarity based on neural data '
 
 __author__ = 'Zitong Lu'
 
@@ -13,7 +13,7 @@ np.seterr(divide='ignore', invalid='ignore')
 
 ' a function for calculating the neural pattern similarity for EEG-like data '
 
-def nps(data, time_win=5, sub_opt=0):
+def nps(data, time_win=5, time_step=5, sub_opt=0):
 
     """
     Calculate the Neural Representational Similarity (NPS) for EEG-like data
@@ -28,7 +28,8 @@ def nps(data, time_win=5, sub_opt=0):
     time_win : int. Default is 5.
         Set a time-window for calculating the NPS for different time-points.
         If time_win=5, that means each calculation process based on 5 time-points.
-        This is also a processing of downsampling.
+    time_step : int. Default is 5.
+        The time step size for each time of calculating.
     sub_opt : int 0 or 1. Default is 0.
         Calculate the NPS for each subject or not.
         If sub_opt=0, calculate the NPS based on all data.
@@ -38,8 +39,8 @@ def nps(data, time_win=5, sub_opt=0):
     -------
     NPS : array
         The EEG-like NPS.
-        If sub_opt=0, the shape of NPS is [n_chls, int(n_ts/time_win), 2].
-        If sub_opt=1, the shape of NPS is [n_subs, n_chls, int(n_ts/time_win), 2].
+        If sub_opt=0, the shape of NPS is [n_chls, int((n_ts-time_win)/time_step)+1, 2].
+        If sub_opt=1, the shape of NPS is [n_subs, n_chls, int((n_ts-time_win)/time_step)+1, 2].
         2 representation a r-value and a p-value.
     """
 
@@ -50,7 +51,7 @@ def nps(data, time_win=5, sub_opt=0):
     avgdata = np.average(data, axis=2)
 
     # the time-points for calculating NPS
-    ts = int(nts/time_win)
+    ts = int((nts-time_win)/time_step)+1
 
     # sub_opt=1
     if sub_opt == 1:
@@ -94,31 +95,32 @@ def nps(data, time_win=5, sub_opt=0):
     return nps
 
 
-' a function for calculating the neural pattern similarity for fMRI data ( for searchlight) '
+' a function for calculating the neural pattern similarity for fMRI data (searchlight) '
 
 def nps_fmri(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
     """
-    Calculate the Neural Representational Similarity (NPS) for fMRI data for searchlight
+    Calculate the Neural Representational Similarity (NPS) for fMRI data (searchlight)
 
     Parameters
     ----------
-    fmri_data : array [nx, ny, nz].
+    fmri_data : array [nx, ny, nz]
         The fmri data.
         The shape of fmri_data must be [n_cons, n_chls, nx, ny, nz].
         n_cons, n_chls, nx, ny, nz represent the number of conidtions, the number of channels &
         the size of fMRI-img, respectively.
     ksize : array or list [kx, ky, kz]. Default is [3, 3, 3].
-        The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis
+        The size of the fMRI-img.
+        nx, ny, nz represent the number of voxels along the x, y, z axis.
     strides : array or list [sx, sy, sz]. Default is [1, 1, 1].
         The strides for calculating along the x, y, z axis.
 
     Returns
     -------
-    NPS : array
+    nps : array
         The fMRI NPS for searchlight.
         The shape of NPS is [n_x, n_y, n_z, 2]. n_x, n_y, n_z represent the number of calculation units
-        for searchlight along the x, y, z axis
+        for searchlight along the x, y, z axis.
     """
 
     # get the number of subjects and the size of the fMRI-img
@@ -187,7 +189,7 @@ def nps_fmri_roi(fmri_data, mask_data):
 
     Parameters
     ----------
-    fmri_data : array [nx, ny, nz].
+    fmri_data : array [nx, ny, nz]
         The fmri data.
         The shape of fmri_data must be [n_cons, n_chls, nx, ny, nz].
         n_cons, n_chls, nx, ny, nz represent the number of conidtions, the number of channels &
@@ -198,7 +200,7 @@ def nps_fmri_roi(fmri_data, mask_data):
 
     Returns
     -------
-    NPS : array
+    nps : array
         The fMRI NPS for ROI.
         The shape of NPS is [2]. 2 representation a r-value and a p-value.
     """

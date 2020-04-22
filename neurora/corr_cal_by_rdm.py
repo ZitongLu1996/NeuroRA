@@ -14,67 +14,172 @@ from neurora.rdm_corr import rdm_distance
 
 np.seterr(divide='ignore', invalid='ignore')
 
-' a function for calculating the Similarity/Correlation Cosfficient between RDMs based on EEG/MEG/fNIRS/ECoG/electrophysiological data and a demo RDM'
-def rdms_corr(demo_rdm, EEG_rdms, method="spearman", rescale=False):
 
-    # the shape of EEG_rdms must be: [N_time_points, N_cons, N_cons] or [N_channels, N_cons, N_cons] or [N_channels, ts, N_cons, N_cons]
+' a function for calculating the Similarity/Correlation Cosfficient between RDMs based on EEG/MEG/fNIRS/ECoG/sEEG/electrophysiological RDMs and a demo RDM'
 
-    if len(EEG_rdms.shape) == 4:
+def rdms_corr(demo_rdm, eeg_rdms, method="spearman", rescale=False):
 
-        nchls, ts = EEG_rdms.shape[:2]
+    """
+    Calculate the Similarities between EEG/MEG/fNIRS/ECoG/sEEG/electrophysiological RDMs and a demo RDM
 
-        corrs = np.zeros([nchls, ts, 2], dtype=np.float64)
+    Parameters
+    ----------
+    demo_rdm : array [n_cons, n_cons]
+        A demo RDM.
+    eeg_rdms : array
+        The EEG/MEG/fNIRS/ECoG/sEEG/electrophysiological RDM(s).
+        The shape can be [n_cons, n_cons] or [n1, n_cons, n_cons] or [n1, n2, n_cons, n_cons] or
+        [n1, n2, n3, n_cons, n_cons]. ni(i=1, 2, 3) can be int(n_ts/timw_win), n_chls, n_subs.
+    method : string 'spearman' or 'pearson' or 'kendall' or 'similarity' or 'distance'. Default is 'spearman'.
+        The method to calculate the similarities.
+        If method='spearman', calculate the Spearman Correlations. If method='pearson', calculate the Pearson
+        Correlations. If methd='kendall', calculate the Kendall tau Correlations. If method='similarity', calculate the
+        Cosine Similarities. If method='distance', calculate the Euclidean Distances.
+    rescale : bool True or False.
+        Rescale the values in RDM or not.
+        Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
 
-        for i in range(nchls):
-            for j in range(ts):
+    Returns
+    -------
+    corrs : array
+        The similarities between EEG/MEG/fNIRS/ECoG/sEEG/electrophysiological RDMs and a demo RDM
+        If the shape of eeg_rdms is [n_cons, n_cons], the shape of corrs will be [2]. If the shape of eeg_rdms is
+        [n1, n_cons, n_cons], the shape of corrs will be [n1, 2]. If the shape of eeg_rdms is [n1, n2, n_cons, n_cons],
+        the shape of corrs will be [n1, n2, 2]. If the shape of eeg_rdms is [n1, n2, n3, n_cons, n_cons], the shape of
+        corrs will be [n1, n2, n3, 2]. ni(i=1, 2, 3) can be int(n_ts/timw_win), n_chls, n_subs. 2 represents a r-value
+        and a p-value.
+    """
 
-                if method == "spearman":
-                    corrs[i, j] = rdm_correlation_spearman(demo_rdm, EEG_rdms[i, j], rescale=rescale)
-                elif method == "pearson":
-                    corrs[i, j] = rdm_correlation_pearson(demo_rdm, EEG_rdms[i, j], rescale=rescale)
-                elif method == "kendall":
-                    corrs[i, j] = rdm_correlation_kendall(demo_rdm, EEG_rdms[i, j], rescale=rescale)
-                elif method == "similarity":
-                    corrs[i, j, 0] = rdm_similarity(demo_rdm, EEG_rdms[i, j], rescale=rescale)
-                elif method == "distance":
-                    corrs[i, j, 0] = rdm_distance(demo_rdm, EEG_rdms[i, j], rescale=rescale)
+    if len(eeg_rdms.shape) == 5:
+
+        n1, n2, n3 = eeg_rdms.shape[:3]
+
+        # initialize the corrs
+        corrs = np.zeros([n1, n2, n3, 2], dtype=np.float64)
+
+        # calculate the corrs
+        for i in range(n1):
+            for j in range(n2):
+                for k in range(n3):
+
+                    if method == "spearman":
+                        corrs[i, j] = rdm_correlation_spearman(demo_rdm, eeg_rdms[i, j], rescale=rescale)
+                    elif method == "pearson":
+                        corrs[i, j] = rdm_correlation_pearson(demo_rdm, eeg_rdms[i, j], rescale=rescale)
+                    elif method == "kendall":
+                        corrs[i, j] = rdm_correlation_kendall(demo_rdm, eeg_rdms[i, j], rescale=rescale)
+                    elif method == "similarity":
+                        corrs[i, j, 0] = rdm_similarity(demo_rdm, eeg_rdms[i, j], rescale=rescale)
+                    elif method == "distance":
+                        corrs[i, j, 0] = rdm_distance(demo_rdm, eeg_rdms[i, j], rescale=rescale)
 
         return corrs
 
-    N = np.shape(EEG_rdms)[0]
+    if len(eeg_rdms.shape) == 4:
 
-    corrs = np.zeros([N, 2], dtype=np.float64)
+        n1, n2 = eeg_rdms.shape[:2]
 
-    for n in range(N):
+        # initialize the corrs
+        corrs = np.zeros([n1, n2, 2], dtype=np.float64)
 
-        if method == "spearman":
-            corrs[n] = rdm_correlation_spearman(demo_rdm, EEG_rdms[n], rescale=rescale)
-        elif method == "pearson":
-            corrs[n] = rdm_correlation_pearson(demo_rdm, EEG_rdms[n], rescale=rescale)
-        elif method == "kendall":
-            corrs[n] = rdm_correlation_kendall(demo_rdm, EEG_rdms[n], rescale=rescale)
-        elif method == "similarity":
-            corrs[n, 0] = rdm_similarity(demo_rdm, EEG_rdms[n], rescale=rescale)
-        elif method == "distance":
-            corrs[n, 0] = rdm_distance(demo_rdm, EEG_rdms[n], rescale=rescale)
+        # calculate the corrs
+        for i in range(n1):
+            for j in range(n2):
 
-    return corrs
+                if method == "spearman":
+                    corrs[i, j] = rdm_correlation_spearman(demo_rdm, eeg_rdms[i, j], rescale=rescale)
+                elif method == "pearson":
+                    corrs[i, j] = rdm_correlation_pearson(demo_rdm, eeg_rdms[i, j], rescale=rescale)
+                elif method == "kendall":
+                    corrs[i, j] = rdm_correlation_kendall(demo_rdm, eeg_rdms[i, j], rescale=rescale)
+                elif method == "similarity":
+                    corrs[i, j, 0] = rdm_similarity(demo_rdm, eeg_rdms[i, j], rescale=rescale)
+                elif method == "distance":
+                    corrs[i, j, 0] = rdm_distance(demo_rdm, eeg_rdms[i, j], rescale=rescale)
 
-' a function for calculating the Similarity/Correlation Cosfficient between RDMs based on fMRI data and a demo RDM'
+        return corrs
+
+    if len(eeg_rdms.shape) == 3:
+
+        n1 = eeg_rdms.shape[0]
+
+        # initialize the corrs
+        corrs = np.zeros([n1, 2], dtype=np.float64)
+
+        # calculate the corrs
+        for i in range(n1):
+            if method == "spearman":
+                corrs[i] = rdm_correlation_spearman(demo_rdm, eeg_rdms[i], rescale=rescale)
+            elif method == "pearson":
+                corrs[i] = rdm_correlation_pearson(demo_rdm, eeg_rdms[i], rescale=rescale)
+            elif method == "kendall":
+                corrs[i] = rdm_correlation_kendall(demo_rdm, eeg_rdms[i], rescale=rescale)
+            elif method == "similarity":
+                corrs[i, 0] = rdm_similarity(demo_rdm, eeg_rdms[i], rescale=rescale)
+            elif method == "distance":
+                corrs[i, 0] = rdm_distance(demo_rdm, eeg_rdms[i], rescale=rescale)
+
+        return corrs
+
+    # initialize the corrs
+    corr = np.zeros([2], dtype=np.float64)
+
+    # calculate the corrs
+    if method == "spearman":
+        corr = rdm_correlation_spearman(demo_rdm, eeg_rdms, rescale=rescale)
+    elif method == "pearson":
+        corr = rdm_correlation_pearson(demo_rdm, eeg_rdms, rescale=rescale)
+    elif method == "kendall":
+        corr = rdm_correlation_kendall(demo_rdm, eeg_rdms, rescale=rescale)
+    elif method == "similarity":
+        corr[0] = rdm_similarity(demo_rdm, eeg_rdms, rescale=rescale)
+    elif method == "distance":
+        corr[0] = rdm_distance(demo_rdm, eeg_rdms, rescale=rescale)
+
+    return corr
+
+
+' a function for calculating the Similarity/Correlation Cosfficient between fMRI RDMs and a demo RDM'
 
 def fmrirdms_corr(demo_rdm, fmri_rdms, method="spearman", rescale=False):
 
 
-    # the shape of fmri_rdms must be: [n_x, n_y, n_z, N_cons, N_cons]
+    """
+    Calculate the Similarities between fMRI searchlight RDMs and a demo RDM
 
-    cons = np.shape(demo_rdm)[0]
+    Parameters
+    ----------
+    demo_rdm : array [n_cons, n_cons]
+        A demo RDM.
+    fmri_rdms : array
+        The fMRI-Searchlight RDMs.
+        The shape of RDMs is [n_x, n_y, n_z, n_cons, n_cons]. n_x, n_y, n_z represent the number of calculation units
+        for searchlight along the x, y, z axis.
+    method : string 'spearman' or 'pearson' or 'kendall' or 'similarity' or 'distance'. Default is 'spearman'.
+        The method to calculate the similarities.
+        If method='spearman', calculate the Spearman Correlations. If method='pearson', calculate the Pearson
+        Correlations. If methd='kendall', calculate the Kendall tau Correlations. If method='similarity', calculate the
+        Cosine Similarities. If method='distance', calculate the Euclidean Distances.
+    rescale : bool True or False.
+        Rescale the values in RDM or not.
+        Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
 
+    Returns
+    -------
+    corrs : array
+        The similarities between fMRI searchlight RDMs and a demo RDM
+        The shape of RDMs is [n_x, n_y, n_z, 2]. n_x, n_y, n_z represent the number of calculation units for searchlight
+        along the x, y, z axis and 2 represents a r-value and a p-value.
+    """
+    # calculate the number of the calculation units in the x, y, z directions
     n_x = np.shape(fmri_rdms)[0]
     n_y = np.shape(fmri_rdms)[1]
     n_z = np.shape(fmri_rdms)[2]
 
+    # initialize the corrs
     corrs = np.full([n_x, n_y, n_z, 2], np.nan)
 
+    # calculate the corrs
     for i in range(n_x):
         for j in range(n_y):
             for k in range(n_z):

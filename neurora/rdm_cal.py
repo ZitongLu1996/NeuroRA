@@ -12,9 +12,9 @@ from scipy.stats import pearsonr
 np.seterr(divide='ignore', invalid='ignore')
 
 
-' a function for calculating the RDM based on behavioral data '
+' a function for calculating the RDM(s) based on behavioral data '
 
-def bhvRDM(bhv_data, sub_opt=0, data_opt=1):
+def bhvRDM(bhv_data, sub_opt=0):
 
     """
     Calculate the Representational Dissimilarity Matrix(Matrices) - RDM(s) for behavioral data
@@ -23,18 +23,13 @@ def bhvRDM(bhv_data, sub_opt=0, data_opt=1):
     ----------
     bhv_data : array
         The behavioral data.
-        If data_opt=0, the shape must be [n_cons, n_subs].
-        If data_opt=1, the shape of bhv_data must be [n_cons, n_subs, n_trials].
+        The shape of bhv_data must be [n_cons, n_subs, n_trials].
         n_cons, n_subs & n_trials represent the number of conidtions, the number of subjects & the number of trials,
         respectively.
     sub_opt : int 0 or 1. Default is 0.
         Calculate the RDM for each subject or not.
         If sub_opt=0, return only one RDM based on all data.
-        If sub_opt=1, return n_subs RDMs based on each subject's data
-    data_opt : int 0 or 1. Default if 0.
-        Select the type of input data, ignoring the effect of trials or not.
-        If data_opt=0, one subejct under one conditions relates to one value, ignoring the effect of trials.
-        If data_opt=1, each trial relates to a value.
+        If sub_opt=1, return n_subs RDMs based on each subject's data.
 
     Returns
     -------
@@ -59,32 +54,6 @@ def bhvRDM(bhv_data, sub_opt=0, data_opt=1):
 
     subs = n_subs[0]
 
-    # data_opt=0
-    # shape of bhv_data: [n_cons, n_subs]
-    if data_opt == 0:
-
-        if sub_opt == 1:
-            return None
-
-        if len(set(n_subs)) != 1:
-            return None
-
-        # data_opt=0 & sub_opt=0
-
-        # initialize a RDM
-        rdm = np.zeros([cons, cons], dtype=np.float64)
-
-        # calculate the values in RDM
-        for i in range(cons):
-            for j in range(cons):
-                # calculate the Pearson Coefficient
-                r = pearsonr(bhv_data[i], bhv_data[j])[0]
-                # calculate the dissimilarity
-                rdm[i, j] = limtozero(1 - abs(r))
-
-        return rdm
-
-    # data_opt=1
     # shape of bhv_data: [N_cons, N_subs, N_trials]
 
     # save the number of trials of each condition
@@ -97,7 +66,7 @@ def bhvRDM(bhv_data, sub_opt=0, data_opt=1):
     if len(set(n_trials)) != 1:
             return None
 
-    # data_opt=1 & sub_opt=1
+    # sub_opt=1
 
     if sub_opt == 1:
 
@@ -115,7 +84,7 @@ def bhvRDM(bhv_data, sub_opt=0, data_opt=1):
 
         return rdms
 
-    # data_opt=1 & sub_opt=0
+    # & sub_opt=0
 
     # initialize the RDM
     rdm = np.zeros([cons, cons], dtype=np.float64)
@@ -144,16 +113,16 @@ def bhvRDM(bhv_data, sub_opt=0, data_opt=1):
     return rdm
 
 
-' a function for calculating the RDM based on EEG/MEG/fNIRS data '
+' a function for calculating the RDM(s) based on EEG/MEG/fNIRS data '
 
-def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5):
+def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
 
     """
     Calculate the Representational Dissimilarity Matrix(Matrices) - RDM(s) for EEG/MEG/fNIRS data
 
     Parameters
     ----------
-    eeg_data : array
+    EEG_data : array
         The EEG/MEG/fNIRS data.
         The shape of EEGdata must be [n_cons, n_subs, n_trials, n_chls, n_ts].
         n_cons, n_subs, n_trials, n_chls & n_ts represent the number of conidtions, the number of subjects, the number
@@ -167,13 +136,16 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5):
         If chl_opt=0, calculate the RDM based on all channels'data.
         If chl_opt=1, calculate the RDMs based on each channel's data respectively.
     time_opt : int 0 or 1. Default is 0.
-        Calculate the RDM for each time-point
+        Calculate the RDM for each time-point or not
         If time_opt=0, calculate the RDM based on whole time-points' data.
         If time_opt=1, calculate the RDMs based on each time-points respectively.
     time_win : int. Default is 5.
         Set a time-window for calculating the RDM for different time-points.
+        Only when time_opt=1, time_win works.
         If time_win=5, that means each calculation process based on 5 time-points.
-        This is also a processing of downsampling.
+    time_step : int. Default is 5.
+        The time step size for each time of calculating.
+        Only when time_opt=1, time_step works.
 
     Returns
     -------
@@ -181,20 +153,20 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5):
         The EEG/MEG/fNIR RDM.
         If sub_opt=0 & chl_opt=0 & time_opt=0, return only one RDM.
             The shape is [n_cons, n_cons].
-        If sub_opt=0 & chl_opt=0 & time_opt=1, return int(n_ts/time_win) RDM.
-            The shape is [int(n_ts/time_win), n_cons, n_cons].
+        If sub_opt=0 & chl_opt=0 & time_opt=1, return int((n_ts-time_win)/time_step)+1 RDM.
+            The shape is [int((n_ts-time_win)/time_step)+1, n_cons, n_cons].
         If sub_opt=0 & chl_opt=1 & time_opt=0, return n_chls RDM.
             The shape is [n_chls, n_cons, n_cons].
-        If sub_opt=0 & chl_opt=1 & time_opt=1, return n_chls*int(n_ts/time_win) RDM.
-            The shape is [n_chls, int(n_ts/time_win), n_cons, n_cons].
+        If sub_opt=0 & chl_opt=1 & time_opt=1, return n_chls*(int((n_ts-time_win)/time_step)+1) RDM.
+            The shape is [n_chls, int((n_ts-time_win)/time_step)+1, n_cons, n_cons].
         If sub_opt=1 & chl_opt=0 & time_opt=0, return n_subs RDM.
             The shape is [n_subs, n_cons, n_cons].
-        If sub_opt=1 & chl_opt=0 & time_opt=1, return n_subs*int(n_ts/time_win) RDM.
-            The shape is [n_subs, int(n_ts/time_win), n_cons, n_cons].
+        If sub_opt=1 & chl_opt=0 & time_opt=1, return n_subs*(int((n_ts-time_win)/time_step)+1) RDM.
+            The shape is [n_subs, int((n_ts-time_win)/time_step)+1, n_cons, n_cons].
         If sub_opt=1 & chl_opt=1 & time_opt=0, return n_subs*n_chls RDM.
             The shape is [n_subs, n_chls, n_cons, n_cons].
-        If sub_opt=1 & chl_opt=1 & time_opt=1, return n_subs*n_chls*int(n_ts/time_win) RDM.
-            The shape is [n_subs, n_chls, int(n_ts/time_win), n_cons, n_cons].
+        If sub_opt=1 & chl_opt=1 & time_opt=1, return n_subs*n_chls*(int((n_ts-time_win)/time_step)+1) RDM.
+            The shape is [n_subs, n_chls, int((n_ts-time_win)/time_step)+1, n_cons, n_cons].
     """
 
     # get the number of conditions, subjects, trials, channels and time points
@@ -205,7 +177,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5):
         if time_opt == 1:
 
             # the time-points for calculating RDM
-            ts = int(ts / time_win)
+            ts = int((ts-time_win)/time_step)+1
 
             if chl_opt == 1:
 
@@ -342,7 +314,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5):
     if time_opt == 1:
 
         # the time-points for calculating RDM
-        ts = int(ts / time_win)
+        ts = int((ts-time_win)/time_step)+1
 
         if chl_opt == 1:
 
@@ -481,9 +453,9 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5):
     return rdm
 
 
-' a function for calculating the RDM based on ECoG/sEEG/electrophysiological data '
+' a function for calculating the RDM(s) based on ECoG/sEEG/electrophysiological data '
 
-def ecogRDM(ele_data, opt="all", time_win=5):
+def ecogRDM(ele_data, opt="all", time_win=5, time_step=5):
 
     """
     Calculate the Representational Dissimilarity Matrix(Matrices) - RDM(s) for ECoG/sEEG/electrophysiology data
@@ -499,11 +471,14 @@ def ecogRDM(ele_data, opt="all", time_win=5):
         Calculate the RDM for each channel or for each time-point or for the whole data.
         If opt='channel', return n_chls RDMs based on each channel's data.
         If opt='time', return int(ts/time_win) RDMs based on each time-point's data respectively.
-        If opt='allin', return only one RDM based on all data
+        If opt='allin', return only one RDM based on all data.
     time_win : int. Default is 5.
-        Set a time-window for calculating the RDM for different time-points.
+        Set a time-window for calculating the RDM for different time-points or not.
+        Only when opt='time', time_win works.
         If time_win=5, that means each calculation process based on 5 time-points.
-        This is also a processing of downsampling.
+    time_step : int. Default is 5.
+        The time step size for each time of calculating.
+        Only when opt='time', time_step works.
 
     Returns
     -------
@@ -511,8 +486,8 @@ def ecogRDM(ele_data, opt="all", time_win=5):
         The ECoG/sEEG/electrophysiology RDM.
         If opt='channel', return n_chls RDM.
             The shape is [n_chls, n_cons, n_cons].
-        If opt='time', return int(n_ts/time_win) RDM.
-            The shape is [int(n_ts/time_win), n_cons, n_cons].
+        If opt='time', return int((n_ts-time_win)/time_step)+1 RDM.
+            The shape is [int((n_ts-time_win)/time_step)+1, n_cons, n_cons].
         If opt='all', return one RDM.
             The shape is [n_cons, n_cons].
     """
@@ -520,6 +495,7 @@ def ecogRDM(ele_data, opt="all", time_win=5):
     # get the number of conditins, trials, channels and time points
     cons, trials, chls, ts = np.shape(ele_data)
 
+    # calculate for each channel
     if opt == "channel":
 
         # initialize the data for calculating the RDM
@@ -546,10 +522,11 @@ def ecogRDM(ele_data, opt="all", time_win=5):
 
         return rdms
 
+    # calculate for each time-point
     elif opt == "time":
 
         # the time-points for calculating RDM
-        ts = int(ts/time_win)
+        ts = int((ts-time_win)/time_step)+1
 
         # initialize the data for calculating the RDM
         data = np.zeros([ts, cons, chls, ts], dtype=np.float64)
@@ -580,7 +557,7 @@ def ecogRDM(ele_data, opt="all", time_win=5):
         return rdms
 
 
-' a function for calculating the RDM based on fMRI data '
+' a function for calculating the RDM based on fMRI data (searchlight) '
 
 def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
@@ -591,11 +568,11 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
     ----------
     fmri_data : array
         The fmri data.
-        The shape of fmri_data must be [n_cons, n_chls, nx, ny, nz].
+        The shape of fmri_data must be [n_cons, n_subs, n_chls, nx, ny, nz].
         n_cons, n_chls, nx, ny, nz represent the number of conidtions, the number of channels &
         the size of fMRI-img, respectively.
     ksize : array or list [kx, ky, kz]. Default is [3, 3, 3].
-        The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis
+        The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis.
     strides : array or list [sx, sy, sz]. Default is [1, 1, 1].
         The strides for calculating along the x, y, z axis.
 
@@ -684,7 +661,7 @@ def fmriRDM_roi(fmri_data, mask_data):
         the size of fMRI-img, respectively.
     mask_data : array [nx, ny, nz].
         The mask data for region of interest (ROI)
-        The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis
+        The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis.
 
     Returns
     -------
