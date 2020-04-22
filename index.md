@@ -109,7 +109,7 @@ There are two demos in Tutorial to let you know how to use NeuroRA to conduct re
     
     > **Section 8**: Saving the RSA result and Plotting
 
-Users can see more details in [Tutorial](https://zitonglu1996.github.io/NeuroRA/neurora/Tutorial.pdf) and [Demo Codes](https://github.com/ZitongLu1996/NeuroRA/tree/master/demo).
+Users can see more details in [Tutorial](https://zitonglu1996.github.io/NeuroRA/neurora/Tutorial.pdf) and [Demo Codes](https://github.com/zitonglu1996/NeuroRA/tree/master/demo).
 
 ## About NeuroRA
 
