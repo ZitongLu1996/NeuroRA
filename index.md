@@ -18,7 +18,7 @@ Lu, Z., & Ku, Y. NeuroRA: A Python toolbox of representational analysis from mul
 
 ## Installation
 
-> pip install NeuroRA 
+> pip install neurora 
 
 ## Documentation
 
