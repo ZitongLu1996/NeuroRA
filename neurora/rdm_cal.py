@@ -641,8 +641,8 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0):
                                 # calculate the Pearson Coefficient
                                 r = pearsonr(data[sub, x, y, z, i], data[sub, x, y, z, j])[0]
                                 # calculate the dissimilarity
-                                subrdms[x, y, z, i, j] = limtozero(1 - abs(r))
-                                print(subrdms[x, y, z, i, j])
+                                subrdms[sub, x, y, z, i, j] = limtozero(1 - abs(r))
+                                print(subrdms[sub, x, y, z, i, j])
 
     # average the RDMs
     rdms = np.average(subrdms, axis=0)
@@ -729,7 +729,7 @@ def fmriRDM_roi(fmri_data, mask_data, sub_result=0):
                     # calculate the Pearson Coefficient
                     r = pearsonr(data[sub, i], data[sub, j])[0]
                     # calculate the dissimilarity
-                    subrdms[i, j] = limtozero(1 - abs(r))
+                    subrdms[sub, i, j] = limtozero(1 - abs(r))
 
     # average the RDMs
     rdm = np.average(subrdms, axis=0)

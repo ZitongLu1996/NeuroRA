@@ -728,7 +728,7 @@ def plot_brainrsa_surface(img, threshold=None):
 
 ' a function for plotting the RSA-result by a set of images '
 
-def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6]):
+def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6], background=None):
 
     """
     Plot the RSA-result by a set of images
@@ -741,6 +741,8 @@ def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6]):
         The threshold of the number of voxels used in correction.
         If threshold=n, only the similarity clusters consisting more than threshold voxels will be visible. If it is
         None, the threshold-correction will not work.
+    background : Niimg-like object or string. Default is None.
+        The background image that the RSA results will be plotted on top of.
     """
 
     imgarray = nib.load(img).get_data()

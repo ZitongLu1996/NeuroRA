@@ -94,7 +94,7 @@ nps = nps_fmri(nps_fmri_data)
 # convert the NPS results into a .nii file
 savefilename = "demo2_nps_img"
 affine = get_affine(mask_filename)
-corr_save_nii(nps, filename=savefilename, affine=affine, size=[nx, ny, nz], smooth=False, plotrlt=False)
+corr_save_nii(nps[0], filename=savefilename, affine=affine, size=[nx, ny, nz], smooth=False, plotrlt=False)
 
 # have a look
 plotting.plot_epi(savefilename+".nii")
