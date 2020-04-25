@@ -47,11 +47,8 @@ def nps(data, time_win=5, time_step=5, sub_opt=0):
     # get the number of subjects, trials, channels & time-points
     nsubs, ntrials, nchls, nts = data.shape[1:]
 
-    # average the trials
-    avgdata = np.average(data, axis=2)
-
     # the time-points for calculating NPS
-    ts = int((nts-time_win)/time_step)+1
+    ts = int((nts - time_win) / time_step) + 1
 
     # sub_opt=1
     if sub_opt == 1:
@@ -59,36 +56,34 @@ def nps(data, time_win=5, time_step=5, sub_opt=0):
         # initialize the NPS
         nps = np.zeros([nsubs, nchls, ts, 2])
 
+        # [2, n_subs, n_trials, n_chls, n_ts]
         # calculate the NPS
         for sub in range(nsubs):
             for i in range(nchls):
                 for j in range(ts):
 
-                    # average the time_win
-                    data1 = avgdata[0, sub, i, j*time_win:j*time_win+time_win]
-                    data2 = avgdata[1, sub, i, j*time_win:j*time_win+time_win]
+                    data1 = data[0, sub, :, i, j*time_win:j*time_win+time_win]
+                    data2 = data[1, sub, :, i, j*time_win:j*time_win+time_win]
+                    data1 = np.reshape(data1, [ntrials*time_win])
+                    data2 = np.reshape(data2, [ntrials*time_win])
                     # calculate the Pearson Coefficient
                     nps[sub, i, j] = pearsonr(data1, data2)
 
         return nps
 
-    # if sub_opt == 0
-
     # initialize the NPS
     nps = np.zeros([nchls, ts, 2])
 
+    # average the data
+    avgdata = np.average(data, axis=(1, 2))
+
+    # shape of avgdata: [2, n_chls, n_ts]
     # calculate the NPS
     for i in range(nchls):
         for j in range(ts):
 
-            # average the time_win
-            data1 = avgdata[0, :, i, j*time_win:j*time_win+time_win]
-            data2 = avgdata[1, :, i, j*time_win:j*time_win+time_win]
-
-            # flatten the data
-            data1 = np.reshape(data1, nsubs*time_win)
-            data2 = np.reshape(data2, nsubs*time_win)
-
+            data1 = avgdata[0, i, j*time_win:j*time_win+time_win]
+            data2 = avgdata[1, i, j*time_win:j*time_win+time_win]
             # calculate the Pearson Coefficient
             nps[i, j] = pearsonr(data1, data2)
 
@@ -104,11 +99,10 @@ def nps_fmri(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
     Parameters
     ----------
-    fmri_data : array [nx, ny, nz]
+    fmri_data : array
         The fmri data.
-        The shape of fmri_data must be [n_cons, n_chls, nx, ny, nz].
-        n_cons, n_chls, nx, ny, nz represent the number of conidtions, the number of channels &
-        the size of fMRI-img, respectively.
+        The shape of fmri_data must be [n_cons, n_subs, nx, ny, nz]. n_cons, nx, ny, nz represent the number of
+        conditions, the number of subs & the size of fMRI-img, respectively.
     ksize : array or list [kx, ky, kz]. Default is [3, 3, 3].
         The size of the fMRI-img.
         nx, ny, nz represent the number of voxels along the x, y, z axis.
@@ -117,10 +111,10 @@ def nps_fmri(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
     Returns
     -------
-    nps : array
+    subNPS : array
         The fMRI NPS for searchlight.
-        The shape of NPS is [n_x, n_y, n_z, 2]. n_x, n_y, n_z represent the number of calculation units
-        for searchlight along the x, y, z axis.
+        The shape of NPS is [n_subs, n_x, n_y, n_z, 2]. n_subs, n_x, n_y, n_z represent the number of subjects, the
+        number of calculation units for searchlight along the x, y, z axis.
     """
 
     # get the number of subjects and the size of the fMRI-img
@@ -161,24 +155,28 @@ def nps_fmri(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
                                 index = index + 1
 
-    # flatten the data under each condition for each calculation unit
-    data = np.reshape(data, [n_x, n_y, n_z, 2, kx*ky*kz*nsubs])
+    # shape of data: [n_x, n_y, n_z, cons, kx*ky*kz, subs]
+    #              ->[subs, n_x, n_y, n_z, cons, kx*ky*kz]
+    data = np.transpose(data, (5, 0, 1, 2, 3, 4))
+
+    # flatten the data for different calculating conditions
+    data = np.reshape(data, [nsubs, n_x, n_y, n_z, 2, kx * ky * kz])
 
     # initialize the NPS
-    nps = np.full([n_x, n_y, n_z, 2], np.nan)
+    subnps = np.full([nsubs, n_x, n_y, n_z, 2], np.nan)
 
     # calculate the NPS
-    for x in range(n_x):
-        for y in range(n_y):
-            for z in range(n_z):
+    for sub in range(nsubs):
+        for x in range(n_x):
+            for y in range(n_y):
+                for z in range(n_z):
 
-                # no NaN
-                if (np.isnan(data[x, y, z, 0]).any() == False) and (np.isnan(data[x, y, z, 1]).any() == False):
-                    # calculate the Pearson Coefficient and absolute the result
-                    nps[x, y, z] = np.abs(pearsonr(data[x, y, z, 0], data[x, y, z, 1]))
+                    # no NaN
+                    if (np.isnan(data[:, x, y, z, 0]).any() == False) and (np.isnan(data[:, x, y, z, 1]).any() == False):
+                        # calculate the Pearson Coefficient and absolute the result
+                        subnps[sub, x, y, z] = pearsonr(data[sub, x, y, z, 0], data[sub, x, y, z, 1])
 
-    return nps
-
+    return subnps
 
 ' a function for calculating the neural pattern similarity for fMRI data (for ROI) '
 
@@ -189,7 +187,7 @@ def nps_fmri_roi(fmri_data, mask_data):
 
     Parameters
     ----------
-    fmri_data : array [nx, ny, nz]
+    fmri_data : array
         The fmri data.
         The shape of fmri_data must be [n_cons, n_chls, nx, ny, nz].
         n_cons, n_chls, nx, ny, nz represent the number of conidtions, the number of channels &
@@ -200,9 +198,9 @@ def nps_fmri_roi(fmri_data, mask_data):
 
     Returns
     -------
-    nps : array
+    subNPS : array
         The fMRI NPS for ROI.
-        The shape of NPS is [2]. 2 representation a r-value and a p-value.
+        The shape of NPS is [n_subs, 2]. n_subs represents the number of subjects. 2 represents a r-value and a p-value.
     """
 
     # get the number of subjects and the size of the fMRI-img
@@ -237,10 +235,14 @@ def nps_fmri_roi(fmri_data, mask_data):
                             data[p, q, n] = fmri_data[p, q, i, j, k]
                             n = n + 1
 
-    # flatten the data
-    data = np.reshape(data, [2, nsubs*n])
+    # shape of data: [2, nsubs, n] -> [nsubs, 2, n]
+    data = np.transpose(data, (1, 0, 2))
+
+    # initialize the NPS
+    subnps = np.zeros([nsubs, 2])
 
     # calculate the Pearson Coefficient
-    nps = np.abs(pearsonr(data[0], data[1]))
+    for sub in range(nsubs):
+        subnps[sub] = pearsonr(data[sub, 0], data[sub, 1])
 
-    return nps
+    return subnps

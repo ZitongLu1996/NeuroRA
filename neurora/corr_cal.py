@@ -487,9 +487,8 @@ def bhvANDfmri_corr(bhv_data, fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], met
         respectively.
     fmri_data : array
         The fmri data.
-        The shape of fmri_data must be [n_cons, n_subs, n_chls, nx, ny, nz].
-        n_cons, n_chls, nx, ny, nz represent the number of conidtions, the number of channels &
-        the size of fMRI-img, respectively.
+        The shape of fmri_data must be [n_cons, n_subs, nx, ny, nz]. n_cons, nx, ny, nz represent the number of
+        conditions, the number of subs & the size of fMRI-img, respectively.
     ksize : array or list [kx, ky, kz]. Default is [3, 3, 3].
         The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis.
     strides : array or list [sx, sy, sz]. Default is [1, 1, 1].
@@ -586,9 +585,8 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
         of trials, the number of channels & the number of time-points, respectively.
     fmri_data : array
         The fmri data.
-        The shape of fmri_data must be [n_cons, n_subs, n_chls, nx, ny, nz].
-        n_cons, n_chls, nx, ny, nz represent the number of conidtions, the number of channels &
-        the size of fMRI-img, respectively.
+        The shape of fmri_data must be [n_cons, n_subs, nx, ny, nz]. n_cons, nx, ny, nz represent the number of
+        conditions, the number of subs & the size of fMRI-img, respectively.
     chl_opt : int 0 or 1. Default is 0.
         Calculate the RDM & similarities for each channel or not.
         If chl_opt=0, calculating based on all channels' data.

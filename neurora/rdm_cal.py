@@ -321,19 +321,15 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
             # sub_opt=0 & time_opt=1 & chl_opt=1
 
             # initialize the data for calculating the RDM
-            data = np.zeros([chls, ts, cons, subs, time_win], dtype=np.float64)
+            data = np.zeros([chls, ts, cons, time_win], dtype=np.float64)
 
             # assignment
             for i in range(chls):
                 for j in range(ts):
                     for k in range(cons):
-                        for l in range(subs):
-                            for m in range(time_win):
-                                # average the trials
-                                data[i, j, k, l, m] = np.average(EEG_data[k, l, :, i, j * time_win + m])
-
-            # flatten the data for different calculating conditions
-            data = np.reshape(data, [chls, ts, cons, subs * time_win])
+                        for l in range(time_win):
+                            # average the trials & subs
+                            data[i, j, k, l] = np.average(EEG_data[k, :, :, i, j * time_win + l])
 
             # initialize the RDMs
             rdms = np.zeros([chls, ts, cons, cons], dtype=np.float64)
@@ -353,19 +349,18 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
         # sub_opt=0 & time_opt=1 & chl_opt=0
 
         # initialize the data for calculating the RDM
-        data = np.zeros([ts, cons, subs, chls, time_win], dtype=np.float64)
+        data = np.zeros([ts, cons, chls, time_win], dtype=np.float64)
 
         # assignment
         for i in range(ts):
             for j in range(cons):
-                for k in range(subs):
-                    for l in range(chls):
-                        for m in range(time_win):
-                            # average the trials
-                            data[i, j, k, l, m] = np.average(EEG_data[j, k, :, l, i * time_win + m])
+                for k in range(chls):
+                    for l in range(time_win):
+                        # average the trials
+                        data[i, j, k, l] = np.average(EEG_data[j, :, :, k, i * time_win + l])
 
         # flatten the data for different calculating conditions
-        data = np.reshape(data, [ts, cons, subs * chls * time_win])
+        data = np.reshape(data, [ts, cons, chls * time_win])
 
         # initialize the RDMs
         rdms = np.zeros([ts, cons, cons], dtype=np.float64)
@@ -391,18 +386,17 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
     if chl_opt == 1:
 
         # initialize the data for calculating the RDM
-        data = np.zeros([chls, cons, subs, ts], dtype=np.float64)
+        data = np.zeros([chls, cons, ts], dtype=np.float64)
 
         # assignment
         for i in range(chls):
             for j in range(cons):
-                for k in range(subs):
-                    for l in range(ts):
-                        # average the trials
-                        data[i, j, k, l] = np.average(EEG_data[j, k, :, i, l])
+                for k in range(ts):
+                    # average the trials
+                    data[i, j, k] = np.average(EEG_data[j, :, :, i, k])
 
         # flatten the data for different calculating conditions
-        data = np.reshape(data, [chls, cons, subs * ts])
+        data = np.reshape(data, [chls, cons, ts])
 
         # initialize the RDMs
         rdms = np.zeros([chls, cons, cons], dtype=np.float64)
@@ -426,18 +420,17 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
     cons, subs, trials, chls, ts = np.shape(EEG_data)
 
     # initialize the data for calculating the RDM
-    data = np.zeros([cons, subs, chls, ts], dtype=np.float64)
+    data = np.zeros([cons, chls, ts], dtype=np.float64)
 
     # assignment
     for i in range(cons):
-        for j in range(subs):
-            for k in range(chls):
-                for l in range(ts):
+        for j in range(chls):
+            for k in range(ts):
                     # average the trials
-                    data[i, j, k, l] = np.average(EEG_data[i, j, :, k, l])
+                    data[i, j, k] = np.average(EEG_data[i, :, :, j, k])
 
     # flatten the data for different calculating condition
-    data = np.reshape(data, [cons, subs * chls * ts])
+    data = np.reshape(data, [cons, chls * ts])
 
     # initialize the RDM
     rdm = np.zeros([cons, cons], dtype=np.float64)
@@ -559,7 +552,7 @@ def ecogRDM(ele_data, opt="all", time_win=5, time_step=5):
 
 ' a function for calculating the RDM based on fMRI data (searchlight) '
 
-def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
+def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0):
 
     """
     Calculate the Representational Dissimilarity Matrices (RDMs) for fMRI data (Searchlight)
@@ -568,20 +561,25 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
     ----------
     fmri_data : array
         The fmri data.
-        The shape of fmri_data must be [n_cons, n_subs, n_chls, nx, ny, nz].
-        n_cons, n_chls, nx, ny, nz represent the number of conidtions, the number of channels &
-        the size of fMRI-img, respectively.
+        The shape of fmri_data must be [n_cons, n_subs, nx, ny, nz]. n_cons, nx, ny, nz represent the number of
+        conditions, the number of subs & the size of fMRI-img, respectively.
     ksize : array or list [kx, ky, kz]. Default is [3, 3, 3].
         The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis.
     strides : array or list [sx, sy, sz]. Default is [1, 1, 1].
         The strides for calculating along the x, y, z axis.
+    sub_result: int 0 or 1. Default is 0.
+        Return the subject-result or average-result.
+        If sub_result=0, return the average result.
+        If sub_result=1, return the results of each subject.
 
     Returns
     -------
     RDM : array
         The fMRI-Searchlight RDM.
-        The shape of RDMs is [n_x, n_y, n_z, n_cons, n_cons]. n_x, n_y, n_z represent the number of calculation units
-        for searchlight along the x, y, z axis
+        If sub_result=0, the shape of RDMs is [n_x, n_y, n_z, n_cons, n_cons].
+        If sub_result=1, the shape of RDMs is [n_subs, n_x, n_y, n_cons, n_cons]
+        n_subs, n_x, n_y, n_z represent the number of subjects & the number of calculation units for searchlight along
+        the x, y, z axis.
     """
 
     # get the number of conditions, subjects and the size of the fMRI-img
@@ -621,53 +619,67 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
                                 index = index + 1
 
+    # shape of data: [n_x, n_y, n_z, cons, kx*ky*kz, subs]
+    #              ->[subs, n_x, n_y, n_z, cons, kx*ky*kz]
+    data = np.transpose(data, (5, 0, 1, 2, 3, 4))
+
     # flatten the data for different calculating conditions
-    data = np.reshape(data, [n_x, n_y, n_z, cons, kx*ky*kz*subs])
+    data = np.reshape(data, [subs, n_x, n_y, n_z, cons, kx*ky*kz])
 
     # initialize the RDMs
-    rdms = np.full([n_x, n_y, n_z, cons, cons], np.nan)
+    subrdms = np.full([subs, n_x, n_y, n_z, cons, cons], np.nan)
 
-    # calculate the values in RDMs
-    for x in range(n_x):
-        for y in range(n_y):
-            for z in range(n_z):
-                for i in range(cons):
-                    for j in range(cons):
+    for sub in range(subs):
+        for x in range(n_x):
+            for y in range(n_y):
+                for z in range(n_z):
+                    for i in range(cons):
+                        for j in range(cons):
 
-                        # no NaN
-                        if (np.isnan(data[x, y, z, i]).any() == False) and (np.isnan(data[x, y, z, j]).any() == False):
-                            # calculate the Pearson Coefficient
-                            r = pearsonr(data[x, y, z, i], data[x, y, z, j])[0]
-                            # calculate the dissimilarity
-                            rdms[x, y, z, i, j] = limtozero(1 - abs(r))
-                            print(rdms[x, y, z, i, j])
+                            # no NaN
+                            if (np.isnan(data[:, x, y, z, i]).any() == False) and (np.isnan(data[:, x, y, z, j]).any() == False):
+                                # calculate the Pearson Coefficient
+                                r = pearsonr(data[sub, x, y, z, i], data[sub, x, y, z, j])[0]
+                                # calculate the dissimilarity
+                                subrdms[x, y, z, i, j] = limtozero(1 - abs(r))
+                                print(subrdms[x, y, z, i, j])
 
-    return rdms
+    # average the RDMs
+    rdms = np.average(subrdms, axis=0)
+
+    if sub_result == 0:
+        return rdms
+    if sub_result == 1:
+        return subrdms
 
 
 ' a function for calculating the RDM based on fMRI data of a ROI '
 
-def fmriRDM_roi(fmri_data, mask_data):
+def fmriRDM_roi(fmri_data, mask_data, sub_result=0):
 
     """
     Calculate the Representational Dissimilarity Matrix - RDM(s) for fMRI data (for ROI)
 
     Parameters
     ----------
-    fmri_data : array [nx, ny, nz].
+    fmri_data : array
         The fmri data.
-        The shape of fmri_data must be [n_cons, n_chls, nx, ny, nz].
-        n_cons, n_chls, nx, ny, nz represent the number of conidtions, the number of channels &
-        the size of fMRI-img, respectively.
+        The shape of fmri_data must be [n_cons, n_subs, nx, ny, nz]. n_cons, nx, ny, nz represent the number of
+        conditions, the number of subs & the size of fMRI-img, respectively.
     mask_data : array [nx, ny, nz].
         The mask data for region of interest (ROI)
         The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis.
+    sub_result: int 0 or 1. Default is 0.
+        Return the subject-result or average-result.
+        If sub_result=0, return the average result.
+        If sub_result=1, return the results of each subject.
 
     Returns
     -------
     RDM : array
         The fMRI-ROI RDM.
-        The shape of RDM is [n_cons, n_cons].
+        If sub_result=0, the shape of RDM is [n_cons, n_cons].
+        If sub_result=1, the shape of RDM is [n_subs, n_cons, n_cons].
     """
 
     # get the number of conditions, subjects, the size of the fMRI-img
@@ -703,19 +715,26 @@ def fmriRDM_roi(fmri_data, mask_data):
                             n = n + 1
 
     # initialize the RDMs
-    rdm = np.zeros([ncons, ncons], dtype=np.float)
+    subrdms = np.zeros([nsubs, ncons, ncons], dtype=np.float)
 
-    # flatten the data for different calculating conditions
-    data = np.reshape(data, [ncons, nsubs*n])
+    # shape of data: [ncons, nsubs, n] -> [nsubs, ncons, n]
+    data = np.transpose(data, (1, 0, 2))
 
     # calculate the values in RDM
-    for i in range(ncons):
-        for j in range(ncons):
+    for sub in range(nsubs):
+        for i in range(ncons):
+            for j in range(ncons):
 
-            if (np.isnan(data[i]).any() == False) and (np.isnan(data[j]).any() == False):
-                # calculate the Pearson Coefficient
-                r = pearsonr(data[i], data[j])[0]
-                # calculate the dissimilarity
-                rdm[i, j] = limtozero(1 - abs(r))
+                if (np.isnan(data[:, i]).any() == False) and (np.isnan(data[:, j]).any() == False):
+                    # calculate the Pearson Coefficient
+                    r = pearsonr(data[sub, i], data[sub, j])[0]
+                    # calculate the dissimilarity
+                    subrdms[i, j] = limtozero(1 - abs(r))
 
-    return rdm
+    # average the RDMs
+    rdm = np.average(subrdms, axis=0)
+
+    if sub_result == 0:
+        return rdm
+    if sub_result == 1:
+        return subrdms
