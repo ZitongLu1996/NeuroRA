@@ -37,7 +37,7 @@ def nps(data, time_win=5, time_step=5, sub_opt=0):
 
     Returns
     -------
-    NPS : array
+    nps : array
         The EEG-like NPS.
         If sub_opt=0, the shape of NPS is [n_chls, int((n_ts-time_win)/time_step)+1, 2].
         If sub_opt=1, the shape of NPS is [n_subs, n_chls, int((n_ts-time_win)/time_step)+1, 2].
@@ -111,10 +111,10 @@ def nps_fmri(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
 
     Returns
     -------
-    subNPS : array
+    nps : array
         The fMRI NPS for searchlight.
         The shape of NPS is [n_subs, n_x, n_y, n_z, 2]. n_subs, n_x, n_y, n_z represent the number of subjects, the
-        number of calculation units for searchlight along the x, y, z axis.
+        number of calculation units for searchlight along the x, y, z axis. 2 represent a r-value and a p-value.
     """
 
     # get the number of subjects and the size of the fMRI-img

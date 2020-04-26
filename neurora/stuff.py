@@ -8,6 +8,9 @@ import nibabel as nib
 import numpy as np
 import os
 import math
+from scipy.stats import spearmanr
+from scipy.stats import pearsonr
+from scipy.stats import kendalltau
 
 # get package abspath
 package_root = os.path.dirname(os.path.abspath(__file__))
@@ -442,3 +445,118 @@ def datamask(fmri_data, mask_data):
                     newfmri_data[i, j, k] = fmri_data[i, j, k]
 
     return newfmri_data
+
+
+' a function for permutation test '
+
+def permutation_test(v1, v2, iter=5000):
+
+    """
+    Conduct Permutation test
+
+    Parameters
+    ----------
+    v1 : array
+        Vector 1.
+    v2 : array
+        Vector 2.
+    iter : int. Default is 5000.
+        The times for iteration.
+
+    Returns
+    -------
+    p : float
+        The permutation test result, p-value.
+    """
+
+    # permutation test
+
+    diff = abs(np.average(v1) - np.average(v2))
+    v = np.hstack((v1, v2))
+    nv = v.shape[0]
+    ni = 0
+
+    for i in range(iter):
+        vshuffle = np.random.permutation(v)
+        vshuffle1 = vshuffle[:int(nv/2)]
+        vshuffle2 = vshuffle[int(nv/2):]
+        diff_i = np.average(vshuffle1) - np.average(vshuffle2)
+
+        if diff_i >= diff:
+            ni = ni + 1
+
+    # permunitation test p-value
+    p = np.float64(ni/iter)
+
+    return p
+
+
+' a function for permutation test for correlation coefficients '
+
+def permutation_corr(v1, v2, method="spearman", iter=5000):
+
+    """
+    Conduct Permutation test for correlation coefficients
+
+    Parameters
+    ----------
+    v1 : array
+        Vector 1.
+    v2 : array
+        Vector 2.
+    iter : int. Default is 5000.
+        The times for iteration.
+
+    Returns
+    -------
+    p : float
+        The permutation test result, p-value.
+    """
+
+    # permutation test
+
+    if method == "spearman":
+
+        rtest = spearmanr(v1, v2)[0]
+
+        ni = 0
+
+        for i in range(iter):
+            v1shuffle = np.random.permutation(v1)
+            v2shuffle = np.random.permutation(v2)
+            rperm = spearmanr(v1shuffle, v2shuffle)[0]
+
+            if rperm>rtest:
+                ni = ni + 1
+
+    if method == "pearson":
+
+        rtest = spearmanr(v1, v2)[0]
+
+        ni = 0
+
+        for i in range(iter):
+            v1shuffle = np.random.permutation(v1)
+            v2shuffle = np.random.permutation(v2)
+            rperm = pearsonr(v1shuffle, v2shuffle)[0]
+
+            if rperm>rtest:
+                ni = ni + 1
+
+    if method == "kendalltau":
+
+        rtest = spearmanr(v1, v2)[0]
+
+        ni = 0
+
+        for i in range(iter):
+            v1shuffle = np.random.permutation(v1)
+            v2shuffle = np.random.permutation(v2)
+            rperm = kendalltau(v1shuffle, v2shuffle)[0]
+
+            if rperm>rtest:
+                ni = ni + 1
+
+    p = np.float64((ni+1)/(iter+1))
+
+    return p
