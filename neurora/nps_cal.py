@@ -115,6 +115,10 @@ def nps_fmri(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
         The fMRI NPS for searchlight.
         The shape of NPS is [n_subs, n_x, n_y, n_z, 2]. n_subs, n_x, n_y, n_z represent the number of subjects, the
         number of calculation units for searchlight along the x, y, z axis. 2 represent a r-value and a p-value.
+
+    Notes
+    -----
+    The size of the calculation units should at least be [3, 3, 3].
     """
 
     # get the number of subjects and the size of the fMRI-img
@@ -201,6 +205,10 @@ def nps_fmri_roi(fmri_data, mask_data):
     subNPS : array
         The fMRI NPS for ROI.
         The shape of NPS is [n_subs, 2]. n_subs represents the number of subjects. 2 represents a r-value and a p-value.
+
+    Notes
+    -----
+    The size of the calculation units should at least be [3, 3, 3].
     """
 
     # get the number of subjects and the size of the fMRI-img

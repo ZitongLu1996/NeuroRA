@@ -41,7 +41,7 @@ You can read or download the **[Tutorial here](https://zitonglu1996.github.io/Ne
 
 - Calculate the Spatiotemporal Neural Pattern Similarity (STPS)
 
-    > for each subject
+    > for each subject / searchlight / for ROI
 
 - Calculate the Inter-Subject Correlation (ISC)
 

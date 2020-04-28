@@ -113,7 +113,7 @@ def rdm_correlation_spearman(RDM1, RDM2, rescale=False, permutation=False, iter=
     print(v2)
 
     # calculate the Spearman Correlation
-    rp = spearmanr(v1, v2)
+    rp = np.array(spearmanr(v1, v2))
 
     if permutation == True:
 
@@ -216,7 +216,7 @@ def rdm_correlation_pearson(RDM1, RDM2, rescale=False, permutation=False):
             nn = nn + 1
 
     # calculate the Spearman Correlation
-    rp = pearsonr(v1, v2)
+    rp = np.array(pearsonr(v1, v2))
 
     if permutation == True:
 
@@ -320,7 +320,7 @@ def rdm_correlation_kendall(RDM1, RDM2, rescale=False, permutation=True):
             nn = nn + 1
 
     # calculate the Kendalltau Correlation
-    rp = kendalltau(v1, v2)
+    rp = np.array(kendalltau(v1, v2))
 
     if permutation == True:
 

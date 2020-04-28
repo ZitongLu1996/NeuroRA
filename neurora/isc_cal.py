@@ -199,6 +199,10 @@ def isc_fmri_roi(fmri_data, mask_data):
         The ISC.
         The shape of corrs is [n_ts, n_subs!/(2!*(n_subs-2)!), 2]. n_ts, n_subs represent  the number of time-points,
         the number of subjects. 2 represent a r-value and a p-value.
+
+    Notes
+    -----
+    The size of the calculation units should at least be [3, 3, 3].
     """
 
     # get the number of time-points, subjects and the size of the fMRI-img
