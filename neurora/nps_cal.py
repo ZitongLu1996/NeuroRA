@@ -62,8 +62,8 @@ def nps(data, time_win=5, time_step=5, sub_opt=0):
             for i in range(nchls):
                 for j in range(ts):
 
-                    data1 = data[0, sub, :, i, j*time_win:j*time_win+time_win]
-                    data2 = data[1, sub, :, i, j*time_win:j*time_win+time_win]
+                    data1 = data[0, sub, :, i, j*time_step:j*time_step+time_win]
+                    data2 = data[1, sub, :, i, j*time_step:j*time_step+time_win]
                     data1 = np.reshape(data1, [ntrials*time_win])
                     data2 = np.reshape(data2, [ntrials*time_win])
                     # calculate the Pearson Coefficient
@@ -82,8 +82,8 @@ def nps(data, time_win=5, time_step=5, sub_opt=0):
     for i in range(nchls):
         for j in range(ts):
 
-            data1 = avgdata[0, i, j*time_win:j*time_win+time_win]
-            data2 = avgdata[1, i, j*time_win:j*time_win+time_win]
+            data1 = avgdata[0, i, j*time_step:j*time_step+time_win]
+            data2 = avgdata[1, i, j*time_step:j*time_step+time_win]
             # calculate the Pearson Coefficient
             nps[i, j] = pearsonr(data1, data2)
 
