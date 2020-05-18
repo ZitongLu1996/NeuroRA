@@ -154,6 +154,14 @@ def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12,
     font = {'size': 18}
     cb.set_label("Dissimilarity", fontdict=font)
 
+    # add values
+    step = float(1 / cons)
+    for i in range(cons):
+        for j in range(cons):
+            print(i, j)
+            text = plt.text(i * step + 0.5 * step, 1 - j * step - 0.5 * step, float('%.4f' % rdm[i, j]),
+                            ha="center", va="center", color="blue", fontsize=value_fontsize)
+
     if conditions != None:
         print("1")
         step = float(1 / cons)
@@ -164,12 +172,7 @@ def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12,
     else:
         plt.axis("off")
 
-    # add values
-    for i in range(cons):
-        for j in range(cons):
-            print(i, j)
-            text = plt.text(i * step + 0.5 * step, 1 - j * step - 0.5 * step, float('%.4f' % rdm[i, j]),
-                            ha="center", va="center", color="blue", fontsize=value_fontsize)
+
 
     plt.show()
 
@@ -543,7 +546,7 @@ def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1]
 
 ' a function for plotting the hotmap of statistical results for channels/regions by time sequence '
 
-def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], smooth=False, figsize=None, cmap=None, outline=False):
+def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], smooth=False, figsize=None, cmap=None, outline=False, threshold=5):
 
     """
     plot the hotmap of statistical results for channels/regions by time sequence
@@ -571,6 +574,9 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
         If cmap=None, the ccolormap will be 'bwr'.
     outline : bool True or False. Default is False.
         Outline the significant areas or not.
+    threshold: int. Default is 5.
+        The time threshold for outline.
+        If threshold=5, the time threshold is a window of 5 time-points for each channel/region.
     """
 
     # get the number of channels
@@ -633,10 +639,52 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
     limmin = lim[0]
     limmax = lim[1]
 
-    if cmap == None:
-        plt.imshow(rlts, extent=(start_t, end_t, 0, nchls*0.16), clim=(limmin, limmax), origin='low')
-    else:
-        plt.imshow(rlts, extent=(start_t, end_t, 0, nchls * 0.16), clim=(limmin, limmax), origin='low', cmap=cmap)
+    if outline == True:
+        ps = stats[:, :, 1]
+        tvalues = stats[:, :, 0]
+
+        for i in range(nchls):
+            for j in range(ts):
+
+                if ps[i, j] < 0.05 and tvalues[i, j] > 0:
+                    ps[i, j] = 1
+                elif ps[i, j] < 0.05 and tvalues[i, j] < 0:
+                    ps[i, j] = -1
+                else:
+                    ps[i, j] = 0
+
+        for i in range(nchls):
+            pid = set(())
+            for j in range(ts):
+                if ps[i, j] != 0:
+                    pid.add(j)
+            pid_list = list(pid)
+            pid_list.sort()
+            pid_set = set()
+            for j in pid_list:
+                index = 0
+                for k in range(threshold):
+                    if j+k in pid_list:
+                        index = index
+                    else:
+                        index = index + 1
+                if index == 0:
+                    for k in range(threshold):
+                        pid_set.add(j+k)
+            pid_list = list(pid_set)
+            pid_list.sort()
+            for j in range(ts):
+                index = j in pid_list
+                if index is False:
+                    ps[i, j] = 0
+
+        newps = np.zeros([nchls+2, ts+2], dtype=np.float)
+        newps[1:nchls+1, 1:ts+1] = ps
+
+        x = np.linspace(start_t-0.5*tstep, end_t+0.5*tstep, ts+2)
+        y = np.linspace(-0.08, 0.16*nchls+0.08, nchls+2)
+        X, Y = np.meshgrid(x, y)
+        plt.contour(X, Y, newps, (-0.5, 0.5), linewidths=3)
 
     fig = plt.gcf()
     size = fig.get_size_inches()
@@ -649,6 +697,11 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
         size_y = figsize[1]
 
     fig.set_size_inches(size_x, size_y)
+
+    if cmap == None:
+        plt.imshow(rlts, extent=(start_t, end_t, 0, nchls*0.16), clim=(limmin, limmax), origin='low')
+    else:
+        plt.imshow(rlts, extent=(start_t, end_t, 0, nchls * 0.16), clim=(limmin, limmax), origin='low', cmap=cmap)
 
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=16)
@@ -664,22 +717,6 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
 
     plt.tick_params(labelsize=18)
     plt.yticks(xi, yi, fontsize=18)
-
-    if outline == True:
-        ps = stats[:, :, 1]
-
-        for i in range(nchls):
-            for j in range(ts):
-
-                if ps[i, j] < 0.05:
-                    ps[i, j] = 0
-                else:
-                    ps[i, j] = 1
-
-        x = np.linspace(start_t+0.5*tstep, end_t-0.5*tstep, ts)
-        y = np.linspace(0.08, 0.16*nchls-0.08, nchls)
-        X, Y = np.meshgrid(x, y)
-        plt.contour(X, Y, ps, [0, 1])
 
     plt.ylabel("Channel", fontsize=20)
     plt.xlabel("Time (s)", fontsize=20)
@@ -962,3 +999,7 @@ def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6], background=None, ty
             plot_brainrsa_montage(img, threshold=threshold, slice=slice, background=background, type=type)
 
             plot_brainrsa_surface(img, threshold=threshold, type=type)
+
+rlts = np.random.rand(10, 100, 2)
+rlts[1, 10:20, 1] = 0.01
+plot_stats_hotmap(rlts, time_unit=[0, 0.02], outline=True)

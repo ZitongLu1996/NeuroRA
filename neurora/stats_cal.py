@@ -37,7 +37,7 @@ def stats(corrs, permutation=True, iter=5000):
     Notes
     -----
     n_subs must >= 6.
-    This function can be used for the correlation results of NPS, STPS, ISC, eeg-like RDMs-correlations.
+    This function can be used for the correlation results of NPS, ISC, eeg-like RDMs-correlations.
     """
 
     # get the number of subjects, channels & time-points

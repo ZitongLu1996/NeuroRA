@@ -102,7 +102,7 @@ There are two demos in Tutorial to let you know how to use NeuroRA to conduct re
     
     > **Section 8**: Calculating the RDMs for each channels
 
-- **Demo 2 for fMRI**, based on Haxby dataset, includes 7 sections.
+- **Demo 2 for fMRI**, based on Haxby dataset, includes 8 sections.
 
     > **Section 1**: loading example data
     
