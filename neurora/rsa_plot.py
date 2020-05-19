@@ -579,11 +579,13 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
         If threshold=5, the time threshold is a window of 5 time-points for each channel/region.
     """
 
+    statscopy = stats.copy()
+
     # get the number of channels
-    nchls = stats.shape[0]
+    nchls = statscopy.shape[0]
 
     # get the number of time-points
-    ts = stats.shape[1]
+    ts = statscopy.shape[1]
 
     # get the start time and the time step
     start_t = time_unit[0]
@@ -624,14 +626,14 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
         b, a = signal.butter(4, 2*30/samplerate, 'lowpass')
 
         for i in range(nchls):
-            f = interp1d(x, stats[i, :, 0], kind='cubic')
+            f = interp1d(x, statscopy[i, :, 0], kind='cubic')
             y_soft[i] = f(x_soft)
             y_soft[i] = signal.filtfilt(b, a, y_soft[i])
 
         rlts = y_soft
 
     if smooth == False:
-        rlts = stats[:, :, 0]
+        rlts = statscopy[:, :, 0]
 
     print(rlts.shape)
 
@@ -640,8 +642,8 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
     limmax = lim[1]
 
     if outline == True:
-        ps = stats[:, :, 1]
-        tvalues = stats[:, :, 0]
+        ps = statscopy[:, :, 1]
+        tvalues = statscopy[:, :, 0]
 
         for i in range(nchls):
             for j in range(ts):
@@ -999,7 +1001,3 @@ def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6], background=None, ty
             plot_brainrsa_montage(img, threshold=threshold, slice=slice, background=background, type=type)
 
             plot_brainrsa_surface(img, threshold=threshold, type=type)
-
-rlts = np.random.rand(10, 100, 2)
-rlts[1, 10:20, 1] = 0.01
-plot_stats_hotmap(rlts, time_unit=[0, 0.02], outline=True)

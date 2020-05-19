@@ -74,13 +74,34 @@ def bhvRDM(bhv_data, sub_opt=0):
         rdms = np.zeros([subs, cons, cons], dtype=np.float64)
 
         # calculate the values in RDMs
-        for sub in subs:
+        for sub in range(subs):
+            rdm = np.zeros([cons, cons], dtype=np.float)
             for i in range(cons):
                 for j in range(cons):
-                    # calculate the Pearson Coefficient
-                    r = pearsonr(bhv_data[i][sub], bhv_data[j][sub])[0]
-                    # calculate the dissimilarity
-                    rdms[sub, i, j] = limtozero(1 - abs(r))
+                    # calculate the difference
+                    rdm[i, j] = np.abs(np.average(bhv_data[i, sub])-np.average(bhv_data[j, sub]))
+
+            # flatten the RDM
+            vrdm = np.reshape(rdm, [cons * cons])
+            # array -> set -> list
+            svrdm = set(vrdm)
+            lvrdm = list(svrdm)
+            lvrdm.sort()
+
+            # get max & min
+            maxvalue = lvrdm[-1]
+            minvalue = lvrdm[1]
+
+            # rescale
+            if maxvalue != minvalue:
+
+                for i in range(cons):
+                    for j in range(cons):
+
+                        # not on the diagnal
+                        if i != j:
+                            rdm[i, j] = float((rdm[i, j] - minvalue) / (maxvalue - minvalue))
+            rdms[sub] = rdm
 
         return rdms
 
@@ -356,7 +377,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
             for j in range(cons):
                 for k in range(chls):
                     for l in range(time_win):
-                        # average the trials
+                        # average the subjects & trials
                         data[i, j, k, l] = np.average(EEG_data[j, :, :, k, i * time_step + l])
 
         # flatten the data for different calculating conditions
@@ -392,7 +413,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
         for i in range(chls):
             for j in range(cons):
                 for k in range(ts):
-                    # average the trials
+                    # average the subjects & trials
                     data[i, j, k] = np.average(EEG_data[j, :, :, i, k])
 
         # flatten the data for different calculating conditions
@@ -426,7 +447,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
     for i in range(cons):
         for j in range(chls):
             for k in range(ts):
-                    # average the trials
+                    # average the subjects & trials
                     data[i, j, k] = np.average(EEG_data[i, :, :, j, k])
 
     # flatten the data for different calculating condition
