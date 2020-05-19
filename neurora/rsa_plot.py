@@ -724,7 +724,7 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
     plt.xlabel("Time (s)", fontsize=20)
 
     plt.show()
-
+    
 
 ' a function for plotting the RSA-result regions by 3 cuts (frontal, axial & lateral) '
 
