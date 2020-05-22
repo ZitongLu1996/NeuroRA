@@ -546,7 +546,7 @@ def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1]
 
 ' a function for plotting the hotmap of statistical results for channels/regions by time sequence '
 
-def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], smooth=False, figsize=None, cmap=None, outline=False, threshold=5):
+def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], smooth=False, figsize=None, cmap=None, outline=False, p_threshold=0.05, time_threshold=5):
 
     """
     plot the hotmap of statistical results for channels/regions by time sequence
@@ -574,7 +574,9 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
         If cmap=None, the ccolormap will be 'bwr'.
     outline : bool True or False. Default is False.
         Outline the significant areas or not.
-    threshold: int. Default is 5.
+    p_threshold: float. Default is 0.05.
+        The p threshold for outline.
+    time_threshold: int. Default is 5.
         The time threshold for outline.
         If threshold=5, the time threshold is a window of 5 time-points for each channel/region.
     """
@@ -648,9 +650,9 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
         for i in range(nchls):
             for j in range(ts):
 
-                if ps[i, j] < 0.05 and tvalues[i, j] > 0:
+                if ps[i, j] < p_threshold and tvalues[i, j] > 0:
                     ps[i, j] = 1
-                elif ps[i, j] < 0.05 and tvalues[i, j] < 0:
+                elif ps[i, j] < p_threshold and tvalues[i, j] < 0:
                     ps[i, j] = -1
                 else:
                     ps[i, j] = 0
@@ -665,13 +667,13 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
             pid_set = set()
             for j in pid_list:
                 index = 0
-                for k in range(threshold):
+                for k in range(time_threshold):
                     if j+k in pid_list:
                         index = index
                     else:
                         index = index + 1
                 if index == 0:
-                    for k in range(threshold):
+                    for k in range(time_threshold):
                         pid_set.add(j+k)
             pid_list = list(pid_set)
             pid_list.sort()
@@ -724,7 +726,7 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
     plt.xlabel("Time (s)", fontsize=20)
 
     plt.show()
-    
+
 
 ' a function for plotting the RSA-result regions by 3 cuts (frontal, axial & lateral) '
 

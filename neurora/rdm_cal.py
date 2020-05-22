@@ -663,7 +663,6 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0):
                                 r = pearsonr(data[sub, x, y, z, i], data[sub, x, y, z, j])[0]
                                 # calculate the dissimilarity
                                 subrdms[sub, x, y, z, i, j] = limtozero(1 - abs(r))
-                                print(subrdms[sub, x, y, z, i, j])
 
     # average the RDMs
     rdms = np.average(subrdms, axis=0)

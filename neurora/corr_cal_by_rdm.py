@@ -202,6 +202,4 @@ def fmrirdms_corr(demo_rdm, fmri_rdms, method="spearman", rescale=False, permuta
                 elif method == "distance":
                     corrs[i, j, k, 0] = rdm_distance(demo_rdm, fmri_rdms[i, j, k], rescale=rescale)
 
-                print(corrs[i, j, k])
-
     return corrs
