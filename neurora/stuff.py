@@ -63,46 +63,17 @@ def get_affine(file_name):
 
 ' a function for FWE-correction for fMRI RSA results '
 
-def fwe_correct(p):
+def fwe_correct(p, p_threshold):
 
     """
     FWE correction for fMRI RSA results
-
-    p : array
-        The p-value map (3-D).
-    """
-
-    px = np.shape(p)[0]
-    py = np.shape(p)[1]
-    pz = np.shape(p)[2]
-
-    n = 0
-
-    for i in range(px):
-        for j in range(py):
-            for k in range(pz):
-
-                if (math.isnan(p[i, j, k]) == False) and (p[i, j, k] != 0):
-                    n = n + 1
-
-    fwep = p*n
-
-    print("finished FWE correct")
-
-    return fwep
-
-
-' a function for FDR-correction for fMRI RSA results '
-
-def fdr_correct(p):
-
-    """
-    FDR correction for fMRI RSA results
 
     Parameters
     ----------
     p : array
         The p-value map (3-D).
+    p_threshold: string
+        The p threshold.
 
     Returns
     -------
@@ -120,7 +91,47 @@ def fdr_correct(p):
         for j in range(py):
             for k in range(pz):
 
-                if (math.isnan(p[i, j, k]) == False) and (p[i, j, k] != 0):
+                if (math.isnan(p[i, j, k]) == False) and (p[i, j, k] < p_threshold):
+                    n = n + 1
+
+    fwep = p*n
+
+    print("finished FWE correct")
+
+    return fwep
+
+
+' a function for FDR-correction for fMRI RSA results '
+
+def fdr_correct(p, p_threshold):
+
+    """
+    FDR correction for fMRI RSA results
+
+    Parameters
+    ----------
+    p : array
+        The p-value map (3-D).
+    p_threshold: string
+        The p threshold.
+
+    Returns
+    -------
+    correctp : array.
+        The FDR corrected p-value map.
+    """
+
+    px = np.shape(p)[0]
+    py = np.shape(p)[1]
+    pz = np.shape(p)[2]
+
+    n = 0
+
+    for i in range(px):
+        for j in range(py):
+            for k in range(pz):
+
+                if (math.isnan(p[i, j, k]) == False) and (p[i, j, k] < p_threshold):
 
                     n = n + 1
 
@@ -134,7 +145,7 @@ def fdr_correct(p):
         for j in range(py):
             for k in range(pz):
 
-                if (math.isnan(p[i, j, k]) == False) and p[i, j, k] != 0:
+                if (math.isnan(p[i, j, k]) == False) and (p[i, j, k] < p_threshold):
                     pcluster[m] = p[i, j, k]
                     m = m + 1
 
@@ -158,7 +169,7 @@ def fdr_correct(p):
         for j in range(py):
             for k in range(pz):
 
-                if (math.isnan(p[i, j, k]) == False) and p[i, j, k] != 0:
+                if (math.isnan(p[i, j, k]) == False) and (p[i, j, k] < p_threshold):
                     fdrp[i, j, k] = newpcluster[m]
                     m = m + 1
 
