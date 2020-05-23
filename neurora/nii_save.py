@@ -363,8 +363,8 @@ def stats_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], k
                 y = j * sy
                 z = k * sz
 
-                # p-values<threshold-p & r-values>threshold-r
-                if (corrsp[i, j, k] < p) and (corrs[i, j, k, 0] > r):
+                # p-values<threshold-p
+                if corrsp[i, j, k] < p:
 
                     for k1 in range(kx):
                         for k2 in range(ky):

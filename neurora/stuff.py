@@ -143,9 +143,9 @@ def fdr_correct(p):
     for l in range(n):
         pcluster[index[l]] = float(pcluster[index[l]] * n / (l + 0.5))
 
-    """for l in range(n - 1):
+    for l in range(n - 1):
         if pcluster[index[-l - 1]] < pcluster[index[-l - 2]]:
-            pcluster[index[-l - 2]] = pcluster[index[-l - 1]]"""
+            pcluster[index[-l - 2]] = pcluster[index[-l - 1]]
 
     newpcluster = np.full([n], np.nan)
 
