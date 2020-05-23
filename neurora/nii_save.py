@@ -346,11 +346,11 @@ def stats_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], k
 
         # FDR-correction
         if correct_method == "FDR":
-            corrsp = fdr_correct(corrsp)
+            corrsp = fdr_correct(corrsp, p_threshold=p)
 
         # FWE-correction
         if correct_method == "FWE":
-            corrsp = fwe_correct(corrsp)
+            corrsp = fwe_correct(corrsp, p_threshold=p)
 
     # iterate through all the calculation units again
 
