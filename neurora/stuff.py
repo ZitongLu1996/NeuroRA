@@ -152,16 +152,11 @@ def fdr_correct(p, p_threshold):
     index = np.argsort(pcluster)
 
     for l in range(n):
-        pcluster[index[l]] = float(pcluster[index[l]] * n / (l + 0.5))
+        pcluster[index[l]] = float(pcluster[index[l]]*n/(l+1))
 
     """for l in range(n - 1):
         if pcluster[index[-l - 1]] < pcluster[index[-l - 2]]:
             pcluster[index[-l - 2]] = pcluster[index[-l - 1]]"""
-
-    newpcluster = np.full([n], np.nan)
-
-    for l in range(n):
-        newpcluster[l] = pcluster[index[l]]
 
     m = 0
 
@@ -170,7 +165,7 @@ def fdr_correct(p, p_threshold):
             for k in range(pz):
 
                 if (math.isnan(p[i, j, k]) == False) and (p[i, j, k] < p_threshold):
-                    fdrp[i, j, k] = newpcluster[m]
+                    fdrp[i, j, k] = pcluster[m]
                     m = m + 1
 
     print("finished FDR correct")
