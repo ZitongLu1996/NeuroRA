@@ -341,6 +341,32 @@ def stats_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], k
     # get the p-values
     corrsp = corrs[:, :, :, 1]
 
+    # calculate the number of voxels for correction
+    fadeimg = np.zeros([nx, ny, nz], dtype=np.int)
+    for i in range(n_x):
+        for j in range(n_y):
+            for k in range(n_z):
+                x = i * sx
+                y = j * sy
+                z = k * sz
+
+                # p-values<threshold-p
+                if corrsp[i, j, k] < p:
+
+                    for k1 in range(kx):
+                        for k2 in range(ky):
+                            for k3 in range(kz):
+                                fadeimg[x + k1, y + k2, z + k3] = 1
+
+    n_corrected = 0
+    for i in range(nx):
+        for j in range(ny):
+            for k in range(nz):
+                if fadeimg[i, j, k] == 1:
+                    n_corrected = n_corrected + 1
+
+    print(str(n_corrected)+" voxels corrected")
+
     # do the correction
     if p < 1:
 
