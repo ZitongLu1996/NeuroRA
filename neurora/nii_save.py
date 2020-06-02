@@ -25,7 +25,7 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
         The similarities between behavioral data and fMRI data for searchlight.
         The shape of RDMs is [n_x, n_y, n_z, 2]. n_x, n_y, n_z represent the number of calculation units for searchlight
         along the x, y, z axis and 2 represents a r-value and a p-value.
-    filename : string
+    filename : string. Default is 'rsa_result.nii'.
         The file path+filename for the result .nii file.
         If the filename does not end in ".nii", it will be filled in automatically.
     affine : array or list
@@ -249,7 +249,7 @@ def stats_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], k
         The statistical results between behavioral data and fMRI data for searchlight.
         The shape of RDMs is [n_x, n_y, n_z, 2]. n_x, n_y, n_z represent the number of calculation units for searchlight
         along the x, y, z axis and 2 represents a t-value and a p-value.
-    filename : string
+    filename : string. Default is 'rsa_result.nii'.
         The file path+filename for the result .nii file.
         If the filename does not end in ".nii", it will be filled in automatically.
     affine : array or list
