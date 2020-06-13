@@ -53,18 +53,18 @@ def stats(corrs, permutation=True, iter=5000):
     # get r-map
     rs = corrs[:, :, :, 0]
 
-    # Fisher r to z
-    zs = 0.5*np.log((1+rs)/(1-rs))
-
     #print(zs)
 
     # calculate the statistical results
     for i in range(chls):
         for j in range(ts):
             # t test
-            stats[i, j] = ttest_1samp(zs[:, i, j], 0)
+            stats[i, j] = ttest_1samp(rs[:, i, j], 0)
 
             if permutation == True:
+
+                # Fisher r to z
+                zs = 0.5*np.log((1+rs)/(1-rs))
 
                 stats[i, j, 1] = permutation_test(zs[:, i, j], np.zeros([subs]), iter=iter)
 
@@ -118,17 +118,16 @@ def stats_fmri(corrs, permutation=True, iter=5000):
     # get r-map
     rs = corrs[:, :, :, :, 0]
 
-    # Fisher r to z
-    zs = 0.5 * np.log((1 + rs) / (1 - rs))
-
     # calculate the statistical results
     for i in range(n_x):
         for j in range(n_y):
             for k in range(n_z):
                 # t test
-                stats[i, j, k] = ttest_1samp(zs[:, i, j, k], 0)
+                stats[i, j, k] = ttest_1samp(rs[:, i, j, k], 0)
 
                 if permutation == True:
+                    # Fisher r to z
+                    zs = 0.5 * np.log((1 + rs) / (1 - rs))
                     stats[i, j, k, 1] = permutation_test(zs[:, i, j, k], np.zeros([subs]), iter=iter)
 
     return stats
@@ -181,18 +180,18 @@ def stats_iscfmri(corrs, permutation=True, iter=5000):
     # get r-map
     rs = corrs[:, :, :, :, :, 0]
 
-    # Fisher r to z
-    zs = 0.5 * np.log((1 + rs) / (1 - rs))
-
     # calculate the statistical results
     for t in range(ts):
         for i in range(n_x):
             for j in range(n_y):
                 for k in range(n_z):
                     # t test
-                    stats[t, i, j, k] = ttest_1samp(zs[t, :, i, j, k], 0)
+                    stats[t, i, j, k] = ttest_1samp(rs[t, :, i, j, k], 0)
 
                     if permutation == True:
+
+                        # Fisher r to z
+                        zs = 0.5 * np.log((1 + rs) / (1 - rs))
                         stats[t, i, j, k, 1] = permutation_test(zs[t, :, i, j, k], np.zeros([npairs]), iter=iter)
 
     return stats
@@ -246,17 +245,17 @@ def stats_stps(corrs1, corrs2, permutation=True, iter=5000):
     rs1 = corrs1
     rs2 = corrs2
 
-    # Fisher r to z
-    zs1 = 0.5*np.log((1+rs1)/(1-rs1))
-    zs2 = 0.5*np.log((1+rs2)/(1-rs2))
-
     # calculate the statistical results
     for i in range(chls):
         for j in range(ts):
             # t test
-            stats[i, j] = ttest_rel(zs1[:, i, j], zs2[:, i, j])
+            stats[i, j] = ttest_rel(rs1[:, i, j], rs2[:, i, j])
 
             if permutation == True:
+
+                # Fisher r to z
+                zs1 = 0.5*np.log((1+rs1)/(1-rs1))
+                zs2 = 0.5*np.log((1+rs2)/(1-rs2))
 
                 stats[i, j, 1] = permutation_test(zs1[:, i, j], zs2[:, i, j], iter=iter)
 
@@ -314,18 +313,18 @@ def stats_stpsfmri(corrs1, corrs2, permutation=True, iter=5000):
     rs1 = corrs1
     rs2 = corrs2
 
-    # Fisher r to z
-    zs1 = 0.5 * np.log((1 + rs1) / (1 - rs1))
-    zs2 = 0.5 * np.log((1 + rs2) / (1 - rs2))
-
     # calculate the statistical results
     for i in range(n_x):
         for j in range(n_y):
             for k in range(n_z):
                 # t test
-                stats[i, j, k] = ttest_rel(zs1[:, i, j, k], zs2[:, i, j, k])
+                stats[i, j, k] = ttest_rel(rs1[:, i, j, k], rs2[:, i, j, k])
 
                 if permutation == True:
+
+                    # Fisher r to z
+                    zs1 = 0.5 * np.log((1 + rs1) / (1 - rs1))
+                    zs2 = 0.5 * np.log((1 + rs2) / (1 - rs2))
                     stats[i, j, k, 1] = permutation_test(zs1[:, i, j, k], zs2[:, i, j, k], iter=iter)
 
     return stats
