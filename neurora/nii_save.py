@@ -8,13 +8,14 @@ import numpy as np
 import nibabel as nib
 from nilearn.image import smooth_img
 import math
-from neurora.stuff import fwe_correct, fdr_correct
+from scipy.stats import t
+from neurora.stuff import fwe_correct, fdr_correct, get_HOcort, get_bg_ch2bet, mask_to
 from neurora.rsa_plot import plot_brainrsa_rlts
 
 
 ' a function for saving the searchlight correlation coefficients as a NIfTI file for fMRI '
 
-def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=1, r=0, correct_method=None, smooth=True, plotrlt=True, img_background=None):
+def corr_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=1, r=0, correct_method=None, smooth=True, plotrlt=True, img_background=None):
 
     """
     Save the searchlight correlation coefficients as a NIfTI file for fMRI
@@ -30,7 +31,7 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
         If the filename does not end in ".nii", it will be filled in automatically.
     affine : array or list
         The position information of the fMRI-image array data in a reference space.
-    corr_mask : string
+    corr_mask : string. Default is get_HOcort().
         The filename of a mask data for correcting the RSA result.
         It can just be one of your fMRI data files in your experiment for a mask file for ROI. If the corr_mask is a
         filename of a ROI mask file, only the RSA results in ROI will be visible.
@@ -179,22 +180,6 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
                     newimg_nii[i, j, k] = float(img_nii[i, j, k]/index[i, j, k])
 
 
-    # corr_mask != None
-    # use the mask file to correct RSA results
-    # in order to avoid results showing outside of the brain
-    if corr_mask != None:
-
-        # laod the array data of the mask file
-        mask = nib.load(corr_mask).get_data()
-
-        # do correction by the mask
-        for i in range(nx):
-            for j in range(ny):
-                for k in range(nz):
-                    if (math.isnan(mask[i, j, k]) == True) or mask[i, j, k] == 0:
-                        newimg_nii[i, j, k] = np.nan
-
-
     # set filename for result .nii file
     if filename == None:
         filename = "rsa_result.nii"
@@ -205,6 +190,27 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
             filename = filename
         else:
             filename = filename+".nii"
+
+
+    # corr_mask != None
+    # use the mask file to correct RSA results
+    # in order to avoid results showing outside of the brain
+    if corr_mask == get_HOcort():
+
+        mask_to(get_bg_ch2bet(), filename, size, affine)
+        mask = nib.load(filename).get_data()
+        print(mask.shape)
+
+    else:
+        # load the array data of the mask file
+        mask = nib.load(corr_mask).get_data()
+
+        # do correction by the mask
+        for i in range(nx):
+            for j in range(ny):
+                for k in range(nz):
+                    if (math.isnan(mask[i, j, k]) == True) or mask[i, j, k] == 0:
+                        newimg_nii[i, j, k] = np.nan
 
     print(filename)
 
@@ -226,7 +232,6 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
     if norlt == True:
         print("No RSA result.")
 
-
     # determine plot the results or not
     if norlt == False and plotrlt == True:
         plot_brainrsa_rlts(filename, background=img_background, type='r')
@@ -238,7 +243,7 @@ def corr_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ks
 
 ' a function for saving the searchlight statistical results as a NIfTI file for fMRI '
 
-def stats_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=0.05, correct_method=None, smooth=True, plotrlt=True, img_background=None):
+def stats_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=0.05, n=20, correct_method=None, smooth=False, plotrlt=True, img_background=None):
 
     """
     Save the searchlight RSA statistical results as a NIfTI file for fMRI
@@ -267,14 +272,16 @@ def stats_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], k
     p : float. Default is 0.05.
         The threshold of p-values.
         Only the results those p-values are lower than this value will be visible.
+    n : int. Default is 20.
+        The degree of freedom.
     correct_method : None or string 'FWE' or 'FDR'. Default is None.
         The method for correcting the RSA results.
         If correct_method='FWE', here the FWE-correction will be used. If correct_methd='FDR', here the FDR-correction
         will be used. If correct_method=None, no correction.
         Only when p<1, correct_method works.
-    smooth : bool True or False
+    smooth : bool True or False.  Default is False.
         Smooth the RSA result or not.
-    plotrlt : bool True or False.
+    plotrlt : bool True or False.  Default is True.
         Plot the RSA result automatically or not.
     img_background : None or string. Default if None.
         The filename of a background image that the RSA results will be plotted on the top of it.
@@ -415,6 +422,9 @@ def stats_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], k
     # initialize the newimg array to calculate the avg-r-value for each voxel
     newimg_nii = np.full([nx, ny, nz], np.nan)
 
+    t_threshold = t.isf(p, n)
+    print(t_threshold)
+
     # calculate the avg values of each valid voxel
     for i in range(nx):
         for j in range(ny):
@@ -425,23 +435,6 @@ def stats_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], k
                     # sum-r-value/index
                     newimg_nii[i, j, k] = float(img_nii[i, j, k]/index[i, j, k])
 
-
-    # corr_mask != None
-    # use the mask file to correct RSA results
-    # in order to avoid results showing outside of the brain
-    if corr_mask != None:
-
-        # laod the array data of the mask file
-        mask = nib.load(corr_mask).get_data()
-
-        # do correction by the mask
-        for i in range(nx):
-            for j in range(ny):
-                for k in range(nz):
-                    if (math.isnan(mask[i, j, k]) == True) or mask[i, j, k] == 0:
-                        newimg_nii[i, j, k] = np.nan
-
-
     # set filename for result .nii file
     if filename == None:
         filename = "rsa_result.nii"
@@ -451,7 +444,38 @@ def stats_save_nii(corrs, filename, affine, corr_mask=None, size=[60, 60, 60], k
         if q == True:
             filename = filename
         else:
-            filename = filename+".nii"
+            filename = filename + ".nii"
+
+    # corr_mask != None
+    # use the mask file to correct RSA results
+    # in order to avoid results showing outside of the brain
+    if corr_mask == get_HOcort():
+
+        mask_to(get_bg_ch2bet(), filename, size, affine)
+        mask = nib.load(filename).get_data()
+        print(mask.shape)
+
+    else:
+        # load the array data of the mask file
+        mask = nib.load(corr_mask).get_data()
+
+        # do correction by the mask
+        for i in range(nx):
+            for j in range(ny):
+                for k in range(nz):
+                    if (math.isnan(mask[i, j, k]) == True) or mask[i, j, k] == 0:
+                        newimg_nii[i, j, k] = np.nan
+
+    # do correction by the mask
+    for i in range(nx):
+        for j in range(ny):
+            for k in range(nz):
+                if (math.isnan(mask[i, j, k]) == True) or mask[i, j, k] == 0:
+                    newimg_nii[i, j, k] = np.nan
+                if newimg_nii[i, j, k] < t_threshold and newimg_nii[i, j, k] > 0:
+                    newimg_nii[i, j, k] = np.nan
+                if newimg_nii[i, j, k] > -t_threshold and newimg_nii[i, j, k] < 0:
+                    newimg_nii[i, j, k] = np.nan
 
     print(filename)
 

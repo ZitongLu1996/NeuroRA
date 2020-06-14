@@ -417,6 +417,21 @@ def get_bg_ch2bet():
     return os.path.join(package_root, 'template/ch2bet.nii.gz')
 
 
+' a function for getting HarvardOxford-cort-maxprob-thr0-1mm.nii.gz '
+
+def get_HOcort():
+    """
+    get HarvardOxford-cort-maxprob-thr0-1mm.nii.gz
+
+    Returns
+    -------
+    path : string
+        The absolute file path of 'HarvardOxford-cort-maxprob-thr0-1mm.nii.gz'
+    """
+
+    return os.path.join(package_root, 'template/HarvardOxford-cort-maxprob-thr0-1mm.nii.gz')
+
+
 ' a function for filtering the data by a ROI mask '
 
 def datamask(fmri_data, mask_data):
@@ -453,64 +468,6 @@ def datamask(fmri_data, mask_data):
     return newfmri_data
 
 
-' a function for convert data of MNI template to your data template '
-
-def mask_mni_to(mask_mni, filename, size, affine):
-
-    """
-    convert data of MNI template to your data template
-
-    Parameters:
-    -----------
-    mask_mni : string
-        The file path+filename for the mask of MNI template.
-    filename : string. Default is 'newmask.nii'.
-        The file path+filename for the mask for your data template .nii file.
-    size : array or list [nx, ny, nz]
-        The size of the fMRI-img in your experiments.
-    affine : array or list
-        The position information of the fMRI-image array data in a reference space.
-
-    Notes
-    -----
-    A result .nii file of new mask will be generated at the corresponding address of filename.
-    """
-
-    data = nib.load(mask_mni).get_data()
-
-    nx = size[0]
-    ny = size[1]
-    nz = size[2]
-
-    newdata = np.zeros(size, dtype=np.float)
-
-    for i in range(nx):
-        for j in range(ny):
-            for k in range(nz):
-                if data[i, j, k] != 1 or math.isnan(data[i, j, k]) is False:
-                    mx = 90-i+1
-                    my = j-1-126
-                    mz = k-1-72
-                    x = int(round((float(-affine[0, 3]-mx)/3)+int(affine[0, 0]/abs(affine[0, 0]))))
-                    y = int(round((float(my-affine[1, 3])/3)+int(affine[1, 1]/abs(affine[1, 1]))))
-                    z = int(round((float(my-affine[2, 3])/3)+int(affine[2, 2]/abs(affine[2, 2]))))
-                    newdata[i, j, k] = 1
-
-    file = nib.Nifti1Image(newdata, affine)
-
-    if filename == None:
-        filename = "newmask.nii"
-    else:
-        q = ".nii" in filename
-
-        if q == True:
-            filename = filename
-        else:
-            filename = filename+".nii"
-
-    nib.save(file, filename)
-
-
 ' a function for project the position of a point in matrix coordinate system to the position in MNI coordinate system '
 
 def position_to_mni(point, affine):
@@ -530,6 +487,79 @@ def position_to_mni(point, affine):
     newpoint : array
         The position in MNI coordinate system.
     """
+
+    i = point[0]
+    j = point[1]
+    k = point[2]
+
+    x = affine[0, 3] + i * affine[0, 0] - affine[0, 0]
+    y = affine[1, 3] + j * affine[1, 1] - affine[1, 1]
+    z = affine[2, 3] + k * affine[2, 2] - affine[2, 2]
+
+    newpoint = np.array([x, y, z])
+
+    return newpoint
+
+
+' a function for convert data of MNI template to your data template '
+
+def mask_to(mask, filename, size, affine):
+
+    """
+    convert mask data of certain template to your data template
+
+    Parameters:
+    -----------
+    mask : string
+        The file path+filename for the mask of certain template.
+    filename : string. Default is 'newmask.nii'.
+        The file path+filename for the mask for your data template .nii file.
+    size : array or list [nx, ny, nz]
+        The size of the fMRI-img in your experiments.
+    affine : array or list
+        The position information of the fMRI-image array data in a reference space.
+
+    Notes
+    -----
+    A result .nii file of new mask will be generated at the corresponding address of filename.
+    """
+
+    data = nib.load(mask).get_data()
+
+    nx = data.shape[0]
+    ny = data.shape[1]
+    nz = data.shape[2]
+
+    maskaffine = nib.load(mask).affine
+
+    newdata = np.zeros(size, dtype=np.float)
+
+    for i in range(nx):
+        for j in range(ny):
+            for k in range(nz):
+                if data[i, j, k] != 0 or math.isnan(data[i, j, k]) is False:
+                    mx = maskaffine[0, 3]+(i-1)*maskaffine[0, 0]
+                    my = maskaffine[1, 3]+(j-1)*maskaffine[1, 1]
+                    mz = maskaffine[2, 3]+(k-1)*maskaffine[2, 2]
+                    x = int(float((mx-affine[0, 3])/affine[0, 0]))+1
+                    y = int(float((my-affine[1, 3])/affine[1, 1]))+1
+                    z = int(float((mz-affine[2, 3])/affine[2, 2]))+1
+                    if x<size[0] and y<size[1] and z<size[2]:
+                        newdata[x, y, z] = 1
+
+    file = nib.Nifti1Image(newdata, affine)
+
+    if filename == None:
+        filename = "newmask.nii"
+    else:
+        q = ".nii" in filename
+
+        if q == True:
+            filename = filename
+        else:
+            filename = filename+".nii"
+
+    nib.save(file, filename)
 
 
 ' a function for permutation test '
