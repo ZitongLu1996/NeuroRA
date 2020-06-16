@@ -243,7 +243,7 @@ def corr_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60,
 
 ' a function for saving the searchlight statistical results as a NIfTI file for fMRI '
 
-def stats_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=0.05, n=20, correct_method=None, smooth=False, plotrlt=True, img_background=None):
+def stats_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=0.05, df=20, correct_method=None, smooth=False, plotrlt=True, img_background=None):
 
     """
     Save the searchlight RSA statistical results as a NIfTI file for fMRI
@@ -272,7 +272,7 @@ def stats_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60
     p : float. Default is 0.05.
         The threshold of p-values.
         Only the results those p-values are lower than this value will be visible.
-    n : int. Default is 20.
+    df : int. Default is 20.
         The degree of freedom.
     correct_method : None or string 'FWE' or 'FDR'. Default is None.
         The method for correcting the RSA results.
@@ -422,7 +422,7 @@ def stats_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60
     # initialize the newimg array to calculate the avg-r-value for each voxel
     newimg_nii = np.full([nx, ny, nz], np.nan)
 
-    t_threshold = t.isf(p, n)
+    t_threshold = t.isf(p, df)
     print(t_threshold)
 
     # calculate the avg values of each valid voxel
