@@ -15,7 +15,7 @@ from neurora.stuff import get_affine, correct_by_threshold, get_bg_ch2, get_bg_c
 
 ' a function for plotting the RDM '
 
-def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12, cmap=None):
+def plot_rdm(rdm, rescale=False, lim=[0, 1], conditions=None, con_fontsize=12, cmap=None):
 
     """
     Plot the RDM
@@ -24,6 +24,8 @@ def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12, cmap=None):
     ----------
     rdm : array or list [n_cons, n_cons]
         A representational dissimilarity matrix.
+    lim : array or list [min, max]. Default is [0, 1].
+        The corrs view lims.
     rescale : bool True or False. Default is False.
         Rescale the values in RDM or not.
         Here, the maximum-minimum method is used to rescale the values except for the
@@ -77,10 +79,12 @@ def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12, cmap=None):
                         rdm[i, j] = float((rdm[i, j] - minvalue) / (maxvalue - minvalue))
 
     # plot the RDM
+    min = lim[0]
+    max = lim[1]
     if cmap == None:
-        plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=plt.cm.jet, clim=(0, 1))
+        plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=plt.cm.jet, clim=(min, max))
     else:
-        plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=cmap, clim=(0, 1))
+        plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=cmap, clim=(min, max))
 
     # plt.axis("off")
     cb = plt.colorbar()
@@ -107,7 +111,7 @@ def plot_rdm(rdm, rescale=False, conditions=None, con_fontsize=12, cmap=None):
 
 ' a function for plotting the RDM with values '
 
-def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12, cmap=None):
+def plot_rdm_withvalue(rdm, lim=[0, 1], value_fontsize=10, conditions=None, con_fontsize=12, cmap=None):
 
     """
     Plot the RDM with values
@@ -116,6 +120,8 @@ def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12,
     ----------
     rdm : array or list [n_cons, n_cons]
         A representational dissimilarity matrix.
+    lim : array or list [min, max]. Default is [0, 1].
+        The corrs view lims.
     value_fontsize : int or float. Default is 10.
         The fontsize of the values on the RDM.
     conditions : string-array or string-list or None. Default is None.
@@ -143,10 +149,12 @@ def plot_rdm_withvalue(rdm, value_fontsize=10, conditions=None, con_fontsize=12,
         return None
 
     # plot the RDM
+    min = lim[0]
+    max = lim[1]
     if cmap == None:
-        plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=plt.cm.Greens, clim=(0, 1))
+        plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=plt.cm.Greens, clim=(min, max))
     else:
-        plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=cmap, clim=(0, 1))
+        plt.imshow(rdm, extent=(0, 1, 0, 1), cmap=cmap, clim=(min, max))
 
     # plt.axis("off")
     cb = plt.colorbar()
@@ -293,7 +301,7 @@ def plot_corrs_hotmap(corrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], smo
         time_unit=[0, 0.1], which means the start time of corrs is 0 sec and the time step is 0.1 sec.
     lim : array or list [min, max]. Default is [0, 1].
         The corrs view lims.
-    smooth : bool True or False
+    smooth : bool True or False. Default is False.
         Smooth the results or not.
     figsize : array or list, [size_X, size_Y]
         The size of the figure.
@@ -431,9 +439,9 @@ def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1]
         time_unit=[0, 0.1], which means the start time of corrs is 0 sec and the time step is 0.1 sec.
     lim : array or list [min, max]. Default is [0, 1].
         The corrs view lims.
-    abs : boolean True or False.
+    abs : boolean True or False. Default is False.
         Change the similarities into absolute values or not.
-    smooth : boolean True or False
+    smooth : boolean True or False. Default is False.
         Smooth the results or not.
     figsize : array or list, [size_X, size_Y]
         The size of the figure.
@@ -564,7 +572,7 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
         time_unit=[0, 0.1], which means the start time of corrs is 0 sec and the time step is 0.1 sec.
     lim : array or list [min, max]. Default is [-7, -7].
         The corrs view lims.
-    smooth : boolean True or False
+    smooth : boolean True or False. Default is False.
         Smooth the results or not.
     figsize : array or list, [size_X, size_Y]
         The size of the figure.

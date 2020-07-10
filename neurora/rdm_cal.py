@@ -14,7 +14,7 @@ np.seterr(divide='ignore', invalid='ignore')
 
 ' a function for calculating the RDM(s) based on behavioral data '
 
-def bhvRDM(bhv_data, sub_opt=0):
+def bhvRDM(bhv_data, sub_opt=0, abs=True):
 
     """
     Calculate the Representational Dissimilarity Matrix(Matrices) - RDM(s) for behavioral data
@@ -30,6 +30,8 @@ def bhvRDM(bhv_data, sub_opt=0):
         Calculate the RDM for each subject or not.
         If sub_opt=0, return only one RDM based on all data.
         If sub_opt=1, return n_subs RDMs based on each subject's data.
+    abs : boolean True or False. Default is True.
+        Calculate the absolute value of Pearson r or not.
 
     Returns
     -------
@@ -129,14 +131,17 @@ def bhvRDM(bhv_data, sub_opt=0):
             # calculate the Pearson Coefficient
             r = pearsonr(data[i], data[j])[0]
             # calculate the dissimilarity
-            rdm[i, j] = limtozero(1 - abs(r))
+            if abs == True:
+                rdm[i, j] = limtozero(1 - abs(r))
+            else:
+                rdm[i, j] = limtozero(1 - r)
 
     return rdm
 
 
 ' a function for calculating the RDM(s) based on EEG/MEG/fNIRS data '
 
-def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
+def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, abs=True):
 
     """
     Calculate the Representational Dissimilarity Matrix(Matrices) - RDM(s) for EEG/MEG/fNIRS data
@@ -167,6 +172,8 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
     time_step : int. Default is 5.
         The time step size for each time of calculating.
         Only when time_opt=1, time_step works.
+    abs : boolean True or False. Default is True.
+        Calculate the absolute value of Pearson r or not.
 
     Returns
     -------
@@ -228,7 +235,10 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
                                     # calculate the Pearson Coefficient
                                     r = pearsonr(data[i, j, k, l], data[i, j, k, m])[0]
                                     # calculate the dissimilarity
-                                    rdms[i, j, k, l, m] = limtozero(1 - abs(r))
+                                    if abs == True:
+                                        rdms[i, j, k, l, m] = limtozero(1 - abs(r))
+                                    else:
+                                        rdms[i, j, k, l, m] = limtozero(1 - r)
 
                 return rdms
 
@@ -260,7 +270,10 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
                             # calculate the Pearson Coefficient
                             r = pearsonr(data[i, j, k], data[i, j, l])[0]
                             # calculate the dissimilarity
-                            rdms[i, j, k, l] = limtozero(1 - abs(r))
+                            if abs == True:
+                                rdms[i, j, k, l] = limtozero(1 - abs(r))
+                            else:
+                                rdms[i, j, k, l] = limtozero(1 - r)
 
             return rdms
 
@@ -294,7 +307,10 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
                             # calculate the Pearson Coefficient
                             r = pearsonr(data[i, j, k], data[i, j, l])[0]
                             # calculate the dissimilarity
-                            rdms[i, j, k, l] = limtozero(1 - abs(r))
+                            if abs == True:
+                                rdms[i, j, k, l] = limtozero(1 - abs(r))
+                            else:
+                                rdms[i, j, k, l] = limtozero(1 - r)
 
             return rdms
 
@@ -326,7 +342,10 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
                     # calculate the Pearson Coefficient
                     r = pearsonr(data[i, j], data[i, k])[0]
                     # calculate the dissimilarity
-                    rdms[i, j, k] = limtozero(1 - abs(r))
+                    if abs == True:
+                        rdms[i, j, k] = limtozero(1 - abs(r))
+                    else:
+                        rdms[i, j, k] = limtozero(1 - r)
 
         return rdms
 
@@ -363,7 +382,10 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
                             # calculate the Pearson Coefficient
                             r = pearsonr(data[i, j, k], data[i, j, l])[0]
                             # calculate the dissimilarity
-                            rdms[i, j, k, l] = limtozero(1 - abs(r))
+                            if abs == True:
+                                rdms[i, j, k, l] = limtozero(1 - abs(r))
+                            else:
+                                rdms[i, j, k, l] = limtozero(1 - r)
 
             return rdms
 
@@ -393,7 +415,10 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
                     # calculate the Pearson Coefficient
                     r = pearsonr(data[i, j], data[i, k])[0]
                     # calculate the dissimilarity
-                    rdms[i, j, k] = limtozero(1 - abs(r))
+                    if abs == True:
+                        rdms[i, j, k] = limtozero(1 - abs(r))
+                    else:
+                        rdms[i, j, k] = limtozero(1 - r)
 
         return rdms
 
@@ -429,7 +454,10 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
                     # calculate the Pearson Coefficient
                     r = pearsonr(data[i, j], data[i, k])[0]
                     # calculate the dissimilarity
-                    rdms[i, j, k] = limtozero(1 - abs(r))
+                    if abs == True:
+                        rdms[i, j, k] = limtozero(1 - abs(r))
+                    else:
+                        rdms[i, j, k] = limtozero(1 - r)
 
         return rdms
 
@@ -462,14 +490,17 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5):
             # calculate the Pearson Coefficient
             r = pearsonr(data[i], data[j])[0]
             # calculate the dissimilarity
-            rdm[i, j] = limtozero(1 - np.abs(r))
+            if abs == True:
+                rdm[i, j] = limtozero(1 - np.abs(r))
+            else:
+                rdm[i, j] = limtozero(1 - r)
 
     return rdm
 
 
 ' a function for calculating the RDM(s) based on ECoG/sEEG/electrophysiological data '
 
-def ecogRDM(ele_data, opt="all", time_win=5, time_step=5):
+def ecogRDM(ele_data, opt="all", time_win=5, time_step=5, abs=True):
 
     """
     Calculate the Representational Dissimilarity Matrix(Matrices) - RDM(s) for ECoG/sEEG/electrophysiology data
@@ -493,6 +524,8 @@ def ecogRDM(ele_data, opt="all", time_win=5, time_step=5):
     time_step : int. Default is 5.
         The time step size for each time of calculating.
         Only when opt='time', time_step works.
+    abs : boolean True or False. Default is True.
+        Calculate the absolute value of Pearson r or not.
 
     Returns
     -------
@@ -532,7 +565,10 @@ def ecogRDM(ele_data, opt="all", time_win=5, time_step=5):
                     # calculate the Pearson Coefficient
                     r = pearsonr(data[i, j], data[i, k])[0]
                     # calculate the dissimilarity
-                    rdms[i, j, k] = limtozero(1 - abs(r))
+                    if abs == True:
+                        rdms[i, j, k] = limtozero(1 - abs(r))
+                    else:
+                        rdms[i, j, k] = limtozero(1 - r)
 
         return rdms
 
@@ -566,14 +602,17 @@ def ecogRDM(ele_data, opt="all", time_win=5, time_step=5):
                     # calculate the Pearson Coefficient
                     r = pearsonr(np.sort(data[i, j]), np.sort(data[i, k]))[0]
                     # calculate the dissimilarity
-                    rdms[i, j, k] = limtozero(1 - abs(r))
+                    if abs == True:
+                        rdms[i, j, k] = limtozero(1 - abs(r))
+                    else:
+                        rdms[i, j, k] = limtozero(1 - r)
 
         return rdms
 
 
 ' a function for calculating the RDM based on fMRI data (searchlight) '
 
-def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0):
+def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0, abs=True):
 
     """
     Calculate the Representational Dissimilarity Matrices (RDMs) for fMRI data (Searchlight)
@@ -592,6 +631,8 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0):
         Return the subject-result or average-result.
         If sub_result=0, return the average result.
         If sub_result=1, return the results of each subject.
+    abs : boolean True or False. Default is True.
+        Calculate the absolute value of Pearson r or not.
 
     Returns
     -------
@@ -662,7 +703,10 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0):
                                 # calculate the Pearson Coefficient
                                 r = pearsonr(data[sub, x, y, z, i], data[sub, x, y, z, j])[0]
                                 # calculate the dissimilarity
-                                subrdms[sub, x, y, z, i, j] = limtozero(1 - abs(r))
+                                if abs == True:
+                                    subrdms[sub, x, y, z, i, j] = limtozero(1 - abs(r))
+                                else:
+                                    subrdms[sub, x, y, z, i, j] = limtozero(1 - r)
 
     # average the RDMs
     rdms = np.average(subrdms, axis=0)
@@ -675,7 +719,7 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0):
 
 ' a function for calculating the RDM based on fMRI data of a ROI '
 
-def fmriRDM_roi(fmri_data, mask_data, sub_result=0):
+def fmriRDM_roi(fmri_data, mask_data, sub_result=0, abs=True):
 
     """
     Calculate the Representational Dissimilarity Matrix - RDM(s) for fMRI data (for ROI)
@@ -693,6 +737,8 @@ def fmriRDM_roi(fmri_data, mask_data, sub_result=0):
         Return the subject-result or average-result.
         If sub_result=0, return the average result.
         If sub_result=1, return the results of each subject.
+    abs : boolean True or False. Default is True.
+        Calculate the absolute value of Pearson r or not.
 
     Returns
     -------
@@ -751,7 +797,10 @@ def fmriRDM_roi(fmri_data, mask_data, sub_result=0):
                     # calculate the Pearson Coefficient
                     r = pearsonr(data[sub, i], data[sub, j])[0]
                     # calculate the dissimilarity
-                    subrdms[sub, i, j] = limtozero(1 - abs(r))
+                    if abs == True:
+                        subrdms[sub, i, j] = limtozero(1 - abs(r))
+                    else:
+                        subrdms[sub, i, j] = limtozero(1 - r)
 
     # average the RDMs
     rdm = np.average(subrdms, axis=0)
