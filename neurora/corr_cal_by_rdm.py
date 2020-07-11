@@ -66,15 +66,15 @@ def rdms_corr(demo_rdm, eeg_rdms, method="spearman", rescale=False, permutation=
                 for k in range(n3):
 
                     if method == "spearman":
-                        corrs[i, j] = rdm_correlation_spearman(demo_rdm, eeg_rdms[i, j, k], rescale=rescale, permutation=permutation, iter=iter)
+                        corrs[i, j, k] = rdm_correlation_spearman(demo_rdm, eeg_rdms[i, j, k], rescale=rescale, permutation=permutation, iter=iter)
                     elif method == "pearson":
-                        corrs[i, j] = rdm_correlation_pearson(demo_rdm, eeg_rdms[i, j, k], rescale=rescale, permutation=permutation, iter=iter)
+                        corrs[i, j, k] = rdm_correlation_pearson(demo_rdm, eeg_rdms[i, j, k], rescale=rescale, permutation=permutation, iter=iter)
                     elif method == "kendall":
-                        corrs[i, j] = rdm_correlation_kendall(demo_rdm, eeg_rdms[i, j, k], rescale=rescale, permutation=permutation, iter=iter)
+                        corrs[i, j, k] = rdm_correlation_kendall(demo_rdm, eeg_rdms[i, j, k], rescale=rescale, permutation=permutation, iter=iter)
                     elif method == "similarity":
-                        corrs[i, j, 0] = rdm_similarity(demo_rdm, eeg_rdms[i, j, k], rescale=rescale, permutation=permutation, iter=iter)
+                        corrs[i, j, k, 0] = rdm_similarity(demo_rdm, eeg_rdms[i, j, k], rescale=rescale, permutation=permutation, iter=iter)
                     elif method == "distance":
-                        corrs[i, j, 0] = rdm_distance(demo_rdm, eeg_rdms[i, j, k], rescale=rescale, permutation=permutation, iter=iter)
+                        corrs[i, j, k, 0] = rdm_distance(demo_rdm, eeg_rdms[i, j, k], rescale=rescale, permutation=permutation, iter=iter)
 
         return corrs
 
