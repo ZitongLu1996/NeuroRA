@@ -132,7 +132,7 @@ def bhvRDM(bhv_data, sub_opt=0, abs=True):
             r = pearsonr(data[i], data[j])[0]
             # calculate the dissimilarity
             if abs == True:
-                rdm[i, j] = limtozero(1 - abs(r))
+                rdm[i, j] = limtozero(1 - np.abs(r))
             else:
                 rdm[i, j] = limtozero(1 - r)
 
@@ -236,7 +236,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, 
                                     r = pearsonr(data[i, j, k, l], data[i, j, k, m])[0]
                                     # calculate the dissimilarity
                                     if abs == True:
-                                        rdms[i, j, k, l, m] = limtozero(1 - abs(r))
+                                        rdms[i, j, k, l, m] = limtozero(1 - np.abs(r))
                                     else:
                                         rdms[i, j, k, l, m] = limtozero(1 - r)
 
@@ -271,7 +271,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, 
                             r = pearsonr(data[i, j, k], data[i, j, l])[0]
                             # calculate the dissimilarity
                             if abs == True:
-                                rdms[i, j, k, l] = limtozero(1 - abs(r))
+                                rdms[i, j, k, l] = limtozero(1 - np.abs(r))
                             else:
                                 rdms[i, j, k, l] = limtozero(1 - r)
 
@@ -308,7 +308,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, 
                             r = pearsonr(data[i, j, k], data[i, j, l])[0]
                             # calculate the dissimilarity
                             if abs == True:
-                                rdms[i, j, k, l] = limtozero(1 - abs(r))
+                                rdms[i, j, k, l] = limtozero(1 - np.abs(r))
                             else:
                                 rdms[i, j, k, l] = limtozero(1 - r)
 
@@ -343,7 +343,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, 
                     r = pearsonr(data[i, j], data[i, k])[0]
                     # calculate the dissimilarity
                     if abs == True:
-                        rdms[i, j, k] = limtozero(1 - abs(r))
+                        rdms[i, j, k] = limtozero(1 - np.abs(r))
                     else:
                         rdms[i, j, k] = limtozero(1 - r)
 
@@ -383,7 +383,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, 
                             r = pearsonr(data[i, j, k], data[i, j, l])[0]
                             # calculate the dissimilarity
                             if abs == True:
-                                rdms[i, j, k, l] = limtozero(1 - abs(r))
+                                rdms[i, j, k, l] = limtozero(1 - np.abs(r))
                             else:
                                 rdms[i, j, k, l] = limtozero(1 - r)
 
@@ -416,7 +416,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, 
                     r = pearsonr(data[i, j], data[i, k])[0]
                     # calculate the dissimilarity
                     if abs == True:
-                        rdms[i, j, k] = limtozero(1 - abs(r))
+                        rdms[i, j, k] = limtozero(1 - np.abs(r))
                     else:
                         rdms[i, j, k] = limtozero(1 - r)
 
@@ -455,7 +455,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, 
                     r = pearsonr(data[i, j], data[i, k])[0]
                     # calculate the dissimilarity
                     if abs == True:
-                        rdms[i, j, k] = limtozero(1 - abs(r))
+                        rdms[i, j, k] = limtozero(1 - np.abs(r))
                     else:
                         rdms[i, j, k] = limtozero(1 - r)
 
@@ -566,7 +566,7 @@ def ecogRDM(ele_data, opt="all", time_win=5, time_step=5, abs=True):
                     r = pearsonr(data[i, j], data[i, k])[0]
                     # calculate the dissimilarity
                     if abs == True:
-                        rdms[i, j, k] = limtozero(1 - abs(r))
+                        rdms[i, j, k] = limtozero(1 - np.abs(r))
                     else:
                         rdms[i, j, k] = limtozero(1 - r)
 
@@ -603,7 +603,7 @@ def ecogRDM(ele_data, opt="all", time_win=5, time_step=5, abs=True):
                     r = pearsonr(np.sort(data[i, j]), np.sort(data[i, k]))[0]
                     # calculate the dissimilarity
                     if abs == True:
-                        rdms[i, j, k] = limtozero(1 - abs(r))
+                        rdms[i, j, k] = limtozero(1 - np.abs(r))
                     else:
                         rdms[i, j, k] = limtozero(1 - r)
 
@@ -704,7 +704,7 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0, abs=Tru
                                 r = pearsonr(data[sub, x, y, z, i], data[sub, x, y, z, j])[0]
                                 # calculate the dissimilarity
                                 if abs == True:
-                                    subrdms[sub, x, y, z, i, j] = limtozero(1 - abs(r))
+                                    subrdms[sub, x, y, z, i, j] = limtozero(1 - np.abs(r))
                                 else:
                                     subrdms[sub, x, y, z, i, j] = limtozero(1 - r)
 
@@ -797,8 +797,8 @@ def fmriRDM_roi(fmri_data, mask_data, sub_result=0, abs=True):
                     # calculate the Pearson Coefficient
                     r = pearsonr(data[sub, i], data[sub, j])[0]
                     # calculate the dissimilarity
-                    if abs == True:
-                        subrdms[sub, i, j] = limtozero(1 - abs(r))
+                    if abs is True:
+                        subrdms[sub, i, j] = limtozero(1 - np.abs(r))
                     else:
                         subrdms[sub, i, j] = limtozero(1 - r)
 
