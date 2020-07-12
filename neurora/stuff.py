@@ -61,6 +61,37 @@ def get_affine(file_name):
     return img.affine
 
 
+' a function for Fisher-Z transform of a RDM'
+
+def fisherz_rdm(rdm):
+
+    """
+    Fisher-Z transform of a RDM
+
+    Parameters
+    ----------
+    rdm : array or list [n_cons, n_cons]
+        A representational dissimilarity matrix.
+
+    Returns
+    -------
+    newrdm : array or list [n_cons, n_cons]
+        A representational dissimilarity matrix after Fisher-Z transform.
+    """
+
+    ncons = np.shape(rdm)[0]
+
+    newrdm = np.zeros([ncons, ncons], dtype=np.float)
+
+    # ignore the diagonal
+    for i in range(ncons):
+        for j in range(ncons):
+            if i != j:
+                newrdm[i, j] = 0.5*np.log((1+rdm[i, j])/(1-rdm[i, j]))
+
+    return newrdm
+
+
 ' a function for FWE-correction for fMRI RSA results '
 
 def fwe_correct(p, p_threshold):

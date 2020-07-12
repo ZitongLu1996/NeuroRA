@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='neurora',
-    version='1.1.3.0',
+    version='1.1.3.1',
     description=(
         'A Python Toolbox for Multimode Neural Data Representation Analysis'
     ),
@@ -17,7 +17,7 @@ setup(
     url='https://github.com/neurora/NeuroRA',
     install_requires=[
         'numpy',
-        'scipy',
+        'scipy>=1.4',
         'mne',
         'nibabel',
         'matplotlib'

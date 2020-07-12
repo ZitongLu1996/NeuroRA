@@ -8,12 +8,12 @@ import numpy as np
 from scipy.stats import spearmanr
 from scipy.stats import pearsonr
 from scipy.stats import kendalltau
-from neurora.stuff import permutation_corr
+from neurora.stuff import permutation_corr, fisherz_rdm
 
 
 ' a function for calculating the Spearman correlation coefficient between two RDMs '
 
-def rdm_correlation_spearman(RDM1, RDM2, rescale=False, permutation=False, iter=5000):
+def rdm_correlation_spearman(RDM1, RDM2, fisherz=False, rescale=False, permutation=False, iter=5000):
 
     """
     Calculate the Spearman Correlation between two RDMs
@@ -28,6 +28,8 @@ def rdm_correlation_spearman(RDM1, RDM2, rescale=False, permutation=False, iter=
         The RDM 2.
         The shape of RDM2 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
+    fisherz : bool True or False. Default is False.
+        Do the Fisher-Z transform of the RDMs.
     rescale : bool True or False. Default is False.
         Rescale the values in RDM or not.
         Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
@@ -41,6 +43,10 @@ def rdm_correlation_spearman(RDM1, RDM2, rescale=False, permutation=False, iter=
     corr : array [r, p].
         The Spearman Correlation result.
         The shape of corr is [2], including a r-value and a p-value.
+
+    Notes
+    -----
+    Don't set both fisherz=True and rescale=True.
     """
 
     # get number of conditions
@@ -52,6 +58,10 @@ def rdm_correlation_spearman(RDM1, RDM2, rescale=False, permutation=False, iter=
 
     print(np.shape(RDM1))
     print(np.shape(RDM2))
+
+    if fisherz == True:
+        RDM1 = fisherz_rdm(RDM1)
+        RDM2 = fisherz_rdm(RDM2)
 
     if rescale == True:
 
@@ -124,7 +134,7 @@ def rdm_correlation_spearman(RDM1, RDM2, rescale=False, permutation=False, iter=
 
 ' a function for calculating the Pearson correlation coefficient between two RDMs '
 
-def rdm_correlation_pearson(RDM1, RDM2, rescale=False, permutation=False):
+def rdm_correlation_pearson(RDM1, RDM2, fisherz=False, rescale=False, permutation=False):
 
     """
     Calculate the Pearson Correlation between two RDMs
@@ -139,6 +149,8 @@ def rdm_correlation_pearson(RDM1, RDM2, rescale=False, permutation=False):
         The RDM 2.
         The shape of RDM2 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
+    fisherz : bool True or False. Default is False.
+        Do the Fisher-Z transform of the RDMs.
     rescale : bool True or False. Default is False.
         Rescale the values in RDM or not.
         Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
@@ -152,6 +164,10 @@ def rdm_correlation_pearson(RDM1, RDM2, rescale=False, permutation=False):
     corr : array [r, p].
         The Pearson Correlation result.
         The shape of corr is [2], including a r-value and a p-value.
+
+    Notes
+    -----
+    Don't set both fisherz=True and rescale=True.
     """
 
     # get number of conditions
@@ -159,6 +175,10 @@ def rdm_correlation_pearson(RDM1, RDM2, rescale=False, permutation=False):
 
     # calculate the number of value above the diagonal in RDM
     n = int(cons*(cons-1)/2)
+
+    if fisherz == True:
+        RDM1 = fisherz_rdm(RDM1)
+        RDM2 = fisherz_rdm(RDM2)
 
     if rescale == True:
 
@@ -227,7 +247,7 @@ def rdm_correlation_pearson(RDM1, RDM2, rescale=False, permutation=False):
 
 ' a function for calculating the Kendalls tau correlation coefficient between two RDMs '
 
-def rdm_correlation_kendall(RDM1, RDM2, rescale=False, permutation=True):
+def rdm_correlation_kendall(RDM1, RDM2, fisherz=False, rescale=False, permutation=True):
 
     """
     Calculate the Kendalls tau Correlation between two RDMs
@@ -242,6 +262,8 @@ def rdm_correlation_kendall(RDM1, RDM2, rescale=False, permutation=True):
         The RDM 2.
         The shape of RDM2 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
+    fisherz : bool True or False. Default is False.
+        Do the Fisher-Z transform of the RDMs.
     rescale : bool True or False. Default is False.
         Rescale the values in RDM or not.
         Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
@@ -255,6 +277,10 @@ def rdm_correlation_kendall(RDM1, RDM2, rescale=False, permutation=True):
     corr : array [r, p].
         The Kendalls tau Correlation result.
         The shape of corr is [2], including a r-value and a p-value.
+
+    Notes
+    -----
+    Don't set both fisherz=True and rescale=True.
     """
 
     # get number of conditions
@@ -262,6 +288,10 @@ def rdm_correlation_kendall(RDM1, RDM2, rescale=False, permutation=True):
 
     # calculate the number of value above the diagonal in RDM
     n = int(cons*(cons-1)/2)
+
+    if fisherz == True:
+        RDM1 = fisherz_rdm(RDM1)
+        RDM2 = fisherz_rdm(RDM2)
 
     if rescale == True:
 
