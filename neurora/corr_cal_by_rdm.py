@@ -35,7 +35,7 @@ def rdms_corr(demo_rdm, eeg_rdms, method="spearman", fisherz=False, rescale=Fals
         Correlations. If methd='kendall', calculate the Kendall tau Correlations. If method='similarity', calculate the
         Cosine Similarities. If method='distance', calculate the Euclidean Distances.
     fisherz : bool True or False. Default is False.
-        Do the Fisher-Z transform of the RDMs.
+        Do the Fisher-Z transform of the RDMs or not.
     rescale : bool True or False.
         Rescale the values in RDM or not.
         Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
@@ -166,7 +166,7 @@ def fmrirdms_corr(demo_rdm, fmri_rdms, method="spearman", fisherz=False, rescale
         Correlations. If methd='kendall', calculate the Kendall tau Correlations. If method='similarity', calculate the
         Cosine Similarities. If method='distance', calculate the Euclidean Distances.
     fisherz : bool True or False. Default is False.
-        Do the Fisher-Z transform of the RDMs.
+        Do the Fisher-Z transform of the RDMs or not.
     rescale : bool True or False.
         Rescale the values in RDM or not.
         Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.

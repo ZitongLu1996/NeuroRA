@@ -419,12 +419,12 @@ def plot_corrs_hotmap(corrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], smo
     plt.show()
 
 
-' a function for plotting the hotmap of correlations coefficients for channels/regions by time sequence with significant outline '
+' a function for plotting the hotmap of correlations coefficients for channels/regions by time sequence with the significant outline '
 
 def plot_corrs_hotmap_stats(corrs, stats, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], p_threshold=0.05, time_threshold=5, smooth=False, figsize=None, cmap=None):
 
     """
-    plot the hotmap of correlation coefficients for channels/regions by time sequence
+    plot the hotmap of correlation coefficients for channels/regions by time sequence with the significant outline
 
     corrs : array
         The correlation coefficients time-by-time.

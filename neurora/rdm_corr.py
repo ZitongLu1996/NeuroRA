@@ -29,7 +29,7 @@ def rdm_correlation_spearman(RDM1, RDM2, fisherz=False, rescale=False, permutati
         The shape of RDM2 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
     fisherz : bool True or False. Default is False.
-        Do the Fisher-Z transform of the RDMs.
+        Do the Fisher-Z transform of the RDMs or not.
     rescale : bool True or False. Default is False.
         Rescale the values in RDM or not.
         Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
@@ -150,7 +150,7 @@ def rdm_correlation_pearson(RDM1, RDM2, fisherz=False, rescale=False, permutatio
         The shape of RDM2 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
     fisherz : bool True or False. Default is False.
-        Do the Fisher-Z transform of the RDMs.
+        Do the Fisher-Z transform of the RDMs or not.
     rescale : bool True or False. Default is False.
         Rescale the values in RDM or not.
         Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
@@ -263,7 +263,7 @@ def rdm_correlation_kendall(RDM1, RDM2, fisherz=False, rescale=False, permutatio
         The shape of RDM2 must be [n_cons, n_cons].
         n_cons represent the number of conidtions.
     fisherz : bool True or False. Default is False.
-        Do the Fisher-Z transform of the RDMs.
+        Do the Fisher-Z transform of the RDMs or not.
     rescale : bool True or False. Default is False.
         Rescale the values in RDM or not.
         Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.

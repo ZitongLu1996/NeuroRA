@@ -62,7 +62,7 @@ def bhvANDeeg_corr(bhv_data, eeg_data, sub_opt=0, chl_opt=0, time_opt=0, time_wi
         Correlations. If methd='kendall', calculate the Kendall tau Correlations. If method='similarity', calculate the
         Cosine Similarities. If method='distance', calculate the Euclidean Distances.
     fisherz : bool True or False. Default is False.
-        Do the Fisher-Z transform of the RDMs.
+        Do the Fisher-Z transform of the RDMs or not.
     rescale : bool True or False.
         Rescale the values in RDM or not.
         Here, the maximum-minimum method is used to rescale the values except for the
@@ -364,7 +364,7 @@ def bhvANDecog_corr(bhv_data, ele_data, time_win=5, time_step=5, ecog_opt="allin
         Correlations. If methd='kendall', calculate the Kendall tau Correlations. If method='similarity', calculate the
         Cosine Similarities. If method='distance', calculate the Euclidean Distances.
     fisherz : bool True or False. Default is False.
-        Do the Fisher-Z transform of the RDMs.
+        Do the Fisher-Z transform of the RDMs or not.
     rescale : bool True or False.
         Rescale the values in RDM or not.
         Here, the maximum-minimum method is used to rescale the values except for the
@@ -515,7 +515,7 @@ def bhvANDfmri_corr(bhv_data, fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub
         Correlations. If methd='kendall', calculate the Kendall tau Correlations. If method='similarity', calculate the
         Cosine Similarities. If method='distance', calculate the Euclidean Distances.
     fisherz : bool True or False. Default is False.
-        Do the Fisher-Z transform of the RDMs.
+        Do the Fisher-Z transform of the RDMs or not.
     rescale : bool True or False.
         Rescale the values in RDM or not.
         Here, the maximum-minimum method is used to rescale the values except for the
@@ -661,7 +661,7 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
         Correlations. If methd='kendall', calculate the Kendall tau Correlations. If method='similarity', calculate the
         Cosine Similarities. If method='distance', calculate the Euclidean Distances.
     fisherz : bool True or False. Default is False.
-        Do the Fisher-Z transform of the RDMs.
+        Do the Fisher-Z transform of the RDMs or not.
     rescale : bool True or False.
         Rescale the values in RDM or not.
         Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.
