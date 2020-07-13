@@ -419,6 +419,202 @@ def plot_corrs_hotmap(corrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], smo
     plt.show()
 
 
+' a function for plotting the hotmap of correlations coefficients for channels/regions by time sequence with significant outline '
+
+def plot_corrs_hotmap_stats(corrs, stats, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], p_threshold=0.05, time_threshold=5, smooth=False, figsize=None, cmap=None):
+
+    """
+    plot the hotmap of correlation coefficients for channels/regions by time sequence
+
+    corrs : array
+        The correlation coefficients time-by-time.
+        The shape of corrs must be [n_chls, ts, 2] or [n_chls, ts]. n_chls represents the number of channels or
+        regions. ts represents the number of time-points. If shape of corrs is [n_chls, ts 2], each time-point
+        of each channel/region contains a r-value and a p-value. If shape is [n_chls, ts], only r-values.
+    stats : array
+        The statistical results.
+        The shape of stats must be [n_chls, ts, 2]. n_chls represents the number of channels or regions.
+        ts represents the number of time-points. 2 represents a t-value and a p-value.
+    chllabel : string-array or string-list or None. Default is None.
+        The label for channels/regions.
+        If label=None, the labels will be '1st', '2nd', '3th', '4th', ... automatically.
+    time_unit : array or list [start_t, t_step]. Default is [0, 0.1]
+        The time information of corrs for plotting
+        start_t represents the start time and t_step represents the time between two adjacent time-points. Default
+        time_unit=[0, 0.1], which means the start time of corrs is 0 sec and the time step is 0.1 sec.
+    lim : array or list [min, max]. Default is [0, 1].
+        The corrs view lims.
+    p_threshold: float. Default is 0.05.
+        The p threshold for outline.
+    time_threshold: int. Default is 5.
+        The time threshold for outline.
+        If threshold=5, the time threshold is a window of 5 time-points for each channel/region.
+    smooth : bool True or False. Default is False.
+        Smooth the results or not.
+    figsize : array or list, [size_X, size_Y]
+        The size of the figure.
+        If figsize=None, the size of the figure will be ajusted automatically.
+    cmap : matplotlib colormap or None. Default is None.
+        The colormap for the figure.
+        If cmap=None, the ccolormap will be 'inferno'.
+    """
+
+    # get the number of channels
+    nchls = corrs.shape[0]
+
+    # get the number of time-points
+    ts = corrs.shape[1]
+
+    # get the start time and the time step
+    start_t = time_unit[0]
+    tstep = time_unit[1]
+
+    # calculate the end time
+    end_t = start_t + ts * tstep
+
+    print(start_t, tstep, end_t)
+
+    # initialize the x
+    x = np.arange(start_t, end_t, tstep)
+
+    # set labels of the channels
+    if chllabels == None:
+
+        chllabels = []
+        for i in range(nchls):
+
+            if i % 10 == 0 and i != 10:
+                newlabel = str(i+1) + "st"
+            elif i % 10 == 1 and i != 11:
+                newlabel = str(i+1) + "nd"
+            elif i % 10 == 2 and i != 12:
+                newlabel = str(i+1) + "rd"
+            else:
+                newlabel = str(i+1) + "th"
+
+            chllabels.append(newlabel)
+
+    # smooth the results
+    if smooth == True:
+
+        t = ts * 50
+
+        x_soft = np.linspace(x.min(), x.max(), t)
+        y_soft = np.zeros([nchls, t])
+
+        samplerate = int(1 / tstep) * 50
+        b, a = signal.butter(4, 2*30/samplerate, 'lowpass')
+
+        for i in range(nchls):
+
+            if len(corrs.shape) == 3:
+                f = interp1d(x, corrs[i, :, 0], kind='cubic')
+                y_soft[i] = f(x_soft)
+            elif len(corrs.shape) == 2:
+                f = interp1d(x, corrs[i, :], kind='cubic')
+                y_soft[i] = f(x_soft)
+                y_soft[i] = signal.filtfilt(b, a, y_soft[i])
+
+        rlts = y_soft
+
+    if smooth == False:
+
+        if len(corrs.shape) == 3:
+            rlts = corrs[:, :, 0]
+        elif len(corrs.shape) == 2:
+            rlts = corrs
+
+    print(rlts.shape)
+
+    statscopy = stats.copy()
+
+    ps = statscopy[:, :, 1]
+    tvalues = statscopy[:, :, 0]
+
+    for i in range(nchls):
+        for j in range(ts):
+
+            if ps[i, j] < p_threshold and tvalues[i, j] > 0:
+                ps[i, j] = 1
+            elif ps[i, j] < p_threshold and tvalues[i, j] < 0:
+                ps[i, j] = -1
+            else:
+                ps[i, j] = 0
+
+    for i in range(nchls):
+        pid = set(())
+        for j in range(ts):
+            if ps[i, j] != 0:
+                pid.add(j)
+        pid_list = list(pid)
+        pid_list.sort()
+        pid_set = set()
+        for j in pid_list:
+            index = 0
+            for k in range(time_threshold):
+                if j + k in pid_list:
+                    index = index
+                else:
+                    index = index + 1
+            if index == 0:
+                for k in range(time_threshold):
+                    pid_set.add(j + k)
+        pid_list = list(pid_set)
+        pid_list.sort()
+        for j in range(ts):
+            index = j in pid_list
+            if index is False:
+                ps[i, j] = 0
+
+    newps = np.zeros([nchls + 2, ts + 2], dtype=np.float)
+    newps[1:nchls + 1, 1:ts + 1] = ps
+
+    x = np.linspace(start_t - 0.5 * tstep, end_t + 0.5 * tstep, ts + 2)
+    y = np.linspace(-0.08, 0.16 * nchls + 0.08, nchls + 2)
+    X, Y = np.meshgrid(x, y)
+    plt.contour(X, Y, newps, (-0.5, 0.5), linewidths=3)
+
+    # get min of lims & max of lims
+    limmin = lim[0]
+    limmax = lim[1]
+
+    if cmap == None:
+        plt.imshow(rlts, extent=(start_t, end_t, 0, nchls*0.16), clim=(limmin, limmax), origin='low', cmap='inferno')
+    else:
+        plt.imshow(rlts, extent=(start_t, end_t, 0, nchls * 0.16), clim=(limmin, limmax), origin='low', cmap=cmap)
+
+    fig = plt.gcf()
+    size = fig.get_size_inches()
+
+    if figsize == None:
+        size_x = ts*tstep*(size[0]-2)+2
+        size_y = nchls*0.2*(size[1]-1.5)+1.5
+    else:
+        size_x = figsize[0]
+        size_y = figsize[1]
+
+    fig.set_size_inches(size_x, size_y)
+
+    cb = plt.colorbar()
+    cb.ax.tick_params(labelsize=16)
+    font = {'size': 18}
+    cb.set_label("Similarity", fontdict=font)
+
+    xi = []
+
+    for i in range(nchls):
+        xi.append(0.16*i + 0.08)
+
+    yi = chllabels
+
+    plt.tick_params(labelsize=18)
+    plt.yticks(xi, yi, fontsize=18)
+    plt.ylabel("Channel", fontsize=20)
+    plt.xlabel("Time (s)", fontsize=20)
+
+    plt.show()
+
+
 ' a function for plotting the hotmap of neural pattern similarities for channels/regions by time sequence '
 
 def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], abs=False, smooth=False, figsize=None, cmap=None):
@@ -718,7 +914,7 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=16)
     font = {'size': 18}
-    cb.set_label("Similarity", fontdict=font)
+    cb.set_label("t", fontdict=font)
 
     xi = []
 
