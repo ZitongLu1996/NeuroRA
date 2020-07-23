@@ -81,7 +81,10 @@ def bhvRDM(bhv_data, sub_opt=0, abs=True):
             for i in range(cons):
                 for j in range(cons):
                     # calculate the difference
-                    rdm[i, j] = np.abs(np.average(bhv_data[i, sub])-np.average(bhv_data[j, sub]))
+                    if abs is True:
+                        rdm[i, j] = np.abs(np.average(bhv_data[i, sub])-np.average(bhv_data[j, sub]))
+                    else:
+                        rdm[i, j] = np.average(bhv_data[i, sub]) - np.average(bhv_data[j, sub])
 
             # flatten the RDM
             vrdm = np.reshape(rdm, [cons * cons])
