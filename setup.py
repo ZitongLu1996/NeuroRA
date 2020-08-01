@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='neurora',
-    version='1.1.3.4',
+    version='1.1.3.5',
     description=(
         'A Python Toolbox for Multimode Neural Data Representation Analysis'
     ),
@@ -20,7 +20,8 @@ setup(
         'scipy>=1.4',
         'mne',
         'nibabel',
-        'matplotlib'
+        'matplotlib',
+        'nilearn'
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
