@@ -38,7 +38,8 @@ def corr_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60,
     size : array or list [nx, ny, nz]. Default is [60, 60, 60].
         The size of the fMRI-img in your experiments.
     ksize : array or list [kx, ky, kz]. Default is [3, 3, 3].
-        The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis
+        The size of the calculation unit for searchlight.
+        kx, ky, kz represent the number of voxels along the x, y, z axis.
     strides : array or list [sx, sy, sz]. Default is [1, 1, 1].
         The strides for calculating along the x, y, z axis.
     p : float. Default is 1.
@@ -266,7 +267,8 @@ def stats_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60
     size : array or list [nx, ny, nz]. Default is [60, 60, 60].
         The size of the fMRI-img in your experiments.
     ksize : array or list [kx, ky, kz]. Default is [3, 3, 3].
-        The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis
+        The size of the calculation unit for searchlight.
+        kx, ky, kz represent the number of voxels along the x, y, z axis.
     strides : array or list [sx, sy, sz]. Default is [1, 1, 1].
         The strides for calculating along the x, y, z axis.
     p : float. Default is 0.05.

@@ -104,8 +104,8 @@ def nps_fmri(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
         The shape of fmri_data must be [n_cons, n_subs, nx, ny, nz]. n_cons, nx, ny, nz represent the number of
         conditions, the number of subs & the size of fMRI-img, respectively.
     ksize : array or list [kx, ky, kz]. Default is [3, 3, 3].
-        The size of the fMRI-img.
-        nx, ny, nz represent the number of voxels along the x, y, z axis.
+        The size of the calculation unit for searchlight.
+        kx, ky, kz represent the number of voxels along the x, y, z axis.
     strides : array or list [sx, sy, sz]. Default is [1, 1, 1].
         The strides for calculating along the x, y, z axis.
 

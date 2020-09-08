@@ -75,7 +75,7 @@ mask_face_filename = haxby_dataset.mask_face[0]
 mask_face_data = nib.load(mask_face_filename).get_data()
 
 # get input data under two condition
-# here, "face"-condition vs. "cat"-condition
+# here, "face"-condition vs. "scissors"-condition
 nps_fmri_data = fmri_data[[0, 6]]
 
 # calculate the neural pattern similarity (NPS) for ROI between two stimulus

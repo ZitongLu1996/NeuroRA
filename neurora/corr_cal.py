@@ -502,7 +502,8 @@ def bhvANDfmri_corr(bhv_data, fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub
         The shape of fmri_data must be [n_cons, n_subs, nx, ny, nz]. n_cons, nx, ny, nz represent the number of
         conditions, the number of subs & the size of fMRI-img, respectively.
     ksize : array or list [kx, ky, kz]. Default is [3, 3, 3].
-        The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis.
+        The size of the calculation unit for searchlight.
+        kx, ky, kz represent the number of voxels along the x, y, z axis.
     strides : array or list [sx, sy, sz]. Default is [1, 1, 1].
         The strides for calculating along the x, y, z axis.
     sub_result: int 0 or 1. Default is 1.
@@ -648,7 +649,8 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
         If chl_opt=0, calculating based on all channels' data.
         If chl_opt=1, calculating based on each channel's data respectively.
     ksize : array or list [kx, ky, kz]. Default is [3, 3, 3].
-        The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis.
+        The size of the calculation unit for searchlight.
+        kx, ky, kz represent the number of voxels along the x, y, z axis.
     strides : array or list [sx, sy, sz]. Default is [1, 1, 1].
         The strides for calculating along the x, y, z axis.
     sub_result: int 0 or 1. Default is 1.
