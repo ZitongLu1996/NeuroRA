@@ -11,7 +11,7 @@
 **NeuroRA** is an easy-to-use toolbox based on **Python**, which can do some works about **RSA** among nearly all kinds of neural data, including **behavioral, EEG, MEG, fNIRS, ECoG, fMRI and some other neuroelectrophysiological data**.
 In addition, users can do **Neural Pattern Similarity (NPS)**, **Spatiotemporal Pattern Similarity (STPS)** & **Inter-Subject Correlation (ISC)** on **NeuroRA**.
 
-![ ](img/Overview.png)
+![ ](img/Overview.jpg)
 
 ## Paper
 
@@ -80,12 +80,18 @@ You can read the **[Documentation here](https://neurora.github.io/documentation/
     ![ ](img/03.png)
     ![ ](img/04.png)
 
-## Script Demo to Know How to Use
+## Script Demos to Know How to Use
 
 There are two demos in Tutorial to let you know how to use NeuroRA to conduct representational analysis.
 
-- **Demo 1 for EEG/MEG**, based on visual-92-categories-task MEG dataset, includes 8 sections.
+|   | Run the Demo | View the Demo |
+| - | --- | ---- |
+| Demo 1 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo1.ipynb) | [![View the notebook](https://img.shields.io/badge/render-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo1.ipynb) |
+| Demo 2 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo2.ipynb) | [![View the notebook](https://img.shields.io/badge/render-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo2.ipynb) |
+| Demo 3 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo3.ipynb) | [![View the notebook](https://img.shields.io/badge/render-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo3.ipynb) |
 
+- **Demo 1 for EEG/MEG**, based on visual-92-categories-task MEG dataset, includes 8 sections.
+    
     > **Section 1**: Loading example data
     
     > **Section 2**: Preprocessing
@@ -104,7 +110,7 @@ There are two demos in Tutorial to let you know how to use NeuroRA to conduct re
 
 - **Demo 2 for fMRI**, based on Haxby dataset, includes 8 sections.
 
-    > **Section 1**: loading example data
+    > **Section 1**: Loading example data
     
     > **Section 2**: Preprocessing
     
@@ -119,6 +125,18 @@ There are two demos in Tutorial to let you know how to use NeuroRA to conduct re
     > **Section 7**: Calculating the representational similarities between a coding model and neural activities
     
     > **Section 8**: Saving the RSA result and Plotting
+
+- **Demo 3 for comparing classification-based decoding and RSA**.
+
+    > **Section 1**: Downloading the data
+    
+    > **Section 2**: Classification-based Decoding
+    
+    > **Section 3**: Plotting the classification-based decoding results
+    
+    > **Section 4**: RSA-based Decoding
+    
+    > **Section 5**: Plotting the RSA-based decoding results
 
 Users can see more details in [Tutorial](https://zitonglu1996.github.io/NeuroRA/neurora/Tutorial.pdf) and [Demo Codes](https://github.com/zitonglu1996/NeuroRA/tree/master/demo).
 

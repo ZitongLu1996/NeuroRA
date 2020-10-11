@@ -13,6 +13,10 @@ In addition, users can do **Neural Pattern Similarity (NPS)**, **Spatiotemporal 
 ## Installation
 > pip install neurora
 
+## Paper
+
+Lu, Z., & Ku, Y. NeuroRA: A Python toolbox of representational analysis from multi-modal neural data. (bioRxiv: https://doi.org/10.1101/2020.03.25.008086)
+
 ## Website & How to use
 See more details at the [NeuroRA website](https://zitonglu1996.github.io/NeuroRA/).
 
@@ -47,9 +51,14 @@ You can read the [Documentation here](https://neurora.github.io/documentation/in
 
 - Visualization for RSA results
 
-## Paper
+## Demos
+There are several demos for NeuroRA, and you can see them in /demos/.. path (both .py files and .ipynb files are provided).
 
-Lu, Z., & Ku, Y. NeuroRA: A Python toolbox of representational analysis from multi-modal neural data. (bioRxiv: https://doi.org/10.1101/2020.03.25.008086)
+|   | Run the Demo | View the Demo |
+| - | --- | ---- |
+| Demo 1 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo1.ipynb) | [![View the notebook](https://img.shields.io/badge/render-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo1.ipynb) |
+| Demo 2 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo2.ipynb) | [![View the notebook](https://img.shields.io/badge/render-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo2.ipynb) |
+| Demo 3 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo3.ipynb) | [![View the notebook](https://img.shields.io/badge/render-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo3.ipynb) |
 
 ## About NeuroRA
 **Noteworthily**, this toolbox is currently only a **test version**. 
