@@ -40,7 +40,7 @@ def nps(data, time_win=5, time_step=5, sub_opt=0):
     nps : array
         The EEG-like NPS.
         If sub_opt=0, the shape of NPS is [n_chls, int((n_ts-time_win)/time_step)+1, 2].
-        If sub_opt=1, the shape of NPS is [n_subs, n_chls, int((n_ts-time_win)/time_step)+1, 2].
+        If sub_opt=1, the shape of NPS is [n_subs, n_chls, int((n_ts-time_win)/time_step)+1, 2]. 
         2 representation a r-value and a p-value.
     """
 
