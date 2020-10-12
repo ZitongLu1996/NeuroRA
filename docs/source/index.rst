@@ -9,7 +9,7 @@ NeuroRA
 A Python Toolbox of Representational Analysis from Multi-modal Neural Data
 **************************************************************************
 
-NeuroRA is an easy-to-use toolbox based on Python, which can do some works about RSA among nearly all kinds of neural data, including behavioral, EEG, MEG, fNIRS, ECoG, fMRI and some other neuroelectrophysiological data. In addition, users can do Neural Pattern Similarity (NPS), Spatiotemporal Pattern Similarity (STPS) & Inter-Subject Correlation (ISC) on NeuroRA.
+NeuroRA is an easy-to-use toolbox based on Python, which can do some works about RSA among nearly all kinds of neural data, including behavioral, EEG, MEG, fNIRS, sEEG, ECoG, fMRI and some other neuroelectrophysiological data. In addition, users can do Neural Pattern Similarity (NPS), Spatiotemporal Pattern Similarity (STPS) & Inter-Subject Correlation (ISC) on NeuroRA.
 
 Author: Zitong Lu
 
