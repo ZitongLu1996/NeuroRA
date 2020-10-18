@@ -115,7 +115,7 @@ plot_rdm(rdm, percentile=True)
 # (raw sampling requency is 1000Hz, so here time_win=10ms/(1s/1000Hz)/1000=10)
 rdms = eegRDM(megdata, time_opt=1, time_win=10, time_step=10)
 
-# Plot the RDM of -100ms, 0ms, 50ms, 100ms, 150ms, 200ms
+# Plot the RDM of -100ms, 0ms, 100ms, 200ms, 30ms, 400ms
 times = [0, 10, 20, 30, 40, 50]
 for t in times:
     plot_rdm(rdms[t], percentile=True)

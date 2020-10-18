@@ -14,12 +14,12 @@ from neurora.rdm_corr import rdm_distance
 np.seterr(divide='ignore', invalid='ignore')
 
 
-' a function for calculating the Similarity/Correlation Cosfficient between RDMs based on EEG/MEG/fNIRS/ECoG/sEEG/electrophysiological RDMs and a demo RDM'
+' a function for calculating the Similarity/Correlation Cosfficient between RDMs based on EEG-like data and a demo RDM'
 
 def rdms_corr(demo_rdm, eeg_rdms, method="spearman", fisherz=False, rescale=False, permutation=False, iter=5000):
 
     """
-    Calculate the Similarities between EEG/MEG/fNIRS/ECoG/sEEG/electrophysiological RDMs and a demo RDM
+    Calculate the Similarities between RDMs based on EEG-like data and a demo RDM
 
     Parameters
     ----------
@@ -54,6 +54,11 @@ def rdms_corr(demo_rdm, eeg_rdms, method="spearman", fisherz=False, rescale=Fals
         corrs will be [n1, n2, n3, 2]. ni(i=1, 2, 3) can be int(n_ts/timw_win), n_chls, n_subs. 2 represents a r-value
         and a p-value.
     """
+
+    if len(np.shape(demo_rdm)) != 2 or len(np.shape(eeg_rdms)) < 2 or len(np.shape(eeg_rdms)) > 5 or \
+            np.shape(demo_rdm)[0] != np.shape(demo_rdm)[1] or np.shape(eeg_rdms)[-1] != np.shape(eeg_rdms)[-2]:
+
+        return "Invalid input!"
 
     if len(eeg_rdms.shape) == 5:
 
@@ -182,6 +187,12 @@ def fmrirdms_corr(demo_rdm, fmri_rdms, method="spearman", fisherz=False, rescale
         The shape of RDMs is [n_x, n_y, n_z, 2]. n_x, n_y, n_z represent the number of calculation units for searchlight
         along the x, y, z axis and 2 represents a r-value and a p-value.
     """
+
+    if len(np.shape(demo_rdm)) != 2 or len(np.shape(fmri_rdms)) != 5 or np.shape(demo_rdm)[0] != np.shape(demo_rdm)[1] \
+            or np.shape(fmri_rdms)[3] != np.shape(fmri_rdms)[4]:
+
+        return "Invalid input!"
+
     # calculate the number of the calculation units in the x, y, z directions
     n_x = np.shape(fmri_rdms)[0]
     n_y = np.shape(fmri_rdms)[1]

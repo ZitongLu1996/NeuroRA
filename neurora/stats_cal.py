@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-' a module for calculating the Statistical Results '
+' a module for conducting the statistical analysis '
 
 __author__ = 'Zitong Lu'
 
@@ -9,12 +9,12 @@ from scipy.stats import ttest_1samp, ttest_rel
 from neurora.stuff import permutation_test
 
 
-' a function for calculating the statistical results '
+' a function for conducting the statistical analysis for results of EEG-like data '
 
 def stats(corrs, permutation=True, iter=5000):
 
     """
-    Calculate the statistical results
+    Conduct the statistical analysis for results of EEG-like data
 
     Parameters
     ----------
@@ -39,6 +39,10 @@ def stats(corrs, permutation=True, iter=5000):
     n_subs must >= 6.
     This function can be used for the correlation results of NPS, ISC, eeg-like RDMs-correlations.
     """
+
+    if len(np.shape(corrs)) != 4:
+
+        return "Invalid input!"
 
     # get the number of subjects, channels & time-points
     subs, chls, ts = np.shape(corrs)[:3]
@@ -71,12 +75,12 @@ def stats(corrs, permutation=True, iter=5000):
     return stats
 
 
-' a function for calculating the statistical results for fMRI '
+' a function for conducting the statistical analysis for results of fMRI data (searchlight) '
 
-def stats_fmri(corrs, permutation=True, iter=5000):
+def stats_fmri(corrs, permutation=False, iter=5000):
 
     """
-    Calculate the statistical results for fMRI
+    Conduct the statistical analysis for results of fMRI data (searchlight)
 
     Parameters
     ----------
@@ -101,6 +105,10 @@ def stats_fmri(corrs, permutation=True, iter=5000):
     n_subs must >= 6.
     This function can be used for the results of searchlight fMRI NPS and searchlight fMRI RDM-correlations.
     """
+
+    if len(np.shape(corrs)) != 5:
+
+        return "Invalid input!"
 
     # get the number of subjects
     subs = np.shape(corrs)[0]
@@ -133,12 +141,12 @@ def stats_fmri(corrs, permutation=True, iter=5000):
     return stats
 
 
-' a function for calculating the statistical results for fMRI (ISC searchlight) '
+' a function for conducting the statistical analysis for results of fMRI data (ISC searchlight) '
 
-def stats_iscfmri(corrs, permutation=True, iter=5000):
+def stats_iscfmri(corrs, permutation=False, iter=5000):
 
     """
-    Calculate the statistical results for fMRI (ISC searchlight)
+    Conduct the statistical analysis for results of fMRI data (ISC searchlight)
 
     Parameters
     ----------
@@ -163,6 +171,10 @@ def stats_iscfmri(corrs, permutation=True, iter=5000):
     -----
     n_subs must >= 4 (n_subs!/(2!*(n_subs-2)!) >= 6).
     """
+
+    if len(np.shape(corrs)) != 6:
+
+        return "Invalid input!"
 
     # get the number of time-points, pairs
     ts, npairs = np.shape(corrs)[:2]
@@ -197,12 +209,12 @@ def stats_iscfmri(corrs, permutation=True, iter=5000):
     return stats
 
 
-' a function for calculating the statistical results (for STPS) '
+' a function for conducting the statistical analysis for results of EEG-like data (for STPS) '
 
 def stats_stps(corrs1, corrs2, permutation=True, iter=5000):
 
     """
-    Calculate the statistical results （for STPS）
+    Conduct the statistical analysis for results of EEG-like data（for STPS）
 
     Parameters
     ----------
@@ -230,6 +242,11 @@ def stats_stps(corrs1, corrs2, permutation=True, iter=5000):
     -----
     n_subs must >= 6.
     """
+
+    if len(np.shape(corrs1)) != 3 or len(np.shape(corrs2)) != 3 or np.shape(corrs1)[1] != np.shape(corrs2)[1] or \
+            np.shape(corrs1)[2] != np.shape(corrs2)[2]:
+
+        return "Invalid input!"
 
     # get the number of subjects, channels & time-points
     subs, chls, ts = np.shape(corrs1)
@@ -262,12 +279,12 @@ def stats_stps(corrs1, corrs2, permutation=True, iter=5000):
     return stats
 
 
-' a function for calculating the statistical results for fMRI (STPS searchlight) '
+' a function for conducting the statistical analysis for results of fMRI data (STPS searchlight) '
 
-def stats_stpsfmri(corrs1, corrs2, permutation=True, iter=5000):
+def stats_stpsfmri(corrs1, corrs2, permutation=False, iter=5000):
 
     """
-    Calculate the statistical results for fMRI (STPS searchlight)
+    Conduct the statistical analysis for results of fMRI data (STPS searchlight)
 
     Parameters
     ----------
@@ -295,6 +312,11 @@ def stats_stpsfmri(corrs1, corrs2, permutation=True, iter=5000):
     -----
     n_subs must >= 6.
     """
+
+    if len(np.shape(corrs1)) != 4 or len(np.shape(corrs2)) != 4 or np.shape(corrs1)[1] != np.shape(corrs2)[1] \
+            or np.shape(corrs1)[2] != np.shape(corrs2)[2] or np.shape(corrs1)[3] != np.shape(corrs2)[3]:
+
+        return "Invalid input!"
 
     # get the number of subjects
     subs = np.shape(corrs1)[0]

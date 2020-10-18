@@ -15,7 +15,7 @@ from neurora.rsa_plot import plot_brainrsa_rlts
 
 ' a function for saving the searchlight correlation coefficients as a NIfTI file for fMRI '
 
-def corr_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=1, r=0, correct_method=None, smooth=True, plotrlt=True, img_background=None):
+def corr_save_nii(corrs, affine, filename=None, corr_mask=get_HOcort(), size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=1, r=0, correct_method=None, smooth=True, plotrlt=True, img_background=None):
 
     """
     Save the searchlight correlation coefficients as a NIfTI file for fMRI
@@ -26,11 +26,11 @@ def corr_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60,
         The similarities between behavioral data and fMRI data for searchlight.
         The shape of RDMs is [n_x, n_y, n_z, 2]. n_x, n_y, n_z represent the number of calculation units for searchlight
         along the x, y, z axis and 2 represents a r-value and a p-value.
-    filename : string. Default is 'rsa_result.nii'.
-        The file path+filename for the result .nii file.
-        If the filename does not end in ".nii", it will be filled in automatically.
     affine : array or list
         The position information of the fMRI-image array data in a reference space.
+    filename : string. Default is None - 'rsa_result.nii'.
+        The file path+filename for the result .nii file.
+        If the filename does not end in ".nii", it will be filled in automatically.
     corr_mask : string. Default is get_HOcort().
         The filename of a mask data for correcting the RSA result.
         It can just be one of your fMRI data files in your experiment for a mask file for ROI. If the corr_mask is a
@@ -72,6 +72,10 @@ def corr_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60,
     -----
     A result .nii file of searchlight correlation coefficients will be generated at the corresponding address of filename.
     """
+
+    if len(np.shape(corrs)) != 4 or len(np.shape(affine)) != 2 or np.shape(affine)[0] != 4 or np.shape(affine)[1] != 4:
+
+        return "Invalid input!"
 
     # get the size of the fMRI-img
     nx = size[0]
@@ -244,7 +248,7 @@ def corr_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60,
 
 ' a function for saving the searchlight statistical results as a NIfTI file for fMRI '
 
-def stats_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=0.05, df=20, correct_method=None, smooth=False, plotrlt=True, img_background=None):
+def stats_save_nii(corrs, affine, filename=None, corr_mask=get_HOcort(), size=[60, 60, 60], ksize=[3, 3, 3], strides=[1, 1, 1], p=0.05, df=20, correct_method=None, smooth=False, plotrlt=True, img_background=None):
 
     """
     Save the searchlight RSA statistical results as a NIfTI file for fMRI
@@ -255,11 +259,11 @@ def stats_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60
         The statistical results between behavioral data and fMRI data for searchlight.
         The shape of RDMs is [n_x, n_y, n_z, 2]. n_x, n_y, n_z represent the number of calculation units for searchlight
         along the x, y, z axis and 2 represents a t-value and a p-value.
-    filename : string. Default is 'rsa_result.nii'.
-        The file path+filename for the result .nii file.
         If the filename does not end in ".nii", it will be filled in automatically.
     affine : array or list
         The position information of the fMRI-image array data in a reference space.
+    filename : string. Default is None - 'rsa_result.nii'.
+        The file path+filename for the result .nii file.
     corr_mask : string
         The filename of a mask data for correcting the RSA result.
         It can just be one of your fMRI data files in your experiment for a mask file for ROI. If the corr_mask is a
@@ -300,6 +304,10 @@ def stats_save_nii(corrs, filename, affine, corr_mask=get_HOcort(), size=[60, 60
     -----
     A result .nii file of searchlight statistical results will be generated at the corresponding address of filename.
     """
+
+    if len(np.shape(corrs)) != 4 or len(np.shape(affine)) != 2 or np.shape(affine)[0] != 4 or np.shape(affine)[1] != 4:
+
+        return "Invalid input!"
 
     # get the size of the fMRI-img
     nx = size[0]

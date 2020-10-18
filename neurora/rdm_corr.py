@@ -49,6 +49,10 @@ def rdm_correlation_spearman(RDM1, RDM2, fisherz=False, rescale=False, permutati
     Don't set both fisherz=True and rescale=True.
     """
 
+    if len(np.shape(RDM1)) != 2 or len(np.shape(RDM2)) != 2 or np.shape(RDM1)[0] != np.shape(RDM1)[1] or np.shape(RDM2)[0] != np.shape(RDM2)[1]:
+
+        return "Invalid input!"
+
     # get number of conditions
     cons = np.shape(RDM1)[0]
     print(cons)
@@ -134,7 +138,7 @@ def rdm_correlation_spearman(RDM1, RDM2, fisherz=False, rescale=False, permutati
 
 ' a function for calculating the Pearson correlation coefficient between two RDMs '
 
-def rdm_correlation_pearson(RDM1, RDM2, fisherz=False, rescale=False, permutation=False):
+def rdm_correlation_pearson(RDM1, RDM2, fisherz=False, rescale=False, permutation=False, iter=5000):
 
     """
     Calculate the Pearson Correlation between two RDMs
@@ -169,6 +173,10 @@ def rdm_correlation_pearson(RDM1, RDM2, fisherz=False, rescale=False, permutatio
     -----
     Don't set both fisherz=True and rescale=True.
     """
+
+    if len(np.shape(RDM1)) != 2 or len(np.shape(RDM2)) != 2 or np.shape(RDM1)[0] != np.shape(RDM1)[1] or np.shape(RDM2)[0] != np.shape(RDM2)[1]:
+
+        return "Invalid input!"
 
     # get number of conditions
     cons = np.shape(RDM1)[0]
@@ -247,7 +255,7 @@ def rdm_correlation_pearson(RDM1, RDM2, fisherz=False, rescale=False, permutatio
 
 ' a function for calculating the Kendalls tau correlation coefficient between two RDMs '
 
-def rdm_correlation_kendall(RDM1, RDM2, fisherz=False, rescale=False, permutation=True):
+def rdm_correlation_kendall(RDM1, RDM2, fisherz=False, rescale=False, permutation=False, iter=5000):
 
     """
     Calculate the Kendalls tau Correlation between two RDMs
@@ -282,6 +290,10 @@ def rdm_correlation_kendall(RDM1, RDM2, fisherz=False, rescale=False, permutatio
     -----
     Don't set both fisherz=True and rescale=True.
     """
+
+    if len(np.shape(RDM1)) != 2 or len(np.shape(RDM2)) != 2 or np.shape(RDM1)[0] != np.shape(RDM1)[1] or np.shape(RDM2)[0] != np.shape(RDM2)[1]:
+
+        return "Invalid input!"
 
     # get number of conditions
     cons = np.shape(RDM1)[0]
@@ -387,6 +399,10 @@ def rdm_similarity(RDM1, RDM2, rescale=False):
         The shape of corr is [2], corr[0] is the Cosine Similarity result and corr[1] is 0.
     """
 
+    if len(np.shape(RDM1)) != 2 or len(np.shape(RDM2)) != 2 or np.shape(RDM1)[0] != np.shape(RDM1)[1] or np.shape(RDM2)[0] != np.shape(RDM2)[1]:
+
+        return "Invalid input!"
+
     # get number of conditions
     cons = np.shape(RDM1)[0]
 
@@ -487,6 +503,10 @@ def rdm_distance(RDM1, RDM2, rescale=False):
         The Euclidean Distance result.
         The shape of corr is [2], corr[0] is the Euclidean Distance result and corr[1] is 0.
     """
+
+    if len(np.shape(RDM1)) != 2 or len(np.shape(RDM2)) != 2 or np.shape(RDM1)[0] != np.shape(RDM1)[1] or np.shape(RDM2)[0] != np.shape(RDM2)[1]:
+
+        return "Invalid input!"
 
     # get number of conditions
     cons = np.shape(RDM1)[0]

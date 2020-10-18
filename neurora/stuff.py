@@ -56,6 +56,10 @@ def get_affine(file_name):
         The position information of the fMRI-image array data in a reference space.
     """
 
+    if file_name is "":
+
+        return "Invalid input"
+
     img = nib.load(file_name)
 
     return img.affine
@@ -78,6 +82,10 @@ def fisherz_rdm(rdm):
     newrdm : array or list [n_cons, n_cons]
         A representational dissimilarity matrix after Fisher-Z transform.
     """
+
+    if len(np.shape(rdm)) != 2 or np.shape(rdm)[0] != np.shape(rdm)[1]:
+
+        return "Invalid input!"
 
     ncons = np.shape(rdm)[0]
 
@@ -346,6 +354,10 @@ def correct_by_threshold(img, threshold):
         The shape of img should be [nx, ny, nz]. nx, ny, nz represent the shape of the fMRI-img.
     """
 
+    if len(np.shape(img)) != 3:
+
+        return "Invalid input"
+
     sx = np.shape(img)[0]
     sy = np.shape(img)[1]
     sz = np.shape(img)[2]
@@ -486,6 +498,10 @@ def datamask(fmri_data, mask_data):
         The shape of newfmri_data is [nx, ny, nz]. nx, ny, nz represent the size of the fMRI data.
     """
 
+    if len(np.shape(fmri_data)) != 3 or len(np.shape(mask_data)) != 3:
+
+        return "Invalid input"
+
     nx, ny, nz = fmri_data.shape
 
     newfmri_data = np.full([nx, ny, nz], np.nan)
@@ -535,7 +551,7 @@ def position_to_mni(point, affine):
 
 ' a function for convert data of MNI template to your data template '
 
-def mask_to(mask, filename, size, affine):
+def mask_to(mask, size, affine, filename=None):
 
     """
     convert mask data of certain template to your data template
@@ -544,12 +560,12 @@ def mask_to(mask, filename, size, affine):
     ----------
     mask : string
         The file path+filename for the mask of certain template.
-    filename : string. Default is 'newmask.nii'.
-        The file path+filename for the mask for your data template .nii file.
     size : array or list [nx, ny, nz]
         The size of the fMRI-img in your experiments.
     affine : array or list
         The position information of the fMRI-image array data in a reference space.
+    filename : string. Default is None - 'newmask.nii'.
+        The file path+filename for the mask for your data template .nii file.
 
     Notes
     -----
@@ -593,6 +609,8 @@ def mask_to(mask, filename, size, affine):
 
     nib.save(file, filename)
 
+    return 0
+
 
 ' a function for permutation test '
 
@@ -615,6 +633,10 @@ def permutation_test(v1, v2, iter=5000):
     p : float
         The permutation test result, p-value.
     """
+
+    if len(v1) != len(v2):
+
+        return "Invalid input"
 
     # permutation test
 
@@ -660,6 +682,10 @@ def permutation_corr(v1, v2, method="spearman", iter=5000):
         The permutation test result, p-value.
     """
 
+    if len(v1) != len(v2):
+
+        return "Invalid input"
+
     # permutation test
 
     if method == "spearman":
@@ -677,8 +703,8 @@ def permutation_corr(v1, v2, method="spearman", iter=5000):
                 ni = ni + 1
 
     if method == "pearson":
-
-        rtest = spearmanr(v1, v2)[0]
+        print(iter)
+        rtest = pearsonr(v1, v2)[0]
 
         ni = 0
 
@@ -692,7 +718,7 @@ def permutation_corr(v1, v2, method="spearman", iter=5000):
 
     if method == "kendalltau":
 
-        rtest = spearmanr(v1, v2)[0]
+        rtest = kendalltau(v1, v2)[0]
 
         ni = 0
 

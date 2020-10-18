@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-' a module for calculating the Inter Subject Correlation based on neural data '
+' a module for calculating the inter-subject correlation based on neural data '
 
 __author__ = 'Zitong Lu'
 
@@ -16,7 +16,7 @@ np.seterr(divide='ignore', invalid='ignore')
 def isc(data, time_win=5, time_step=5):
 
     """
-    Calculate the inter subject correlation (ISC)
+    Calculate the inter subject correlation (ISC) for EEG-like data
 
     Parameters
     ----------
@@ -38,6 +38,10 @@ def isc(data, time_win=5, time_step=5):
         n_ts represent the number of subjects, the number of channels and the number of time-points. 2 represents a
         r-value and a p-value.
     """
+
+    if len(np.shape(data)) != 3:
+
+        return "Invalid input!"
 
     # get the number of subjects, channels, time-points
     subs, chls, ts = np.shape(data)
@@ -103,6 +107,10 @@ def isc_fmri(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
     -----
     The size of the calculation units should at least be [3, 3, 3].
     """
+
+    if len(np.shape(fmri_data)) != 5:
+
+        return "Invalid input!"
 
     # get the number of time-points, subjects and the size of the fMRI-img
     nts, nsubs, nx, ny, nz = np.shape(fmri_data)
@@ -204,6 +212,10 @@ def isc_fmri_roi(fmri_data, mask_data):
     -----
     The size of the calculation units should at least be [3, 3, 3].
     """
+
+    if len(np.shape(fmri_data)) != 5 or len(np.shape(mask_data)) != 3:
+
+        return "Invalid input!"
 
     # get the number of time-points, subjects and the size of the fMRI-img
     nts, nsubs, nx, ny, nz = np.shape(fmri_data)

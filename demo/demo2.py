@@ -71,7 +71,7 @@ fmri_data = np.reshape(fmri_data, [ncon, 1, nx, ny, nz])
 """**********       Section 3: Calculating the neural pattern similarity (for ROI)        **********"""
 
 # get mask of 'mask_face' in the dataset
-"""mask_face_filename = haxby_dataset.mask_face[0]
+mask_face_filename = haxby_dataset.mask_face[0]
 mask_face_data = nib.load(mask_face_filename).get_data()
 
 # get input data under two condition
@@ -82,14 +82,14 @@ nps_fmri_data = fmri_data[[0, 6]]
 nps_roi = nps_fmri_roi(nps_fmri_data, mask_face_data)
 
 # print the NPS result
-print(nps_roi)"""
+print(nps_roi)
 
 
 
 """**********       Section 4: Calculating the neural pattern similarity (Searchlight)        **********"""
 
 # calculate the neural pattern similarity (NPS) between two stimulus
-"""nps = nps_fmri(nps_fmri_data)
+nps = nps_fmri(nps_fmri_data)
 
 # convert the NPS results into a .nii file
 savefilename = "demo2_nps_img"
@@ -98,7 +98,7 @@ corr_save_nii(nps[0], filename=savefilename, affine=affine, size=[nx, ny, nz], s
 
 # have a look
 plotting.plot_epi(savefilename+".nii")
-plotting.show()"""
+plotting.show()
 
 
 
@@ -109,7 +109,7 @@ mask_vt_filename = haxby_dataset.mask_face[0]
 mask_vt_data = nib.load(mask_vt_filename).get_data()
 
 # calculate the RDM for ROI
-rdm_roi = fmriRDM_roi(fmri_data, mask_vt_data, abs=True)
+rdm_roi = fmriRDM_roi(fmri_data, mask_vt_data)
 
 # plot the RDM
 plot_rdm(rdm_roi, rescale=True, conditions=categories)

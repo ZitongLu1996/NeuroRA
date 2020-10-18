@@ -50,6 +50,10 @@ def bhvRDM(bhv_data, sub_opt=0, method="correlation", abs=False):
     This function can also be used to calculate the RDM for computational simulation data
     """
 
+    if len(np.shape(bhv_data)) != 3:
+
+        return "Invalid input!"
+
     # get the number of conditions & the number of subjects
     cons = len(bhv_data)
 
@@ -163,7 +167,7 @@ def bhvRDM(bhv_data, sub_opt=0, method="correlation", abs=False):
 def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, method="correlation", abs=False):
 
     """
-    Calculate the Representational Dissimilarity Matrix(Matrices) - RDM(s) for EEG/MEG/fNIRS data
+    Calculate the Representational Dissimilarity Matrix(Matrices) - RDM(s) based on EEG-like data
 
     Parameters
     ----------
@@ -220,6 +224,10 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, 
         If sub_opt=1 & chl_opt=1 & time_opt=1, return n_subs*n_chls*(int((n_ts-time_win)/time_step)+1) RDM.
             The shape is [n_subs, n_chls, int((n_ts-time_win)/time_step)+1, n_cons, n_cons].
     """
+
+    if len(np.shape(EEG_data)) != 5:
+
+        return "Invalid input!"
 
     # get the number of conditions, subjects, trials, channels and time points
     cons, subs, trials, chls, ts = np.shape(EEG_data)
@@ -610,12 +618,12 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, 
     return rdm
 
 
-' a function for calculating the RDM based on fMRI data (searchlight) '
+' a function for calculating the RDMs based on fMRI data (searchlight) '
 
 def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0, method="correlation", abs=False):
 
     """
-    Calculate the Representational Dissimilarity Matrices (RDMs) for fMRI data (Searchlight)
+    Calculate the Representational Dissimilarity Matrices (RDMs) based on fMRI data (searchlight)
 
     Parameters
     ----------
@@ -649,6 +657,10 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0, method=
         n_subs, n_x, n_y, n_z represent the number of subjects & the number of calculation units for searchlight along
         the x, y, z axis.
     """
+
+    if len(np.shape(fmri_data)) != 5:
+
+        return "Invalid input!"
 
     # get the number of conditions, subjects and the size of the fMRI-img
     cons, subs, nx, ny, nz = np.shape(fmri_data)
@@ -739,7 +751,7 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0, method=
 def fmriRDM_roi(fmri_data, mask_data, sub_result=0, method="correlation", abs=False):
 
     """
-    Calculate the Representational Dissimilarity Matrix - RDM(s) for fMRI data (for ROI)
+    Calculate the Representational Dissimilarity Matrix - RDM(s) based on fMRI data (for ROI)
 
     Parameters
     ----------
@@ -769,6 +781,10 @@ def fmriRDM_roi(fmri_data, mask_data, sub_result=0, method="correlation", abs=Fa
         If sub_result=0, the shape of RDM is [n_cons, n_cons].
         If sub_result=1, the shape of RDM is [n_subs, n_cons, n_cons].
     """
+
+    if len(np.shape(fmri_data)) != 5 or len(np.shape(mask_data)) != 3:
+
+        return "Invalid input!"
 
     # get the number of conditions, subjects, the size of the fMRI-img
     ncons, nsubs, nx, ny, nz = fmri_data.shape

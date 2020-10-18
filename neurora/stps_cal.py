@@ -16,7 +16,7 @@ np.seterr(divide='ignore', invalid='ignore')
 def stps(data, label_item, label_rf, time_win=20, time_step=1):
 
     """
-    Calculate the spatiotemporal pattern similarities (STPS)
+    Calculate the spatiotemporal pattern similarities (STPS) for EEG-like data
 
     Parameters
     ----------
@@ -45,6 +45,10 @@ def stps(data, label_item, label_rf, time_win=20, time_step=1):
         conditions: 0: Within-Item, 1: Between-Item, 2: Remembered, 3: Forgot, 4: Within-Item&Remembered,
         5: Within-Item&Forgot, 6: Between-Item&Remembered, 7: Between-Item&Forgot.
     """
+
+    if len(np.shape(data)) != 4:
+
+        return "Invalid input!"
 
     # get the number of subjects, trials, channels/regions & time-points
     subs, trials, chls, ts = np.shape(data)
@@ -173,7 +177,7 @@ def stps_fmri(fmri_data, label_item, label_rf, ksize=[3, 3, 3], strides=[1, 1, 1
         of subjects, the number of trials & the size of fMRI-img, respectively.
     label_item : array or list.
         The label of trials.
-        The shape of label_wibi must be [n_trials]. n_trials represents the number of trials.
+        The shape of label_item must be [n_trials]. n_trials represents the number of trials.
     label_rf : array or list.
         The label of trials: Remembered (0) or Forgot (1).
         The shape of label_rf must be [n_trials]. n_trials represents the number of trials. If the trial i is a
@@ -198,6 +202,9 @@ def stps_fmri(fmri_data, label_item, label_rf, ksize=[3, 3, 3], strides=[1, 1, 1
     The size of the calculation units should at least be [3, 3, 3].
     """
 
+    if len(np.shape(fmri_data)) != 5:
+
+        return "Invalid input!"
 
     # get the number of subjects, trials and the size of the fMRI-img
     subs, trials, nx, ny, nz = np.shape(fmri_data)
@@ -364,6 +371,10 @@ def stps_fmri_roi(fmri_data, mask_data, label_item, label_rf):
     The size of the calculation units should at least be [3, 3, 3].
     """
 
+    if len(np.shape(fmri_data)) != 5 or len(np.shape(mask_data)) != 3:
+
+        return "Invalid input!"
+
     # get the number of subjects, trials and the size of the fMRI-img
     subs, trials, nx, ny, nz = np.shape(fmri_data)
 
@@ -375,7 +386,7 @@ def stps_fmri_roi(fmri_data, mask_data, label_item, label_rf):
             for k in range(nz):
 
                 # not 0 or NaN
-                if (mask_data[i, j, k] != 0) and (math.isnan(mask_data[i, j, k]) == False):
+                if (mask_data[i, j, k] != 0) and (math.isnan(mask_data[i, j, k]) is False):
                     nmask = nmask + 1
 
     # initialize the data for calculating the ISC
@@ -383,7 +394,7 @@ def stps_fmri_roi(fmri_data, mask_data, label_item, label_rf):
 
     # assignment
     for sub in range(subs):
-        for i in range(trials):
+        for tr in range(trials):
 
             # record the index of the valid voxels for calculating
             n = 0
@@ -392,8 +403,8 @@ def stps_fmri_roi(fmri_data, mask_data, label_item, label_rf):
                     for k in range(nz):
 
                         # not 0 or NaN
-                        if (mask_data[i, j, k] != 0) and (math.isnan(mask_data[i, j, k]) == False):
-                            data[sub, i, n] = fmri_data[sub, i, i, j, k]
+                        if (mask_data[i, j, k] != 0) and (math.isnan(mask_data[i, j, k]) is False):
+                            data[sub, tr, n] = fmri_data[sub, tr, i, j, k]
                             n = n + 1
 
     # initialize the STPS

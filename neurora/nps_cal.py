@@ -40,9 +40,13 @@ def nps(data, time_win=5, time_step=5, sub_opt=0):
     nps : array
         The EEG-like NPS.
         If sub_opt=0, the shape of NPS is [n_chls, int((n_ts-time_win)/time_step)+1, 2].
-        If sub_opt=1, the shape of NPS is [n_subs, n_chls, int((n_ts-time_win)/time_step)+1, 2]. 
+        If sub_opt=1, the shape of NPS is [n_subs, n_chls, int((n_ts-time_win)/time_step)+1, 2].
         2 representation a r-value and a p-value.
     """
+
+    if len(np.shape(data)) != 5 or np.shape(data)[0] != 2:
+
+        return "Invalid input!"
 
     # get the number of subjects, trials, channels & time-points
     nsubs, ntrials, nchls, nts = data.shape[1:]
@@ -101,8 +105,8 @@ def nps_fmri(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
     ----------
     fmri_data : array
         The fmri data.
-        The shape of fmri_data must be [n_cons, n_subs, nx, ny, nz]. n_cons, nx, ny, nz represent the number of
-        conditions, the number of subs & the size of fMRI-img, respectively.
+        The shape of fmri_data must be [2, n_subs, nx, ny, nz].
+        2 presents 2 different conditions. nx, ny, nz represent the size of fMRI-img, respectively.
     ksize : array or list [kx, ky, kz]. Default is [3, 3, 3].
         The size of the calculation unit for searchlight.
         kx, ky, kz represent the number of voxels along the x, y, z axis.
@@ -120,6 +124,10 @@ def nps_fmri(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1]):
     -----
     The size of the calculation units should at least be [3, 3, 3].
     """
+
+    if len(np.shape(fmri_data)) != 5 or np.shape(fmri_data)[0] != 2:
+
+        return "Invalid input!"
 
     # get the number of subjects and the size of the fMRI-img
     nsubs, nx, ny, nz = np.shape(fmri_data)[1:]
@@ -193,9 +201,9 @@ def nps_fmri_roi(fmri_data, mask_data):
     ----------
     fmri_data : array
         The fmri data.
-        The shape of fmri_data must be [n_cons, n_chls, nx, ny, nz].
-        n_cons, n_chls, nx, ny, nz represent the number of conidtions, the number of channels &
-        the size of fMRI-img, respectively.
+        The shape of fmri_data must be [2, n_subs, nx, ny, nz].
+        2 presents 2 different conditions. n_subs, nx, ny, nz represent the number of channels & the size of fMRI-img,
+        respectively.
     mask_data : array [nx, ny, nz].
         The mask data for region of interest (ROI)
         The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis
@@ -210,6 +218,10 @@ def nps_fmri_roi(fmri_data, mask_data):
     -----
     The size of the calculation units should at least be [3, 3, 3].
     """
+
+    if len(np.shape(fmri_data)) != 5 or np.shape(fmri_data)[0] != 2 or len(np.shape(mask_data)) != 3:
+
+        return "Invalid input!"
 
     # get the number of subjects and the size of the fMRI-img
     nsubs, nx, ny, nz = fmri_data.shape[1:]

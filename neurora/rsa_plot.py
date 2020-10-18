@@ -42,6 +42,10 @@ def plot_rdm(rdm, percentile=False, rescale=False, lim=[0, 1], conditions=None, 
         If cmap=None, the ccolormap will be 'jet'.
     """
 
+    if len(np.shape(rdm)) != 2 or np.shape(rdm)[0] != np.shape(rdm)[1]:
+
+        return "Invalid input!"
+
     # get the number of conditions
     cons = rdm.shape[0]
 
@@ -148,6 +152,8 @@ def plot_rdm(rdm, percentile=False, rescale=False, lim=[0, 1], conditions=None, 
 
     plt.show()
 
+    return 0
+
 
 ' a function for plotting the RDM with values '
 
@@ -173,6 +179,10 @@ def plot_rdm_withvalue(rdm, lim=[0, 1], value_fontsize=10, conditions=None, con_
         The colormap for RDM.
         If cmap=None, the ccolormap will be 'Greens'.
     """
+
+    if len(np.shape(rdm)) != 2 or np.shape(rdm)[0] != np.shape(rdm)[1]:
+
+        return "Invalid input!"
 
     # get the number of conditions
     cons = rdm.shape[0]
@@ -220,9 +230,9 @@ def plot_rdm_withvalue(rdm, lim=[0, 1], value_fontsize=10, conditions=None, con_
     else:
         plt.axis("off")
 
-
-
     plt.show()
+
+    return 0
 
 
 ' a function for plotting the correlation coefficients by time sequence '
@@ -245,6 +255,10 @@ def plot_corrs_by_time(corrs, labels=None, time_unit=[0, 0.1]):
         start_t represents the start time and t_step represents the time between two adjacent time-points. Default
         time_unit=[0, 0.1], which means the start time of corrs is 0 sec and the time step is 0.1 sec.
     """
+
+    if len(np.shape(corrs)) < 2 or len(np.shape(corrs)) > 3:
+
+        return "Invalid input!"
 
     # get the number of curves
     n = corrs.shape[0]
@@ -319,6 +333,8 @@ def plot_corrs_by_time(corrs, labels=None, time_unit=[0, 0.1]):
 
     plt.show()
 
+    return 0
+
 
 def plot_tbytsim_withstats(Similarities, start_time=0, end_time=1, color='r', lim=[-0.1, 0.8]):
 
@@ -340,6 +356,10 @@ def plot_tbytsim_withstats(Similarities, start_time=0, end_time=1, color='r', li
     lim : array or list [min, max]. Default is [-0.1, 0.8].
         The corrs view lims.
     """
+
+    if len(np.shape(Similarities)) < 2 or len(np.shape(Similarities)) > 3:
+
+        return "Invalid input!"
 
     n = len(np.shape(Similarities))
 
@@ -398,6 +418,8 @@ def plot_tbytsim_withstats(Similarities, start_time=0, end_time=1, color='r', li
     plt.ylabel("Representational Similarity", fontsize=16)
     plt.show()
 
+    return 0
+
 
 ' a function for plotting the hotmap of correlations coefficients for channels/regions by time sequence '
 
@@ -429,6 +451,10 @@ def plot_corrs_hotmap(corrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], smo
         The colormap for the figure.
         If cmap=None, the ccolormap will be 'inferno'.
     """
+
+    if len(np.shape(corrs)) < 2 or len(np.shape(corrs)) > 3:
+
+        return "Invalid input!"
 
     # get the number of channels
     nchls = corrs.shape[0]
@@ -537,6 +563,8 @@ def plot_corrs_hotmap(corrs, chllabels=None, time_unit=[0, 0.1], lim=[0, 1], smo
 
     plt.show()
 
+    return 0
+
 
 ' a function for plotting the hotmap of correlations coefficients for channels/regions by time sequence with the significant outline '
 
@@ -577,6 +605,10 @@ def plot_corrs_hotmap_stats(corrs, stats, chllabels=None, time_unit=[0, 0.1], li
         The colormap for the figure.
         If cmap=None, the ccolormap will be 'inferno'.
     """
+
+    if len(np.shape(corrs)) < 2 or len(np.shape(corrs)) > 3:
+
+        return "Invalid input!"
 
     # get the number of channels
     nchls = corrs.shape[0]
@@ -733,6 +765,8 @@ def plot_corrs_hotmap_stats(corrs, stats, chllabels=None, time_unit=[0, 0.1], li
 
     plt.show()
 
+    return 0
+
 
 ' a function for plotting the hotmap of neural pattern similarities for channels/regions by time sequence '
 
@@ -765,6 +799,10 @@ def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1]
         The colormap for the figure.
         If cmap=None, the ccolormap will be 'viridis'.
     """
+
+    if len(np.shape(similarities)) != 2:
+
+        return "Invalid input!"
 
     # absolute value
     if abs == True:
@@ -866,6 +904,8 @@ def plot_nps_hotmap(similarities, chllabels=None, time_unit=[0, 0.1], lim=[0, 1]
 
     plt.show()
 
+    return 0
+
 
 ' a function for plotting the hotmap of statistical results for channels/regions by time sequence '
 
@@ -903,6 +943,10 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
         The time threshold for outline.
         If threshold=5, the time threshold is a window of 5 time-points for each channel/region.
     """
+
+    if len(np.shape(stats)) != 3:
+
+        return "Invalid input!"
 
     statscopy = stats.copy()
 
@@ -1050,6 +1094,8 @@ def plot_stats_hotmap(stats, chllabels=None, time_unit=[0, 0.1], lim=[-7, 7], sm
 
     plt.show()
 
+    return 0
+
 
 ' a function for plotting the RSA-result regions by 3 cuts (frontal, axial & lateral) '
 
@@ -1095,6 +1141,8 @@ def plot_brainrsa_regions(img, threshold=None, background=get_bg_ch2(), type='r'
                               title="Similarity", resampling_interpolation="continuous")
 
         plt.show()
+
+    return 0
 
 
 ' a function for plotting the RSA-result by different cuts '
@@ -1161,6 +1209,8 @@ def plot_brainrsa_montage(img, threshold=None, slice=[6, 6, 6], background=get_b
 
         plt.show()
 
+    return 0
+
 
 ' a function for plotting the 2-D projection of the RSA-result '
 
@@ -1201,6 +1251,8 @@ def plot_brainrsa_glass(img, threshold=None, type='r'):
             plotting.plot_glass_brain(img, colorbar=True, title="Similarity", black_bg=True, draw_cross=True, vmax=7)
 
         plt.show()
+
+    return 0
 
 
 ' a function for plotting the RSA-result into a brain surface '
@@ -1273,6 +1325,8 @@ def plot_brainrsa_surface(img, threshold=None, type='r'):
 
             plt.show()
 
+    return 0
+
 
 
 ' a function for plotting the RSA-result by a set of images '
@@ -1326,3 +1380,5 @@ def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6], background=None, ty
             plot_brainrsa_montage(img, threshold=threshold, slice=slice, background=background, type=type)
 
             plot_brainrsa_surface(img, threshold=threshold, type=type)
+
+    return 0

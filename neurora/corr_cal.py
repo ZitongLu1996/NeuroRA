@@ -79,7 +79,7 @@ def bhvANDeeg_corr(bhv_data, eeg_data, sub_opt=0, chl_opt=0, time_opt=0, time_wi
             The shape of corrs is [2], a r-value and a p-value. If method='similarity' or method='distance', the
             p-value is 0.
         If sub_opt=0 & chl_opt=0 & time_opt=1, return int((n_ts-time_win)/time_step)+1 corrs result.
-            The shape of corrs is int((n_ts-time_win)/time_step)+1. 2 represents a r-value and a p-value. If
+            The shape of corrs is [int((n_ts-time_win)/time_step)+1, 2]. 2 represents a r-value and a p-value. If
             method='similarity' or method='distance', the p-values are all 0.
         If sub_opt=0 & chl_opt=1 & time_opt=0, return n_chls corrs result.
             The shape of corrs is [n_chls, 2]. 2 represents a r-value and a p-value. If method='similarity' or
@@ -100,6 +100,10 @@ def bhvANDeeg_corr(bhv_data, eeg_data, sub_opt=0, chl_opt=0, time_opt=0, time_wi
             The shape of corrs is [n_subs, n_chls, int((n_ts-time_win)/time_step)+1, 2]. 2 represents a r-value and a
             p-value. If method='similarity' or method='distance', the p-values are all 0.
     """
+
+    if len(np.shape(bhv_data)) != 3 or len(np.shape(eeg_data)) != 5:
+
+        return "Invalid input!"
 
     # get the number of subjects
     subs = np.shape(bhv_data)[1]
@@ -200,7 +204,7 @@ def bhvANDeeg_corr(bhv_data, eeg_data, sub_opt=0, chl_opt=0, time_opt=0, time_wi
 
         eeg_rdms = eegRDM(eeg_data, sub_opt=sub_opt, chl_opt=chl_opt, time_opt=time_opt)
 
-        corrs = np.zeros([subs, chls], dtype=np.float64)
+        corrs = np.zeros([subs, chls, 2], dtype=np.float64)
 
         for i in range(subs):
             for j in range(chls):
@@ -379,6 +383,10 @@ def bhvANDfmri_corr(bhv_data, fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub
         a r-value and a p-value.
     """
 
+    if len(np.shape(bhv_data)) != 3 or len(np.shape(fmri_data)) != 5:
+
+        return "Invalid input!"
+
     # calculate the bhv_rdm
     bhv_rdm = bhvRDM(bhv_data, sub_opt=0)
 
@@ -531,6 +539,10 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
         calculation units for searchlight along the x, y, z axis and 2 represents a r-value and a p-value.
     """
 
+    if len(np.shape(eeg_data)) != 5 or len(np.shape(fmri_data)) != 5:
+
+        return "Invalid input!"
+
     # get the number of subjects
     subs = np.shape(fmri_data)[1]
 
@@ -558,7 +570,9 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
     chls = np.shape(eeg_data)[3]
 
     # calculate the fmri_rdms for searchlight
-    fmri_rdms = fmriRDM(fmri_data, ksize=ksize, strides=strides)
+    fmri_rdms = fmriRDM(fmri_data, sub_result=sub_result, ksize=ksize, strides=strides)
+
+    print(fmri_rdms.shape)
 
     # calculate the eeg_rdms
     eeg_rdms = eegRDM(eeg_data, sub_opt=sub_result, chl_opt=chl_opt)
@@ -656,6 +670,8 @@ def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1,
                             corrs[i, j, k, l, 0] = rdm_similarity(eeg_rdms[i], fmri_rdms[j, k, l], rescale=rescale)
                         elif method == "distance":
                             corrs[i, j, k, l, 0] = rdm_distance(eeg_rdms[i], fmri_rdms[i, j, k], rescale=rescale)
+
+        return corrs
 
     # sub_result=0
 
