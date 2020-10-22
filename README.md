@@ -60,6 +60,10 @@ There are several demos for NeuroRA, and you can see them in /demos/.. path (bot
 | Demo 2 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo2.ipynb) | [![View the notebook](https://img.shields.io/badge/render-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo2.ipynb) |
 | Demo 3 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo3.ipynb) | [![View the notebook](https://img.shields.io/badge/render-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/ZitongLu1996/NeuroRA/blob/master/demo/NeuroRA_Demo3.ipynb) |
 
+## Road-Map of NeuroRA
+
+![ ](img/road-map.png " ")
+
 ## About NeuroRA
 **Noteworthily**, this toolbox is currently only a **test version**. 
 If you have any question, find some bugs or have some useful suggestions while using, you can email me and I will be happy and thankful to know.

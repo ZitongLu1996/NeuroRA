@@ -1118,7 +1118,7 @@ def plot_brainrsa_regions(img, threshold=None, background=get_bg_ch2(), type='r'
         The type of result (r-values or t-values).
     """
 
-    imgarray = nib.load(img).get_data()
+    imgarray = nib.load(img).get_fdata()
 
     if (imgarray == np.nan).all() == True:
         print("No Valid Results")
@@ -1126,7 +1126,7 @@ def plot_brainrsa_regions(img, threshold=None, background=get_bg_ch2(), type='r'
     else:
         if threshold != None:
 
-            imgarray = nib.load(img).get_data()
+            imgarray = nib.load(img).get_fdata()
             affine = get_affine(img)
 
             imgarray = correct_by_threshold(imgarray, threshold)
@@ -1172,7 +1172,7 @@ def plot_brainrsa_montage(img, threshold=None, slice=[6, 6, 6], background=get_b
         The type of result (r-values or t-values).
     """
 
-    imgarray = nib.load(img).get_data()
+    imgarray = nib.load(img).get_fdata()
 
     if (imgarray == np.nan).all() == True:
 
@@ -1181,7 +1181,7 @@ def plot_brainrsa_montage(img, threshold=None, slice=[6, 6, 6], background=get_b
     else:
 
         if threshold != None:
-            imgarray = nib.load(img).get_data()
+            imgarray = nib.load(img).get_fdata()
             affine = get_affine(img)
             imgarray = correct_by_threshold(imgarray, threshold)
             img = nib.Nifti1Image(imgarray, affine)
@@ -1231,7 +1231,7 @@ def plot_brainrsa_glass(img, threshold=None, type='r'):
         The type of result (r-values or t-values).
     """
 
-    imgarray = nib.load(img).get_data()
+    imgarray = nib.load(img).get_fdata()
 
     if (imgarray == np.nan).all() == True:
 
@@ -1240,7 +1240,7 @@ def plot_brainrsa_glass(img, threshold=None, type='r'):
     else:
         if threshold != None:
 
-            imgarray = nib.load(img).get_data()
+            imgarray = nib.load(img).get_fdata()
             affine = get_affine(img)
             imgarray = correct_by_threshold(imgarray, threshold)
             img = nib.Nifti1Image(imgarray, affine)
@@ -1274,7 +1274,7 @@ def plot_brainrsa_surface(img, threshold=None, type='r'):
         The type of result (r-values or t-values).
     """
 
-    imgarray = nib.load(img).get_data()
+    imgarray = nib.load(img).get_fdata()
 
     if (imgarray == np.nan).all() == True:
 
@@ -1284,7 +1284,7 @@ def plot_brainrsa_surface(img, threshold=None, type='r'):
 
         if threshold != None:
 
-            imgarray = nib.load(img).get_data()
+            imgarray = nib.load(img).get_fdata()
             affine = get_affine(img)
             imgarray = correct_by_threshold(imgarray, threshold)
             img = nib.Nifti1Image(imgarray, affine)
@@ -1350,7 +1350,7 @@ def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6], background=None, ty
         The type of result (r-values or t-values).
     """
 
-    imgarray = nib.load(img).get_data()
+    imgarray = nib.load(img).get_fdata()
 
     if (imgarray == np.nan).all() == True:
         print("No Valid Results")
@@ -1358,7 +1358,7 @@ def plot_brainrsa_rlts(img, threshold=None, slice=[6, 6, 6], background=None, ty
 
         if threshold != None:
 
-            imgarray = nib.load(img).get_data()
+            imgarray = nib.load(img).get_fdata()
             affine = get_affine(img)
             imgarray = correct_by_threshold(imgarray, threshold)
             img = nib.Nifti1Image(imgarray, affine)

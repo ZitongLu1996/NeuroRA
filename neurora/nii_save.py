@@ -203,12 +203,12 @@ def corr_save_nii(corrs, affine, filename=None, corr_mask=get_HOcort(), size=[60
     if corr_mask == get_HOcort():
 
         mask_to(get_bg_ch2bet(), filename, size, affine)
-        mask = nib.load(filename).get_data()
+        mask = nib.load(filename).get_fdata()
         print(mask.shape)
 
     else:
         # load the array data of the mask file
-        mask = nib.load(corr_mask).get_data()
+        mask = nib.load(corr_mask).get_fdata()
 
         # do correction by the mask
         for i in range(nx):
@@ -462,12 +462,12 @@ def stats_save_nii(corrs, affine, filename=None, corr_mask=get_HOcort(), size=[6
     if corr_mask == get_HOcort():
 
         mask_to(get_bg_ch2bet(), filename, size, affine)
-        mask = nib.load(filename).get_data()
+        mask = nib.load(filename).get_fdata()
         print(mask.shape)
 
     else:
         # load the array data of the mask file
-        mask = nib.load(corr_mask).get_data()
+        mask = nib.load(corr_mask).get_fdata()
 
         # do correction by the mask
         for i in range(nx):

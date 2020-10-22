@@ -572,7 +572,7 @@ def mask_to(mask, size, affine, filename=None):
     A result .nii file of new mask will be generated at the corresponding address of filename.
     """
 
-    data = nib.load(mask).get_data()
+    data = nib.load(mask).get_fdata()
 
     nx = data.shape[0]
     ny = data.shape[1]

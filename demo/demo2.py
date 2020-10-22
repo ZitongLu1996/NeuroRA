@@ -38,7 +38,7 @@ labels = labelinfo['labels']
 """**********       Section 2: Preprocessing        **********"""
 
 # get mask data NumPy array
-maskdata = nib.load(mask_filename).get_data()
+maskdata = nib.load(mask_filename).get_fdata()
 
 # get the size of the data
 nx, ny, nz = maskdata.shape
@@ -72,7 +72,7 @@ fmri_data = np.reshape(fmri_data, [ncon, 1, nx, ny, nz])
 
 # get mask of 'mask_face' in the dataset
 mask_face_filename = haxby_dataset.mask_face[0]
-mask_face_data = nib.load(mask_face_filename).get_data()
+mask_face_data = nib.load(mask_face_filename).get_fdata()
 
 # get input data under two condition
 # here, "face"-condition vs. "scissors"-condition
@@ -106,7 +106,7 @@ plotting.show()
 
 # get mask of "mask_vt" in the dataset
 mask_vt_filename = haxby_dataset.mask_face[0]
-mask_vt_data = nib.load(mask_vt_filename).get_data()
+mask_vt_data = nib.load(mask_vt_filename).get_fdata()
 
 # calculate the RDM for ROI
 rdm_roi = fmriRDM_roi(fmri_data, mask_vt_data)

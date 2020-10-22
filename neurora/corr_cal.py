@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-' a module for calculating the Similarity/Correlation Coefficient between two different modes data '
+' a module for calculating the similarity between two different modes\' data '
 
 __author__ = 'Zitong Lu'
 
@@ -17,7 +17,7 @@ from neurora.rdm_corr import rdm_distance
 np.seterr(divide='ignore', invalid='ignore')
 
 
-' a function for calculating the Similarity/Correlation Coefficient between behavioral data and EEG/MEG/fNIRS data'
+' a function for calculating the similarity between behavioral data and EEG-like data'
 
 def bhvANDeeg_corr(bhv_data, eeg_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, method="spearman", fisherz=False, rescale=False, permutation=False, iter=5000):
 
@@ -330,7 +330,7 @@ def bhvANDeeg_corr(bhv_data, eeg_data, sub_opt=0, chl_opt=0, time_opt=0, time_wi
     return corr
 
 
-' a function for calculating the Similarity/Correlation Cosfficient between behavioral data and fMRI data (searchlight) '
+' a function for calculating the similarity between behavioral data and fMRI data (searchlight) '
 
 def bhvANDfmri_corr(bhv_data, fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=1, method="spearman", fisherz=False, rescale=False, permutation=False, iter=5000):
 
@@ -477,7 +477,7 @@ def bhvANDfmri_corr(bhv_data, fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub
     return corrs
 
 
-' a function for calculating the Similarity/Correlation Cosfficient between behavioral EEG/MEG/fNIRS and fMRI data (searchlight) '
+' a function for calculating the similarity EEG-like data and fMRI data (searchlight) '
 
 def eegANDfmri_corr(eeg_data, fmri_data, chl_opt=0, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=1, method="spearman", fisherz=False, rescale=False, permutation=False, iter=5000):
 

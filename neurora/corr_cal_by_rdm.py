@@ -14,12 +14,12 @@ from neurora.rdm_corr import rdm_distance
 np.seterr(divide='ignore', invalid='ignore')
 
 
-' a function for calculating the Similarity/Correlation Cosfficient between RDMs based on EEG-like data and a demo RDM'
+' a function for calculating the similarity between RDMs based on RDMs of EEG-like data and a demo RDM'
 
 def rdms_corr(demo_rdm, eeg_rdms, method="spearman", fisherz=False, rescale=False, permutation=False, iter=5000):
 
     """
-    Calculate the Similarities between RDMs based on EEG-like data and a demo RDM
+    Calculate the similarity between RDMs based on RDMs of EEG-like data and a demo RDM
 
     Parameters
     ----------
@@ -149,13 +149,13 @@ def rdms_corr(demo_rdm, eeg_rdms, method="spearman", fisherz=False, rescale=Fals
     return corr
 
 
-' a function for calculating the Similarity/Correlation Cosfficient between fMRI RDMs and a demo RDM'
+' a function for calculating the similarity between fMRI searchlight RDMs and a demo RDM'
 
 def fmrirdms_corr(demo_rdm, fmri_rdms, method="spearman", fisherz=False, rescale=False, permutation=False, iter=5000):
 
 
     """
-    Calculate the Similarities between fMRI searchlight RDMs and a demo RDM
+    Calculate the similarity between fMRI searchlight RDMs and a demo RDM
 
     Parameters
     ----------
