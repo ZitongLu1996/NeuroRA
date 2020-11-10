@@ -10,7 +10,7 @@ from neurora.corr_cal import bhvANDeeg_corr, bhvANDfmri_corr, eegANDfmri_corr
 
 class test_corr_cal(unittest.TestCase):
 
-    """def test_bhvANDeeg_corr(self):
+    def test_bhvANDeeg_corr(self):
 
         bhv_data = np.random.rand(10, 10, 20)
         eeg_data = np.random.rand(10, 10, 15, 32, 50)
@@ -54,7 +54,7 @@ class test_corr_cal(unittest.TestCase):
 
         bhv_data = np.random.rand(10, 8)
         output = bhvANDeeg_corr(bhv_data, fmri_data)
-        self.assertEqual(output, "Invalid input!")"""
+        self.assertEqual(output, "Invalid input!")
 
     def test_eegANDfmri_corr(self):
 
