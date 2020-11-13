@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f96de87-b4a9-466e-9c57-851a40404f91" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/t_corr_cal.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/t_corr_cal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neurora/rdm_cal.py" beforeDir="false" afterPath="$PROJECT_DIR$/neurora/rdm_cal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/t_rdm_cal.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/t_rdm_cal.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +53,7 @@
     <SUITE FILE_PATH="coverage/NeuroRAtoolbox$isc_cal.coverage" NAME="isc_cal Coverage Results" MODIFIED="1587893928794" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neurora" />
     <SUITE FILE_PATH="coverage/NeuroRAtoolbox$demo1new.coverage" NAME="demo1new Coverage Results" MODIFIED="1594570940789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
     <SUITE FILE_PATH="coverage/NeuroRAtoolbox$pytest_for_t_isc_cal_test_isc_cal.coverage" NAME="pytest for t_isc_cal.test_isc_cal Coverage Results" MODIFIED="1602988280848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
-    <SUITE FILE_PATH="coverage/NeuroRAtoolbox$pytest_for_t_rdm_cal_test_rdm_cal_test_eegRDM.coverage" NAME="pytest for t_rdm_cal.test_rdm_cal.test_eegRDM Coverage Results" MODIFIED="1602947863523" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/NeuroRAtoolbox$pytest_for_t_rdm_cal_test_rdm_cal_test_eegRDM.coverage" NAME="pytest for t_rdm_cal.test_rdm_cal.test_eegRDM Coverage Results" MODIFIED="1605064038842" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/NeuroRStoolbox$test02.coverage" NAME="test02 Coverage Results" MODIFIED="1555251944145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NeuroRAtoolbox$pytest_for_t_stats_cal_test_stats_cal_test_stats_stps.coverage" NAME="pytest for t_stats_cal.test_stats_cal.test_stats_stps Coverage Results" MODIFIED="1603004701421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/NeuroRAtoolbox$rdm_cal.coverage" NAME="rdm_cal Coverage Results" MODIFIED="1602947424492" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neurora" />
@@ -90,7 +90,7 @@
     <SUITE FILE_PATH="coverage/NeuroRAtoolbox$pytest_for_t_rsa_plot_test_rsa_plot_test_plot_corrs_hotmap_stats.coverage" NAME="pytest for t_rsa_plot.test_rsa_plot.test_plot_corrs_hotmap_stats Coverage Results" MODIFIED="1602997867939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/NeuroRAtoolbox$corr_to_nii.coverage" NAME="corr_to_nii Coverage Results" MODIFIED="1585730720468" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neurora" />
     <SUITE FILE_PATH="coverage/NeuroRAtoolbox$pytest_for_t_nii_save_test_nii_save.coverage" NAME="pytest for t_nii_save.test_nii_save Coverage Results" MODIFIED="1602992070881" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
-    <SUITE FILE_PATH="coverage/NeuroRAtoolbox$pytest_for_t_rdm_cal_test_rdm_cal.coverage" NAME="pytest for t_rdm_cal.test_rdm_cal Coverage Results" MODIFIED="1602950343341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/NeuroRAtoolbox$pytest_for_t_rdm_cal_test_rdm_cal.coverage" NAME="pytest for t_rdm_cal.test_rdm_cal Coverage Results" MODIFIED="1605064025363" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/NeuroRStoolbox$corr_plot_time.coverage" NAME="corr_plot_time Coverage Results" MODIFIED="1555250650819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NeuroRAtoolbox$pytest_for_t_stps_cal_test_stps_cal.coverage" NAME="pytest for t_stps_cal.test_stps_cal Coverage Results" MODIFIED="1602987012125" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/NeuroRAtoolbox$rdm_corr.coverage" NAME="rdm_corr Coverage Results" MODIFIED="1602991302522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neurora" />
@@ -167,7 +167,7 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="705">
+              <first_editor relative-caret-position="393">
                 <caret line="47" column="22" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
               </first_editor>
               <second_editor />
@@ -175,13 +175,58 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test/t_corr_cal.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/neurora/rdm_cal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="4155">
+              <caret line="277" column="91" lean-forward="true" selection-start-line="277" selection-start-column="91" selection-end-line="277" selection-end-column="91" />
               <folding>
-                <element signature="e#101#119#0" expanded="true" />
+                <element signature="e#120#138#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/neurora/rdm_corr.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5550">
+              <caret line="370" column="13" lean-forward="true" selection-start-line="370" selection-start-column="13" selection-end-line="370" selection-end-column="13" />
+              <folding>
+                <element signature="e#137#155#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/neurora/corr_cal.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="993">
+              <caret line="79" column="25" lean-forward="true" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/neurora/corr_cal_by_rdm.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="780">
+              <caret line="196" column="32" selection-start-line="196" selection-start-column="32" selection-end-line="196" selection-end-column="32" />
+              <folding>
+                <element signature="e#152#170#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/t_rdm_cal.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="197">
+              <caret line="44" column="43" lean-forward="true" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
+              <folding>
+                <element signature="e#99#117#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -250,7 +295,6 @@
         <option value="$PROJECT_DIR$/neurora/nps_cal.py" />
         <option value="$PROJECT_DIR$/neurora/isc_cal.py" />
         <option value="$PROJECT_DIR$/test/test_corr_cal.py" />
-        <option value="$PROJECT_DIR$/test/t_rdm_cal.py" />
         <option value="$PROJECT_DIR$/test/t_nps_cal.py" />
         <option value="$PROJECT_DIR$/neurora/stps_cal.py" />
         <option value="$PROJECT_DIR$/test/t_stps_cal.py" />
@@ -263,7 +307,6 @@
         <option value="$PROJECT_DIR$/test/t_stuff.py" />
         <option value="$PROJECT_DIR$/neurora/stats_cal.py" />
         <option value="$PROJECT_DIR$/test/t_stats_cal.py" />
-        <option value="$PROJECT_DIR$/neurora/rdm_cal.py" />
         <option value="$PROJECT_DIR$/demo/demo1.py" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/neurora/corr_cal.py" />
@@ -275,13 +318,15 @@
         <option value="$PROJECT_DIR$/neurora/test.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/test/t_corr_cal.py" />
+        <option value="$PROJECT_DIR$/neurora/rdm_cal.py" />
+        <option value="$PROJECT_DIR$/test/t_rdm_cal.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="202" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="34" />
     <option name="y" value="23" />
-    <option name="width" value="1248" />
+    <option name="width" value="1246" />
     <option name="height" value="777" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -290,6 +335,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -305,13 +351,17 @@
             <path>
               <item name="NeuroRAtoolbox" type="b2602c69:ProjectViewProjectNode" />
               <item name="NeuroRA-master" type="462c0819:PsiDirectoryNode" />
+              <item name="neurora" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NeuroRAtoolbox" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NeuroRA-master" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -348,7 +398,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python tests.pytest for t_rdm_cal.test_rdm_cal.test_eegRDM">
     <configuration name="demo1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="NeuroRA-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -393,7 +443,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for t_stats_cal.test_stats_cal" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+    <configuration name="pytest for t_rdm_cal.test_rdm_cal" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="NeuroRA-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -405,7 +455,23 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;t_stats_cal.test_stats_cal&quot;" />
+      <option name="_new_target" value="&quot;t_rdm_cal.test_rdm_cal&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest for t_rdm_cal.test_rdm_cal.test_eegRDM" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="NeuroRA-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;t_rdm_cal.test_rdm_cal.test_eegRDM&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -425,29 +491,13 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for t_stats_cal.test_stats_cal.test_stats_stps" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="NeuroRA-master" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;t_stats_cal.test_stats_cal.test_stats_stps&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.pytest for t_rdm_cal.test_rdm_cal.test_eegRDM" />
+        <item itemvalue="Python tests.pytest for t_rdm_cal.test_rdm_cal" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.demo1" />
         <item itemvalue="Python tests.pytest for t_stats_cal.test_stats_cal.test_stats" />
-        <item itemvalue="Python tests.pytest for t_stats_cal.test_stats_cal" />
-        <item itemvalue="Python tests.pytest for t_stats_cal.test_stats_cal.test_stats_stps" />
       </list>
     </recent_temporary>
   </component>
@@ -580,28 +630,11 @@
       <workItem from="1604626721721" duration="62000" />
       <workItem from="1604626970381" duration="1024000" />
       <workItem from="1604922525266" duration="79000" />
+      <workItem from="1605062302748" duration="5056000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_for_t_stats_cal_test_stats_cal - 2020.10.18 at 15h 02m 09s.xml">
-      <configuration name="pytest for t_stats_cal.test_stats_cal" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_t_stats_cal_test_stats_cal - 2020.10.18 at 15h 02m 24s.xml">
-      <configuration name="pytest for t_stats_cal.test_stats_cal" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_t_stats_cal_test_stats_cal_test_stats_fmri - 2020.10.18 at 15h 02m 39s.xml">
-      <configuration name="pytest for t_stats_cal.test_stats_cal.test_stats_fmri" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_t_stats_cal_test_stats_cal_test_stats_fmri - 2020.10.18 at 15h 03m 09s.xml">
-      <configuration name="pytest for t_stats_cal.test_stats_cal.test_stats_fmri" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_t_stats_cal_test_stats_cal_test_stats_iscfmri - 2020.10.18 at 15h 03m 37s.xml">
-      <configuration name="pytest for t_stats_cal.test_stats_cal.test_stats_iscfmri" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_t_stats_cal_test_stats_cal_test_stats_stps - 2020.10.18 at 15h 03m 52s.xml">
-      <configuration name="pytest for t_stats_cal.test_stats_cal.test_stats_stps" configurationId="tests" />
-    </history-entry>
     <history-entry file="pytest_for_t_stats_cal_test_stats_cal_test_stats_stps - 2020.10.18 at 15h 04m 33s.xml">
       <configuration name="pytest for t_stats_cal.test_stats_cal.test_stats_stps" configurationId="tests" />
     </history-entry>
@@ -614,14 +647,33 @@
     <history-entry file="pytest_for_t_stats_cal_test_stats_cal_test_stats - 2020.10.18 at 15h 05m 32s.xml">
       <configuration name="pytest for t_stats_cal.test_stats_cal.test_stats" configurationId="tests" />
     </history-entry>
+    <history-entry file="pytest_for_t_rdm_cal_test_rdm_cal_test_eegRDM - 2020.11.11 at 11h 03m 35s.xml">
+      <configuration name="pytest for t_rdm_cal.test_rdm_cal.test_eegRDM" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_t_rdm_cal_test_rdm_cal - 2020.11.11 at 11h 06m 16s.xml">
+      <configuration name="pytest for t_rdm_cal.test_rdm_cal" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_t_rdm_cal_test_rdm_cal - 2020.11.11 at 11h 06m 33s.xml">
+      <configuration name="pytest for t_rdm_cal.test_rdm_cal" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_t_rdm_cal_test_rdm_cal - 2020.11.11 at 11h 06m 43s.xml">
+      <configuration name="pytest for t_rdm_cal.test_rdm_cal" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_t_rdm_cal_test_rdm_cal - 2020.11.11 at 11h 07m 10s.xml">
+      <configuration name="pytest for t_rdm_cal.test_rdm_cal" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_t_rdm_cal_test_rdm_cal_test_eegRDM - 2020.11.11 at 11h 08m 00s.xml">
+      <configuration name="pytest for t_rdm_cal.test_rdm_cal.test_eegRDM" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="868103000" />
+    <option name="totallyTimeSpent" value="873159000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="28" y="23" width="1252" height="777" extended-state="6" />
+    <frame x="34" y="23" width="1246" height="777" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25785124" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2616279" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -758,16 +810,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/neurora/test/test_corr_cal.py" />
     <entry file="file://$PROJECT_DIR$/neurora/test/corr_cal.py" />
-    <entry file="file://$PROJECT_DIR$/test/t_rdm_cal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-688">
-          <caret line="10" selection-start-line="10" selection-end-line="12" selection-end-column="26" />
-          <folding>
-            <element signature="e#99#117#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/t_nps_cal.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -872,23 +914,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/neurora/corr_cal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3537">
-          <caret line="79" column="25" lean-forward="true" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/neurora/corr_cal_by_rdm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="196" column="32" selection-start-line="196" selection-start-column="32" selection-end-line="196" selection-end-column="32" />
-          <folding>
-            <element signature="e#152#170#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/neurora/isc_cal.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-13">
@@ -913,26 +938,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2884">
           <caret line="207" column="18" selection-start-line="207" selection-start-column="18" selection-end-line="207" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/neurora/rdm_cal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="493" selection-start-line="493" selection-end-line="493" />
-          <folding>
-            <element signature="e#120#138#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/neurora/rdm_corr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="575" column="15" selection-start-line="575" selection-start-column="15" selection-end-line="575" selection-end-column="15" />
-          <folding>
-            <element signature="e#137#155#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -988,16 +993,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="705">
-            <caret line="47" column="22" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/neurora/rsa_plot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -1010,10 +1005,67 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/t_corr_cal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
+        <state relative-caret-position="108">
           <caret line="11" selection-start-line="11" selection-end-line="11" />
           <folding>
             <element signature="e#101#119#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="393">
+            <caret line="47" column="22" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/t_rdm_cal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="44" column="43" lean-forward="true" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
+          <folding>
+            <element signature="e#99#117#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/neurora/rdm_cal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4155">
+          <caret line="277" column="91" lean-forward="true" selection-start-line="277" selection-start-column="91" selection-end-line="277" selection-end-column="91" />
+          <folding>
+            <element signature="e#120#138#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/neurora/rdm_corr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5550">
+          <caret line="370" column="13" lean-forward="true" selection-start-line="370" selection-start-column="13" selection-end-line="370" selection-end-column="13" />
+          <folding>
+            <element signature="e#137#155#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/neurora/corr_cal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="993">
+          <caret line="79" column="25" lean-forward="true" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/neurora/corr_cal_by_rdm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="196" column="32" selection-start-line="196" selection-start-column="32" selection-end-line="196" selection-end-column="32" />
+          <folding>
+            <element signature="e#152#170#0" expanded="true" />
           </folding>
         </state>
       </provider>
