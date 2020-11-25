@@ -237,21 +237,19 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, 
         # the time-points for calculating RDM
         ts = int((ts - time_win) / time_step) + 1
 
+        # initialize the data for calculating the RDM
+        data = np.zeros([subs, chls, ts, cons, time_win], dtype=np.float64)
+
+        # assignment
+        for i in range(subs):
+            for j in range(chls):
+                for k in range(ts):
+                    for l in range(cons):
+                        for m in range(time_win):
+                            # average the trials
+                            data[i, j, k, l, m] = np.average(EEG_data[l, i, :, j, k * time_step + m])
+
         if chl_opt == 1:
-
-            # sub_opt=1 & time_opt=1 & chl_opt=1
-
-            # initialize the data for calculating the RDM
-            data = np.zeros([subs, chls, ts, cons, time_win], dtype=np.float64)
-
-            # assignment
-            for i in range(subs):
-                for j in range(chls):
-                    for k in range(ts):
-                        for l in range(cons):
-                            for m in range(time_win):
-                                # average the trials
-                                data[i, j, k, l, m] = np.average(EEG_data[l, i, :, j, k * time_step + m])
 
             # initialize the RDMs
             rdms = np.zeros([subs, chls, ts, cons, cons], dtype=np.float64)
@@ -292,9 +290,48 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, 
                 rdms = np.average(rdms, axis=0)
                 return rdms
 
-    # if time_opt = 0
+        # if chl_opt = 0
 
-    cons, subs, trials, chls, ts = np.shape(EEG_data)
+        data = np.transpose(data, (0, 2, 3, 4, 1))
+        data = np.reshape(data, [subs, ts, cons, time_win*chls])
+
+        rdms = np.zeros([subs, ts, cons, cons], dtype=np.float64)
+
+        # calculate the values in RDMs
+        for i in range(subs):
+            for k in range(ts):
+                for l in range(cons):
+                    for m in range(cons):
+                        if method is 'correlation':
+                            # calculate the Pearson Coefficient
+                            r = pearsonr(data[i, k, l], data[i, k, m])[0]
+                            # calculate the dissimilarity
+                            if abs == True:
+                                rdms[i, k, l, m] = limtozero(1 - np.abs(r))
+                            else:
+                                rdms[i, k, l, m] = limtozero(1 - r)
+                        elif method is 'euclidean':
+                            rdms[i, k, l, m] = np.linalg.norm(data[i, k, l] - data[i, k, m])
+                        elif method is 'mahalanobis':
+                            X = np.transpose(np.vstack((data[i, k, l], data[i, k, m])), (1, 0))
+                            X = np.dot(X, np.linalg.inv(np.cov(X, rowvar=False)))
+                            rdms[i, k, l, m] = np.linalg.norm(X[:, 0] - X[:, 1])
+                if method is 'euclidean' or method is 'mahalanobis':
+                    max = np.max(rdms[i, k])
+                    min = np.min(rdms[i, k])
+                    rdms[i, k] = (rdms[i, k] - min) / (max - min)
+
+        # time_opt=1 & chl_opt=0 & sub_opt=1
+        if sub_opt == 1:
+            return rdms
+
+        # time_opt=1 & chl_opt=0 & sub_opt=0
+        if sub_opt == 0:
+            rdms = np.average(rdms, axis=0)
+            return rdms
+
+
+    # if time_opt = 0
 
     if chl_opt == 1:
 
@@ -639,3 +676,8 @@ def fmriRDM_roi(fmri_data, mask_data, sub_result=0, method="correlation", abs=Fa
         return rdm
     if sub_result == 1:
         return subrdms
+
+data = np.random.rand(6, 5, 20, 8, 50)
+rdms = eegRDM(data, sub_opt=1, chl_opt=0, time_opt=0)
+print(rdms)
+print(rdms.shape)
