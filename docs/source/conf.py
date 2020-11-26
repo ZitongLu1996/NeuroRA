@@ -25,7 +25,7 @@ copyright = '2020, Zitong Lu'
 author = 'Zitong Lu'
 
 # The full version, including alpha/beta/rc tags
-release = '1.1.4.0'
+release = '1.1.4.4'
 
 
 # -- General configuration ---------------------------------------------------

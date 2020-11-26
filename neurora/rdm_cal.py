@@ -26,10 +26,10 @@ def bhvRDM(bhv_data, sub_opt=0, method="correlation", abs=False):
         The shape of bhv_data must be [n_cons, n_subs, n_trials].
         n_cons, n_subs & n_trials represent the number of conidtions, the number of subjects & the number of trials,
         respectively.
-    sub_opt : int 0 or 1. Default is 0.
-        Calculate the RDM for each subject or not.
-        If sub_opt=0, return only one RDM based on all data.
-        If sub_opt=1, return n_subs RDMs based on each subject's data.
+    sub_opt: int 0 or 1. Default is 1.
+        Return the subject-result or average-result.
+        If sub_opt=0, return the average result.
+        If sub_opt=1, return the results of each subject.
     method : string 'correlation' or 'euclidean' or 'mahalanobis'. Default is 'correlation'.
         The method to calculate the dissimilarities.
         If method='correlation', the dissimilarity is calculated by Pearson Correlation.
@@ -176,10 +176,10 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, 
         The shape of EEGdata must be [n_cons, n_subs, n_trials, n_chls, n_ts].
         n_cons, n_subs, n_trials, n_chls & n_ts represent the number of conidtions, the number of subjects, the number
         of trials, the number of channels & the number of time-points, respectively.
-    sub_opt : int 0 or 1. Default is 0.
-        Calculate the RDM for each subject or not.
-        If sub_opt=0, return only one RDM based on all data.
-        If sub_opt=1, return n_subs RDMs based on each subject's data
+    sub_opt: int 0 or 1. Default is 1.
+        Return the subject-result or average-result.
+        If sub_opt=0, return the average result.
+        If sub_opt=1, return the results of each subject.
     chl_opt : int 0 or 1. Default is 0.
         Calculate the RDM for each channel or not.
         If chl_opt=0, calculate the RDM based on all channels'data.
@@ -438,7 +438,7 @@ def eegRDM(EEG_data, sub_opt=0, chl_opt=0, time_opt=0, time_win=5, time_step=5, 
 
 ' a function for calculating the RDMs based on fMRI data (searchlight) '
 
-def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0, method="correlation", abs=False):
+def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_opt=1, method="correlation", abs=False):
 
     """
     Calculate the Representational Dissimilarity Matrices (RDMs) based on fMRI data (searchlight)
@@ -454,10 +454,10 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0, method=
         kx, ky, kz represent the number of voxels along the x, y, z axis.
     strides : array or list [sx, sy, sz]. Default is [1, 1, 1].
         The strides for calculating along the x, y, z axis.
-    sub_result: int 0 or 1. Default is 0.
+    sub_opt: int 0 or 1. Default is 1.
         Return the subject-result or average-result.
-        If sub_result=0, return the average result.
-        If sub_result=1, return the results of each subject.
+        If sub_opt=0, return the average result.
+        If sub_opt=1, return the results of each subject.
     method : string 'correlation' or 'euclidean' or 'mahalanobis'. Default is 'correlation'.
         The method to calculate the dissimilarities.
         If method='correlation', the dissimilarity is calculated by Pearson Correlation.
@@ -470,8 +470,8 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0, method=
     -------
     RDM : array
         The fMRI-Searchlight RDM.
-        If sub_result=0, the shape of RDMs is [n_x, n_y, n_z, n_cons, n_cons].
-        If sub_result=1, the shape of RDMs is [n_subs, n_x, n_y, n_cons, n_cons]
+        If sub_opt=0, the shape of RDMs is [n_x, n_y, n_z, n_cons, n_cons].
+        If sub_opt=1, the shape of RDMs is [n_subs, n_x, n_y, n_cons, n_cons]
         n_subs, n_x, n_y, n_z represent the number of subjects & the number of calculation units for searchlight along
         the x, y, z axis.
     """
@@ -558,15 +558,15 @@ def fmriRDM(fmri_data, ksize=[3, 3, 3], strides=[1, 1, 1], sub_result=0, method=
     # average the RDMs
     rdms = np.average(subrdms, axis=0)
 
-    if sub_result == 0:
+    if sub_opt == 0:
         return rdms
-    if sub_result == 1:
+    if sub_opt == 1:
         return subrdms
 
 
 ' a function for calculating the RDM based on fMRI data of a ROI '
 
-def fmriRDM_roi(fmri_data, mask_data, sub_result=0, method="correlation", abs=False):
+def fmriRDM_roi(fmri_data, mask_data, sub_opt=1, method="correlation", abs=False):
 
     """
     Calculate the Representational Dissimilarity Matrix - RDM(s) based on fMRI data (for ROI)
@@ -580,10 +580,10 @@ def fmriRDM_roi(fmri_data, mask_data, sub_result=0, method="correlation", abs=Fa
     mask_data : array [nx, ny, nz].
         The mask data for region of interest (ROI)
         The size of the fMRI-img. nx, ny, nz represent the number of voxels along the x, y, z axis.
-    sub_result: int 0 or 1. Default is 0.
+    sub_opt: int 0 or 1. Default is 1.
         Return the subject-result or average-result.
-        If sub_result=0, return the average result.
-        If sub_result=1, return the results of each subject.
+        If sub_opt=0, return the average result.
+        If sub_opt=1, return the results of each subject.
     method : string 'correlation' or 'euclidean' or 'mahalanobis'. Default is 'correlation'.
         The method to calculate the dissimilarities.
         If method='correlation', the dissimilarity is calculated by Pearson Correlation.
@@ -596,8 +596,8 @@ def fmriRDM_roi(fmri_data, mask_data, sub_result=0, method="correlation", abs=Fa
     -------
     RDM : array
         The fMRI-ROI RDM.
-        If sub_result=0, the shape of RDM is [n_cons, n_cons].
-        If sub_result=1, the shape of RDM is [n_subs, n_cons, n_cons].
+        If sub_opt=0, the shape of RDM is [n_cons, n_cons].
+        If sub_opt=1, the shape of RDM is [n_subs, n_cons, n_cons].
     """
 
     if len(np.shape(fmri_data)) != 5 or len(np.shape(mask_data)) != 3:
@@ -672,12 +672,7 @@ def fmriRDM_roi(fmri_data, mask_data, sub_result=0, method="correlation", abs=Fa
     # average the RDMs
     rdm = np.average(subrdms, axis=0)
 
-    if sub_result == 0:
+    if sub_opt == 0:
         return rdm
-    if sub_result == 1:
+    if sub_opt == 1:
         return subrdms
-
-data = np.random.rand(6, 5, 20, 8, 50)
-rdms = eegRDM(data, sub_opt=1, chl_opt=0, time_opt=0)
-print(rdms)
-print(rdms.shape)

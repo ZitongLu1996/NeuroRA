@@ -54,44 +54,31 @@ def nps(data, time_win=5, time_step=5, sub_opt=0):
     # the time-points for calculating NPS
     ts = int((nts - time_win) / time_step) + 1
 
+    # initialize the NPS
+    nps = np.zeros([nsubs, nchls, ts, 2])
+
+    # [2, n_subs, n_trials, n_chls, n_ts]
+    # calculate the NPS
+    for sub in range(nsubs):
+        for i in range(nchls):
+            for j in range(ts):
+                data1 = data[0, sub, :, i, j * time_step:j * time_step + time_win]
+                data2 = data[1, sub, :, i, j * time_step:j * time_step + time_win]
+                data1 = np.reshape(data1, [ntrials * time_win])
+                data2 = np.reshape(data2, [ntrials * time_win])
+                # calculate the Pearson Coefficient
+                nps[sub, i, j] = pearsonr(data1, data2)
+
     # sub_opt=1
     if sub_opt == 1:
 
-        # initialize the NPS
-        nps = np.zeros([nsubs, nchls, ts, 2])
-
-        # [2, n_subs, n_trials, n_chls, n_ts]
-        # calculate the NPS
-        for sub in range(nsubs):
-            for i in range(nchls):
-                for j in range(ts):
-
-                    data1 = data[0, sub, :, i, j*time_step:j*time_step+time_win]
-                    data2 = data[1, sub, :, i, j*time_step:j*time_step+time_win]
-                    data1 = np.reshape(data1, [ntrials*time_win])
-                    data2 = np.reshape(data2, [ntrials*time_win])
-                    # calculate the Pearson Coefficient
-                    nps[sub, i, j] = pearsonr(data1, data2)
-
         return nps
 
-    # initialize the NPS
-    nps = np.zeros([nchls, ts, 2])
+    elif sub_opt == 0:
 
-    # average the data
-    avgdata = np.average(data, axis=(1, 2))
+        nps = np.average(nps, axis=0)
 
-    # shape of avgdata: [2, n_chls, n_ts]
-    # calculate the NPS
-    for i in range(nchls):
-        for j in range(ts):
-
-            data1 = avgdata[0, i, j*time_step:j*time_step+time_win]
-            data2 = avgdata[1, i, j*time_step:j*time_step+time_win]
-            # calculate the Pearson Coefficient
-            nps[i, j] = pearsonr(data1, data2)
-
-    return nps
+        return nps
 
 
 ' a function for calculating the neural pattern similarity for fMRI data (searchlight) '
