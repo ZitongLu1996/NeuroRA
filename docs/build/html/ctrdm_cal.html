@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Calculate the Cross-Temporal RDM &#8212; NeuroRA 1.1.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
+    <script src="static/jquery.js"></script>
+    <script src="static/underscore.js"></script>
+    <script src="static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Representational Similarity Analysis (RSA)" href="rsa.html" />
+    <link rel="prev" title="Calculate the RDM" href="rdm_cal.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rsa.html" title="Representational Similarity Analysis (RSA)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="rdm_cal.html" title="Calculate the RDM"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 1.1.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Calculate the Cross-Temporal RDM</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="calculate-the-cross-temporal-rdm">
+<h1>Calculate the Cross-Temporal RDM<a class="headerlink" href="#calculate-the-cross-temporal-rdm" title="Permalink to this headline">¶</a></h1>
+<section id="neurora-ctrdm-cal-module">
+<h2>neurora.ctrdm_cal module<a class="headerlink" href="#neurora-ctrdm-cal-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-neurora.ctrdm_cal"></span><p>a module for calculating the cross-temporal RDM based on EEG-like data</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.ctrdm_cal.ctRDM">
+<span class="sig-prename descclassname"><span class="pre">neurora.ctrdm_cal.</span></span><span class="sig-name descname"><span class="pre">ctRDM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chl_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_win</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.ctrdm_cal.ctRDM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate CTRDMs for EEG-like data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array</em>) – EEG/MEG data from a time-window.
+The shape of data must be [n_cons, n_subs, n_chls, n_ts]. n_cons, n_subs, n_chls &amp; n_ts represent the number of
+conditions, the number of subjects, the number of channels and the number of time-points, respectively.</p></li>
+<li><p><strong>sub_opt</strong> (<em>int 0</em><em> or </em><em>1. Default is 1.</em>) – Return the subject-result or average-result.
+If sub_opt=0, return the average result.
+If sub_opt=1, return the results of each subject.</p></li>
+<li><p><strong>chl_opt</strong> (<em>int 0</em><em> or </em><em>1. Default is 0.</em>) – Caculate the CTRDMs for each channel or not.
+If chl_opt=1, calculate the CTRDMs for each channel.
+If chl_opt=0, calculate the CTRDMs after averaging the channels.</p></li>
+<li><p><strong>time_win</strong> (<em>int. Default is 5.</em>) – Set a time-window for calculating the CTRDM for different time-points.
+If time_win=10, that means each calculation process based on 10 time-points.</p></li>
+<li><p><strong>time_step</strong> (<em>int. Default is 5.</em>) – The time step size for each time of calculating.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>CTRDMs</strong> – Cross-Temporal RDMs.
+if chl_opt=1, the shape of CTRDMs is [n_subs, n_chls, int((n_ts-time_win)/time_step)+1,
+int((n_ts-time_win)/time_step)+1, n_cons, n_cons]
+if chl_opt=0, the shape of CTRDMs is [n_subs, int((n_ts-time_win)/time_step)+1,
+int((n_ts-time_win)/time_step)+1, n_cons, n_cons]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Calculate the Cross-Temporal RDM</a><ul>
+<li><a class="reference internal" href="#neurora-ctrdm-cal-module">neurora.ctrdm_cal module</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="rdm_cal.html"
+                          title="previous chapter">Calculate the RDM</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="rsa.html"
+                          title="next chapter">Representational Similarity Analysis (RSA)</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="sources/ctrdm_cal.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rsa.html" title="Representational Similarity Analysis (RSA)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="rdm_cal.html" title="Calculate the RDM"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 1.1.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Calculate the Cross-Temporal RDM</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Zitong Lu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

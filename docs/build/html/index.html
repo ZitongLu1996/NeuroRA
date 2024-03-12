@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>NeuroRA &#8212; NeuroRA 1.1.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
+    <script src="static/jquery.js"></script>
+    <script src="static/underscore.js"></script>
+    <script src="static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview" href="overview.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">NeuroRA 1.1.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">NeuroRA</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="neurora">
+<h1>NeuroRA<a class="headerlink" href="#neurora" title="Permalink to this headline">¶</a></h1>
+<section id="a-python-toolbox-of-representational-analysis-from-multi-modal-neural-data">
+<h2>A Python Toolbox of Representational Analysis from Multi-modal Neural Data<a class="headerlink" href="#a-python-toolbox-of-representational-analysis-from-multi-modal-neural-data" title="Permalink to this headline">¶</a></h2>
+<p>NeuroRA is an easy-to-use toolbox based on Python, which can do some works about RSA among nearly all kinds of neural data, including behavioral, EEG, MEG, fNIRS, sEEG, ECoG, fMRI and some other neuroelectrophysiological data. In addition, users can do Neural Pattern Similarity (NPS), Spatiotemporal Pattern Similarity (STPS), Inter-Subject Correlation (ISC), Classification-based EEG decoding and a novel cross-temporal RSA (RSA) on NeuroRA.</p>
+<p>Author: Zitong Lu</p>
+<section id="documentation-of-neurora">
+<h3>Documentation of NeuroRA!<a class="headerlink" href="#documentation-of-neurora" title="Permalink to this headline">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nps_cal.html">Calculate the Neural Pattern Similarity (NPS)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nps_cal.html#module-neurora.nps_cal">neurora.nps_cal module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="isc_cal.html">Calculate the Inter-Subject Correlation (ISC)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="isc_cal.html#module-neurora.isc_cal">neurora.isc_cal module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stps_cal.html">Calculate the Spatiotemporal Pattern Similarity (STPS)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stps_cal.html#module-neurora.stps_cal">neurora.stps_cal module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rdm_cal.html">Calculate the RDM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rdm_cal.html#module-neurora.rdm_cal">neurora.rdm_cal module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ctrdm_cal.html">Calculate the Cross-Temporal RDM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ctrdm_cal.html#neurora-ctrdm-cal-module">neurora.ctrdm_cal module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rsa.html">Representational Similarity Analysis (RSA)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rsa.html#module-neurora.rdm_corr">neurora.rdm_corr module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rsa.html#module-neurora.corr_cal">neurora.corr_cal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rsa.html#module-neurora.corr_cal_by_rdm">neurora.corr_cal_by_rdm module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ctrsa.html">Cross-Temporal Representational Similarity Analysis (CTRSA)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ctrsa.html#neurora-ctrdm-cal-module">neurora.ctrdm_cal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ctrsa.html#neurora-ctrdm-corr-module">neurora.ctrdm_corr module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ctrsa.html#neurora-ctcorr-cal-module">neurora.ctcorr_cal module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="decoding.html">Conduct Classification-based EEG Decoding</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="decoding.html#module-neurora.decoding">neurora.decoding module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats_cal.html">Statistical Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats_cal.html#module-neurora.stats_cal">neurora.stats_cal module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nii_save.html">Save the Results as a NIfTI file (for fMRI)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nii_save.html#module-neurora.nii_save">neurora.nii_save module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rsa_plot.html">Visualization for Results</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rsa_plot.html#module-neurora.rsa_plot">neurora.rsa_plot module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stuff.html">Others</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stuff.html#module-neurora.stuff">neurora.stuff module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">NeuroRA</a><ul>
+<li><a class="reference internal" href="#a-python-toolbox-of-representational-analysis-from-multi-modal-neural-data">A Python Toolbox of Representational Analysis from Multi-modal Neural Data</a><ul>
+<li><a class="reference internal" href="#documentation-of-neurora">Documentation of NeuroRA!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="overview.html"
+                          title="next chapter">Overview</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">NeuroRA 1.1.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">NeuroRA</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Zitong Lu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

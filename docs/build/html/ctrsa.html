@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Cross-Temporal Representational Similarity Analysis (CTRSA) &#8212; NeuroRA 1.1.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
+    <script src="static/jquery.js"></script>
+    <script src="static/underscore.js"></script>
+    <script src="static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Conduct Classification-based EEG Decoding" href="decoding.html" />
+    <link rel="prev" title="Representational Similarity Analysis (RSA)" href="rsa.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="decoding.html" title="Conduct Classification-based EEG Decoding"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="rsa.html" title="Representational Similarity Analysis (RSA)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 1.1.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Cross-Temporal Representational Similarity Analysis (CTRSA)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="cross-temporal-representational-similarity-analysis-ctrsa">
+<h1>Cross-Temporal Representational Similarity Analysis (CTRSA)<a class="headerlink" href="#cross-temporal-representational-similarity-analysis-ctrsa" title="Permalink to this headline">¶</a></h1>
+<section id="neurora-ctrdm-cal-module">
+<h2>neurora.ctrdm_cal module<a class="headerlink" href="#neurora-ctrdm-cal-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-neurora.ctrdm_cal"></span><p>a module for calculating the cross-temporal RDM based on EEG-like data</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.ctrdm_cal.ctRDM">
+<span class="sig-prename descclassname"><span class="pre">neurora.ctrdm_cal.</span></span><span class="sig-name descname"><span class="pre">ctRDM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chl_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_win</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.ctrdm_cal.ctRDM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate CTRDMs for EEG-like data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array</em>) – EEG/MEG data from a time-window.
+The shape of data must be [n_cons, n_subs, n_chls, n_ts]. n_cons, n_subs, n_chls &amp; n_ts represent the number of
+conditions, the number of subjects, the number of channels and the number of time-points, respectively.</p></li>
+<li><p><strong>sub_opt</strong> (<em>int 0</em><em> or </em><em>1. Default is 1.</em>) – Return the subject-result or average-result.
+If sub_opt=0, return the average result.
+If sub_opt=1, return the results of each subject.</p></li>
+<li><p><strong>chl_opt</strong> (<em>int 0</em><em> or </em><em>1. Default is 0.</em>) – Caculate the CTRDMs for each channel or not.
+If chl_opt=1, calculate the CTRDMs for each channel.
+If chl_opt=0, calculate the CTRDMs after averaging the channels.</p></li>
+<li><p><strong>time_win</strong> (<em>int. Default is 5.</em>) – Set a time-window for calculating the CTRDM for different time-points.
+If time_win=10, that means each calculation process based on 10 time-points.</p></li>
+<li><p><strong>time_step</strong> (<em>int. Default is 5.</em>) – The time step size for each time of calculating.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>CTRDMs</strong> – Cross-Temporal RDMs.
+if chl_opt=1, the shape of CTRDMs is [n_subs, n_chls, int((n_ts-time_win)/time_step)+1,
+int((n_ts-time_win)/time_step)+1, n_cons, n_cons]
+if chl_opt=0, the shape of CTRDMs is [n_subs, int((n_ts-time_win)/time_step)+1,
+int((n_ts-time_win)/time_step)+1, n_cons, n_cons]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="neurora-ctrdm-corr-module">
+<h2>neurora.ctrdm_corr module<a class="headerlink" href="#neurora-ctrdm-corr-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-neurora.ctrdm_corr"></span><p>a module for calculating the Similarity/Correlation Coefficient between two Cross-temporal RDMs</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.ctrdm_corr.ctrdm_correlation_kendall">
+<span class="sig-prename descclassname"><span class="pre">neurora.ctrdm_corr.</span></span><span class="sig-name descname"><span class="pre">ctrdm_correlation_kendall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CTRDM1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CTRDM2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.ctrdm_corr.ctrdm_correlation_kendall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the similarity based on Kendalls tau Correlation Coefficient between two CTRDMs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>CTRDM1</strong> (<em>array</em><em> [</em><em>n_conditions</em><em>, </em><em>n_conditions</em><em>]</em>) – The CTRDM 1.
+The shape of CTRDM1 must be [n_cons, n_cons]. n_cons represent the number of conidtions.</p></li>
+<li><p><strong>CTRDM2</strong> (<em>array</em><em> [</em><em>n_conditions</em><em>, </em><em>n_conditions</em><em>]</em>) – The CTRDM 2.
+The shape of CTRDM2 must be [n_cons, n_cons]. n_cons represent the number of conidtions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>corr</strong> – The Kendalls tau Correlation result.
+The shape of corr is [2], including a r-value and a p-value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array [r, p].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.ctrdm_corr.ctrdm_correlation_pearson">
+<span class="sig-prename descclassname"><span class="pre">neurora.ctrdm_corr.</span></span><span class="sig-name descname"><span class="pre">ctrdm_correlation_pearson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CTRDM1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CTRDM2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.ctrdm_corr.ctrdm_correlation_pearson" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the similarity based on Pearson Correlation Coefficient between two CTRDMs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>CTRDM1</strong> (<em>array</em><em> [</em><em>n_conditions</em><em>, </em><em>n_conditions</em><em>]</em>) – The CTRDM 1.
+The shape of CTRDM1 must be [n_cons, n_cons]. n_cons represent the number of conidtions.</p></li>
+<li><p><strong>CTRDM2</strong> (<em>array</em><em> [</em><em>n_conditions</em><em>, </em><em>n_conditions</em><em>]</em>) – The CTRDM 2.
+The shape of CTRDM2 must be [n_cons, n_cons]. n_cons represent the number of conidtions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>corr</strong> – The Pearson Correlation result.
+The shape of corr is [2], including a r-value and a p-value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array [r, p].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.ctrdm_corr.ctrdm_correlation_spearman">
+<span class="sig-prename descclassname"><span class="pre">neurora.ctrdm_corr.</span></span><span class="sig-name descname"><span class="pre">ctrdm_correlation_spearman</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CTRDM1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CTRDM2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.ctrdm_corr.ctrdm_correlation_spearman" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the similarity based on Spearman Correlation Coefficient between two CTRDMs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>CTRDM1</strong> (<em>array</em><em> [</em><em>n_conditions</em><em>, </em><em>n_conditions</em><em>]</em>) – The CTRDM 1.
+The shape of CTRDM1 must be [n_cons, n_cons]. n_cons represent the number of conidtions.</p></li>
+<li><p><strong>CTRDM2</strong> (<em>array</em><em> [</em><em>n_conditions</em><em>, </em><em>n_conditions</em><em>]</em>) – The CTRDM 2.
+The shape of CTRDM2 must be [n_cons, n_cons]. n_cons represent the number of conidtions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>corr</strong> – The Spearman Correlation result.
+The shape of corr is [2], including a r-value and a p-value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array [r, p].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.ctrdm_corr.ctrdm_distance">
+<span class="sig-prename descclassname"><span class="pre">neurora.ctrdm_corr.</span></span><span class="sig-name descname"><span class="pre">ctrdm_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CTRDM1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CTRDM2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.ctrdm_corr.ctrdm_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the similarity based on Euclidean Distance between two CTRDMs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>CTRDM1</strong> (<em>array</em><em> [</em><em>n_conditions</em><em>, </em><em>n_conditions</em><em>]</em>) – The CTRDM 1.
+The shape of CTRDM1 must be [n_cons, n_cons]. n_cons represent the number of conidtions.</p></li>
+<li><p><strong>CTRDM2</strong> (<em>array</em><em> [</em><em>n_conditions</em><em>, </em><em>n_conditions</em><em>]</em>) – The CTRDM 2.
+The shape of CTRDM2 must be [n_cons, n_cons]. n_cons represent the number of conidtions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>dist</strong> – The Euclidean Distance result.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.ctrdm_corr.ctrdm_similarity">
+<span class="sig-prename descclassname"><span class="pre">neurora.ctrdm_corr.</span></span><span class="sig-name descname"><span class="pre">ctrdm_similarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CTRDM1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CTRDM2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.ctrdm_corr.ctrdm_similarity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the similarity based on Cosine Similarity between two CTRDMs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>CTRDM1</strong> (<em>array</em><em> [</em><em>n_conditions</em><em>, </em><em>n_conditions</em><em>]</em>) – The CTRDM 1.
+The shape of CTRDM1 must be [n_cons, n_cons]. n_cons represent the number of conidtions.</p></li>
+<li><p><strong>CTRDM2</strong> (<em>array</em><em> [</em><em>n_conditions</em><em>, </em><em>n_conditions</em><em>]</em>) – The CTRDM 2.
+The shape of CTRDM2 must be [n_cons, n_cons]. n_cons represent the number of conidtions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>similarity</strong> – The Cosine Similarity result.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="neurora-ctcorr-cal-module">
+<h2>neurora.ctcorr_cal module<a class="headerlink" href="#neurora-ctcorr-cal-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-neurora.ctcorr_cal"></span><p>a module for calculating the cross-temporal similarity</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.ctcorr_cal.ctsim_cal">
+<span class="sig-prename descclassname"><span class="pre">neurora.ctcorr_cal.</span></span><span class="sig-name descname"><span class="pre">ctsim_cal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chl_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_win</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.ctcorr_cal.ctsim_cal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Cross-Temporal Similarities between neural data under two conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data1</strong> (<em>array</em>) – EEG/MEG/fNIRS/EEG-like data from a time-window under condition1.
+The shape of data1 must be [n_subs, n_chls, n_ts]. n_subs, n_chls, n_ts represent the number of conditions, the
+number of subjects, the number of channels and the number of time-points respectively.</p></li>
+<li><p><strong>data2</strong> (<em>array</em>) – EEG/MEG/fNIRS/EEG-like data from a time-window under condition2.
+The shape of data2 must be [n_subs, n_chls, n_ts]. n_subs, n_chls, n_ts represent the number of conditions, the
+number of subjects, the number of channels and the number of time-points respectively.</p></li>
+<li><p><strong>sub_opt</strong> (<em>int 0</em><em> or </em><em>1. Default is 1.</em>) – Caculate the similarities for each subject or not.
+If sub_opt=0, calculating based on all data.
+If sub_opt=1, calculating based on each subject’s data, respectively.</p></li>
+<li><p><strong>chl_opt</strong> (<em>int 0</em><em> or </em><em>1. Default is 0.</em>) – Caculate the similarities for each channel or not.
+If chl_opt=0, calculating based on all channels’ data.
+If chl_opt=1, calculating based on each channel’s data respectively.</p></li>
+<li><p><strong>time_win</strong> (<em>int. Default is 5.</em>) – Set a time-window for calculating the similarities for different time-points.
+If time_win=5, that means each calculation process based on 10 time-points.</p></li>
+<li><p><strong>time_step</strong> (<em>int. Default is 5.</em>) – The time step size for each time of calculating.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>CTSimilarities</strong> – Cross-temporal similarities.
+If sub_opt=1 and chl_opt=1, the shape of CTSimilarities will be [n_subs, n_channels,
+int((n_ts-time_win)/time_step)+1, int((n_ts-time_win)/time_step)+1, 2]. If sub_opt=1 and chl_opt=0, the shape of
+CTSimilarities will be [n_subs, int((n_ts-time_win)/time_step)+1, int((n_ts-time_win)/time_step)+1, 2]. If
+sub_opt=0 and chl_opt=1, the shape of CTSimilarities will be [n_channels, int((n_ts-time_win)/time_step)+1,
+int((n_ts-time_win)/time_step)+1, 2]. If sub_opt=0 and chl_opt=0, the shape of CTSimilarities will be
+[int((n_ts-time_win)/time_step)+1, int((n_ts-time_win)/time_step)+1, 2]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.ctcorr_cal.ctsim_ctrdms_cal">
+<span class="sig-prename descclassname"><span class="pre">neurora.ctcorr_cal.</span></span><span class="sig-name descname"><span class="pre">ctsim_ctrdms_cal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CTRDMs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Model_RDM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spearman'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.ctcorr_cal.ctsim_ctrdms_cal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Cross-Temporal Similarities between CTRDMs and a Coding Model RDM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>CTRDMs</strong> (<em>array</em>) – The Cross-Temporal Representational Dissimilarity Matrices.
+The shape could be [n_ts, n_ts, n_cons, n_cons] or [n_subs, n_ts, n_ts, n_cons, n_cons] or [n_chls, n_ts,
+n_ts, n_cons, n_cons] or [n_subs, n_chls, n_ts, n_ts, n_cons, n_cons]. n_ts, n_cons, n_subs, n_chls represent
+the number of time-points, the number of conditions, the number of subjects and the number of channels,
+respectively.</p></li>
+<li><p><strong>Model_RDM</strong> (<em>array</em><em> [</em><em>n_cons</em><em>, </em><em>n_cons</em><em>]</em><em>.</em>) – The Coding Model RDM.</p></li>
+<li><p><strong>method</strong> (<em>string 'spearman'</em><em> or </em><em>'pearson'</em><em> or </em><em>'kendall'</em><em> or </em><em>'similarity'</em><em> or </em><em>'distance'. Default is 'spearman'.</em>) – The method to calculate the similarities.
+If method=’spearman’, calculate the Spearman Correlations. If method=’pearson’, calculate the Pearson
+Correlations. If methd=’kendall’, calculate the Kendall tau Correlations. If method=’similarity’, calculate the
+Cosine Similarities. If method=’distance’, calculate the Euclidean Distances.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>CTSimilarities</strong> – Cross-temporal similarities.
+If method=’spearman’ or ‘pearson’ or ‘kendall’:</p>
+<blockquote>
+<div><p>If the shape of CTRDMs is [n_ts, n_ts, n_cons, n_cons], the shape of CTSimilarities will be [n_ts, n_ts, 2].
+If the shape of CTRDMs is [n_subs, n_ts, n_ts, n_cons, n_cons], the shape of CTSimilarities will be [n_subs,
+n_ts, n_ts, 2].
+If the shape of CTRDMs is [n_channels, n_ts, n_ts, n_cons, n_cons], the shape of CTSimilarities will be
+[n_channels, n_ts, n_ts, 2].
+If the shape of CTRDMs is [n_subs, n_channels, n_ts, n_ts, n_cons, n_cons], the shape of CTSimilarities will
+be [n_subs, n_channels, n_ts, n_ts, 2].</p>
+</div></blockquote>
+<dl class="simple">
+<dt>If method=’similarity’ or ‘distance’:</dt><dd><p>If the shape of CTRDMs is [n_ts, n_ts, n_cons, n_cons], the shape of CTSimilarities will be [n_ts, n_ts].
+If the shape of CTRDMs is [n_subs, n_ts, n_ts, n_cons, n_cons], the shape of CTSimilarities will be [n_subs,
+n_ts, n_ts].
+If the shape of CTRDMs is [n_channels, n_ts, n_ts, n_cons, n_cons], the shape of CTSimilarities will be
+[n_channels, n_ts, n_ts].
+If the shape of CTRDMs is [n_subs, n_channels, n_ts, n_ts, n_cons, n_cons], the shape of CTSimilarities will
+be [n_subs, n_channels, n_ts, n_ts].</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.ctcorr_cal.ctsim_drsa_cal">
+<span class="sig-prename descclassname"><span class="pre">neurora.ctcorr_cal.</span></span><span class="sig-name descname"><span class="pre">ctsim_drsa_cal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Model_RDMs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RDMs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spearman'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.ctcorr_cal.ctsim_drsa_cal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Cross-Temporal Similarities between temporal model RDMs and temporal neural RDMs (dynamic-RSA)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Model_RDMs</strong> (<em>array</em>) – The Coding Model RDMs.
+The shape should be [n_ts, n_cons, n_cons]. n_ts and n_cons represent the number of time-points and the number
+of conditions, respectively.</p></li>
+<li><p><strong>RDMs</strong> (<em>array</em>) – The Representational Dissimilarity Matrices in time series.
+The shape could be [n_ts, n_cons, n_cons] or [n_subs, n_ts, n_cons, n_cons] or [n_channels, n_ts, n_cons,
+n_cons] or [n_subs, n_channels, n_ts, n_cons, n_cons]. n_ts, n_cons, n_subs, n_channels represent the number of
+time-points, the number of conditions, the number of subjects and the number of channels, respectively.</p></li>
+<li><p><strong>method</strong> (<em>string 'spearman'</em><em> or </em><em>'pearson'</em><em> or </em><em>'kendall'</em><em> or </em><em>'similarity'</em><em> or </em><em>'distance'. Default is 'spearman'.</em>) – The method to calculate the similarities.
+If method=’spearman’, calculate the Spearman Correlations. If method=’pearson’, calculate the Pearson
+Correlations. If methd=’kendall’, calculate the Kendall tau Correlations. If method=’similarity’, calculate the
+Cosine Similarities. If method=’distance’, calculate the Euclidean Distances.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>CTSimilarities</strong> – Cross-temporal similarities.
+If the shape of RDMs is [n_ts, n_cons, n_cons] and method=’spearman’ or ‘pearson’ or ‘kendall’, the shape of
+CTSimilarities will be [n_ts, n_ts, 2].
+If the shape of RDMs is [n_subs, n_ts, n_cons, n_cons] and method=’spearman’ or ‘pearson’ or ‘kendall’, the
+shape of CTSimilarities will be [n_subs, n_ts, n_ts, 2].
+If the shape of RDMs is [n_chls, n_ts, n_cons, n_cons] and method=’spearman’ or ‘pearson’ or ‘kendall’, the
+shape of CTSimilarities will be [n_chls, n_ts, n_ts, 2].
+If the shape of RDMs is [n_subs, n_chls, n_ts, n_cons, n_cons] and method=’spearman’ or ‘pearson’ or ‘kendall’,
+the shape of CTSimilarities will be [n_subs, n_chls, n_ts, n_ts, 2].
+If the shape of RDMs is [n_ts, n_cons, n_cons] and method=’similarity’ or ‘distance’, the shape of
+CTSimilarities will be [n_ts, n_ts].
+If the shape of RDMs is [n_subs, n_ts, n_cons, n_cons] and method=’similarity’ or ‘distance’, the shape of
+CTSimilarities will be [n_subs, n_ts, n_ts].
+If the shape of RDMs is [n_chls, n_ts, n_cons, n_cons] and method=’similarity’ or ‘distance’, the shape of
+CTSimilarities will be [n_chls, n_ts, n_ts].
+If the shape of RDMs is [n_subs, n_chls, n_ts, n_cons, n_cons] and method=’similarity’ or ‘distance’, the shape
+of CTSimilarities will be [n_subs, n_chls, n_ts, n_ts].</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.ctcorr_cal.ctsim_rdms_cal">
+<span class="sig-prename descclassname"><span class="pre">neurora.ctcorr_cal.</span></span><span class="sig-name descname"><span class="pre">ctsim_rdms_cal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">RDMs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spearman'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.ctcorr_cal.ctsim_rdms_cal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Cross-Temporal Similarities based on RDMs in time series</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>RDMs</strong> (<em>array</em>) – The Representational Dissimilarity Matrices in time series.
+The shape could be [n_ts, n_cons, n_cons] or [n_subs, n_ts, n_cons, n_cons] or [n_chls, n_ts, n_cons, n_cons] or
+[n_subs, n_chls, n_ts, n_cons, n_cons]. n_ts, n_conditions, n_subs, n_chls represent the number of time-points,
+the number of conditions, the number of subjects and the number of channels, respectively.</p></li>
+<li><p><strong>method</strong> (<em>string 'spearman'</em><em> or </em><em>'pearson'</em><em> or </em><em>'kendall'</em><em> or </em><em>'similarity'</em><em> or </em><em>'distance'. Default is 'spearman'.</em>) – The method to calculate the similarities.
+If method=’spearman’, calculate the Spearman Correlations. If method=’pearson’, calculate the Pearson
+Correlations. If methd=’kendall’, calculate the Kendall tau Correlations. If method=’similarity’, calculate the
+Cosine Similarities. If method=’distance’, calculate the Euclidean Distances.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>CTSimilarities</strong> – Cross-temporal similarities.
+If the shape of RDMs is [n_ts, n_cons, n_cons] and method=’spearman’ or ‘pearson’ or ‘kendall’, the shape of
+CTSimilarities will be [n_ts, n_ts, 2].
+If the shape of RDMs is [n_subs, n_ts, n_cons, n_cons] and method=’spearman’ or ‘pearson’ or ‘kendall’, the
+shape of CTSimilarities will be [n_subs, n_ts, n_ts, 2].
+If the shape of RDMs is [n_chls, n_ts, n_cons, n_cons] and method=’spearman’ or ‘pearson’ or ‘kendall’, the
+shape of CTSimilarities will be [n_chls, n_ts, n_ts, 2].
+If the shape of RDMs is [n_subs, n_channels, n_ts, n_cons, n_cons] and method=’spearman’ or ‘pearson’ or
+‘kendall’, the shape of CTSimilarities will be [n_subs, n_channels, n_ts, n_ts, 2].
+If the shape of RDMs is [n_ts, n_cons, n_cons] and method=’similarity’ or ‘distance’, the shape of
+CTSimilarities will be [n_ts, n_ts].
+If the shape of RDMs is [n_subs, n_ts, n_cons, n_cons] and method=’similarity’ or ‘distance’, the shape of
+CTSimilarities will be [n_subs, n_ts, n_ts].
+If the shape of RDMs is [n_chls, n_ts, n_cons, n_cons] and method=’similarity’ or ‘distance’, the shape of
+CTSimilarities will be [n_chls, n_ts, n_ts].
+If the shape of RDMs is [n_subs, n_channels, n_ts, n_cons, n_cons] and method=’similarity’ or ‘distance’, the
+shape of CTSimilarities will be [n_subs, n_chls, n_ts, n_ts].</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Cross-Temporal Representational Similarity Analysis (CTRSA)</a><ul>
+<li><a class="reference internal" href="#neurora-ctrdm-cal-module">neurora.ctrdm_cal module</a></li>
+<li><a class="reference internal" href="#neurora-ctrdm-corr-module">neurora.ctrdm_corr module</a></li>
+<li><a class="reference internal" href="#neurora-ctcorr-cal-module">neurora.ctcorr_cal module</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="rsa.html"
+                          title="previous chapter">Representational Similarity Analysis (RSA)</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="decoding.html"
+                          title="next chapter">Conduct Classification-based EEG Decoding</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="sources/ctrsa.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="decoding.html" title="Conduct Classification-based EEG Decoding"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="rsa.html" title="Representational Similarity Analysis (RSA)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 1.1.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Cross-Temporal Representational Similarity Analysis (CTRSA)</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Zitong Lu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>
