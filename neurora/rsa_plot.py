@@ -258,7 +258,7 @@ def plot_rdm_withvalue(rdm, lim=[0, 1], value_fontsize=10, conditions=None, con_
 
 ' a function for plotting the correlation coefficients by time sequence '
 
-def plot_corrs_by_time(corrs, labels=None, time_unit=[0, 0.1], title=None, title_fontsize=16):
+def plot_corrs_by_time(corrs, labels=None, time_unit=[0, 0.1], title=None, title_fontsize=16, labelpad=0):
 
     """
     plot the correlation coefficients by time sequence
@@ -279,6 +279,8 @@ def plot_corrs_by_time(corrs, labels=None, time_unit=[0, 0.1], title=None, title
         The title of the figure.
     title_fontsize : int or float. Default is 16.
         The fontsize of the title.
+    labelpad : int or float. Default is 0.
+        Distance of ylabel from the y-axis.
     """
 
     if len(np.shape(corrs)) < 2 or len(np.shape(corrs)) > 3:
@@ -346,7 +348,7 @@ def plot_corrs_by_time(corrs, labels=None, time_unit=[0, 0.1], title=None, title
             plt.plot(x_soft, y_soft[i], linewidth=3)
 
     plt.ylim(ymin, ymax)
-    plt.ylabel("Similarity", fontsize=20)
+    plt.ylabel("Similarity", fontsize=20, labelpad=labelpad)
     plt.xlabel("Time (s)", fontsize=20)
     plt.tick_params(labelsize=18)
 
@@ -368,7 +370,8 @@ def plot_corrs_by_time(corrs, labels=None, time_unit=[0, 0.1], title=None, title
 def plot_tbytsim_withstats(similarities, start_time=0, end_time=1, time_interval=0.01, smooth=True, p=0.05, cbpt=True,
                            clusterp=0.05, stats_time=[0, 1], color='r', xlim=[0, 1], ylim=[-0.1, 0.8],
                            xlabel='Time (s)', ylabel='Representational Similarity', figsize=[6.4, 3.6], x0=0,
-                           ticksize=12, fontsize=16, markersize=2, title=None, title_fontsize=16, avgshow=False):
+                           labelpad=0, ticksize=12, fontsize=16, markersize=2, title=None, title_fontsize=16,
+                           avgshow=False):
 
     """
     Plot the time-by-time Similarities with statistical results
@@ -411,6 +414,8 @@ def plot_tbytsim_withstats(similarities, start_time=0, end_time=1, time_interval
         The size of the figure.
     x0 : float. Default is 0.
         The Y-axis is at x=x0.
+    labelpad : int or float. Default is 0.
+        Distance of ylabel from the y-axis.
     ticksize : int or float. Default is 12.
         The size of the ticks.
     fontsize : int or float. Default is 16.
@@ -525,7 +530,7 @@ def plot_tbytsim_withstats(similarities, start_time=0, end_time=1, time_interval
     plt.xlim(xlim[0], xlim[1])
     plt.tick_params(labelsize=ticksize)
     plt.xlabel(xlabel, fontsize=fontsize)
-    plt.ylabel(ylabel, fontsize=fontsize)
+    plt.ylabel(ylabel, fontsize=fontsize, labelpad=labelpad)
 
     plt.title(title, fontsize=title_fontsize)
     plt.show()
@@ -537,8 +542,8 @@ def plot_tbytsim_withstats(similarities, start_time=0, end_time=1, time_interval
 
 def plot_tbyt_decoding_acc(acc, start_time=0, end_time=1, time_interval=0.01, chance=0.5, p=0.05, cbpt=True,
                            clusterp=0.05, stats_time=[0, 1], color='r', xlim=[0, 1], ylim=[0.4, 0.8],
-                           xlabel='Time (s)', ylabel='Decoding Accuracy', figsize=[6.4, 3.6], x0=0, ticksize=12,
-                           fontsize=16, markersize=2, title=None, title_fontsize=16, avgshow=False):
+                           xlabel='Time (s)', ylabel='Decoding Accuracy', figsize=[6.4, 3.6], x0=0, labelpad=0,
+                           ticksize=12, fontsize=16, markersize=2, title=None, title_fontsize=16, avgshow=False):
 
     """
     Plot the time-by-time decoding accuracies
@@ -579,6 +584,8 @@ def plot_tbyt_decoding_acc(acc, start_time=0, end_time=1, time_interval=0.01, ch
         The size of the figure.
     x0 : float. Default is 0.
         The Y-axis is at x=x0.
+    labelpad : int or float. Default is 0.
+        Distance of ylabel from the y-axis.
     ticksize : int or float. Default is 12.
         The size of the ticks.
     fontsize : int or float. Default is 16.
@@ -677,7 +684,7 @@ def plot_tbyt_decoding_acc(acc, start_time=0, end_time=1, time_interval=0.01, ch
     plt.xlim(xlim[0], xlim[1])
     plt.tick_params(labelsize=ticksize)
     plt.xlabel(xlabel, fontsize=fontsize)
-    plt.ylabel(ylabel, fontsize=fontsize)
+    plt.ylabel(ylabel, fontsize=fontsize, labelpad=labelpad)
 
     plt.title(title, fontsize=title_fontsize)
     plt.show()
@@ -689,8 +696,9 @@ def plot_tbyt_decoding_acc(acc, start_time=0, end_time=1, time_interval=0.01, ch
 def plot_tbyt_diff_decoding_acc(acc1, acc2, start_time=0, end_time=1, time_interval=0.01, chance=0.5, p=0.05, cbpt=True,
                                 clusterp=0.05, stats_time=[0, 1], color1='r', color2='b', label1='Condition1',
                                 label2='Condition2', xlim=[0, 1], ylim=[0.4, 0.8], xlabel='Time (s)',
-                                ylabel='Decoding Accuracy', figsize=[6.4, 3.6], x0=0, ticksize=12, fontsize=16,
-                                markersize=2, legend_fontsize=14, title=None, title_fontsize=16, avgshow=False):
+                                ylabel='Decoding Accuracy', figsize=[6.4, 3.6], x0=0, labelpad=0, ticksize=12,
+                                fontsize=16, markersize=2, legend_fontsize=14, title=None, title_fontsize=16,
+                                avgshow=False):
 
     """
     Plot the differences of time-by-time decoding accuracies between two conditions
@@ -741,6 +749,8 @@ def plot_tbyt_diff_decoding_acc(acc1, acc2, start_time=0, end_time=1, time_inter
         The size of the figure.
     x0 : float. Default is 0.
         The Y-axis is at x=x0.
+    labelpad : int or float. Default is 0.
+        Distance of ylabel from the y-axis.
     ticksize : int or float. Default is 12.
         The size of the ticks.
     fontsize : int or float. Default is 16.
@@ -912,7 +922,7 @@ def plot_tbyt_diff_decoding_acc(acc1, acc2, start_time=0, end_time=1, time_inter
     plt.xlim(xlim[0], xlim[1])
     plt.tick_params(labelsize=ticksize)
     plt.xlabel(xlabel, fontsize=fontsize)
-    plt.ylabel(ylabel, fontsize=fontsize)
+    plt.ylabel(ylabel, fontsize=fontsize, labelpad=labelpad)
     plt.legend()
     ax = plt.gca()
     leg = ax.get_legend()
