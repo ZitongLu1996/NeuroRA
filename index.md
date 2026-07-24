@@ -23,7 +23,7 @@ Lu, Z., & Ku, Y. (2020). NeuroRA: A Python toolbox of representational analysis 
 
 ## Documentation
 
-You can read the [Documentation here](https://zitonglu1996.github.io/NeuroRA/) or download the [Tutorial here](https://github.com/ZitongLu1996/NeuroRA/blob/master/docs/NeuroRA_API_Documentation.pdf) to know how to use NeuroRA.
+You can read the [Documentation here](https://github.com/ZitongLu1996/NeuroRA/blob/master/docs/NeuroRA_API_Documentation.pdf) to know how to use NeuroRA.
 
 ## Required Dependencies:
 - **[Numpy](http://www.numpy.org)**: a fundamental package for scientific computing
