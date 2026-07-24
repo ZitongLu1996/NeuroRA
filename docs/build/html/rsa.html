@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Representational Similarity Analysis (RSA) &#8212; NeuroRA 1.1.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
+    <script src="static/jquery.js"></script>
+    <script src="static/underscore.js"></script>
+    <script src="static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Cross-Temporal Representational Similarity Analysis (CTRSA)" href="ctrsa.html" />
+    <link rel="prev" title="Calculate the Cross-Temporal RDM" href="ctrdm_cal.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ctrsa.html" title="Cross-Temporal Representational Similarity Analysis (CTRSA)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ctrdm_cal.html" title="Calculate the Cross-Temporal RDM"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 1.1.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Representational Similarity Analysis (RSA)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="representational-similarity-analysis-rsa">
+<h1>Representational Similarity Analysis (RSA)<a class="headerlink" href="#representational-similarity-analysis-rsa" title="Permalink to this headline">¶</a></h1>
+<section id="module-neurora.rdm_corr">
+<span id="neurora-rdm-corr-module"></span><h2>neurora.rdm_corr module<a class="headerlink" href="#module-neurora.rdm_corr" title="Permalink to this headline">¶</a></h2>
+<p>a module for calculating the Similarity/Correlation Coefficient between two RDMs</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rdm_corr.rdm_correlation_kendall">
+<span class="sig-prename descclassname"><span class="pre">neurora.rdm_corr.</span></span><span class="sig-name descname"><span class="pre">rdm_correlation_kendall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">RDM1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RDM2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rdm_corr.rdm_correlation_kendall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Kendalls tau Correlation between two RDMs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>RDM1</strong> (<em>array</em><em> [</em><em>ncons</em><em>, </em><em>ncons</em><em>]</em>) – The RDM 1.
+The shape of RDM1 must be [n_cons, n_cons].
+n_cons represent the number of conidtions.</p></li>
+<li><p><strong>RDM2</strong> (<em>array</em><em> [</em><em>ncons</em><em>, </em><em>ncons</em><em>]</em><em>.</em>) – The RDM 2.
+The shape of RDM2 must be [n_cons, n_cons].
+n_cons represent the number of conidtions.</p></li>
+<li><p><strong>rescale</strong> (<em>bool True</em><em> or </em><em>False. Default is False.</em>) – Rescale the values in RDM or not.
+Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.</p></li>
+<li><p><strong>permutation</strong> (<em>bool True</em><em> or </em><em>False. Default is False.</em>) – Conduct permutation test or not.</p></li>
+<li><p><strong>iter</strong> (<em>int. Default is 5000.</em>) – The times for iteration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>corr</strong> – The Kendalls tau Correlation result.
+The shape of corr is [2], including a r-value and a p-value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array [r, p].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rdm_corr.rdm_correlation_pearson">
+<span class="sig-prename descclassname"><span class="pre">neurora.rdm_corr.</span></span><span class="sig-name descname"><span class="pre">rdm_correlation_pearson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">RDM1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RDM2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rdm_corr.rdm_correlation_pearson" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Pearson Correlation between two RDMs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>RDM1</strong> (<em>array</em><em> [</em><em>ncons</em><em>, </em><em>ncons</em><em>]</em>) – The RDM 1.
+The shape of RDM1 must be [n_cons, n_cons].
+n_cons represent the number of conidtions.</p></li>
+<li><p><strong>RDM2</strong> (<em>array</em><em> [</em><em>ncons</em><em>, </em><em>ncons</em><em>]</em><em>.</em>) – The RDM 2.
+The shape of RDM2 must be [n_cons, n_cons].
+n_cons represent the number of conidtions.</p></li>
+<li><p><strong>rescale</strong> (<em>bool True</em><em> or </em><em>False. Default is False.</em>) – Rescale the values in RDM or not.
+Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.</p></li>
+<li><p><strong>permutation</strong> (<em>bool True</em><em> or </em><em>False. Default is False.</em>) – Conduct permutation test or not.</p></li>
+<li><p><strong>iter</strong> (<em>int. Default is 1000.</em>) – The times for iteration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>corr</strong> – The Pearson Correlation result.
+The shape of corr is [2], including a r-value and a p-value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array [r, p].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rdm_corr.rdm_correlation_spearman">
+<span class="sig-prename descclassname"><span class="pre">neurora.rdm_corr.</span></span><span class="sig-name descname"><span class="pre">rdm_correlation_spearman</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">RDM1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RDM2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rdm_corr.rdm_correlation_spearman" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Spearman Correlation between two RDMs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>RDM1</strong> (<em>array</em><em> [</em><em>ncons</em><em>, </em><em>ncons</em><em>]</em>) – The RDM 1.
+The shape of RDM1 must be [n_cons, n_cons].
+n_cons represent the number of conidtions.</p></li>
+<li><p><strong>RDM2</strong> (<em>array</em><em> [</em><em>ncons</em><em>, </em><em>ncons</em><em>]</em><em>.</em>) – The RDM 2.
+The shape of RDM2 must be [n_cons, n_cons].
+n_cons represent the number of conidtions.</p></li>
+<li><p><strong>rescale</strong> (<em>bool True</em><em> or </em><em>False. Default is False.</em>) – Rescale the values in RDM or not.
+Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.</p></li>
+<li><p><strong>permutation</strong> (<em>bool True</em><em> or </em><em>False. Default is False.</em>) – Conduct permutation test or not.</p></li>
+<li><p><strong>iter</strong> (<em>int. Default is 1000.</em>) – The times for iteration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>corr</strong> – The Spearman Correlation result.
+The shape of corr is [2], including a r-value and a p-value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array [r, p].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rdm_corr.rdm_distance">
+<span class="sig-prename descclassname"><span class="pre">neurora.rdm_corr.</span></span><span class="sig-name descname"><span class="pre">rdm_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">RDM1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RDM2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rdm_corr.rdm_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Euclidean Distance between two RDMs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>RDM1</strong> (<em>array</em><em> [</em><em>ncons</em><em>, </em><em>ncons</em><em>]</em>) – The RDM 1.
+The shape of RDM1 must be [n_cons, n_cons].
+n_cons represent the number of conidtions.</p></li>
+<li><p><strong>RDM2</strong> (<em>array</em><em> [</em><em>ncons</em><em>, </em><em>ncons</em><em>]</em><em>.</em>) – The RDM 2.
+The shape of RDM2 must be [n_cons, n_cons].
+n_cons represent the number of conidtions.</p></li>
+<li><p><strong>rescale</strong> (<em>bool True</em><em> or </em><em>False. Default is False.</em>) – Rescale the values in RDM or not.
+Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>dist</strong> – The Euclidean Distance result.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rdm_corr.rdm_similarity">
+<span class="sig-prename descclassname"><span class="pre">neurora.rdm_corr.</span></span><span class="sig-name descname"><span class="pre">rdm_similarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">RDM1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RDM2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rdm_corr.rdm_similarity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Cosine Similarity between two RDMs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>RDM1</strong> (<em>array</em><em> [</em><em>ncons</em><em>, </em><em>ncons</em><em>]</em>) – The RDM 1.
+The shape of RDM1 must be [n_cons, n_cons].
+n_cons represent the number of conidtions.</p></li>
+<li><p><strong>RDM2</strong> (<em>array</em><em> [</em><em>ncons</em><em>, </em><em>ncons</em><em>]</em><em>.</em>) – The RDM 2.
+The shape of RDM2 must be [n_cons, n_cons].
+n_cons represent the number of conidtions.</p></li>
+<li><p><strong>rescale</strong> (<em>bool True</em><em> or </em><em>False. Default is False.</em>) – Rescale the values in RDM or not.
+Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>similarity</strong> – The Cosine Similarity result.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-neurora.corr_cal">
+<span id="neurora-corr-cal-module"></span><h2>neurora.corr_cal module<a class="headerlink" href="#module-neurora.corr_cal" title="Permalink to this headline">¶</a></h2>
+<p>a module for calculating the similarity between two different modes’ data</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.corr_cal.bhvANDeeg_corr">
+<span class="sig-prename descclassname"><span class="pre">neurora.corr_cal.</span></span><span class="sig-name descname"><span class="pre">bhvANDeeg_corr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bhv_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eeg_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chl_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_win</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spearman'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.corr_cal.bhvANDeeg_corr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Similarities between behavioral data and EEG/MEG/fNIRS data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bhv_data</strong> (<em>array</em>) – The behavioral data.
+The shape of bhv_data must be [n_cons, n_subs, n_trials].
+n_cons, n_subs &amp; n_trials represent the number of conidtions, the number of subjects &amp; the number of trials,
+respectively.</p></li>
+<li><p><strong>eeg_data</strong> (<em>array</em>) – The EEG/MEG/fNIRS data.
+The shape of EEGdata must be [n_cons, n_subs, n_trials, n_chls, n_ts].
+n_cons, n_subs, n_trials, n_chls &amp; n_ts represent the number of conidtions, the number of subjects, the number
+of trials, the number of channels &amp; the number of time-points, respectively.</p></li>
+<li><p><strong>sub_opt</strong> (<em>int 0</em><em> or </em><em>1. Default is 0.</em>) – Calculate the RDM &amp; similarities for each subject or not.
+If sub_opt=0, calculating based on all data.
+If sub_opt=1, calculating based on each subject’s data, respectively.</p></li>
+<li><p><strong>chl_opt</strong> (<em>int 0</em><em> or </em><em>1. Default is 0.</em>) – Calculate the RDM &amp; similarities for each channel or not.
+If chl_opt=0, calculating based on all channels’ data.
+If chl_opt=1, calculating based on each channel’s data respectively.</p></li>
+<li><p><strong>time_opt</strong> (<em>int 0</em><em> or </em><em>1. Default is 0.</em>) – Calculate the RDM &amp; similarities for each time-point or not
+If time_opt=0, calculating based on whole time-points’ data.
+If time_opt=1, calculating based on each time-points respectively.</p></li>
+<li><p><strong>time_win</strong> (<em>int. Default is 5.</em>) – Set a time-window for calculating the RDM &amp; similarities for different time-points.
+Only when time_opt=1, time_win works.
+If time_win=5, that means each calculation process based on 5 time-points.</p></li>
+<li><p><strong>time_step</strong> (<em>int. Default is 5.</em>) – The time step size for each time of calculating.
+Only when time_opt=1, time_step works.</p></li>
+<li><p><strong>method</strong> (<em>string 'spearman'</em><em> or </em><em>'pearson'</em><em> or </em><em>'kendall'</em><em> or </em><em>'similarity'</em><em> or </em><em>'distance'. Default is 'spearman'.</em>) – The method to calculate the similarities.
+If method=’spearman’, calculate the Spearman Correlations. If method=’pearson’, calculate the Pearson
+Correlations. If methd=’kendall’, calculate the Kendall tau Correlations. If method=’similarity’, calculate the
+Cosine Similarities. If method=’distance’, calculate the Euclidean Distances.</p></li>
+<li><p><strong>rescale</strong> (<em>bool True</em><em> or </em><em>False.</em>) – Rescale the values in RDM or not.
+Here, the maximum-minimum method is used to rescale the values except for the
+values on the diagonal.</p></li>
+<li><p><strong>permutation</strong> (<em>bool True</em><em> or </em><em>False. Default is False.</em>) – Use permutation test or not.</p></li>
+<li><p><strong>iter</strong> (<em>int. Default is 1000.</em>) – The times for iteration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>corrs</strong> – The similarities between behavioral data and EEG/MEG/fNIRS data.
+If sub_opt=0 &amp; chl_opt=0 &amp; time_opt=0, return one corr result.</p>
+<blockquote>
+<div><p>The shape of corrs is [2], a r-value and a p-value. If method=’similarity’ or method=’distance’, the
+p-value is 0.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>If sub_opt=0 &amp; chl_opt=0 &amp; time_opt=1, return int((n_ts-time_win)/time_step)+1 corrs result.</dt><dd><p>The shape of corrs is [int((n_ts-time_win)/time_step)+1, 2]. 2 represents a r-value and a p-value. If
+method=’similarity’ or method=’distance’, the p-values are all 0.</p>
+</dd>
+<dt>If sub_opt=0 &amp; chl_opt=1 &amp; time_opt=0, return n_chls corrs result.</dt><dd><p>The shape of corrs is [n_chls, 2]. 2 represents a r-value and a p-value. If method=’similarity’ or
+method=’distance’, the p-values are all 0.</p>
+</dd>
+<dt>If sub_opt=0 &amp; chl_opt=1 &amp; time_opt=1, return n_chls*(int((n_ts-time_win)/time_step)+1) corrs result.</dt><dd><p>The shape of corrs is [n_chls, int((n_ts-time_win)/time_step)+1, 2]. 2 represents a r-value and a p-value.
+If method=’similarity’ or method=’distance’, the p-values are all 0.</p>
+</dd>
+<dt>If sub_opt=1 &amp; chl_opt=0 &amp; time_opt=0, return n_subs corr result.</dt><dd><p>The shape of corrs is [n_subs, 2], a r-value and a p-value. If method=’similarity’ or method=’distance’,
+the p-values are all 0.</p>
+</dd>
+<dt>If sub_opt=1 &amp; chl_opt=0 &amp; time_opt=1, return n_subs*(int((n_ts-time_win)/time_step)+1) corrs result.</dt><dd><p>The shape of corrs is [n_subs, int((n_ts-time_win)/time_step)+1, 2]. 2 represents a r-value and a p-value.
+If method=’similarity’ or method=’distance’, the p-values are all 0.</p>
+</dd>
+<dt>If sub_opt=1 &amp; chl_opt=1 &amp; time_opt=0, return n_subs*n_chls corrs result.</dt><dd><p>The shape of corrs is [n_subs, n_chls, 2]. 2 represents a r-value and a p-value. If method=’similarity’ or
+method=’distance’, the p-values are all 0.</p>
+</dd>
+<dt>If sub_opt=1 &amp; chl_opt=1 &amp; time_opt=1, return n_subs*n_chls*(int((n_ts-time_win)/time_step)+1) corrs result.</dt><dd><p>The shape of corrs is [n_subs, n_chls, int((n_ts-time_win)/time_step)+1, 2]. 2 represents a r-value and a
+p-value. If method=’similarity’ or method=’distance’, the p-values are all 0.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.corr_cal.bhvANDfmri_corr">
+<span class="sig-prename descclassname"><span class="pre">neurora.corr_cal.</span></span><span class="sig-name descname"><span class="pre">bhvANDfmri_corr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bhv_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmri_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ksize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[3,</span> <span class="pre">3,</span> <span class="pre">3]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spearman'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.corr_cal.bhvANDfmri_corr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Similarities between behavioral data and fMRI data for searchlight</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bhv_data</strong> (<em>array</em>) – The behavioral data.
+The shape of bhv_data must be [n_cons, n_subs, n_trials].
+n_cons, n_subs &amp; n_trials represent the number of conidtions, the number of subjects &amp; the number of trials,
+respectively.</p></li>
+<li><p><strong>fmri_data</strong> (<em>array</em>) – The fmri data.
+The shape of fmri_data must be [n_cons, n_subs, nx, ny, nz]. n_cons, nx, ny, nz represent the number of
+conditions, the number of subs &amp; the size of fMRI-img, respectively.</p></li>
+<li><p><strong>ksize</strong> (<em>array</em><em> or </em><em>list</em><em> [</em><em>kx</em><em>, </em><em>ky</em><em>, </em><em>kz</em><em>]</em><em>. Default is</em><em> [</em><em>3</em><em>, </em><em>3</em><em>, </em><em>3</em><em>]</em><em>.</em>) – The size of the calculation unit for searchlight.
+kx, ky, kz represent the number of voxels along the x, y, z axis.
+kx, ky, kz should be odd.</p></li>
+<li><p><strong>strides</strong> (<em>array</em><em> or </em><em>list</em><em> [</em><em>sx</em><em>, </em><em>sy</em><em>, </em><em>sz</em><em>]</em><em>. Default is</em><em> [</em><em>1</em><em>, </em><em>1</em><em>, </em><em>1</em><em>]</em><em>.</em>) – The strides for calculating along the x, y, z axis.</p></li>
+<li><p><strong>sub_opt</strong> (<em>int 0</em><em> or </em><em>1. Default is 1.</em>) – Return the subject-result or average-result.
+If sub_opt=0, return the average result.
+If sub_opt=1, return the results of each subject.</p></li>
+<li><p><strong>method</strong> (<em>string 'spearman'</em><em> or </em><em>'pearson'</em><em> or </em><em>'kendall'</em><em> or </em><em>'similarity'</em><em> or </em><em>'distance'. Default is 'spearman'.</em>) – The method to calculate the similarities.
+If method=’spearman’, calculate the Spearman Correlations. If method=’pearson’, calculate the Pearson
+Correlations. If methd=’kendall’, calculate the Kendall tau Correlations. If method=’similarity’, calculate the
+Cosine Similarities. If method=’distance’, calculate the Euclidean Distances.</p></li>
+<li><p><strong>rescale</strong> (<em>bool True</em><em> or </em><em>False.</em>) – Rescale the values in RDM or not.
+Here, the maximum-minimum method is used to rescale the values except for the
+values on the diagonal.</p></li>
+<li><p><strong>permutation</strong> (<em>bool True</em><em> or </em><em>False. Default is False.</em>) – Use permutation test or not.</p></li>
+<li><p><strong>iter</strong> (<em>int. Default is 1000.</em>) – The times for iteration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>corrs</strong> – The similarities between behavioral data and fMRI data for searchlight.
+If sub_result=0, the shape of corrs is [n_x, n_y, n_z, 2].
+If sub_result=1, the shape of corrs is [n_subs, n_x, n_y, n_z, 2].
+n_x, n_y, n_z represent the number of calculation units for searchlight along the x, y, z axis and 2 represents
+a r-value and a p-value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.corr_cal.eegANDfmri_corr">
+<span class="sig-prename descclassname"><span class="pre">neurora.corr_cal.</span></span><span class="sig-name descname"><span class="pre">eegANDfmri_corr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eeg_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmri_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chl_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ksize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[3,</span> <span class="pre">3,</span> <span class="pre">3]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spearman'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.corr_cal.eegANDfmri_corr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Similarities between EEG/MEG/fNIRS data and fMRI data for searchligt</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eeg_data</strong> (<em>array</em>) – The EEG/MEG/fNIRS data.
+The shape of EEGdata must be [n_cons, n_subs, n_trials, n_chls, n_ts].
+n_cons, n_subs, n_trials, n_chls &amp; n_ts represent the number of conidtions, the number of subjects, the number
+of trials, the number of channels &amp; the number of time-points, respectively.</p></li>
+<li><p><strong>fmri_data</strong> (<em>array</em>) – The fmri data.
+The shape of fmri_data must be [n_cons, n_subs, nx, ny, nz]. n_cons, nx, ny, nz represent the number of
+conditions, the number of subs &amp; the size of fMRI-img, respectively.</p></li>
+<li><p><strong>chl_opt</strong> (<em>int 0</em><em> or </em><em>1. Default is 0.</em>) – Calculate the RDM &amp; similarities for each channel or not.
+If chl_opt=0, calculating based on all channels’ data.
+If chl_opt=1, calculating based on each channel’s data respectively.</p></li>
+<li><p><strong>ksize</strong> (<em>array</em><em> or </em><em>list</em><em> [</em><em>kx</em><em>, </em><em>ky</em><em>, </em><em>kz</em><em>]</em><em>. Default is</em><em> [</em><em>3</em><em>, </em><em>3</em><em>, </em><em>3</em><em>]</em><em>.</em>) – The size of the calculation unit for searchlight.
+kx, ky, kz represent the number of voxels along the x, y, z axis.
+kx, ky, kz should be odd.</p></li>
+<li><p><strong>strides</strong> (<em>array</em><em> or </em><em>list</em><em> [</em><em>sx</em><em>, </em><em>sy</em><em>, </em><em>sz</em><em>]</em><em>. Default is</em><em> [</em><em>1</em><em>, </em><em>1</em><em>, </em><em>1</em><em>]</em><em>.</em>) – The strides for calculating along the x, y, z axis.</p></li>
+<li><p><strong>sub_opt</strong> (<em>int 0</em><em> or </em><em>1. Default is 1.</em>) – Return the subject-result or average-result.
+If sub_opt=0, return the average result.
+If sub_opt=1, return the results of each subject.</p></li>
+<li><p><strong>method</strong> (<em>string 'spearman'</em><em> or </em><em>'pearson'</em><em> or </em><em>'kendall'</em><em> or </em><em>'similarity'</em><em> or </em><em>'distance'. Default is 'spearman'.</em>) – The method to calculate the similarities.
+If method=’spearman’, calculate the Spearman Correlations. If method=’pearson’, calculate the Pearson
+Correlations. If methd=’kendall’, calculate the Kendall tau Correlations. If method=’similarity’, calculate the
+Cosine Similarities. If method=’distance’, calculate the Euclidean Distances.</p></li>
+<li><p><strong>rescale</strong> (<em>bool True</em><em> or </em><em>False.</em>) – Rescale the values in RDM or not.
+Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.</p></li>
+<li><p><strong>permutation</strong> (<em>bool True</em><em> or </em><em>False. Default is False.</em>) – Use permutation test or not.</p></li>
+<li><p><strong>iter</strong> (<em>int. Default is 1000.</em>) – The times for iteration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>corrs</strong> – The similarities between EEG/MEG/fNIRS data and fMRI data for searchlight.
+If chl_opt=1 &amp; sub_result=1, the shape of corrs is [n_subs, n_chls, n_x, n_y, n_z, 2]. n_subs, n_x, n_y, n_z
+represent the number of subjects, the number of calculation units for searchlight along the x, y, z axis and 2
+represents a r-value and a p-value.
+If chl_opt=1 &amp; sub_result=0, the shape of corrs is [n_chls, n_x, n_y, n_z, 2]. n_x, n_y, n_z represent the
+number of calculation units for searchlight along the x, y, z axis and 2 represents a r-value and a p-value.
+If chl_opt=0 &amp; sub_result=1, the shape of RDMs is [n_subs, n_x, n_y, n_z, 2]. n_subs, n_x, n_y, n_z represent
+the number of subjects, the number of calculation units for searchlight along the x, y, z axis and 2 represents
+a r-value and a p-value.
+If chl_opt=0 &amp; sub_result=0, the shape of corrs is [n_x, n_y, n_z, 2]. n_x, n_y, n_z represent the number of
+calculation units for searchlight along the x, y, z axis and 2 represents a r-value and a p-value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-neurora.corr_cal_by_rdm">
+<span id="neurora-corr-cal-by-rdm-module"></span><h2>neurora.corr_cal_by_rdm module<a class="headerlink" href="#module-neurora.corr_cal_by_rdm" title="Permalink to this headline">¶</a></h2>
+<p>a module for calculating the Similarity/Correlation Cosfficient between RDMs by different modes</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.corr_cal_by_rdm.fmrirdms_corr">
+<span class="sig-prename descclassname"><span class="pre">neurora.corr_cal_by_rdm.</span></span><span class="sig-name descname"><span class="pre">fmrirdms_corr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">demo_rdm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmri_rdms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spearman'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.corr_cal_by_rdm.fmrirdms_corr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the similarity between fMRI searchlight RDMs and a demo RDM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>demo_rdm</strong> (<em>array</em><em> [</em><em>n_cons</em><em>, </em><em>n_cons</em><em>]</em>) – A demo RDM.</p></li>
+<li><p><strong>fmri_rdms</strong> (<em>array</em>) – The fMRI-Searchlight RDMs.
+The shape of RDMs is [n_x, n_y, n_z, n_cons, n_cons]. n_x, n_y, n_z represent the number of calculation units
+for searchlight along the x, y, z axis.</p></li>
+<li><p><strong>method</strong> (<em>string 'spearman'</em><em> or </em><em>'pearson'</em><em> or </em><em>'kendall'</em><em> or </em><em>'similarity'</em><em> or </em><em>'distance'. Default is 'spearman'.</em>) – The method to calculate the similarities.
+If method=’spearman’, calculate the Spearman Correlations. If method=’pearson’, calculate the Pearson
+Correlations. If methd=’kendall’, calculate the Kendall tau Correlations. If method=’similarity’, calculate the
+Cosine Similarities. If method=’distance’, calculate the Euclidean Distances.</p></li>
+<li><p><strong>rescale</strong> (<em>bool True</em><em> or </em><em>False.</em>) – Rescale the values in RDM or not.
+Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.</p></li>
+<li><p><strong>permutation</strong> (<em>bool True</em><em> or </em><em>False. Default is False.</em>) – Use permutation test or not.</p></li>
+<li><p><strong>iter</strong> (<em>int. Default is 1000.</em>) – The times for iteration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>corrs</strong> – The similarities between fMRI searchlight RDMs and a demo RDM
+The shape of RDMs is [n_x, n_y, n_z, 2]. n_x, n_y, n_z represent the number of calculation units for searchlight
+along the x, y, z axis and 2 represents a r-value and a p-value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The demo RDM could be a behavioral RDM, a hypothesis-based coding model RDM or a computational model RDM.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.corr_cal_by_rdm.rdms_corr">
+<span class="sig-prename descclassname"><span class="pre">neurora.corr_cal_by_rdm.</span></span><span class="sig-name descname"><span class="pre">rdms_corr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">demo_rdm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eeg_rdms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spearman'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.corr_cal_by_rdm.rdms_corr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the similarity between RDMs based on RDMs of EEG-like data and a demo RDM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>demo_rdm</strong> (<em>array</em><em> [</em><em>n_cons</em><em>, </em><em>n_cons</em><em>]</em>) – A demo RDM.</p></li>
+<li><p><strong>eeg_rdms</strong> (<em>array</em>) – The EEG/MEG/fNIRS/ECoG/sEEG/electrophysiological RDM(s).
+The shape can be [n_cons, n_cons] or [n1, n_cons, n_cons] or [n1, n2, n_cons, n_cons] or
+[n1, n2, n3, n_cons, n_cons]. ni(i=1, 2, 3) can be int(n_ts/timw_win), n_chls, n_subs.</p></li>
+<li><p><strong>method</strong> (<em>string 'spearman'</em><em> or </em><em>'pearson'</em><em> or </em><em>'kendall'</em><em> or </em><em>'similarity'</em><em> or </em><em>'distance'. Default is 'spearman'.</em>) – The method to calculate the similarities.
+If method=’spearman’, calculate the Spearman Correlations. If method=’pearson’, calculate the Pearson
+Correlations. If methd=’kendall’, calculate the Kendall tau Correlations. If method=’similarity’, calculate the
+Cosine Similarities. If method=’distance’, calculate the Euclidean Distances.</p></li>
+<li><p><strong>rescale</strong> (<em>bool True</em><em> or </em><em>False.</em>) – Rescale the values in RDM or not.
+Here, the maximum-minimum method is used to rescale the values except for the values on the diagonal.</p></li>
+<li><p><strong>permutation</strong> (<em>bool True</em><em> or </em><em>False. Default is False.</em>) – Use permutation test or not.</p></li>
+<li><p><strong>iter</strong> (<em>int. Default is 1000.</em>) – The times for iteration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>corrs</strong> – The similarities between EEG/MEG/fNIRS/ECoG/sEEG/electrophysiological RDMs and a demo RDM
+If the shape of eeg_rdms is [n_cons, n_cons], the shape of corrs will be [2]. If the shape of eeg_rdms is
+[n1, n_cons, n_cons], the shape of corrs will be [n1, 2]. If the shape of eeg_rdms is [n1, n2, n_cons, n_cons],
+the shape of corrs will be [n1, n2, 2]. If the shape of eeg_rdms is [n1, n2, n3, n_cons, n_cons], the shape of
+corrs will be [n1, n2, n3, 2]. ni(i=1, 2, 3) can be int(n_ts/timw_win), n_chls, n_subs. 2 represents a r-value
+and a p-value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The demo RDM could be a behavioral RDM, a hypothesis-based coding model RDM or a computational model RDM.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Representational Similarity Analysis (RSA)</a><ul>
+<li><a class="reference internal" href="#module-neurora.rdm_corr">neurora.rdm_corr module</a></li>
+<li><a class="reference internal" href="#module-neurora.corr_cal">neurora.corr_cal module</a></li>
+<li><a class="reference internal" href="#module-neurora.corr_cal_by_rdm">neurora.corr_cal_by_rdm module</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="ctrdm_cal.html"
+                          title="previous chapter">Calculate the Cross-Temporal RDM</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="ctrsa.html"
+                          title="next chapter">Cross-Temporal Representational Similarity Analysis (CTRSA)</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="sources/rsa.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ctrsa.html" title="Cross-Temporal Representational Similarity Analysis (CTRSA)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ctrdm_cal.html" title="Calculate the Cross-Temporal RDM"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 1.1.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Representational Similarity Analysis (RSA)</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Zitong Lu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>
