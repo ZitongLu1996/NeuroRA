@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Inter-Subject Correlation &#8212; NeuroRA 2.0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=def86cc0" />
+    
+    <script src="_static/documentation_options.js?v=be0f70cb"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Statistical Analysis" href="stats_cal.html" />
+    <link rel="prev" title="Classification-Based Decoding" href="decoding.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="stats_cal.html" title="Statistical Analysis"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="decoding.html" title="Classification-Based Decoding"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 2.0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="api.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Inter-Subject Correlation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="inter-subject-correlation">
+<h1>Inter-Subject Correlation<a class="headerlink" href="#inter-subject-correlation" title="Link to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">neurora.isc_cal</span></code></p>
+<section id="function-index">
+<h2>Function Index<a class="headerlink" href="#function-index" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">isc</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isc_fmri</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isc_fmri_roi</span></code></p></li>
+</ul>
+</section>
+<section id="module-neurora.isc_cal">
+<span id="api-details"></span><h2>API Details<a class="headerlink" href="#module-neurora.isc_cal" title="Link to this heading">¶</a></h2>
+<p>a module for calculating the inter-subject correlation based on neural data</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.isc_cal.isc">
+<span class="sig-prename descclassname"><span class="pre">neurora.isc_cal.</span></span><span class="sig-name descname"><span class="pre">isc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_win</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'loky'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.isc_cal.isc" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate inter-subject correlation (ISC) for EEG-like data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_subs</em><em>, </em><em>n_chls</em><em>, </em><em>n_ts</em><em>]</em>) – <p>EEG-like neural data.</p>
+<p>n_subs, n_chls, and n_ts represent the number of subjects, channels,
+and time points, respectively.</p>
+</p></li>
+<li><p><strong>time_win</strong> (<em>int</em><em>, </em><em>default=5</em>) – Time-window size in samples.</p></li>
+<li><p><strong>time_step</strong> (<em>int</em><em>, </em><em>default=5</em>) – Step size between adjacent time windows.</p></li>
+<li><p><strong>parallel</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Whether to parallelize across subject pair × channel × time-window tasks.</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em><em>, </em><em>default=-1</em>) – Number of workers used when parallel=True.
+If n_jobs=-1, all available CPU cores will be used.</p></li>
+<li><p><strong>backend</strong> (<em>{&quot;loky&quot;</em><em>, </em><em>&quot;threading&quot;}</em><em>, </em><em>default=&quot;loky&quot;</em>) – Joblib backend used when parallel=True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><strong>isc_results</strong> – ISC results.</p>
+<p>The last dimension contains:</p>
+<ul class="simple">
+<li><p>isc_results[…, 0] : r-value</p></li>
+<li><p>isc_results[…, 1] : p-value</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_pairs, n_chls, n_windows, 2]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>ISC is computed for each unique pair of subjects.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.isc_cal.isc_fmri">
+<span class="sig-prename descclassname"><span class="pre">neurora.isc_cal.</span></span><span class="sig-name descname"><span class="pre">isc_fmri</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmri_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ksize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'loky'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.isc_cal.isc_fmri" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate inter-subject correlation (ISC) for fMRI data using searchlights.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fmri_data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_ts</em><em>, </em><em>n_subs</em><em>, </em><em>nx</em><em>, </em><em>ny</em><em>, </em><em>nz</em><em>]</em>) – <p>fMRI data.</p>
+<p>n_ts, n_subs, nx, ny, and nz represent the number of time points,
+subjects, and spatial dimensions.</p>
+</p></li>
+<li><p><strong>ksize</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>int</em><em>, </em><em>default=</em><em>(</em><em>3</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – Searchlight kernel size along x, y, and z axes.</p></li>
+<li><p><strong>strides</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>int</em><em>, </em><em>default=</em><em>(</em><em>1</em><em>, </em><em>1</em><em>, </em><em>1</em><em>)</em>) – Searchlight strides along x, y, and z axes.</p></li>
+<li><p><strong>parallel</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Whether to parallelize across time point × subject pair × searchlight tasks.</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em><em>, </em><em>default=-1</em>) – Number of workers used when parallel=True.
+If n_jobs=-1, all available CPU cores will be used.</p></li>
+<li><p><strong>backend</strong> (<em>{&quot;loky&quot;</em><em>, </em><em>&quot;threading&quot;}</em><em>, </em><em>default=&quot;loky&quot;</em>) – Joblib backend used when parallel=True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><strong>isc_results</strong> – fMRI searchlight ISC results.</p>
+<p>The last dimension contains:</p>
+<ul class="simple">
+<li><p>isc_results[…, 0] : r-value</p></li>
+<li><p>isc_results[…, 1] : p-value</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_ts, n_pairs, n_x, n_y, n_z, 2]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>ISC is computed for each unique pair of subjects.</p>
+<p>The NaN handling follows the original logic: for each time point, subject
+pair, and searchlight unit, the ISC is set to NaN if either subject’s
+searchlight vector contains NaN.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.isc_cal.isc_fmri_roi">
+<span class="sig-prename descclassname"><span class="pre">neurora.isc_cal.</span></span><span class="sig-name descname"><span class="pre">isc_fmri_roi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmri_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'loky'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.isc_cal.isc_fmri_roi" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate inter-subject correlation (ISC) for fMRI data within an ROI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fmri_data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_ts</em><em>, </em><em>n_subs</em><em>, </em><em>nx</em><em>, </em><em>ny</em><em>, </em><em>nz</em><em>]</em>) – fMRI data.</p></li>
+<li><p><strong>mask_data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>nx</em><em>, </em><em>ny</em><em>, </em><em>nz</em><em>]</em>) – ROI mask. Non-zero and finite voxels are included.</p></li>
+<li><p><strong>parallel</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Whether to parallelize across time point × subject pair tasks.</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em><em>, </em><em>default=-1</em>) – Number of workers used when parallel=True.
+If n_jobs=-1, all available CPU cores will be used.</p></li>
+<li><p><strong>backend</strong> (<em>{&quot;loky&quot;</em><em>, </em><em>&quot;threading&quot;}</em><em>, </em><em>default=&quot;loky&quot;</em>) – Joblib backend used when parallel=True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><strong>isc_results</strong> – fMRI ROI ISC results.</p>
+<p>The last dimension contains:</p>
+<ul class="simple">
+<li><p>isc_results[…, 0] : r-value</p></li>
+<li><p>isc_results[…, 1] : p-value</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_ts, n_pairs, 2]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>ISC is computed for each unique pair of subjects.</p>
+<p>The ROI voxel selection follows the original logic: voxels are included
+if the mask is non-zero and finite. fMRI NaNs are handled at the
+time point × subject pair level, where the corresponding ISC value
+becomes NaN if either subject’s ROI vector contains NaN.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Inter-Subject Correlation</a><ul>
+<li><a class="reference internal" href="#function-index">Function Index</a></li>
+<li><a class="reference internal" href="#module-neurora.isc_cal">API Details</a><ul>
+<li><a class="reference internal" href="#neurora.isc_cal.isc"><code class="docutils literal notranslate"><span class="pre">isc()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.isc_cal.isc_fmri"><code class="docutils literal notranslate"><span class="pre">isc_fmri()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.isc_cal.isc_fmri_roi"><code class="docutils literal notranslate"><span class="pre">isc_fmri_roi()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="decoding.html"
+                          title="previous chapter">Classification-Based Decoding</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="stats_cal.html"
+                          title="next chapter">Statistical Analysis</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/isc_cal.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="stats_cal.html" title="Statistical Analysis"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="decoding.html" title="Classification-Based Decoding"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 2.0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="api.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Inter-Subject Correlation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2021, Zitong Lu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  </body>
+</html>

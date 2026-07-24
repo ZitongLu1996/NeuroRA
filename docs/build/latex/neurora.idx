@@ -1,0 +1,88 @@
+\indexentry{module@\spxentry{module}!neurora.rdm\_cal@\spxentry{neurora.rdm\_cal}|hyperpage}{4}
+\indexentry{neurora.rdm\_cal@\spxentry{neurora.rdm\_cal}!module@\spxentry{module}|hyperpage}{4}
+\indexentry{bhvRDM() (in module neurora.rdm\_cal)@\spxentry{bhvRDM()}\spxextra{in module neurora.rdm\_cal}|hyperpage}{4}
+\indexentry{eegRDM() (in module neurora.rdm\_cal)@\spxentry{eegRDM()}\spxextra{in module neurora.rdm\_cal}|hyperpage}{4}
+\indexentry{eegRDM\_bydecoding() (in module neurora.rdm\_cal)@\spxentry{eegRDM\_bydecoding()}\spxextra{in module neurora.rdm\_cal}|hyperpage}{5}
+\indexentry{fmriRDM() (in module neurora.rdm\_cal)@\spxentry{fmriRDM()}\spxextra{in module neurora.rdm\_cal}|hyperpage}{5}
+\indexentry{fmriRDM\_roi() (in module neurora.rdm\_cal)@\spxentry{fmriRDM\_roi()}\spxextra{in module neurora.rdm\_cal}|hyperpage}{6}
+\indexentry{module@\spxentry{module}!neurora.rdm\_corr@\spxentry{neurora.rdm\_corr}|hyperpage}{7}
+\indexentry{neurora.rdm\_corr@\spxentry{neurora.rdm\_corr}!module@\spxentry{module}|hyperpage}{7}
+\indexentry{rdm\_correlation\_spearman() (in module neurora.rdm\_corr)@\spxentry{rdm\_correlation\_spearman()}\spxextra{in module neurora.rdm\_corr}|hyperpage}{7}
+\indexentry{module@\spxentry{module}!neurora.corr\_cal\_by\_rdm@\spxentry{neurora.corr\_cal\_by\_rdm}|hyperpage}{8}
+\indexentry{neurora.corr\_cal\_by\_rdm@\spxentry{neurora.corr\_cal\_by\_rdm}!module@\spxentry{module}|hyperpage}{8}
+\indexentry{fmrirdms\_corr() (in module neurora.corr\_cal\_by\_rdm)@\spxentry{fmrirdms\_corr()}\spxextra{in module neurora.corr\_cal\_by\_rdm}|hyperpage}{8}
+\indexentry{fmrirdms\_corr\_perm() (in module neurora.corr\_cal\_by\_rdm)@\spxentry{fmrirdms\_corr\_perm()}\spxextra{in module neurora.corr\_cal\_by\_rdm}|hyperpage}{9}
+\indexentry{fmrirdms\_partialcorr() (in module neurora.corr\_cal\_by\_rdm)@\spxentry{fmrirdms\_partialcorr()}\spxextra{in module neurora.corr\_cal\_by\_rdm}|hyperpage}{9}
+\indexentry{fmrirdms\_partialcorr\_perm() (in module neurora.corr\_cal\_by\_rdm)@\spxentry{fmrirdms\_partialcorr\_perm()}\spxextra{in module neurora.corr\_cal\_by\_rdm}|hyperpage}{10}
+\indexentry{rdms\_corr() (in module neurora.corr\_cal\_by\_rdm)@\spxentry{rdms\_corr()}\spxextra{in module neurora.corr\_cal\_by\_rdm}|hyperpage}{10}
+\indexentry{rdms\_corr\_perm() (in module neurora.corr\_cal\_by\_rdm)@\spxentry{rdms\_corr\_perm()}\spxextra{in module neurora.corr\_cal\_by\_rdm}|hyperpage}{11}
+\indexentry{rdms\_partialcorr() (in module neurora.corr\_cal\_by\_rdm)@\spxentry{rdms\_partialcorr()}\spxextra{in module neurora.corr\_cal\_by\_rdm}|hyperpage}{12}
+\indexentry{rdms\_partialcorr\_perm() (in module neurora.corr\_cal\_by\_rdm)@\spxentry{rdms\_partialcorr\_perm()}\spxextra{in module neurora.corr\_cal\_by\_rdm}|hyperpage}{13}
+\indexentry{module@\spxentry{module}!neurora.ctrdm\_cal@\spxentry{neurora.ctrdm\_cal}|hyperpage}{14}
+\indexentry{neurora.ctrdm\_cal@\spxentry{neurora.ctrdm\_cal}!module@\spxentry{module}|hyperpage}{14}
+\indexentry{ctRDM() (in module neurora.ctrdm\_cal)@\spxentry{ctRDM()}\spxextra{in module neurora.ctrdm\_cal}|hyperpage}{14}
+\indexentry{module@\spxentry{module}!neurora.ctrdm\_corr@\spxentry{neurora.ctrdm\_corr}|hyperpage}{15}
+\indexentry{neurora.ctrdm\_corr@\spxentry{neurora.ctrdm\_corr}!module@\spxentry{module}|hyperpage}{15}
+\indexentry{ctrdm\_correlation\_spearman() (in module neurora.ctrdm\_corr)@\spxentry{ctrdm\_correlation\_spearman()}\spxextra{in module neurora.ctrdm\_corr}|hyperpage}{15}
+\indexentry{module@\spxentry{module}!neurora.ctcorr\_cal@\spxentry{neurora.ctcorr\_cal}|hyperpage}{16}
+\indexentry{neurora.ctcorr\_cal@\spxentry{neurora.ctcorr\_cal}!module@\spxentry{module}|hyperpage}{16}
+\indexentry{ctsim\_cal() (in module neurora.ctcorr\_cal)@\spxentry{ctsim\_cal()}\spxextra{in module neurora.ctcorr\_cal}|hyperpage}{16}
+\indexentry{ctsim\_ctrdms\_cal() (in module neurora.ctcorr\_cal)@\spxentry{ctsim\_ctrdms\_cal()}\spxextra{in module neurora.ctcorr\_cal}|hyperpage}{16}
+\indexentry{ctsim\_rdms\_cal() (in module neurora.ctcorr\_cal)@\spxentry{ctsim\_rdms\_cal()}\spxextra{in module neurora.ctcorr\_cal}|hyperpage}{17}
+\indexentry{module@\spxentry{module}!neurora.decoding@\spxentry{neurora.decoding}|hyperpage}{18}
+\indexentry{neurora.decoding@\spxentry{neurora.decoding}!module@\spxentry{module}|hyperpage}{18}
+\indexentry{bidirectional\_transfer\_decoding() (in module neurora.decoding)@\spxentry{bidirectional\_transfer\_decoding()}\spxextra{in module neurora.decoding}|hyperpage}{18}
+\indexentry{ct\_decoding\_kfold() (in module neurora.decoding)@\spxentry{ct\_decoding\_kfold()}\spxextra{in module neurora.decoding}|hyperpage}{19}
+\indexentry{tbyt\_decoding\_kfold() (in module neurora.decoding)@\spxentry{tbyt\_decoding\_kfold()}\spxextra{in module neurora.decoding}|hyperpage}{20}
+\indexentry{unidirectional\_transfer\_decoding() (in module neurora.decoding)@\spxentry{unidirectional\_transfer\_decoding()}\spxextra{in module neurora.decoding}|hyperpage}{20}
+\indexentry{module@\spxentry{module}!neurora.isc\_cal@\spxentry{neurora.isc\_cal}|hyperpage}{22}
+\indexentry{neurora.isc\_cal@\spxentry{neurora.isc\_cal}!module@\spxentry{module}|hyperpage}{22}
+\indexentry{isc() (in module neurora.isc\_cal)@\spxentry{isc()}\spxextra{in module neurora.isc\_cal}|hyperpage}{22}
+\indexentry{isc\_fmri() (in module neurora.isc\_cal)@\spxentry{isc\_fmri()}\spxextra{in module neurora.isc\_cal}|hyperpage}{23}
+\indexentry{isc\_fmri\_roi() (in module neurora.isc\_cal)@\spxentry{isc\_fmri\_roi()}\spxextra{in module neurora.isc\_cal}|hyperpage}{23}
+\indexentry{module@\spxentry{module}!neurora.stats\_cal@\spxentry{neurora.stats\_cal}|hyperpage}{25}
+\indexentry{neurora.stats\_cal@\spxentry{neurora.stats\_cal}!module@\spxentry{module}|hyperpage}{25}
+\indexentry{stats() (in module neurora.stats\_cal)@\spxentry{stats()}\spxextra{in module neurora.stats\_cal}|hyperpage}{25}
+\indexentry{stats\_fmri() (in module neurora.stats\_cal)@\spxentry{stats\_fmri()}\spxextra{in module neurora.stats\_cal}|hyperpage}{25}
+\indexentry{stats\_iscfmri() (in module neurora.stats\_cal)@\spxentry{stats\_iscfmri()}\spxextra{in module neurora.stats\_cal}|hyperpage}{26}
+\indexentry{module@\spxentry{module}!neurora.nii\_save@\spxentry{neurora.nii\_save}|hyperpage}{28}
+\indexentry{neurora.nii\_save@\spxentry{neurora.nii\_save}!module@\spxentry{module}|hyperpage}{28}
+\indexentry{save\_nii() (in module neurora.nii\_save)@\spxentry{save\_nii()}\spxextra{in module neurora.nii\_save}|hyperpage}{28}
+\indexentry{module@\spxentry{module}!neurora.rsa\_plot@\spxentry{neurora.rsa\_plot}|hyperpage}{30}
+\indexentry{neurora.rsa\_plot@\spxentry{neurora.rsa\_plot}!module@\spxentry{module}|hyperpage}{30}
+\indexentry{plot\_brainrsa\_glass() (in module neurora.rsa\_plot)@\spxentry{plot\_brainrsa\_glass()}\spxextra{in module neurora.rsa\_plot}|hyperpage}{30}
+\indexentry{plot\_brainrsa\_montage() (in module neurora.rsa\_plot)@\spxentry{plot\_brainrsa\_montage()}\spxextra{in module neurora.rsa\_plot}|hyperpage}{31}
+\indexentry{plot\_brainrsa\_regions() (in module neurora.rsa\_plot)@\spxentry{plot\_brainrsa\_regions()}\spxextra{in module neurora.rsa\_plot}|hyperpage}{31}
+\indexentry{plot\_brainrsa\_rlts() (in module neurora.rsa\_plot)@\spxentry{plot\_brainrsa\_rlts()}\spxextra{in module neurora.rsa\_plot}|hyperpage}{32}
+\indexentry{plot\_brainrsa\_surface() (in module neurora.rsa\_plot)@\spxentry{plot\_brainrsa\_surface()}\spxextra{in module neurora.rsa\_plot}|hyperpage}{33}
+\indexentry{plot\_ct\_decoding\_acc() (in module neurora.rsa\_plot)@\spxentry{plot\_ct\_decoding\_acc()}\spxextra{in module neurora.rsa\_plot}|hyperpage}{33}
+\indexentry{plot\_rdm() (in module neurora.rsa\_plot)@\spxentry{plot\_rdm()}\spxextra{in module neurora.rsa\_plot}|hyperpage}{35}
+\indexentry{plot\_tbyt\_decoding\_acc() (in module neurora.rsa\_plot)@\spxentry{plot\_tbyt\_decoding\_acc()}\spxextra{in module neurora.rsa\_plot}|hyperpage}{36}
+\indexentry{plot\_tbyt\_decoding\_acc\_multiple() (in module neurora.rsa\_plot)@\spxentry{plot\_tbyt\_decoding\_acc\_multiple()}\spxextra{in module neurora.rsa\_plot}|hyperpage}{37}
+\indexentry{plot\_tbyt\_similarity() (in module neurora.rsa\_plot)@\spxentry{plot\_tbyt\_similarity()}\spxextra{in module neurora.rsa\_plot}|hyperpage}{38}
+\indexentry{plot\_tbyt\_similarity\_multiple() (in module neurora.rsa\_plot)@\spxentry{plot\_tbyt\_similarity\_multiple()}\spxextra{in module neurora.rsa\_plot}|hyperpage}{39}
+\indexentry{module@\spxentry{module}!neurora.stuff@\spxentry{neurora.stuff}|hyperpage}{42}
+\indexentry{neurora.stuff@\spxentry{neurora.stuff}!module@\spxentry{module}|hyperpage}{42}
+\indexentry{clusterbased\_permutation\_1d\_1samp\_1sided() (in module neurora.stuff)@\spxentry{clusterbased\_permutation\_1d\_1samp\_1sided()}\spxextra{in module neurora.stuff}|hyperpage}{42}
+\indexentry{clusterbased\_permutation\_1d\_1samp\_2sided() (in module neurora.stuff)@\spxentry{clusterbased\_permutation\_1d\_1samp\_2sided()}\spxextra{in module neurora.stuff}|hyperpage}{43}
+\indexentry{clusterbased\_permutation\_1d\_1sided() (in module neurora.stuff)@\spxentry{clusterbased\_permutation\_1d\_1sided()}\spxextra{in module neurora.stuff}|hyperpage}{43}
+\indexentry{clusterbased\_permutation\_1d\_2sided() (in module neurora.stuff)@\spxentry{clusterbased\_permutation\_1d\_2sided()}\spxextra{in module neurora.stuff}|hyperpage}{43}
+\indexentry{clusterbased\_permutation\_2d\_1samp\_1sided() (in module neurora.stuff)@\spxentry{clusterbased\_permutation\_2d\_1samp\_1sided()}\spxextra{in module neurora.stuff}|hyperpage}{43}
+\indexentry{clusterbased\_permutation\_2d\_1samp\_2sided() (in module neurora.stuff)@\spxentry{clusterbased\_permutation\_2d\_1samp\_2sided()}\spxextra{in module neurora.stuff}|hyperpage}{43}
+\indexentry{clusterbased\_permutation\_2d\_1sided() (in module neurora.stuff)@\spxentry{clusterbased\_permutation\_2d\_1sided()}\spxextra{in module neurora.stuff}|hyperpage}{44}
+\indexentry{clusterbased\_permutation\_2d\_2sided() (in module neurora.stuff)@\spxentry{clusterbased\_permutation\_2d\_2sided()}\spxextra{in module neurora.stuff}|hyperpage}{44}
+\indexentry{correct\_by\_threshold() (in module neurora.stuff)@\spxentry{correct\_by\_threshold()}\spxextra{in module neurora.stuff}|hyperpage}{44}
+\indexentry{datamask() (in module neurora.stuff)@\spxentry{datamask()}\spxextra{in module neurora.stuff}|hyperpage}{44}
+\indexentry{fdr\_correct() (in module neurora.stuff)@\spxentry{fdr\_correct()}\spxextra{in module neurora.stuff}|hyperpage}{44}
+\indexentry{fwe\_correct() (in module neurora.stuff)@\spxentry{fwe\_correct()}\spxextra{in module neurora.stuff}|hyperpage}{45}
+\indexentry{get\_HOcort() (in module neurora.stuff)@\spxentry{get\_HOcort()}\spxextra{in module neurora.stuff}|hyperpage}{45}
+\indexentry{get\_affine() (in module neurora.stuff)@\spxentry{get\_affine()}\spxextra{in module neurora.stuff}|hyperpage}{45}
+\indexentry{get\_bg\_ch2() (in module neurora.stuff)@\spxentry{get\_bg\_ch2()}\spxextra{in module neurora.stuff}|hyperpage}{45}
+\indexentry{get\_bg\_ch2bet() (in module neurora.stuff)@\spxentry{get\_bg\_ch2bet()}\spxextra{in module neurora.stuff}|hyperpage}{45}
+\indexentry{limtozero() (in module neurora.stuff)@\spxentry{limtozero()}\spxextra{in module neurora.stuff}|hyperpage}{45}
+\indexentry{mask\_to() (in module neurora.stuff)@\spxentry{mask\_to()}\spxextra{in module neurora.stuff}|hyperpage}{46}
+\indexentry{mniposition\_to() (in module neurora.stuff)@\spxentry{mniposition\_to()}\spxextra{in module neurora.stuff}|hyperpage}{46}
+\indexentry{normalize\_rdm() (in module neurora.stuff)@\spxentry{normalize\_rdm()}\spxextra{in module neurora.stuff}|hyperpage}{46}
+\indexentry{position\_to\_mni() (in module neurora.stuff)@\spxentry{position\_to\_mni()}\spxextra{in module neurora.stuff}|hyperpage}{47}
+\indexentry{smooth\_1d\_gaussian() (in module neurora.stuff)@\spxentry{smooth\_1d\_gaussian()}\spxextra{in module neurora.stuff}|hyperpage}{47}
+\indexentry{smooth\_2d\_gaussian() (in module neurora.stuff)@\spxentry{smooth\_2d\_gaussian()}\spxextra{in module neurora.stuff}|hyperpage}{47}

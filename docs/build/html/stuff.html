@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Utilities &#8212; NeuroRA 2.0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=def86cc0" />
+    
+    <script src="_static/documentation_options.js?v=be0f70cb"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="RSA Plotting" href="rsa_plot.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rsa_plot.html" title="RSA Plotting"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 2.0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="api.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Utilities</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="utilities">
+<h1>Utilities<a class="headerlink" href="#utilities" title="Link to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">neurora.stuff</span></code></p>
+<section id="function-index">
+<h2>Function Index<a class="headerlink" href="#function-index" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">limtozero</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_affine</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">correct_by_threshold</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fwe_correct</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fdr_correct</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_bg_ch2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_bg_ch2bet</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_HOcort</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datamask</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position_to_mni</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mniposition_to</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mask_to</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_1d_1samp_1sided</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_1d_1samp_2sided</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_1d_1sided</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_1d_2sided</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_2d_1samp_1sided</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_2d_1samp_2sided</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_2d_1sided</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_2d_2sided</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">smooth_1d_gaussian</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">smooth_2d_gaussian</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">normalize_rdm</span></code></p></li>
+</ul>
+</section>
+<section id="module-neurora.stuff">
+<span id="api-details"></span><h2>API Details<a class="headerlink" href="#module-neurora.stuff" title="Link to this heading">¶</a></h2>
+<p>A module for simple but important utility functions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.clusterbased_permutation_1d_1samp_1sided">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">clusterbased_permutation_1d_1samp_1sided</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterp_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.clusterbased_permutation_1d_1samp_1sided" title="Link to this definition">¶</a></dt>
+<dd><p>One-sample one-sided cluster-based permutation test for 1-D results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_subs</em><em>, </em><em>x</em><em>]</em>) – Subject-level results.</p></li>
+<li><p><strong>level</strong> (<em>float</em><em>, </em><em>default=0</em>) – Null-hypothesis level.</p></li>
+<li><p><strong>p_threshold</strong> (<em>float</em><em>, </em><em>default=0.05</em>) – Cluster-forming p-value threshold.</p></li>
+<li><p><strong>clusterp_threshold</strong> (<em>float</em><em>, </em><em>default=0.05</em>) – Cluster-level p-value threshold.</p></li>
+<li><p><strong>n_threshold</strong> (<em>int</em><em>, </em><em>default=2</em>) – Minimum cluster size.</p></li>
+<li><p><strong>n_iter</strong> (<em>int</em><em>, </em><em>default=1000</em>) – Number of permutations.</p></li>
+<li><p><strong>random_state</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Random seed.</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Number of parallel jobs for MNE.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ps</strong> – Binary significance vector.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [x]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.clusterbased_permutation_1d_1samp_2sided">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">clusterbased_permutation_1d_1samp_2sided</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterp_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.clusterbased_permutation_1d_1samp_2sided" title="Link to this definition">¶</a></dt>
+<dd><p>One-sample two-sided cluster-based permutation test for 1-D results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p><strong>ps</strong> – Signed significance vector.</p>
+<ul class="simple">
+<li><p>1 : significantly greater than level</p></li>
+<li><p>-1 : significantly less than level</p></li>
+<li><p>0 : not significant</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray, shape [x]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.clusterbased_permutation_1d_1sided">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">clusterbased_permutation_1d_1sided</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterp_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.clusterbased_permutation_1d_1sided" title="Link to this definition">¶</a></dt>
+<dd><p>Paired one-sided cluster-based permutation test for 1-D results.</p>
+<p>Tests whether results1 &gt; results2.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.clusterbased_permutation_1d_2sided">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">clusterbased_permutation_1d_2sided</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterp_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.clusterbased_permutation_1d_2sided" title="Link to this definition">¶</a></dt>
+<dd><p>Paired two-sided cluster-based permutation test for 1-D results.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.clusterbased_permutation_2d_1samp_1sided">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">clusterbased_permutation_2d_1samp_1sided</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterp_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.clusterbased_permutation_2d_1samp_1sided" title="Link to this definition">¶</a></dt>
+<dd><p>One-sample one-sided cluster-based permutation test for 2-D results.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.clusterbased_permutation_2d_1samp_2sided">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">clusterbased_permutation_2d_1samp_2sided</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterp_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.clusterbased_permutation_2d_1samp_2sided" title="Link to this definition">¶</a></dt>
+<dd><p>One-sample two-sided cluster-based permutation test for 2-D results.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.clusterbased_permutation_2d_1sided">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">clusterbased_permutation_2d_1sided</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterp_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.clusterbased_permutation_2d_1sided" title="Link to this definition">¶</a></dt>
+<dd><p>Paired one-sided cluster-based permutation test for 2-D results.</p>
+<p>Tests whether results1 &gt; results2.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.clusterbased_permutation_2d_2sided">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">clusterbased_permutation_2d_2sided</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterp_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.clusterbased_permutation_2d_2sided" title="Link to this definition">¶</a></dt>
+<dd><p>Paired two-sided cluster-based permutation test for 2-D results.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.correct_by_threshold">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">correct_by_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectivity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.correct_by_threshold" title="Link to this definition">¶</a></dt>
+<dd><p>Correct fMRI RSA results by removing clusters smaller than a voxel threshold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>nx</em><em>, </em><em>ny</em><em>, </em><em>nz</em><em>]</em>) – A 3-D fMRI RSA result map.</p></li>
+<li><p><strong>threshold</strong> (<em>int</em>) – <p>Minimum cluster size in voxels.</p>
+<p>Clusters with fewer than threshold non-zero voxels will be removed.</p>
+</p></li>
+<li><p><strong>connectivity</strong> (<em>{1</em><em>, </em><em>2</em><em>, </em><em>3}</em><em>, </em><em>default=1</em>) – Cluster connectivity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>corrected_img</strong> – Threshold-corrected image.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [nx, ny, nz]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.datamask">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">datamask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmri_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.datamask" title="Link to this definition">¶</a></dt>
+<dd><p>Filter a 3-D fMRI map by a 3-D ROI mask.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fmri_data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>nx</em><em>, </em><em>ny</em><em>, </em><em>nz</em><em>]</em>) – fMRI data.</p></li>
+<li><p><strong>mask_data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>nx</em><em>, </em><em>ny</em><em>, </em><em>nz</em><em>]</em>) – ROI mask.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newfmri_data</strong> – Masked fMRI data. Voxels outside the mask are NaN.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [nx, ny, nz]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.fdr_correct">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">fdr_correct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_threshold</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.fdr_correct" title="Link to this definition">¶</a></dt>
+<dd><p>FDR correction for fMRI RSA results using Benjamini-Hochberg correction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>nx</em><em>, </em><em>ny</em><em>, </em><em>nz</em><em>]</em>) – A 3-D p-value map.</p></li>
+<li><p><strong>p_threshold</strong> (<em>float</em>) – FDR-corrected p-value threshold.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><strong>fdrp</strong> – FDR-corrected p-value map.</p>
+<p>Voxels whose corrected p-values do not survive p_threshold are NaN.</p>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [nx, ny, nz]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.fwe_correct">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">fwe_correct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_threshold</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.fwe_correct" title="Link to this definition">¶</a></dt>
+<dd><p>FWE correction for fMRI RSA results using Bonferroni correction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>nx</em><em>, </em><em>ny</em><em>, </em><em>nz</em><em>]</em>) – A 3-D p-value map.</p></li>
+<li><p><strong>p_threshold</strong> (<em>float</em>) – Corrected p-value threshold.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><strong>fwep</strong> – FWE-corrected p-value map.</p>
+<p>Voxels whose corrected p-values do not survive p_threshold are NaN.</p>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [nx, ny, nz]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.get_HOcort">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">get_HOcort</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.get_HOcort" title="Link to this definition">¶</a></dt>
+<dd><p>Get the absolute file path of HarvardOxford cortical atlas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Absolute file path of HarvardOxford-cort-maxprob-thr0-1mm.nii.gz.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.get_affine">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">get_affine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.get_affine" title="Link to this definition">¶</a></dt>
+<dd><p>Get the affine matrix of a NIfTI image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>str</em>) – Filename of a sample fMRI image.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>affine</strong> – Affine matrix of the image.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [4, 4]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.get_bg_ch2">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">get_bg_ch2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.get_bg_ch2" title="Link to this definition">¶</a></dt>
+<dd><p>Get the absolute file path of ch2.nii.gz.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Absolute file path of ch2.nii.gz.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.get_bg_ch2bet">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">get_bg_ch2bet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.get_bg_ch2bet" title="Link to this definition">¶</a></dt>
+<dd><p>Get the absolute file path of ch2bet.nii.gz.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Absolute file path of ch2bet.nii.gz.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.limtozero">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">limtozero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-15</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.limtozero" title="Link to this definition">¶</a></dt>
+<dd><p>Set values very close to zero to exactly zero.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>float</em><em> or </em><em>array_like</em>) – Input value or array.</p></li>
+<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>default=1e-15</em>) – Absolute tolerance for treating values as zero.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> – Value with near-zero values replaced by zero.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float or ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.mask_to">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">mask_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.mask_to" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a mask image to a target data template.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mask</strong> (<em>str</em>) – File path of the mask image.</p></li>
+<li><p><strong>size</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>int</em><em>, </em><em>length 3</em>) – Target image size [nx, ny, nz].</p></li>
+<li><p><strong>affine</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>4</em><em>, </em><em>4</em><em>]</em>) – Target affine matrix.</p></li>
+<li><p><strong>filename</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Output filename. If None, “newmask.nii” will be used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>filename</strong> – Output filename of the generated mask image.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.mniposition_to">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">mniposition_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mnipoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.mniposition_to" title="Link to this definition">¶</a></dt>
+<dd><p>Project MNI/world coordinates to voxel coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mnipoint</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>3</em><em>]</em>) – MNI/world coordinate.</p></li>
+<li><p><strong>affine</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>4</em><em>, </em><em>4</em><em>]</em>) – Affine matrix.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>voxel_index</strong> – Voxel coordinate.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.normalize_rdm">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">normalize_rdm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rdm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'minmax'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_diagonal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.normalize_rdm" title="Link to this definition">¶</a></dt>
+<dd><p>Normalize a representational dissimilarity matrix (RDM).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rdm</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_cons</em><em>, </em><em>n_cons</em><em>] or </em><em>[</em><em>...</em><em>, </em><em>n_cons</em><em>, </em><em>n_cons</em><em>]</em>) – <p>Input RDM or a stack of RDMs.</p>
+<p>The last two dimensions should be square matrices.</p>
+</p></li>
+<li><p><strong>method</strong> (<em>{&quot;minmax&quot;</em><em>, </em><em>&quot;zscore&quot;}</em><em>, </em><em>default=&quot;minmax&quot;</em>) – <p>Normalization method.</p>
+<ul>
+<li><p>”minmax”: scale off-diagonal values to the range [0, 1]</p></li>
+<li><p>”zscore”: standardize off-diagonal values to mean 0 and standard deviation 1</p></li>
+</ul>
+</p></li>
+<li><p><strong>keep_diagonal</strong> (<em>bool</em><em>, </em><em>default=True</em>) – <p>Whether to keep the diagonal values unchanged.</p>
+<p>If True, diagonal values are copied from the original RDM.
+If False, diagonal values are set to 0.</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>normalized_rdm</strong> – Normalized RDM with the same shape as the input.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Normalization is applied separately to each RDM when a stack of RDMs is provided.</p>
+<p>Only off-diagonal values are used to estimate min/max or mean/std.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.position_to_mni">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">position_to_mni</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.position_to_mni" title="Link to this definition">¶</a></dt>
+<dd><p>Project voxel coordinates to MNI/world coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>point</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>3</em><em>]</em>) – Voxel coordinate.</p></li>
+<li><p><strong>affine</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>4</em><em>, </em><em>4</em><em>]</em>) – Affine matrix.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newpoint</strong> – MNI/world coordinate.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [3]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.smooth_1d_gaussian">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">smooth_1d_gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.smooth_1d_gaussian" title="Link to this definition">¶</a></dt>
+<dd><p>Smooth 1-D time-series data using a Gaussian filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_timepoints</em><em>]</em>) – Input 1-D time-series data.</p></li>
+<li><p><strong>smooth_window</strong> (<em>int</em><em>, </em><em>default=5</em>) – Approximate smoothing window in time points.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>smoothed_data</strong> – Smoothed 1-D data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_timepoints]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stuff.smooth_2d_gaussian">
+<span class="sig-prename descclassname"><span class="pre">neurora.stuff.</span></span><span class="sig-name descname"><span class="pre">smooth_2d_gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stuff.smooth_2d_gaussian" title="Link to this definition">¶</a></dt>
+<dd><p>Smooth 2-D data using a Gaussian filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_timepoints1</em><em>, </em><em>n_timepoints2</em><em>]</em>) – Input 2-D data.</p></li>
+<li><p><strong>smooth_window</strong> (<em>int</em><em>, </em><em>default=5</em>) – Approximate smoothing window in time points.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>smoothed_data</strong> – Smoothed 2-D data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_timepoints1, n_timepoints2]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Utilities</a><ul>
+<li><a class="reference internal" href="#function-index">Function Index</a></li>
+<li><a class="reference internal" href="#module-neurora.stuff">API Details</a><ul>
+<li><a class="reference internal" href="#neurora.stuff.clusterbased_permutation_1d_1samp_1sided"><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_1d_1samp_1sided()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.clusterbased_permutation_1d_1samp_2sided"><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_1d_1samp_2sided()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.clusterbased_permutation_1d_1sided"><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_1d_1sided()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.clusterbased_permutation_1d_2sided"><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_1d_2sided()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.clusterbased_permutation_2d_1samp_1sided"><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_2d_1samp_1sided()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.clusterbased_permutation_2d_1samp_2sided"><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_2d_1samp_2sided()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.clusterbased_permutation_2d_1sided"><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_2d_1sided()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.clusterbased_permutation_2d_2sided"><code class="docutils literal notranslate"><span class="pre">clusterbased_permutation_2d_2sided()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.correct_by_threshold"><code class="docutils literal notranslate"><span class="pre">correct_by_threshold()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.datamask"><code class="docutils literal notranslate"><span class="pre">datamask()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.fdr_correct"><code class="docutils literal notranslate"><span class="pre">fdr_correct()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.fwe_correct"><code class="docutils literal notranslate"><span class="pre">fwe_correct()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.get_HOcort"><code class="docutils literal notranslate"><span class="pre">get_HOcort()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.get_affine"><code class="docutils literal notranslate"><span class="pre">get_affine()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.get_bg_ch2"><code class="docutils literal notranslate"><span class="pre">get_bg_ch2()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.get_bg_ch2bet"><code class="docutils literal notranslate"><span class="pre">get_bg_ch2bet()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.limtozero"><code class="docutils literal notranslate"><span class="pre">limtozero()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.mask_to"><code class="docutils literal notranslate"><span class="pre">mask_to()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.mniposition_to"><code class="docutils literal notranslate"><span class="pre">mniposition_to()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.normalize_rdm"><code class="docutils literal notranslate"><span class="pre">normalize_rdm()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.position_to_mni"><code class="docutils literal notranslate"><span class="pre">position_to_mni()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.smooth_1d_gaussian"><code class="docutils literal notranslate"><span class="pre">smooth_1d_gaussian()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stuff.smooth_2d_gaussian"><code class="docutils literal notranslate"><span class="pre">smooth_2d_gaussian()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="rsa_plot.html"
+                          title="previous chapter">RSA Plotting</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/stuff.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rsa_plot.html" title="RSA Plotting"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 2.0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="api.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Utilities</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2021, Zitong Lu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  </body>
+</html>

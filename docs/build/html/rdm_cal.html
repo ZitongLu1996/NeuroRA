@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>RDM Calculation &#8212; NeuroRA 2.0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=def86cc0" />
+    
+    <script src="_static/documentation_options.js?v=be0f70cb"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RDM Correlation" href="rdm_corr.html" />
+    <link rel="prev" title="API Reference" href="api.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rdm_corr.html" title="RDM Correlation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="API Reference"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 2.0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="api.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">RDM Calculation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="rdm-calculation">
+<h1>RDM Calculation<a class="headerlink" href="#rdm-calculation" title="Link to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">neurora.rdm_cal</span></code></p>
+<section id="function-index">
+<h2>Function Index<a class="headerlink" href="#function-index" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bhvRDM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eegRDM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eegRDM_bydecoding</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fmriRDM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fmriRDM_roi</span></code></p></li>
+</ul>
+</section>
+<section id="module-neurora.rdm_cal">
+<span id="api-details"></span><h2>API Details<a class="headerlink" href="#module-neurora.rdm_cal" title="Link to this heading">¶</a></h2>
+<p>a module for calculating the RDM based on multimode neural data</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rdm_cal.bhvRDM">
+<span class="sig-prename descclassname"><span class="pre">neurora.rdm_cal.</span></span><span class="sig-name descname"><span class="pre">bhvRDM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bhv_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'correlation'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rdm_cal.bhvRDM" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate RDMs for behavioral data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bhv_data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_cons</em><em>, </em><em>n_subs</em><em>, </em><em>n_trials</em><em>]</em>) – Behavioral data.</p></li>
+<li><p><strong>sub_opt</strong> (<em>{0</em><em>, </em><em>1}</em><em>, </em><em>default=1</em>) – <p>Whether to return subject-level RDMs or an averaged RDM.</p>
+<ul>
+<li><p>1: calculate one RDM for each subject.</p></li>
+<li><p>0: average trials and use subjects as features.</p></li>
+</ul>
+</p></li>
+<li><p><strong>method</strong> (<em>{&quot;correlation&quot;</em><em>, </em><em>&quot;amplitude&quot;}</em><em>, </em><em>default=&quot;correlation&quot;</em>) – Method used to calculate dissimilarities when sub_opt=0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><strong>rdms</strong> – Behavioral RDMs.</p>
+<p>If sub_opt=1, shape is [n_subs, n_cons, n_cons].
+If sub_opt=0, shape is [n_cons, n_cons].</p>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rdm_cal.eegRDM">
+<span class="sig-prename descclassname"><span class="pre">neurora.rdm_cal.</span></span><span class="sig-name descname"><span class="pre">eegRDM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EEG_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chl_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_win</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'correlation'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rdm_cal.eegRDM" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate RDMs based on EEG-like data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>EEG_data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_cons</em><em>, </em><em>n_subs</em><em>, </em><em>n_trials</em><em>, </em><em>n_chls</em><em>, </em><em>n_ts</em><em>]</em>) – EEG/MEG/fNIRS/ECoG/sEEG-like data.</p></li>
+<li><p><strong>chl_opt</strong> (<em>{0</em><em>, </em><em>1}</em><em>, </em><em>default=0</em>) – <p>Whether to calculate RDMs separately for each channel.</p>
+<ul>
+<li><p>0: use all channels as features.</p></li>
+<li><p>1: calculate one RDM for each channel.</p></li>
+</ul>
+</p></li>
+<li><p><strong>time_opt</strong> (<em>{0</em><em>, </em><em>1}</em><em>, </em><em>default=0</em>) – <p>Whether to calculate RDMs separately for each time window.</p>
+<ul>
+<li><p>0: use all time points as features.</p></li>
+<li><p>1: calculate one RDM for each time window.</p></li>
+</ul>
+</p></li>
+<li><p><strong>time_win</strong> (<em>int</em><em>, </em><em>default=5</em>) – Time-window size in samples. Only used when time_opt=1.</p></li>
+<li><p><strong>time_step</strong> (<em>int</em><em>, </em><em>default=5</em>) – Step size between adjacent time windows. Only used when time_opt=1.</p></li>
+<li><p><strong>method</strong> (<em>{&quot;correlation&quot;</em><em>, </em><em>&quot;amplitude&quot;}</em><em>, </em><em>default=&quot;correlation&quot;</em>) – <p>Method used to calculate dissimilarities.</p>
+<ul>
+<li><p>”correlation”: 1 - Pearson correlation between condition patterns.</p></li>
+<li><p>”amplitude”: absolute difference between mean feature amplitudes.</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><strong>rdms</strong> – EEG-like RDMs.</p>
+<p>If chl_opt=0 and time_opt=0:
+- shape [n_subs, n_cons, n_cons]</p>
+<p>If chl_opt=0 and time_opt=1:
+- shape [n_subs, n_windows, n_cons, n_cons]</p>
+<p>If chl_opt=1 and time_opt=0:
+- shape [n_subs, n_chls, n_cons, n_cons]</p>
+<p>If chl_opt=1 and time_opt=1:
+- shape [n_subs, n_chls, n_windows, n_cons, n_cons]</p>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rdm_cal.eegRDM_bydecoding">
+<span class="sig-prename descclassname"><span class="pre">neurora.rdm_cal.</span></span><span class="sig-name descname"><span class="pre">eegRDM_bydecoding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EEG_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_win</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">navg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'average'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfolds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nrepeats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rdm_cal.eegRDM_bydecoding" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate RDMs using classification-based neural decoding for EEG-like data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>EEG_data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_cons</em><em>, </em><em>n_subs</em><em>, </em><em>n_trials</em><em>, </em><em>n_chls</em><em>, </em><em>n_ts</em><em>]</em>) – EEG-like data.</p></li>
+<li><p><strong>time_win</strong> (<em>int</em><em>, </em><em>default=5</em>) – Time-window size in samples.</p></li>
+<li><p><strong>time_step</strong> (<em>int</em><em>, </em><em>default=5</em>) – Time-step size in samples.</p></li>
+<li><p><strong>navg</strong> (<em>int</em><em>, </em><em>default=5</em>) – Number of trials used to average.</p></li>
+<li><p><strong>time_opt</strong> (<em>{&quot;average&quot;</em><em>, </em><em>&quot;features&quot;}</em><em>, </em><em>default=&quot;average&quot;</em>) – Whether to average time points or use time points as features.</p></li>
+<li><p><strong>nfolds</strong> (<em>int</em><em>, </em><em>default=5</em>) – Number of folds.</p></li>
+<li><p><strong>nrepeats</strong> (<em>int</em><em>, </em><em>default=2</em>) – Number of repeated iterations.</p></li>
+<li><p><strong>normalization</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Whether to normalize data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>rdms</strong> – Decoding-based EEG-like RDMs.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_subs, n_windows, n_cons, n_cons]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rdm_cal.fmriRDM">
+<span class="sig-prename descclassname"><span class="pre">neurora.rdm_cal.</span></span><span class="sig-name descname"><span class="pre">fmriRDM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmri_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ksize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'correlation'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rdm_cal.fmriRDM" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate searchlight RDMs based on fMRI data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fmri_data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_cons</em><em>, </em><em>n_subs</em><em>, </em><em>nx</em><em>, </em><em>ny</em><em>, </em><em>nz</em><em>]</em>) – fMRI data.</p></li>
+<li><p><strong>ksize</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>int</em><em>, </em><em>default=</em><em>(</em><em>3</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – Searchlight kernel size along x, y, and z axes.</p></li>
+<li><p><strong>strides</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>int</em><em>, </em><em>default=</em><em>(</em><em>1</em><em>, </em><em>1</em><em>, </em><em>1</em><em>)</em>) – Searchlight strides along x, y, and z axes.</p></li>
+<li><p><strong>method</strong> (<em>{&quot;correlation&quot;</em><em>, </em><em>&quot;amplitude&quot;}</em><em>, </em><em>default=&quot;correlation&quot;</em>) – <p>Method used to calculate dissimilarities.</p>
+<ul>
+<li><p>”correlation”: 1 - Pearson correlation between condition patterns.</p></li>
+<li><p>”amplitude”: absolute difference between mean voxel amplitudes.</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>subrdms</strong> – fMRI searchlight RDMs.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_subs, n_x, n_y, n_z, n_cons, n_cons]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>A searchlight unit is skipped for all subjects if any voxel in that
+searchlight contains NaN for any condition or subject.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rdm_cal.fmriRDM_roi">
+<span class="sig-prename descclassname"><span class="pre">neurora.rdm_cal.</span></span><span class="sig-name descname"><span class="pre">fmriRDM_roi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmri_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'correlation'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rdm_cal.fmriRDM_roi" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate ROI RDMs based on fMRI data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fmri_data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_cons</em><em>, </em><em>n_subs</em><em>, </em><em>nx</em><em>, </em><em>ny</em><em>, </em><em>nz</em><em>]</em>) – fMRI data.</p></li>
+<li><p><strong>mask_data</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>nx</em><em>, </em><em>ny</em><em>, </em><em>nz</em><em>]</em>) – ROI mask. Non-zero and finite voxels are included.</p></li>
+<li><p><strong>method</strong> (<em>{&quot;correlation&quot;</em><em>, </em><em>&quot;amplitude&quot;}</em><em>, </em><em>default=&quot;correlation&quot;</em>) – <p>Method used to calculate dissimilarities.</p>
+<ul>
+<li><p>”correlation”: 1 - Pearson correlation between condition patterns.</p></li>
+<li><p>”amplitude”: absolute difference between mean voxel amplitudes.</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>subrdms</strong> – fMRI ROI RDMs.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_subs, n_cons, n_cons]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>A voxel is included only if it is non-zero in the mask, finite in the mask,
+and finite for all conditions and subjects in fmri_data.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">RDM Calculation</a><ul>
+<li><a class="reference internal" href="#function-index">Function Index</a></li>
+<li><a class="reference internal" href="#module-neurora.rdm_cal">API Details</a><ul>
+<li><a class="reference internal" href="#neurora.rdm_cal.bhvRDM"><code class="docutils literal notranslate"><span class="pre">bhvRDM()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rdm_cal.eegRDM"><code class="docutils literal notranslate"><span class="pre">eegRDM()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rdm_cal.eegRDM_bydecoding"><code class="docutils literal notranslate"><span class="pre">eegRDM_bydecoding()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rdm_cal.fmriRDM"><code class="docutils literal notranslate"><span class="pre">fmriRDM()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rdm_cal.fmriRDM_roi"><code class="docutils literal notranslate"><span class="pre">fmriRDM_roi()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="api.html"
+                          title="previous chapter">API Reference</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="rdm_corr.html"
+                          title="next chapter">RDM Correlation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rdm_cal.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rdm_corr.html" title="RDM Correlation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="API Reference"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 2.0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="api.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">RDM Calculation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2021, Zitong Lu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  </body>
+</html>

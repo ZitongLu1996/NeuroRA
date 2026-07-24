@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NIfTI Saving &#8212; NeuroRA 2.0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=def86cc0" />
+    
+    <script src="_static/documentation_options.js?v=be0f70cb"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RSA Plotting" href="rsa_plot.html" />
+    <link rel="prev" title="Statistical Analysis" href="stats_cal.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rsa_plot.html" title="RSA Plotting"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="stats_cal.html" title="Statistical Analysis"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 2.0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="api.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">NIfTI Saving</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="nifti-saving">
+<h1>NIfTI Saving<a class="headerlink" href="#nifti-saving" title="Link to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">neurora.nii_save</span></code></p>
+<section id="function-index">
+<h2>Function Index<a class="headerlink" href="#function-index" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">save_nii</span></code></p></li>
+</ul>
+</section>
+<section id="module-neurora.nii_save">
+<span id="api-details"></span><h2>API Details<a class="headerlink" href="#module-neurora.nii_save" title="Link to this heading">¶</a></h2>
+<p>a module for saving the RSA results in a .nii file for fMRI</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.nii_save.save_nii">
+<span class="sig-prename descclassname"><span class="pre">neurora.nii_save.</span></span><span class="sig-name descname"><span class="pre">save_nii</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corr_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/Users/zitonglu/Documents/Projects/NeuroRA-master/neurora/template/HarvardOxford-cort-maxprob-thr0-1mm.nii.gz'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(60,</span> <span class="pre">60,</span> <span class="pre">60)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ksize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correct_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nvoxels_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plotrlt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.nii_save.save_nii" title="Link to this definition">¶</a></dt>
+<dd><p>Save fMRI RSA searchlight results as a NIfTI file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_x</em><em>, </em><em>n_y</em><em>, </em><em>n_z</em><em>, </em><em>2</em><em>]</em>) – <p>Searchlight results.</p>
+<p>The last dimension contains:</p>
+<ul>
+<li><p>results[…, 0] : value map, such as r-values or t-values</p></li>
+<li><p>results[…, 1] : p-values</p></li>
+</ul>
+</p></li>
+<li><p><strong>affine</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>4</em><em>, </em><em>4</em><em>]</em>) – NIfTI affine matrix.</p></li>
+<li><p><strong>filename</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Output NIfTI filename.</p>
+<p>If None, “rsa_result.nii” will be used.</p>
+</p></li>
+<li><p><strong>corr_mask</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=get_HOcort</em><em>(</em><em>)</em>) – <p>Mask filename.</p>
+<p>If None, no mask will be applied.</p>
+</p></li>
+<li><p><strong>size</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>int</em><em>, </em><em>default=</em><em>(</em><em>60</em><em>, </em><em>60</em><em>, </em><em>60</em><em>)</em>) – Target image size [nx, ny, nz].</p></li>
+<li><p><strong>ksize</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>int</em><em>, </em><em>default=</em><em>(</em><em>3</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – Searchlight kernel size [kx, ky, kz].</p></li>
+<li><p><strong>strides</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>int</em><em>, </em><em>default=</em><em>(</em><em>1</em><em>, </em><em>1</em><em>, </em><em>1</em><em>)</em>) – Searchlight strides [sx, sy, sz].</p></li>
+<li><p><strong>p</strong> (<em>float</em><em>, </em><em>default=0.05</em>) – P-value threshold.</p></li>
+<li><p><strong>value_threshold</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Optional threshold for values.</p>
+<p>For correlation maps, this can be used as an r-value threshold.
+For statistical maps, this is usually None.</p>
+</p></li>
+<li><p><strong>correct_method</strong> (<em>{None</em><em>, </em><em>&quot;FWE&quot;</em><em>, </em><em>&quot;FDR&quot;}</em><em>, </em><em>default=None</em>) – <p>Multiple-comparison correction method.</p>
+<ul>
+<li><p>None : no p-value correction</p></li>
+<li><p>”FWE” : Bonferroni FWE correction</p></li>
+<li><p>”FDR” : Benjamini-Hochberg FDR correction</p></li>
+</ul>
+</p></li>
+<li><p><strong>nvoxels_threshold</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Minimum cluster size in voxels.</p>
+<p>If not None, small clusters in the final volume will be removed using
+correct_by_threshold().</p>
+</p></li>
+<li><p><strong>smooth</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to smooth the output NIfTI image.</p></li>
+<li><p><strong>plotrlt</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to plot the result automatically.</p></li>
+<li><p><strong>img_background</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Background image filename used for plotting.</p></li>
+<li><p><strong>plot_type</strong> (<em>{&quot;r&quot;</em><em>, </em><em>&quot;t&quot;}</em><em>, </em><em>default=&quot;r&quot;</em>) – Plot type passed to plot_brainrsa_rlts.</p></li>
+<li><p><strong>colorbar_label</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Colorbar label. Reserved for future plot_brainrsa_rlts support.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>volume</strong> – Saved result volume before smoothing.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [nx, ny, nz]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">NIfTI Saving</a><ul>
+<li><a class="reference internal" href="#function-index">Function Index</a></li>
+<li><a class="reference internal" href="#module-neurora.nii_save">API Details</a><ul>
+<li><a class="reference internal" href="#neurora.nii_save.save_nii"><code class="docutils literal notranslate"><span class="pre">save_nii()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="stats_cal.html"
+                          title="previous chapter">Statistical Analysis</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="rsa_plot.html"
+                          title="next chapter">RSA Plotting</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/nii_save.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rsa_plot.html" title="RSA Plotting"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="stats_cal.html" title="Statistical Analysis"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 2.0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="api.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">NIfTI Saving</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2021, Zitong Lu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  </body>
+</html>

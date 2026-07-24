@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>RSA Plotting &#8212; NeuroRA 2.0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=def86cc0" />
+    
+    <script src="_static/documentation_options.js?v=be0f70cb"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Utilities" href="stuff.html" />
+    <link rel="prev" title="NIfTI Saving" href="nii_save.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="stuff.html" title="Utilities"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="nii_save.html" title="NIfTI Saving"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 2.0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="api.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">RSA Plotting</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="rsa-plotting">
+<h1>RSA Plotting<a class="headerlink" href="#rsa-plotting" title="Link to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">neurora.rsa_plot</span></code></p>
+<section id="function-index">
+<h2>Function Index<a class="headerlink" href="#function-index" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_rdm</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_tbyt_similarity</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_tbyt_decoding_acc</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_tbyt_similarity_multiple</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_tbyt_decoding_acc_multiple</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_ct_decoding_acc</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_brainrsa_regions</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_brainrsa_montage</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_brainrsa_glass</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_brainrsa_surface</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_brainrsa_rlts</span></code></p></li>
+</ul>
+</section>
+<section id="module-neurora.rsa_plot">
+<span id="api-details"></span><h2>API Details<a class="headerlink" href="#module-neurora.rsa_plot" title="Link to this heading">¶</a></h2>
+<p>a module for plotting the NeuroRA results</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rsa_plot.plot_brainrsa_glass">
+<span class="sig-prename descclassname"><span class="pre">neurora.rsa_plot.</span></span><span class="sig-name descname"><span class="pre">plot_brainrsa_glass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nvoxels_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hot'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RSA</span> <span class="pre">Results'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">black_bg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_cross</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectivity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rsa_plot.plot_brainrsa_glass" title="Link to this definition">¶</a></dt>
+<dd><p>Plot a glass-brain projection of RSA results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> (<em>str</em><em> or </em><em>Niimg-like object</em>) – NIfTI image of RSA results.</p></li>
+<li><p><strong>threshold</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=0</em>) – Display threshold passed to nilearn plotting.</p></li>
+<li><p><strong>nvoxels_threshold</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Minimum cluster size in voxels.</p></li>
+<li><p><strong>vmin</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Color limits.</p></li>
+<li><p><strong>vmax</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Color limits.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em><em> or </em><em>matplotlib colormap</em><em>, </em><em>default=&quot;hot&quot;</em>) – Colormap.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=&quot;RSA Results&quot;</em>) – Plot title.</p></li>
+<li><p><strong>colorbar_label</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Colorbar label.</p></li>
+<li><p><strong>black_bg</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to use a black background.</p></li>
+<li><p><strong>draw_cross</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to draw crosshair.</p></li>
+<li><p><strong>connectivity</strong> (<em>int</em><em>, </em><em>default=1</em>) – Connectivity used for cluster-size thresholding.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to show the plot immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Nilearn display object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>display</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rsa_plot.plot_brainrsa_montage">
+<span class="sig-prename descclassname"><span class="pre">neurora.rsa_plot.</span></span><span class="sig-name descname"><span class="pre">plot_brainrsa_montage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nvoxels_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(6,</span> <span class="pre">6,</span> <span class="pre">6)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/Users/zitonglu/Documents/Projects/NeuroRA-master/neurora/template/ch2bet.nii.gz'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hot'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RSA</span> <span class="pre">Results'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_cross</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectivity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rsa_plot.plot_brainrsa_montage" title="Link to this definition">¶</a></dt>
+<dd><p>Plot RSA results across sagittal, coronal, and axial cuts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> (<em>str</em><em> or </em><em>Niimg-like object</em>) – NIfTI image of RSA results.</p></li>
+<li><p><strong>threshold</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=0</em>) – Display threshold passed to nilearn plotting.</p></li>
+<li><p><strong>nvoxels_threshold</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Minimum cluster size in voxels.</p></li>
+<li><p><strong>cut_coords</strong> (<em>list</em><em> or </em><em>tuple</em><em>, </em><em>length 3</em><em>, </em><em>default=</em><em>(</em><em>6</em><em>, </em><em>6</em><em>, </em><em>6</em><em>)</em>) – <p>Cut coordinates for x, y, and z displays.</p>
+<p>Each element can be an int, float, list, tuple, or None.
+If an element is None or 0, that display direction is skipped.</p>
+</p></li>
+<li><p><strong>background</strong> (<em>Niimg-like object</em><em> or </em><em>str</em><em>, </em><em>default=get_bg_ch2bet</em><em>(</em><em>)</em>) – Background image.</p></li>
+<li><p><strong>vmin</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Color limits.</p></li>
+<li><p><strong>vmax</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Color limits.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em><em> or </em><em>matplotlib colormap</em><em>, </em><em>default=&quot;hot&quot;</em>) – Colormap.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=&quot;RSA Results&quot;</em>) – Base plot title.</p></li>
+<li><p><strong>colorbar_label</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Colorbar label.</p></li>
+<li><p><strong>draw_cross</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to draw crosshair.</p></li>
+<li><p><strong>connectivity</strong> (<em>int</em><em>, </em><em>default=1</em>) – Connectivity used for cluster-size thresholding.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to show the plot immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>displays</strong> – Nilearn display objects for x, y, and z cuts.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rsa_plot.plot_brainrsa_regions">
+<span class="sig-prename descclassname"><span class="pre">neurora.rsa_plot.</span></span><span class="sig-name descname"><span class="pre">plot_brainrsa_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nvoxels_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/Users/zitonglu/Documents/Projects/NeuroRA-master/neurora/template/ch2.nii.gz'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hot'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RSA</span> <span class="pre">Results'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resampling_interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'continuous'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectivity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rsa_plot.plot_brainrsa_regions" title="Link to this definition">¶</a></dt>
+<dd><p>Plot RSA-result regions using orthogonal brain cuts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> (<em>str</em><em> or </em><em>Niimg-like object</em>) – NIfTI image of RSA results.</p></li>
+<li><p><strong>threshold</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=0</em>) – Display threshold passed to nilearn plotting.</p></li>
+<li><p><strong>nvoxels_threshold</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Minimum cluster size in voxels.</p>
+<p>If None, no cluster-size thresholding is applied.</p>
+</p></li>
+<li><p><strong>background</strong> (<em>Niimg-like object</em><em> or </em><em>str</em><em>, </em><em>default=get_bg_ch2</em><em>(</em><em>)</em>) – Background image.</p></li>
+<li><p><strong>vmin</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Color limits.</p></li>
+<li><p><strong>vmax</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Color limits.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em><em> or </em><em>matplotlib colormap</em><em>, </em><em>default=&quot;hot&quot;</em>) – Colormap.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=&quot;RSA Results&quot;</em>) – Plot title.</p></li>
+<li><p><strong>colorbar_label</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Colorbar label.</p></li>
+<li><p><strong>resampling_interpolation</strong> (<em>str</em><em>, </em><em>default=&quot;continuous&quot;</em>) – Resampling interpolation passed to nilearn.</p></li>
+<li><p><strong>connectivity</strong> (<em>int</em><em>, </em><em>default=1</em>) – Connectivity used for cluster-size thresholding.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to show the plot immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Nilearn display object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>display</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rsa_plot.plot_brainrsa_rlts">
+<span class="sig-prename descclassname"><span class="pre">neurora.rsa_plot.</span></span><span class="sig-name descname"><span class="pre">plot_brainrsa_rlts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nvoxels_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(6,</span> <span class="pre">6,</span> <span class="pre">6)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hot'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RSA</span> <span class="pre">Results'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_regions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_montage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_glass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_surface</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectivity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rsa_plot.plot_brainrsa_rlts" title="Link to this definition">¶</a></dt>
+<dd><p>Plot RSA brain results using multiple visualization modes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> (<em>str</em><em> or </em><em>Niimg-like object</em>) – NIfTI image of RSA results.</p></li>
+<li><p><strong>threshold</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=0.01</em>) – Display threshold passed to nilearn plotting functions.</p></li>
+<li><p><strong>nvoxels_threshold</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Minimum cluster size in voxels.</p></li>
+<li><p><strong>cut_coords</strong> (<em>list</em><em> or </em><em>tuple</em><em>, </em><em>length 3</em><em>, </em><em>default=</em><em>(</em><em>6</em><em>, </em><em>6</em><em>, </em><em>6</em><em>)</em>) – Cut coordinates for montage plotting.</p></li>
+<li><p><strong>background</strong> (<em>Niimg-like object</em><em>, </em><em>str</em><em>, or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Background image.</p>
+<p>If None, default backgrounds are used.</p>
+</p></li>
+<li><p><strong>vmin</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Color limits.</p></li>
+<li><p><strong>vmax</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Color limits.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em><em> or </em><em>matplotlib colormap</em><em>, </em><em>default=&quot;hot&quot;</em>) – Colormap.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=&quot;RSA Results&quot;</em>) – Plot title.</p></li>
+<li><p><strong>colorbar_label</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Colorbar label.</p></li>
+<li><p><strong>plot_regions</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to plot orthogonal regions.</p></li>
+<li><p><strong>plot_montage</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to plot montage cuts.</p></li>
+<li><p><strong>plot_glass</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to plot glass brain.</p></li>
+<li><p><strong>plot_surface</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to plot surface maps.</p></li>
+<li><p><strong>connectivity</strong> (<em>int</em><em>, </em><em>default=1</em>) – Connectivity used for cluster-size thresholding.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to show the plots immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>displays</strong> – Dictionary of display objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rsa_plot.plot_brainrsa_surface">
+<span class="sig-prename descclassname"><span class="pre">neurora.rsa_plot.</span></span><span class="sig-name descname"><span class="pre">plot_brainrsa_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nvoxels_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hot'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RSA</span> <span class="pre">Results'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fsaverage5'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">views</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('lateral',</span> <span class="pre">'lateral',</span> <span class="pre">'ventral',</span> <span class="pre">'dorsal')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hemis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('left',</span> <span class="pre">'right',</span> <span class="pre">'both',</span> <span class="pre">'both')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">darkness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectivity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rsa_plot.plot_brainrsa_surface" title="Link to this definition">¶</a></dt>
+<dd><p>Plot RSA results on fsaverage cortical surface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> (<em>str</em><em> or </em><em>Niimg-like object</em>) – NIfTI image of RSA results.</p></li>
+<li><p><strong>threshold</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=0.01</em>) – Display threshold for surface plotting.</p></li>
+<li><p><strong>nvoxels_threshold</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Minimum cluster size in voxels.</p></li>
+<li><p><strong>vmin</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Color limits.</p></li>
+<li><p><strong>vmax</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Color limits.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em><em> or </em><em>matplotlib colormap</em><em>, </em><em>default=&quot;hot&quot;</em>) – Colormap.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=&quot;RSA Results&quot;</em>) – Base plot title.</p></li>
+<li><p><strong>colorbar_label</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Colorbar label.</p></li>
+<li><p><strong>mesh</strong> (<em>str</em><em>, </em><em>default=&quot;fsaverage5&quot;</em>) – Fsaverage mesh density passed to nilearn.</p></li>
+<li><p><strong>interpolation</strong> (<em>str</em><em>, </em><em>default=&quot;linear&quot;</em>) – Interpolation method for vol_to_surf.</p></li>
+<li><p><strong>views</strong> (<em>tuple</em><em> of </em><em>str</em><em>, </em><em>default=</em><em>(</em><em>&quot;lateral&quot;</em><em>, </em><em>&quot;lateral&quot;</em><em>, </em><em>&quot;ventral&quot;</em><em>, </em><em>&quot;dorsal&quot;</em><em>)</em>) – Surface views.</p></li>
+<li><p><strong>hemis</strong> (<em>tuple</em><em> of </em><em>str</em><em>, </em><em>default=</em><em>(</em><em>&quot;left&quot;</em><em>, </em><em>&quot;right&quot;</em><em>, </em><em>&quot;both&quot;</em><em>, </em><em>&quot;both&quot;</em><em>)</em>) – Hemispheres to plot.</p></li>
+<li><p><strong>darkness</strong> (<em>float</em><em>, </em><em>default=0.7</em>) – Background darkness.</p></li>
+<li><p><strong>connectivity</strong> (<em>int</em><em>, </em><em>default=1</em>) – Connectivity used for cluster-size thresholding.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to show the plots immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>displays</strong> – Nilearn surface display objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rsa_plot.plot_ct_decoding_acc">
+<span class="sig-prename descclassname"><span class="pre">neurora.rsa_plot.</span></span><span class="sig-name descname"><span class="pre">plot_ct_decoding_acc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_timex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_timey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_intervalx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_intervaly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_timex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_timey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.4,</span> <span class="pre">0.8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Training</span> <span class="pre">Time</span> <span class="pre">(s)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Test</span> <span class="pre">Time</span> <span class="pre">(s)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Decoding</span> <span class="pre">Accuracy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(6.4,</span> <span class="pre">4.8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'viridis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contour_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'silver'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contour_linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contour_linestyle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dashed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticksize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rsa_plot.plot_ct_decoding_acc" title="Link to this definition">¶</a></dt>
+<dd><p>Plot cross-temporal decoding accuracies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>acc</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_subs</em><em>, </em><em>n_tsx</em><em>, </em><em>n_tsy</em><em>]</em>) – <p>Subject-level cross-temporal decoding accuracies.</p>
+<p>n_tsx is the number of training time points.
+n_tsy is the number of test time points.</p>
+</p></li>
+<li><p><strong>start_timex</strong> (<em>float</em><em>, </em><em>default=0</em>) – Time of the first training time point.</p></li>
+<li><p><strong>start_timey</strong> (<em>float</em><em>, </em><em>default=0</em>) – Time of the first test time point.</p></li>
+<li><p><strong>time_intervalx</strong> (<em>float</em><em>, </em><em>default=0.01</em>) – Training-time interval between adjacent time points.</p></li>
+<li><p><strong>time_intervaly</strong> (<em>float</em><em>, </em><em>default=0.01</em>) – Test-time interval between adjacent time points.</p></li>
+<li><p><strong>smooth</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to smooth each subject’s cross-temporal matrix.</p></li>
+<li><p><strong>smooth_window</strong> (<em>int</em><em>, </em><em>default=5</em>) – Approximate Gaussian smoothing window in time points.</p></li>
+<li><p><strong>chance</strong> (<em>float</em><em>, </em><em>default=0.5</em>) – Chance level.</p></li>
+<li><p><strong>p</strong> (<em>float</em><em>, </em><em>default=0.05</em>) – Point-wise or cluster-forming p-value threshold.</p></li>
+<li><p><strong>cbpt</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to use cluster-based permutation test.</p></li>
+<li><p><strong>clusterp</strong> (<em>float</em><em>, </em><em>default=0.05</em>) – Cluster-level p-value threshold.</p></li>
+<li><p><strong>stats_timex</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Training-time window for statistical analysis.</p>
+<p>If None, the full training-time range is used.</p>
+</p></li>
+<li><p><strong>stats_timey</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Test-time window for statistical analysis.</p>
+<p>If None, the full test-time range is used.</p>
+</p></li>
+<li><p><strong>xlim</strong> (<em>tuple</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Training-time axis limits.</p></li>
+<li><p><strong>ylim</strong> (<em>tuple</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Test-time axis limits.</p></li>
+<li><p><strong>clim</strong> (<em>tuple</em><em>, </em><em>default=</em><em>(</em><em>0.4</em><em>, </em><em>0.8</em><em>)</em>) – Color limits.</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>default=&quot;Training Time</em><em> (</em><em>s</em><em>)</em><em>&quot;</em>) – X-axis label.</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>default=&quot;Test Time</em><em> (</em><em>s</em><em>)</em><em>&quot;</em>) – Y-axis label.</p></li>
+<li><p><strong>clabel</strong> (<em>str</em><em>, </em><em>default=&quot;Decoding Accuracy&quot;</em>) – Colorbar label.</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em><em>, </em><em>default=</em><em>(</em><em>6.4</em><em>, </em><em>4.8</em><em>)</em>) – Figure size.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em><em> or </em><em>matplotlib colormap</em><em>, </em><em>default=&quot;viridis&quot;</em>) – Colormap.</p></li>
+<li><p><strong>contour_color</strong> (<em>matplotlib color</em><em>, </em><em>default=&quot;silver&quot;</em>) – Color of significance contour.</p></li>
+<li><p><strong>contour_linewidth</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=3</em>) – Line width of significance contour.</p></li>
+<li><p><strong>contour_linestyle</strong> (<em>str</em><em>, </em><em>default=&quot;dashed&quot;</em>) – Line style of significance contour.</p></li>
+<li><p><strong>ticksize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=12</em>) – Tick label size.</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=16</em>) – Axis label size.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Figure title.</p></li>
+<li><p><strong>title_fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=16</em>) – Title font size.</p></li>
+<li><p><strong>n_iter</strong> (<em>int</em><em>, </em><em>default=1000</em>) – Number of permutations for cluster-based permutation test.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to show the plot immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ps</strong> – Binary significance map.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_tsx, n_tsy]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rsa_plot.plot_rdm">
+<span class="sig-prename descclassname"><span class="pre">neurora.rsa_plot.</span></span><span class="sig-name descname"><span class="pre">plot_rdm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rdm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conditions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">con_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.4f'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'blue'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rsa_plot.plot_rdm" title="Link to this definition">¶</a></dt>
+<dd><p>Plot a representational dissimilarity matrix (RDM).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rdm</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_cons</em><em>, </em><em>n_cons</em><em>]</em>) – Representational dissimilarity matrix.</p></li>
+<li><p><strong>percentile</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Whether to display RDM values as percentile ranks.</p></li>
+<li><p><strong>lim</strong> (<em>tuple</em><em> of </em><em>float</em><em> or </em><em>None</em><em>, </em><em>default=</em><em>(</em><em>0</em><em>, </em><em>1</em><em>)</em>) – <p>Color limits.</p>
+<p>If None, matplotlib determines the limits automatically.</p>
+</p></li>
+<li><p><strong>conditions</strong> (<em>list</em><em> of </em><em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Condition labels.</p></li>
+<li><p><strong>con_fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=12</em>) – Font size of condition labels.</p></li>
+<li><p><strong>cmap</strong> (<em>matplotlib colormap</em><em> or </em><em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Colormap.</p>
+<p>If None, “jet” is used.</p>
+</p></li>
+<li><p><strong>title</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Figure title.</p></li>
+<li><p><strong>title_fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=16</em>) – Font size of the title.</p></li>
+<li><p><strong>colorbar_label</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Colorbar label.</p>
+<p>If None, a default label is used.</p>
+</p></li>
+<li><p><strong>colorbar_fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=16</em>) – Font size of colorbar tick labels and label.</p></li>
+<li><p><strong>show_values</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Whether to show numerical values inside RDM cells.</p></li>
+<li><p><strong>value_fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=10</em>) – Font size of displayed cell values.</p></li>
+<li><p><strong>value_format</strong> (<em>str</em><em>, </em><em>default=&quot;.4f&quot;</em>) – Format string for displayed values.</p></li>
+<li><p><strong>value_color</strong> (<em>str</em><em>, </em><em>default=&quot;blue&quot;</em>) – Color of displayed values.</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Figure size.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to show the figure immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib.figure.Figure</em>) – Figure object.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em>) – Axes object.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rsa_plot.plot_tbyt_decoding_acc">
+<span class="sig-prename descclassname"><span class="pre">neurora.rsa_plot.</span></span><span class="sig-name descname"><span class="pre">plot_tbyt_decoding_acc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.4,</span> <span class="pre">0.8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Time</span> <span class="pre">(s)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Decoding</span> <span class="pre">Accuracy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(6.4,</span> <span class="pre">3.6)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticksize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markersize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avgshow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rsa_plot.plot_tbyt_decoding_acc" title="Link to this definition">¶</a></dt>
+<dd><p>Plot time-by-time decoding accuracies with statistical results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>acc</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_subs</em><em>, </em><em>n_ts</em><em>]</em>) – Subject-level time-by-time decoding accuracies.</p></li>
+<li><p><strong>start_time</strong> (<em>float</em><em>, </em><em>default=0</em>) – Time of the first data point.</p></li>
+<li><p><strong>time_interval</strong> (<em>float</em><em>, </em><em>default=0.01</em>) – Time interval between adjacent data points.</p></li>
+<li><p><strong>smooth</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to smooth each subject’s time course.</p></li>
+<li><p><strong>smooth_window</strong> (<em>int</em><em>, </em><em>default=5</em>) – Approximate smoothing window in time points.</p></li>
+<li><p><strong>chance</strong> (<em>float</em><em>, </em><em>default=0.5</em>) – Chance level.</p></li>
+<li><p><strong>p</strong> (<em>float</em><em>, </em><em>default=0.05</em>) – Point-wise or cluster-forming p-value threshold.</p></li>
+<li><p><strong>cbpt</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to use cluster-based permutation test.</p></li>
+<li><p><strong>clusterp</strong> (<em>float</em><em>, </em><em>default=0.05</em>) – Cluster-level p-value threshold.</p></li>
+<li><p><strong>stats_time</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Time window for statistical analysis.</p>
+<p>If None, the full time range is used.</p>
+</p></li>
+<li><p><strong>color</strong> (<em>matplotlib color</em><em>, </em><em>default=&quot;r&quot;</em>) – Plot color.</p></li>
+<li><p><strong>xlim</strong> (<em>tuple</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – X-axis limits. If None, uses the full time range.</p></li>
+<li><p><strong>ylim</strong> (<em>tuple</em><em>, </em><em>default=</em><em>(</em><em>0.4</em><em>, </em><em>0.8</em><em>)</em>) – Y-axis limits.</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>default=&quot;Time</em><em> (</em><em>s</em><em>)</em><em>&quot;</em>) – X-axis label.</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>default=&quot;Decoding Accuracy&quot;</em>) – Y-axis label.</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em><em>, </em><em>default=</em><em>(</em><em>6.4</em><em>, </em><em>3.6</em><em>)</em>) – Figure size.</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>default=0</em>) – X position of y-axis spine.</p></li>
+<li><p><strong>labelpad</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=0</em>) – Y-label padding.</p></li>
+<li><p><strong>ticksize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=12</em>) – Tick label size.</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=16</em>) – Axis label size.</p></li>
+<li><p><strong>markersize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=2</em>) – Significant marker size.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Figure title.</p></li>
+<li><p><strong>title_fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=16</em>) – Title font size.</p></li>
+<li><p><strong>avgshow</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Whether to show the mean curve line.</p></li>
+<li><p><strong>n_iter</strong> (<em>int</em><em>, </em><em>default=1000</em>) – Number of permutations for cluster-based permutation test.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to show the plot immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ps</strong> – Binary significance vector.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_ts]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rsa_plot.plot_tbyt_decoding_acc_multiple">
+<span class="sig-prename descclassname"><span class="pre">neurora.rsa_plot.</span></span><span class="sig-name descname"><span class="pre">plot_tbyt_decoding_acc_multiple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.4,</span> <span class="pre">0.8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Time</span> <span class="pre">(s)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Decoding</span> <span class="pre">Accuracy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(6.4,</span> <span class="pre">3.6)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticksize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig_linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonsig_linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sem_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonsig_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonsig_linestyle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'--'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rsa_plot.plot_tbyt_decoding_acc_multiple" title="Link to this definition">¶</a></dt>
+<dd><p>Plot multiple time-by-time decoding accuracy results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>acc</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_conditions</em><em>, </em><em>n_subs</em><em>, </em><em>n_ts</em><em>]</em>) – <p>Multiple-condition subject-level decoding accuracy time courses.</p>
+<p>Shape should be [n_conditions, n_subs, n_timepoints].</p>
+</p></li>
+<li><p><strong>start_time</strong> (<em>float</em><em>, </em><em>default=0</em>) – Time of the first data point.</p></li>
+<li><p><strong>time_interval</strong> (<em>float</em><em>, </em><em>default=0.01</em>) – Time interval between adjacent data points.</p></li>
+<li><p><strong>smooth</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to smooth each subject’s time course.</p></li>
+<li><p><strong>smooth_window</strong> (<em>int</em><em>, </em><em>default=5</em>) – Approximate smoothing window in time points.</p></li>
+<li><p><strong>chance</strong> (<em>float</em><em>, </em><em>default=0.5</em>) – Chance level.</p></li>
+<li><p><strong>p</strong> (<em>float</em><em>, </em><em>default=0.05</em>) – Point-wise or cluster-forming p-value threshold.</p></li>
+<li><p><strong>cbpt</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to use cluster-based permutation test.</p></li>
+<li><p><strong>clusterp</strong> (<em>float</em><em>, </em><em>default=0.05</em>) – Cluster-level p-value threshold.</p></li>
+<li><p><strong>stats_time</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Time window for statistical analysis.</p>
+<p>If None, the full time range is used.</p>
+</p></li>
+<li><p><strong>colors</strong> (<em>list</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Colors for conditions.</p>
+<p>If None, matplotlib tab10 colors are used.</p>
+</p></li>
+<li><p><strong>condition_labels</strong> (<em>list</em><em> of </em><em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Condition labels for legend.</p></li>
+<li><p><strong>xlim</strong> (<em>tuple</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – X-axis limits. If None, uses the full time range.</p></li>
+<li><p><strong>ylim</strong> (<em>tuple</em><em>, </em><em>default=</em><em>(</em><em>0.4</em><em>, </em><em>0.8</em><em>)</em>) – Y-axis limits.</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>default=&quot;Time</em><em> (</em><em>s</em><em>)</em><em>&quot;</em>) – X-axis label.</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>default=&quot;Decoding Accuracy&quot;</em>) – Y-axis label.</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em><em>, </em><em>default=</em><em>(</em><em>6.4</em><em>, </em><em>3.6</em><em>)</em>) – Figure size.</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>default=0</em>) – X position of y-axis spine.</p></li>
+<li><p><strong>labelpad</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=0</em>) – Y-label padding.</p></li>
+<li><p><strong>ticksize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=12</em>) – Tick label size.</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=16</em>) – Axis label size.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Figure title.</p></li>
+<li><p><strong>title_fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=16</em>) – Title font size.</p></li>
+<li><p><strong>sig_linewidth</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=3</em>) – Line width for significant time points.</p></li>
+<li><p><strong>nonsig_linewidth</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=1</em>) – Line width for non-significant time points.</p></li>
+<li><p><strong>sem_alpha</strong> (<em>float</em><em>, </em><em>default=0.2</em>) – Alpha for SEM shading.</p></li>
+<li><p><strong>nonsig_alpha</strong> (<em>float</em><em>, </em><em>default=0.8</em>) – Alpha for non-significant dashed lines.</p></li>
+<li><p><strong>sig_alpha</strong> (<em>float</em><em>, </em><em>default=1.0</em>) – Alpha for significant solid lines.</p></li>
+<li><p><strong>nonsig_linestyle</strong> (<em>str</em><em>, </em><em>default=&quot;--&quot;</em>) – Line style for non-significant time points.</p></li>
+<li><p><strong>legend</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to show legend.</p></li>
+<li><p><strong>n_iter</strong> (<em>int</em><em>, </em><em>default=1000</em>) – Number of permutations for cluster-based permutation test.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to show the plot immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ps</strong> – Binary significance vectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_conditions, n_ts]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rsa_plot.plot_tbyt_similarity">
+<span class="sig-prename descclassname"><span class="pre">neurora.rsa_plot.</span></span><span class="sig-name descname"><span class="pre">plot_tbyt_similarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">similarities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-0.1,</span> <span class="pre">0.8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Time</span> <span class="pre">(s)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Representational</span> <span class="pre">Similarity'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(6.4,</span> <span class="pre">3.6)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticksize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markersize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avgshow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rsa_plot.plot_tbyt_similarity" title="Link to this definition">¶</a></dt>
+<dd><p>Plot time-by-time representational similarities with statistical results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>similarities</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_subs</em><em>, </em><em>n_ts</em><em>] or </em><em>[</em><em>n_subs</em><em>, </em><em>n_ts</em><em>, </em><em>2</em><em>]</em>) – <p>Subject-level time-by-time similarities.</p>
+<p>If shape is [n_subs, n_ts, 2], only similarities[…, 0] is used.</p>
+</p></li>
+<li><p><strong>start_time</strong> (<em>float</em><em>, </em><em>default=0</em>) – Time of the first data point.</p></li>
+<li><p><strong>time_interval</strong> (<em>float</em><em>, </em><em>default=0.01</em>) – Time interval between adjacent data points.</p></li>
+<li><p><strong>smooth</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to smooth each subject’s time course.</p></li>
+<li><p><strong>smooth_window</strong> (<em>int</em><em>, </em><em>default=5</em>) – Approximate smoothing window in time points.</p></li>
+<li><p><strong>p</strong> (<em>float</em><em>, </em><em>default=0.05</em>) – Point-wise or cluster-forming p-value threshold.</p></li>
+<li><p><strong>cbpt</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to use cluster-based permutation test.</p></li>
+<li><p><strong>clusterp</strong> (<em>float</em><em>, </em><em>default=0.05</em>) – Cluster-level p-value threshold.</p></li>
+<li><p><strong>stats_time</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Time window for statistical analysis.</p>
+<p>If None, the full time range is used.</p>
+</p></li>
+<li><p><strong>color</strong> (<em>matplotlib color</em><em>, </em><em>default=&quot;r&quot;</em>) – Plot color.</p></li>
+<li><p><strong>xlim</strong> (<em>tuple</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – X-axis limits. If None, uses the full time range.</p></li>
+<li><p><strong>ylim</strong> (<em>tuple</em><em>, </em><em>default=</em><em>(</em><em>-0.1</em><em>, </em><em>0.8</em><em>)</em>) – Y-axis limits.</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>default=&quot;Time</em><em> (</em><em>s</em><em>)</em><em>&quot;</em>) – X-axis label.</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>default=&quot;Representational Similarity&quot;</em>) – Y-axis label.</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em><em>, </em><em>default=</em><em>(</em><em>6.4</em><em>, </em><em>3.6</em><em>)</em>) – Figure size.</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>default=0</em>) – X position of y-axis spine.</p></li>
+<li><p><strong>labelpad</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=0</em>) – Y-label padding.</p></li>
+<li><p><strong>ticksize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=12</em>) – Tick label size.</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=16</em>) – Axis label size.</p></li>
+<li><p><strong>markersize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=2</em>) – Significant marker size.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Figure title.</p></li>
+<li><p><strong>title_fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=16</em>) – Title font size.</p></li>
+<li><p><strong>avgshow</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Whether to show the mean curve line.</p></li>
+<li><p><strong>n_iter</strong> (<em>int</em><em>, </em><em>default=1000</em>) – Number of permutations for cluster-based permutation test.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to show the plot immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ps</strong> – Binary significance vector.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_ts]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.rsa_plot.plot_tbyt_similarity_multiple">
+<span class="sig-prename descclassname"><span class="pre">neurora.rsa_plot.</span></span><span class="sig-name descname"><span class="pre">plot_tbyt_similarity_multiple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">similarities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusterp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-0.1,</span> <span class="pre">0.8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Time</span> <span class="pre">(s)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Representational</span> <span class="pre">Similarity'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(6.4,</span> <span class="pre">3.6)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticksize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig_linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonsig_linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sem_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonsig_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonsig_linestyle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'--'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.rsa_plot.plot_tbyt_similarity_multiple" title="Link to this definition">¶</a></dt>
+<dd><p>Plot multiple time-by-time representational similarity results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>similarities</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_conditions</em><em>, </em><em>n_subs</em><em>, </em><em>n_ts</em><em>]</em>) – <p>Multiple-condition subject-level similarity time courses.</p>
+<p>Shape should be [n_conditions, n_subs, n_timepoints].</p>
+</p></li>
+<li><p><strong>start_time</strong> (<em>float</em><em>, </em><em>default=0</em>) – Time of the first data point.</p></li>
+<li><p><strong>time_interval</strong> (<em>float</em><em>, </em><em>default=0.01</em>) – Time interval between adjacent data points.</p></li>
+<li><p><strong>smooth</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to smooth each subject’s time course.</p></li>
+<li><p><strong>smooth_window</strong> (<em>int</em><em>, </em><em>default=5</em>) – Approximate smoothing window in time points.</p></li>
+<li><p><strong>p</strong> (<em>float</em><em>, </em><em>default=0.05</em>) – Point-wise or cluster-forming p-value threshold.</p></li>
+<li><p><strong>cbpt</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to use cluster-based permutation test.</p></li>
+<li><p><strong>clusterp</strong> (<em>float</em><em>, </em><em>default=0.05</em>) – Cluster-level p-value threshold.</p></li>
+<li><p><strong>stats_time</strong> (<em>tuple</em><em> or </em><em>list</em><em> of </em><em>float</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Time window for statistical analysis.</p>
+<p>If None, the full time range is used.</p>
+</p></li>
+<li><p><strong>colors</strong> (<em>list</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – <p>Colors for conditions.</p>
+<p>If None, matplotlib tab10 colors are used.</p>
+</p></li>
+<li><p><strong>condition_labels</strong> (<em>list</em><em> of </em><em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Condition labels for legend.</p></li>
+<li><p><strong>xlim</strong> (<em>tuple</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – X-axis limits. If None, uses the full time range.</p></li>
+<li><p><strong>ylim</strong> (<em>tuple</em><em>, </em><em>default=</em><em>(</em><em>-0.1</em><em>, </em><em>0.8</em><em>)</em>) – Y-axis limits.</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>default=&quot;Time</em><em> (</em><em>s</em><em>)</em><em>&quot;</em>) – X-axis label.</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>default=&quot;Representational Similarity&quot;</em>) – Y-axis label.</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em><em>, </em><em>default=</em><em>(</em><em>6.4</em><em>, </em><em>3.6</em><em>)</em>) – Figure size.</p></li>
+<li><p><strong>x0</strong> (<em>float</em><em>, </em><em>default=0</em>) – X position of y-axis spine.</p></li>
+<li><p><strong>labelpad</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=0</em>) – Y-label padding.</p></li>
+<li><p><strong>ticksize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=12</em>) – Tick label size.</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=16</em>) – Axis label size.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default=None</em>) – Figure title.</p></li>
+<li><p><strong>title_fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=16</em>) – Title font size.</p></li>
+<li><p><strong>sig_linewidth</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=3</em>) – Line width for significant time points.</p></li>
+<li><p><strong>nonsig_linewidth</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>default=1</em>) – Line width for non-significant time points.</p></li>
+<li><p><strong>sem_alpha</strong> (<em>float</em><em>, </em><em>default=0.2</em>) – Alpha for SEM shading.</p></li>
+<li><p><strong>nonsig_alpha</strong> (<em>float</em><em>, </em><em>default=0.8</em>) – Alpha for non-significant dashed lines.</p></li>
+<li><p><strong>sig_alpha</strong> (<em>float</em><em>, </em><em>default=1.0</em>) – Alpha for significant solid lines.</p></li>
+<li><p><strong>nonsig_linestyle</strong> (<em>str</em><em>, </em><em>default=&quot;--&quot;</em>) – Line style for non-significant time points.</p></li>
+<li><p><strong>legend</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to show legend.</p></li>
+<li><p><strong>n_iter</strong> (<em>int</em><em>, </em><em>default=1000</em>) – Number of permutations for cluster-based permutation test.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to show the plot immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ps</strong> – Binary significance vectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_conditions, n_ts]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">RSA Plotting</a><ul>
+<li><a class="reference internal" href="#function-index">Function Index</a></li>
+<li><a class="reference internal" href="#module-neurora.rsa_plot">API Details</a><ul>
+<li><a class="reference internal" href="#neurora.rsa_plot.plot_brainrsa_glass"><code class="docutils literal notranslate"><span class="pre">plot_brainrsa_glass()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rsa_plot.plot_brainrsa_montage"><code class="docutils literal notranslate"><span class="pre">plot_brainrsa_montage()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rsa_plot.plot_brainrsa_regions"><code class="docutils literal notranslate"><span class="pre">plot_brainrsa_regions()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rsa_plot.plot_brainrsa_rlts"><code class="docutils literal notranslate"><span class="pre">plot_brainrsa_rlts()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rsa_plot.plot_brainrsa_surface"><code class="docutils literal notranslate"><span class="pre">plot_brainrsa_surface()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rsa_plot.plot_ct_decoding_acc"><code class="docutils literal notranslate"><span class="pre">plot_ct_decoding_acc()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rsa_plot.plot_rdm"><code class="docutils literal notranslate"><span class="pre">plot_rdm()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rsa_plot.plot_tbyt_decoding_acc"><code class="docutils literal notranslate"><span class="pre">plot_tbyt_decoding_acc()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rsa_plot.plot_tbyt_decoding_acc_multiple"><code class="docutils literal notranslate"><span class="pre">plot_tbyt_decoding_acc_multiple()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rsa_plot.plot_tbyt_similarity"><code class="docutils literal notranslate"><span class="pre">plot_tbyt_similarity()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.rsa_plot.plot_tbyt_similarity_multiple"><code class="docutils literal notranslate"><span class="pre">plot_tbyt_similarity_multiple()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="nii_save.html"
+                          title="previous chapter">NIfTI Saving</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="stuff.html"
+                          title="next chapter">Utilities</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rsa_plot.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="stuff.html" title="Utilities"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="nii_save.html" title="NIfTI Saving"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 2.0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="api.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">RSA Plotting</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2021, Zitong Lu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  </body>
+</html>

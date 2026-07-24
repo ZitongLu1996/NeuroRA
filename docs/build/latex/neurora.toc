@@ -1,0 +1,42 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{A Python Toolbox of Representational Analysis from Multi\sphinxhyphen {}modal Neural Data}{1}{section*.2}%
+\contentsline {subsection}{Documentation of NeuroRA}{2}{subsection*.3}%
+\contentsline {subsubsection}{Overview}{2}{subsubsection*.4}%
+\contentsline {subsubsection}{Download}{2}{subsubsection*.5}%
+\contentsline {subsubsection}{API Reference}{3}{subsubsection*.6}%
+\contentsline {paragraph}{RDM Calculation}{4}{paragraph*.7}%
+\contentsline {subparagraph}{Function Index}{4}{subparagraph*.8}%
+\contentsline {subparagraph}{API Details}{4}{subparagraph*.9}%
+\contentsline {paragraph}{RDM Correlation}{7}{paragraph*.15}%
+\contentsline {subparagraph}{Function Index}{7}{subparagraph*.16}%
+\contentsline {subparagraph}{API Details}{7}{subparagraph*.17}%
+\contentsline {paragraph}{RSA by RDM Correlation}{8}{paragraph*.19}%
+\contentsline {subparagraph}{Function Index}{8}{subparagraph*.20}%
+\contentsline {subparagraph}{API Details}{8}{subparagraph*.21}%
+\contentsline {paragraph}{Cross\sphinxhyphen {}Temporal RDM Calculation}{14}{paragraph*.30}%
+\contentsline {subparagraph}{Function Index}{14}{subparagraph*.31}%
+\contentsline {subparagraph}{API Details}{14}{subparagraph*.32}%
+\contentsline {paragraph}{Cross\sphinxhyphen {}Temporal RDM Correlation}{15}{paragraph*.34}%
+\contentsline {subparagraph}{Function Index}{15}{subparagraph*.35}%
+\contentsline {subparagraph}{API Details}{15}{subparagraph*.36}%
+\contentsline {paragraph}{Cross\sphinxhyphen {}Temporal RSA Calculation}{16}{paragraph*.38}%
+\contentsline {subparagraph}{Function Index}{16}{subparagraph*.39}%
+\contentsline {subparagraph}{API Details}{16}{subparagraph*.40}%
+\contentsline {paragraph}{Classification\sphinxhyphen {}Based Decoding}{18}{paragraph*.44}%
+\contentsline {subparagraph}{Function Index}{18}{subparagraph*.45}%
+\contentsline {subparagraph}{API Details}{18}{subparagraph*.46}%
+\contentsline {paragraph}{Inter\sphinxhyphen {}Subject Correlation}{22}{paragraph*.51}%
+\contentsline {subparagraph}{Function Index}{22}{subparagraph*.52}%
+\contentsline {subparagraph}{API Details}{22}{subparagraph*.53}%
+\contentsline {paragraph}{Statistical Analysis}{25}{paragraph*.57}%
+\contentsline {subparagraph}{Function Index}{25}{subparagraph*.58}%
+\contentsline {subparagraph}{API Details}{25}{subparagraph*.59}%
+\contentsline {paragraph}{NIfTI Saving}{28}{paragraph*.63}%
+\contentsline {subparagraph}{Function Index}{28}{subparagraph*.64}%
+\contentsline {subparagraph}{API Details}{28}{subparagraph*.65}%
+\contentsline {paragraph}{RSA Plotting}{30}{paragraph*.67}%
+\contentsline {subparagraph}{Function Index}{30}{subparagraph*.68}%
+\contentsline {subparagraph}{API Details}{30}{subparagraph*.69}%
+\contentsline {paragraph}{Utilities}{42}{paragraph*.81}%
+\contentsline {subparagraph}{Function Index}{42}{subparagraph*.82}%
+\contentsline {subparagraph}{API Details}{42}{subparagraph*.83}%

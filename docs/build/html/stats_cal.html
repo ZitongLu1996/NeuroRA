@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Statistical Analysis &#8212; NeuroRA 2.0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=def86cc0" />
+    
+    <script src="_static/documentation_options.js?v=be0f70cb"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NIfTI Saving" href="nii_save.html" />
+    <link rel="prev" title="Inter-Subject Correlation" href="isc_cal.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="nii_save.html" title="NIfTI Saving"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="isc_cal.html" title="Inter-Subject Correlation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 2.0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="api.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Statistical Analysis</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="statistical-analysis">
+<h1>Statistical Analysis<a class="headerlink" href="#statistical-analysis" title="Link to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">neurora.stats_cal</span></code></p>
+<section id="function-index">
+<h2>Function Index<a class="headerlink" href="#function-index" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">stats</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stats_fmri</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stats_iscfmri</span></code></p></li>
+</ul>
+</section>
+<section id="module-neurora.stats_cal">
+<span id="api-details"></span><h2>API Details<a class="headerlink" href="#module-neurora.stats_cal" title="Link to this heading">¶</a></h2>
+<p>a module for conducting the statistical analysis</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stats_cal.stats">
+<span class="sig-prename descclassname"><span class="pre">neurora.stats_cal.</span></span><span class="sig-name descname"><span class="pre">stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">corrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'greater'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stats_cal.stats" title="Link to this definition">¶</a></dt>
+<dd><p>Conduct statistical analysis for EEG-like correlation results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>corrs</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_subs</em><em>, </em><em>n_chls</em><em>, </em><em>n_ts</em><em>]</em>) – <p>Correlation coefficients.</p>
+<p>n_subs, n_chls, and n_ts represent the number of subjects, channels,
+and time points, respectively.</p>
+</p></li>
+<li><p><strong>alternative</strong> (<em>{&quot;two-sided&quot;</em><em>, </em><em>&quot;less&quot;</em><em>, </em><em>&quot;greater&quot;}</em><em>, </em><em>default=&quot;greater&quot;</em>) – Alternative hypothesis for one-sample t-tests against zero.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><strong>stat_results</strong> – Statistical results.</p>
+<p>The last dimension contains:</p>
+<ul class="simple">
+<li><p>stat_results[…, 0] : t-value</p></li>
+<li><p>stat_results[…, 1] : p-value</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_chls, n_ts, 2]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>n_subs must be at least 6.</p>
+<p>Fisher z transformation is always applied before the t-test.</p>
+<p>This function can be used for subject-level EEG-like correlation results,
+such as NPS, ISC summaries, or EEG-like RDM correlations.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stats_cal.stats_fmri">
+<span class="sig-prename descclassname"><span class="pre">neurora.stats_cal.</span></span><span class="sig-name descname"><span class="pre">stats_fmri</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">corrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'greater'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stats_cal.stats_fmri" title="Link to this definition">¶</a></dt>
+<dd><p>Conduct statistical analysis for fMRI searchlight correlation results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>corrs</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_subs</em><em>, </em><em>n_x</em><em>, </em><em>n_y</em><em>, </em><em>n_z</em><em>]</em>) – <p>Correlation coefficients.</p>
+<p>n_subs, n_x, n_y, and n_z represent the number of subjects and
+searchlight units along the x, y, and z axes.</p>
+</p></li>
+<li><p><strong>alternative</strong> (<em>{&quot;two-sided&quot;</em><em>, </em><em>&quot;less&quot;</em><em>, </em><em>&quot;greater&quot;}</em><em>, </em><em>default=&quot;greater&quot;</em>) – Alternative hypothesis for one-sample t-tests against zero.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><strong>stat_results</strong> – Statistical results.</p>
+<p>The last dimension contains:</p>
+<ul class="simple">
+<li><p>stat_results[…, 0] : t-value</p></li>
+<li><p>stat_results[…, 1] : p-value</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_x, n_y, n_z, 2]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>n_subs must be at least 6.</p>
+<p>Fisher z transformation is always applied before the t-test.</p>
+<p>This function can be used for subject-level fMRI searchlight results,
+such as searchlight NPS or searchlight RDM correlations.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurora.stats_cal.stats_iscfmri">
+<span class="sig-prename descclassname"><span class="pre">neurora.stats_cal.</span></span><span class="sig-name descname"><span class="pre">stats_iscfmri</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">corrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'greater'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurora.stats_cal.stats_iscfmri" title="Link to this definition">¶</a></dt>
+<dd><p>Conduct statistical analysis for fMRI ISC searchlight results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>corrs</strong> (<em>array_like</em><em>, </em><em>shape</em><em> [</em><em>n_ts</em><em>, </em><em>n_pairs</em><em>, </em><em>n_x</em><em>, </em><em>n_y</em><em>, </em><em>n_z</em><em>]</em>) – <p>ISC correlation coefficients.</p>
+<p>n_ts, n_pairs, n_x, n_y, and n_z represent the number of time points,
+subject pairs, and searchlight units along the x, y, and z axes.</p>
+</p></li>
+<li><p><strong>alternative</strong> (<em>{&quot;two-sided&quot;</em><em>, </em><em>&quot;less&quot;</em><em>, </em><em>&quot;greater&quot;}</em><em>, </em><em>default=&quot;greater&quot;</em>) – Alternative hypothesis for one-sample t-tests against zero.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><strong>stat_results</strong> – Statistical results.</p>
+<p>The last dimension contains:</p>
+<ul class="simple">
+<li><p>stat_results[…, 0] : t-value</p></li>
+<li><p>stat_results[…, 1] : p-value</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape [n_ts, n_x, n_y, n_z, 2]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>n_pairs must be at least 6.</p>
+<p>Fisher z transformation is always applied before the t-test.</p>
+<p>The second dimension of corrs is the subject-pair dimension.
+This function performs one-sample t-tests across subject pairs.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Statistical Analysis</a><ul>
+<li><a class="reference internal" href="#function-index">Function Index</a></li>
+<li><a class="reference internal" href="#module-neurora.stats_cal">API Details</a><ul>
+<li><a class="reference internal" href="#neurora.stats_cal.stats"><code class="docutils literal notranslate"><span class="pre">stats()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stats_cal.stats_fmri"><code class="docutils literal notranslate"><span class="pre">stats_fmri()</span></code></a></li>
+<li><a class="reference internal" href="#neurora.stats_cal.stats_iscfmri"><code class="docutils literal notranslate"><span class="pre">stats_iscfmri()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="isc_cal.html"
+                          title="previous chapter">Inter-Subject Correlation</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="nii_save.html"
+                          title="next chapter">NIfTI Saving</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/stats_cal.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="nii_save.html" title="NIfTI Saving"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="isc_cal.html" title="Inter-Subject Correlation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">NeuroRA 2.0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="api.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Statistical Analysis</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2021, Zitong Lu.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  </body>
+</html>
